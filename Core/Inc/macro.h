@@ -1,0 +1,25 @@
+#ifndef MACRO_H_
+#define MACRO_H_
+
+/* ----- Debug mode ----- */
+#define DEBUG_MODE
+
+/* ----- Velocity control ----- */
+#define LPF_VELOCITY     0.70
+#define VELOCITY_P_GAIN  0.0
+#define VELOCITY_I_GAIN  0.0
+#define VELOCITY_D_GAIN  0.0
+#define LIMIT_TRANS_DUTY 0.90
+
+/* ----- Internal timer ----- */
+#define INTERRUPT_PERIOD_TIM6_MS 1.0
+#define INTERRUPT_PERIOD_TIM6_S  0.0010
+
+/* ----- Line sensor ----- */
+#define LINE_SENSOR_CORRECTION 0.950
+#define NUMBER_OF_ADC 14
+#define HALF_NUMBER_OF_ADC 7
+#define NUMBER_OF_SAMPLE 10
+#define INDEX_OF_SAMPLE_MEDIAN 5
+
+#endif // MACRO_H_

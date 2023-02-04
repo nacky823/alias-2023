@@ -1,0 +1,50 @@
+#include "velocity_control.hpp"
+
+VelocityControl::VelocityControl() : integral_error_(0) {}
+
+void VelocityControl::Init()
+{
+    integral_error_ = 0.0;
+}
+
+float VelocityControl::PidControl(float target, float p_gain, float i_gain, float d_gain)
+{
+    float current = encoder.GetDistance(); // [mm/ms] Omit division 1ms period.
+
+    static float pre_filter = 0.0;
+    float filter = pre_filter * (1.0 - LPF_VELOCITY) + (current * LPF_VELOCITY);
+    pre_filter = filter;
+
+    float error = target - filter;
+    static float pre_error = error;
+
+    float differential_error = (error - pre_error) / INTERRUPT_PERIOD_TIM6_S;
+    float integral_error = (error + pre_error) / 2.0 * INTERRUPT_PERIOD_TIM6_S;
+    SetIntegralError(integral_error);
+    pre_error = error;
+
+    float p = p_gain * error;
+    float d = d_gain * differential_error;
+    float i = i_gain * integral_error_;
+
+#ifdef DEBUG_MODE
+    g_target_velocity  = target;
+    g_current_velocity = current;
+    g_filter_velocity  = filter;
+    g_velocity_error   = error;
+    g_velocity_p = p;       g_velocity_d = d;       g_velocity_i = i;
+    g_velocity_p_gain = p;  g_velocity_d_gain = p;  g_velocity_i_gain = p;
+#endif // DEBUG_MODE
+
+    return p + d + i;
+}
+
+void VelocityControl::SetIntegralError(float integral_error)
+{
+    integral_error_ += integral_error;
+}
+
+float VelocityControl::GetIntegralError()
+{
+    return integral_error_;
+}

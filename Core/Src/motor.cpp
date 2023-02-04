@@ -1,0 +1,97 @@
+#include "motor.hpp"
+
+#ifdef DEBUG_MODE
+Motor::Motor() : translation_ratio_(0), rotation_ratio_(0), sum_(0), excess_(0), reduced_translation_(0), duty_l_(0), duty_r_(0), count_l_(0), count_r_(0) {}
+#else // DEBUG_MODE
+Motor::Motor() {}
+#endif // DEBUG_MODE
+
+void Motor::Init()
+{
+    if(HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_2) != HAL_OK)
+    {
+        Error_Handler(); // MOTOR_R
+    }
+    else if(HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_4) != HAL_OK)
+    {
+        Error_Handler(); // MOTOR_L
+    }
+}
+
+void Motor::Drive(float translation_ratio, float rotation_ratio)
+{
+#ifdef DEBUG_MODE
+    translation_ratio_ = translation_ratio;  rotation_ratio_ = rotation_ratio;
+#endif // DEBUG_MODE
+
+    if(translation_ratio > LIMIT_TRANS_DUTY)       translation_ratio =  LIMIT_TRANS_DUTY;
+    else if(translation_ratio < -LIMIT_TRANS_DUTY) translation_ratio = -LIMIT_TRANS_DUTY;
+
+    float sum = translation_ratio + rotation_ratio;
+    float excess = 0;
+
+    if(sum > 1.0)       excess = sum - 1.0;
+    else if(sum < -1.0) excess = sum + 1.0;
+
+    translation_ratio -= excess;
+
+#ifdef DEBUG_MODE
+    sum_ = sum;  excess_ = excess;  reduced_translation_ = translation_ratio;
+#endif // DEBUG_MODE
+
+    float duty_l = translation_ratio - rotation_ratio;
+    float duty_r = translation_ratio + rotation_ratio;
+
+    if(duty_l > 1.0)       duty_l =  1.0;
+    else if(duty_l < -1.0) duty_l = -1.0;
+
+    if(duty_r > 1.0)       duty_r =  1.0;
+    else if(duty_r < -1.0) duty_r = -1.0;
+
+#ifdef DEBUG_MODE
+    duty_l_ = duty_l;  duty_r_ = duty_r;
+#endif // DEBUG_MODE
+
+    int16_t count_l = static_cast<int16_t>(COUNTER_PERIOD * duty_l);
+    int16_t count_r = static_cast<int16_t>(COUNTER_PERIOD * duty_r);
+
+    if(count_l < 0) { count_l *= -1; BACKWARD_L; }
+    else if(count_l >= 0) FORWARD_L;
+
+    if(count_r < 0) { count_r *= -1; BACKWARD_R; }
+    else if(count_r >= 0) FORWARD_R;
+
+    __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_2, count_l);
+    __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_4, count_r);
+
+#ifdef DEBUG_MODE
+    count_l_ = count_l;  count_r_ = count_r;
+#endif // DEBUG_MODE
+}
+
+#ifdef DEBUG_MODE
+void Motor::GetRatio(float &translation_ratio, float &rotation_ratio)
+{
+    translation_ratio = translation_ratio_;
+    rotation_ratio = rotation_ratio_;
+}
+
+void Motor::GetLimitValues(float &sum, float &excess, float &reduced_translation)
+{
+    sum = sum_;
+    excess = excess_;
+    reduced_translation = reduced_translation_;
+}
+
+void Motor::GetDuty(float &duty_l, float &duty_r)
+{
+    duty_l = duty_l_;
+    duty_r = duty_r_;
+}
+
+void Motor::GetCount(int16_t &count_l, int16_t &count_r)
+{
+    count_l = count_l_;
+    count_r = count_r_;
+}
+#endif // DEBUG_MODE

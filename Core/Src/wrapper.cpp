@@ -19,55 +19,111 @@ SideSensor side_sensor;
 void Init()
 {
     line_sensor.Init();
+    encoder.Init();
+    motor.Init();
+    if(iim_42652.Init() == 0x09) led.ColorOrder('B');
+
+    HAL_TIM_Base_Start_IT(&htim7);
+    HAL_TIM_Base_Start_IT(&htim6);
+}
+
+void ExternalInterrupt(uint16_t gpio_pin)
+{
+    if(gpio_pin == GPIO_PIN_12)     g_main_while_reset = 1;
+    else if(gpio_pin == GPIO_PIN_2) g_main_while_reset = 1;
+    else if(gpio_pin == GPIO_PIN_1) g_main_while_reset = 1;
+    else if(gpio_pin == GPIO_PIN_0) g_main_while_reset = 1;
+
+#ifdef DEBUG_MODE
+    g_external_interrupt++;
+#endif // DEBUG_MODE
 }
 
 void Interrupt100us()
 {
     line_sensor.StoreConsecutiveAdcBuffers();
+
+#ifdef DEBUG_MODE
+    g_tim7++;
+#endif // DEBUG_MODE
 }
 
-uint8_t ImuActive()
+void Interrupt1ms()
 {
-    uint8_t who_l  = iim_42652.Read(WHO_AM_I_ADD, 'L');
-    uint8_t who_r  = iim_42652.Read(WHO_AM_I_ADD, 'R');
-    uint8_t bank_l = iim_42652.Read(REG_BANK_SEL_ADD, 'L');
-    uint8_t bank_r = iim_42652.Read(REG_BANK_SEL_ADD, 'R');
-    uint8_t pwr_l  = iim_42652.Read(PWR_MGMT0_ADD, 'L');
-    uint8_t pwr_r  = iim_42652.Read(PWR_MGMT0_ADD, 'R');
+    switch(g_mode)
+    {
+        case READY:
+            line_sensor.UpdateAdcValues();
+            g_line_calib = line_sensor.CheckCalibration();
+            if(g_line_calib == 1) led.ColorOrder('R');
+            else if(g_line_calib == 0) led.ColorOrder('X');
+            else led.ColorOrder('W');
+            break;
+
+        case STANDBY:
+            motor.Drive(0, 0);
+            break;
+
+        case FIRST_RUN:
+        case SECOND_RUN:
+        case THIRD_RUN:
+        case FOURTH_RUN:
+        case FIFTH_RUN:
+        default: break;
+    }
 
 #ifdef DEBUG_MODE
-    g_imu_who_l  = who_l;  g_imu_who_r  = who_r;
-    g_imu_bank_l = bank_l; g_imu_bank_r = bank_r;
-    g_imu_pwr_l  = pwr_l;  g_imu_pwr_r  = pwr_r;
+    g_tim6++;
 #endif // DEBUG_MODE
+}
 
-    if(who_l != WHO_AM_I_RES)      return 0x01;
-    if(who_r != WHO_AM_I_RES)      return 0x02;
-    if(bank_l != REG_BANK_SEL_RES) return 0x03;
-    if(bank_r != REG_BANK_SEL_RES) return 0x04;
-    if(pwr_l != PWR_MGMT0_RES)     return 0x05;
-    if(pwr_r != PWR_MGMT0_RES)     return 0x06;
+void Loop()
+{
+    g_main_while_reset = 0;
+    g_switch_state = rotary_switch.State();
 
-    iim_42652.Write(PWR_MGMT0_ADD, PWR_MGMT0_ON, 'L');
-    HAL_Delay(100); // wait 100ms
-    iim_42652.Write(PWR_MGMT0_ADD, PWR_MGMT0_ON, 'R');
-    HAL_Delay(100); // wait 100ms
-    pwr_l = iim_42652.Read(PWR_MGMT0_ADD, 'L');
-    pwr_r = iim_42652.Read(PWR_MGMT0_ADD, 'R');
+    switch(g_switch_state)
+    {
+        case 0x0F:
+            HAL_Delay(SWITCH_CHANGE_INTERVAL_MS);
+            if(g_main_while_reset == 1) break;
 
-#ifdef DEBUG_MODE
-    g_imu_pwr_l  = pwr_l;  g_imu_pwr_r  = pwr_r;
-#endif // DEBUG_MODE
+            led.Blink(3, 'Y', 'X');
+            g_mode = READY;
 
-    if(pwr_l != PWR_MGMT0_ON) return 0x07;
-    if(pwr_r != PWR_MGMT0_ON) return 0x08;
+            while(g_main_while_reset == 0) {}
+            break;
 
-    return 0x09;
+        case 0x00:
+            HAL_Delay(SWITCH_CHANGE_INTERVAL_MS);
+            if(g_main_while_reset == 1) break;
+
+            g_mode = STANDBY;
+
+            while(g_main_while_reset == 0) { led.Rainbow(1); }
+            break;
+
+        case 0x01:
+        case 0x02:
+        case 0x03:
+        case 0x04:
+        case 0x05:
+        default:
+            HAL_Delay(SWITCH_CHANGE_INTERVAL_MS);
+            if(g_main_while_reset == 1) break;
+
+            g_mode = STANDBY;
+
+            while(g_main_while_reset == 0) { led.Blink(1, 'W', 'X'); }
+            break;
+    }
 }
 
 #ifdef DEBUG_MODE
 void Monitor()
 {
+    uint8_t led_color = 0x00;
+
     /* Encoder */
     encoder.UpdateCountDistance();
     encoder.GetCount(g_enc_cnt_l, g_enc_cnt_r);
@@ -91,18 +147,15 @@ void Monitor()
         g_accel_z_r = iim_42652.AccelZRight();
     }
 
-    /* LED */
-    uint8_t color = 0x0F;
-
     /* Line sensor */
     line_sensor.MonitorArrays();
     g_line_diff     = line_sensor.LeftRightDifference();
     g_new_line_diff = line_sensor.Difference();
     uint8_t line_eme = line_sensor.GetEmergencyStopFlag();
-    if(line_eme == 1) color = 0x01;
+    if(line_eme == 1) color = 0x02;
     g_line_eme = line_eme;
     uint8_t line_calib = line_sensor.CheckCalibration();
-    if(line_calib == 1) color = 0x00;
+    if(line_calib == 1) color = 0x01;
     g_line_calib = line_calib;
 
     /* Motor */
@@ -116,21 +169,17 @@ void Monitor()
     motor.GetDuty(g_duty_l, g_duty_r);
     motor.GetCount(g_count_l, g_count_r);
 
-    /* Rotary switch */
-    if(rotary_switch.State() == 0x00) color = 0x02;
-
     /* Side seneor */
     side_sensor.IgnoreJudgment();
     g_goal_cnt   = side_sensor.GetGoalMarkerCount();
     g_corner_cnt = side_sensor.GetCornerMarkerCount();
     g_cross_cnt  = side_sensor.GetCrossLineCount();
 
-    /* LED2 */
-    switch(color)
+    /* LED */
+    switch(led_color)
     {
-        case 0x00: led.ColorOrder('R'); break;
-        case 0x01: led.ColorOrder('G'); break;
-        case 0x02: led.ColorOrder('B'); break;
+        case 0x01: led.ColorOrder('R'); break;
+        case 0x02: led.ColorOrder('G'); break;
         default:   led.ColorOrder('X'); break;
     }
 }

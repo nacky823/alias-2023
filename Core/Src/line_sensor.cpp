@@ -1,6 +1,6 @@
 #include "line_sensor.hpp"
 
-LineSensor::LineSensor() : adc_buffers_(), consecutive_adc_buffers_(), max_adc_values_(), min_adc_values_(), emergency_stop_flag_(0) {}
+LineSensor::LineSensor() : adc_buffers_(), consecutive_adc_buffers_(), max_adc_values_(), min_adc_values_(), adc_values_(), emergency_stop_flag_(0) {}
 
 void LineSensor::Init()
 {
@@ -8,13 +8,11 @@ void LineSensor::Init()
     {
         Error_Handler();
     }
-    /*
     if(HAL_TIM_PWM_Start(&htim11, TIM_CHANNEL_1) != HAL_OK)
     {
         Error_Handler();
     }
     __HAL_TIM_SET_COMPARE(&htim11, TIM_CHANNEL_1, LED_COMPARE);
-    */
 }
 
 void LineSensor::StoreConsecutiveAdcBuffers()
@@ -54,12 +52,11 @@ void LineSensor::MergeSort(uint16_t array[], uint8_t first_index, uint8_t last_i
     }
 }
 
-float LineSensor::LeftRightDifference()
+void LineSensor::UpdateAdcValues()
 {
-    uint8_t i, j, flag = 1;
+    uint8_t i, j, emergency = 1;
     uint16_t sample_array[NUMBER_OF_SAMPLE];
-    uint16_t sample_median, max, min, max_range;
-    uint16_t normal = 0, left = 0, right = 0;
+    uint16_t sample_median, max, min, max_range, normal = 0;
 
     for(i = 0; i < NUMBER_OF_ADC; i++)
     {
@@ -74,7 +71,7 @@ float LineSensor::LeftRightDifference()
         for(j = 0; j < NUMBER_OF_SAMPLE; j++) monitor_consecutive_buffers[i][j] = sample_array[j];
 #endif // DEBUG_MODE
 
-        if(sample_median < EMERGENCY_STOP_BORDER) flag = 0;
+        if(sample_median < EMERGENCY_STOP_BORDER) emergency = 0;
 
         max = max_adc_values_[i];
         min = min_adc_values_[i];
@@ -85,23 +82,13 @@ float LineSensor::LeftRightDifference()
 
         max_range = max - min;
         if(max_range != 0) normal = MAX_VALUE * (sample_median - min) / max_range;
-        line_sensor_values_[i] = normal;
-
-        if(i >= 0 && i < HALF_NUMBER_OF_ADC) left += normal;
-        else if(i >= HALF_NUMBER_OF_ADC && i < NUMBER_OF_ADC) right += normal;
-
-#ifdef DEBUG_MODE
-        progress_left_right_difference++;
-#endif // DEBUG_MODE
+        adc_values_[i] = normal;
     }
-    emergency_stop_flag_ = flag;
+    emergency_stop_flag_ = emergency;
 
 #ifdef DEBUG_MODE
-    monitor_line_sensor_left  = left;
-    monitor_line_sensor_right = right;
+    progress_update_adc_values++;
 #endif // DEBUG_MODE
-
-    return right * LINE_SENSOR_CORRECTION - left;
 }
 
 uint8_t LineSensor::GetEmergencyStopFlag()
@@ -109,24 +96,19 @@ uint8_t LineSensor::GetEmergencyStopFlag()
     return emergency_stop_flag_;
 }
 
-float LineSensor::Difference()
+float LineSensor::LeftRightDifference()
 {
-    uint16_t left = 0;
-    uint16_t right = 0;
     uint8_t i;
-    float diff = 0.0;
+    int left = 0, right = 0;
 
-    for(i = 0, i < HALF_NUMBER_OF_ADC, i++) left += line_sensor_values_[i];
-    for(i = HALF_NUMBER_OF_ADC, i < NUMBER_OF_ADC, i++) rigit += line_sensor_values_[i];
+    for(i = 0, i < HALF_NUMBER_OF_ADC, i++) left += adc_values_[i];
+    for(i = HALF_NUMBER_OF_ADC, i < NUMBER_OF_ADC, i++) rigit += adc_values_[i];
 
 #ifdef DEBUG_MODE
-    g_new_left = left;
-    g_new_right = right;
+    g_adc_left = left;  g_adc_right = right;
 #endif // DEBUG_MODE
 
-    diff = static_cast<float>(right - left);
-
-    return diff;
+    return static_cast<float>((right * LINE_SENSOR_CORRECTION) - left);
 }
 
 uint8_t LineSensor::CheckCalibration()

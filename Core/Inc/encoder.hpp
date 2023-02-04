@@ -12,6 +12,7 @@ class Encoder
 private:
     int16_t count_l_, count_r_;
     float distance_;
+    float distance_10mm_;
     float total_distance_;
 
 public:

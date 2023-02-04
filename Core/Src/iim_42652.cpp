@@ -4,17 +4,41 @@ Iim42652::Iim42652() {}
 
 uint8_t Iim42652::Init()
 {
-    uint8_t init_result = 1;
+    uint8_t who_l  = Read(WHO_AM_I_ADD, 'L');
+    uint8_t who_r  = Read(WHO_AM_I_ADD, 'R');
+    uint8_t bank_l = Read(REG_BANK_SEL_ADD, 'L');
+    uint8_t bank_r = Read(REG_BANK_SEL_ADD, 'R');
+    uint8_t pwr_l  = Read(PWR_MGMT0_ADD, 'L');
+    uint8_t pwr_r  = Read(PWR_MGMT0_ADD, 'R');
 
-    if(CheckRead(WHO_AM_I_ADD, WHO_AM_I_RES, 'L') == false) init_result = 0;
-    if(CheckRead(WHO_AM_I_ADD, WHO_AM_I_RES, 'R') == false) init_result = 0;
-    if(CheckRead(REG_BANK_SEL_ADD, REG_BANK_SEL_RES, 'L') == false) init_result = 0;
-    if(CheckRead(REG_BANK_SEL_ADD, REG_BANK_SEL_RES, 'R') == false) init_result = 0;
-    /* Gyro and Accel are LN mode. */
-    if(CheckWrite(PWR_MGMT0_ADD, 0x0F, 'L') == false) init_result = 0;
-    if(CheckWrite(PWR_MGMT0_ADD, 0x0F, 'R') == false) init_result = 0;
-    
-    return init_result;
+#ifdef DEBUG_MODE
+    g_imu_who_l  = who_l;  g_imu_who_r  = who_r;
+    g_imu_bank_l = bank_l; g_imu_bank_r = bank_r;
+    g_imu_pwr_l  = pwr_l;  g_imu_pwr_r  = pwr_r;
+#endif // DEBUG_MODE
+
+    if(who_l != WHO_AM_I_RES)      return 0x01;
+    if(who_r != WHO_AM_I_RES)      return 0x02;
+    if(bank_l != REG_BANK_SEL_RES) return 0x03;
+    if(bank_r != REG_BANK_SEL_RES) return 0x04;
+    if(pwr_l != PWR_MGMT0_RES)     return 0x05;
+    if(pwr_r != PWR_MGMT0_RES)     return 0x06;
+
+    Write(PWR_MGMT0_ADD, PWR_MGMT0_ON, 'L');
+    HAL_Delay(100); // wait 100ms
+    Write(PWR_MGMT0_ADD, PWR_MGMT0_ON, 'R');
+    HAL_Delay(100); // wait 100ms
+    pwr_l = Read(PWR_MGMT0_ADD, 'L');
+    pwr_r = Read(PWR_MGMT0_ADD, 'R');
+
+#ifdef DEBUG_MODE
+    g_imu_pwr_l  = pwr_l;  g_imu_pwr_r  = pwr_r;
+#endif // DEBUG_MODE
+
+    if(pwr_l != PWR_MGMT0_ON) return 0x07;
+    if(pwr_r != PWR_MGMT0_ON) return 0x08;
+
+    return 0x09;
 }
 
 uint8_t Iim42652::Read(uint8_t send_address, char imu_ic_lr)

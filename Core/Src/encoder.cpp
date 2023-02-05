@@ -1,6 +1,6 @@
 #include "encoder.hpp"
 
-Encoder::Encoder() : count_l_(0), count_r_(0), distance_(0), total_distance_(0) {}
+Encoder::Encoder() : distance_(0), distance_10mm_(0), total_distance_(0) {}
 
 void Encoder::Init()
 {
@@ -8,25 +8,35 @@ void Encoder::Init()
 	HAL_TIM_Encoder_Start(&htim4,TIM_CHANNEL_ALL);
 }
 
-void Encoder::ResetCountDistance()
+void Encoder::Update()
 {
-	count_l_ = 0;
-	count_r_ = 0;
-	distance_ = 0;
-}
-
-void Encoder::UpdateCountDistance()
-{
-	count_l_ = static_cast<int16_t>((TIM8 -> CNT) - START_COUNT);
-	count_r_ = static_cast<int16_t>(START_COUNT - (TIM4 -> CNT));
+	int16_t count_l = static_cast<int16_t>((TIM8 -> CNT) - START_COUNT);
+	int16_t count_r = static_cast<int16_t>(START_COUNT - (TIM4 -> CNT));
 	TIM8 -> CNT = START_COUNT;
 	TIM4 -> CNT = START_COUNT;
-	distance_ = DISTANCE_PER_COUNT * static_cast<float>(count_l_ + count_r_) / 2.0;
+	float distance = static_cast<float>(DISTANCE_PER_COUNT * (count_l + count_r) / 2.0);
+
+	distance_ = distance;
+	distance_10mm_  += distance;
+	total_distance_ += distance;
+
+#ifdef DEBUG_MODE
+	g_enc_cnt_l = count_l;  g_enc_cnt_r = count_r;
+#endif // DEBUG_MODE
 }
 
-void Encoder::AddTotalDistance()
+void Encoder::Reset()
 {
-	total_distance_ += distance_;
+	TIM8 -> CNT = START_COUNT;
+	TIM4 -> CNT = START_COUNT;
+	distance_ = 0.0;
+	distance_10mm_ = 0.0;
+	total_distance_ = 0.0;
+}
+
+void Encoder::ResetDistance10mm()
+{
+	distance_10mm_ = 0.0;
 }
 
 float Encoder::GetDistance()
@@ -34,15 +44,12 @@ float Encoder::GetDistance()
 	return distance_;
 }
 
+float Encoder::GetDistance10mm()
+{
+	return distance_10mm_;
+}
+
 float Encoder::GetTotalDistance()
 {
 	return total_distance_;
 }
-
-#ifdef DEBUG_MODE
-void Encoder::GetCount(int16_t &count_l, int16_t &count_r)
-{
-	count_l = count_l_;
-	count_r = count_r_;
-}
-#endif // DEBUG_MODE

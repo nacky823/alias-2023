@@ -31,5 +31,6 @@ void Logger::Logging(uint8_t interrupt_end)
         excess_distance_[log_index] = distance_10mm - FORMAL_10MM;
     
         if(log_index < MAX_LOG_INDEX) log_index++;
+        encoder.ResetDistance10mm();
     }
 }

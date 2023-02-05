@@ -10,7 +10,6 @@
 class Encoder
 {
 private:
-    int16_t count_l_, count_r_;
     float distance_;
     float distance_10mm_;
     float total_distance_;
@@ -18,11 +17,11 @@ private:
 public:
     Encoder();
     void Init();
-    void ResetCountDistance();
-    void UpdateCountDistance();
-    void AddTotalDistance();
-    void GetCount(int16_t &, int16_t &);
+    void Update();
+    void Reset();
+    void ResetDistance10mm();
     float GetDistance();
+    float GetDistance10mm();
     float GetTotalDistance();
 
 };

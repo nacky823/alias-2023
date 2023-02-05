@@ -104,6 +104,15 @@ void Loop()
             break;
 
         case 0x01:
+            HAL_Delay(SWITCH_CHANGE_INTERVAL_MS);
+            if(g_main_while_reset == 1) break;
+
+            led.Blink(3, 'B', 'X');
+            g_mode = FIRST_RUN;
+
+            while(g_main_while_reset == 0) {}
+            break;
+
         case 0x02:
         case 0x03:
         case 0x04:

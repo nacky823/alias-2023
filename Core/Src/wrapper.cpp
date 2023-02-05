@@ -65,6 +65,14 @@ void Interrupt1ms()
             break;
 
         case FIRST_RUN:
+            encoder.UpdateCountDistance();
+            encoder.AddTotalDistance();
+            line_sensor.UpdateAdcValues();
+            emergency
+            run
+            
+
+
         case SECOND_RUN:
         case THIRD_RUN:
         case FOURTH_RUN:

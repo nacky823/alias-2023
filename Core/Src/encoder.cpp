@@ -27,11 +27,11 @@ void Encoder::Update()
 
 void Encoder::Reset()
 {
-	TIM8 -> CNT = START_COUNT;
-	TIM4 -> CNT = START_COUNT;
 	distance_ = 0.0;
 	distance_10mm_ = 0.0;
 	total_distance_ = 0.0;
+	TIM8 -> CNT = START_COUNT;
+	TIM4 -> CNT = START_COUNT;
 }
 
 void Encoder::ResetDistance10mm()

@@ -52,6 +52,11 @@ void Interrupt1ms()
 {
     switch(g_mode)
     {
+        case RESET:
+            motor.Drive(0, 0);
+            led.ColorOrder('G');
+            break;
+
         case READY:
             line_sensor.UpdateAdcValues();
             g_line_calib = line_sensor.CheckCalibration();
@@ -68,10 +73,15 @@ void Interrupt1ms()
             encoder.UpdateCountDistance();
             encoder.AddTotalDistance();
             line_sensor.UpdateAdcValues();
-            emergency
-            run
-            
+            float rotat = line_sensor.PidControl(LINE_KP_1, LINE_KI_1, LINE_KD_1);
+            float trans = velocity_control.PidControl(TARGET_V_1, V_KP_1, V_KI_1, V_KD_1);
+            motor.Drive(trans, rotat);
+            EmergencyStop();
+            side_sensor.IgnoreJudgment();
+            if(side_sensor.GetGoalMarkerCount() >= 2) g_mode = FIRST_GOAL;
+            break;
 
+        case FIRST_GOAL:
 
         case SECOND_RUN:
         case THIRD_RUN:

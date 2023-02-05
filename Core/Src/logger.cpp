@@ -1,8 +1,8 @@
 #include "logger.hpp"
 
-Logger::Logger()
+Logger::Logger() : various_data_(), gyro_data_yaw_(), excess_distance_() {}
 
-void Log::Logging(uint8_t interrupt_end)
+void Logger::Logging(uint8_t interrupt_end)
 {
     float distance_10mm = encoder.GetDistance10mm();
 

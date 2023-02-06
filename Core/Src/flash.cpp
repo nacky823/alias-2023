@@ -1,4 +1,5 @@
 #include "flash.hpp"
+#include <string.h>
 
 #define SECTOR_1_ADDRESS_HEAD 0x08004000 // 16 [KB]
 #define SECTOR_1_ADDRESS_TAIL 0x08007FFF
@@ -101,4 +102,19 @@ bool Flash::StoreFloat(uint32_t address, float *data, uint32_t number)
     HAL_FLASH_Lock();
 
     return result == HAL_OK;
+}
+
+void Flash::LoadUint16(uint16_t *data, uint32_t address, uint32_t size)
+{
+    memcpy(data, reinterpret_cast<uint32_t*>(address), size);
+}
+
+void Flash::LoadInt16(int16_t *data, uint32_t address, uint32_t size)
+{
+    memcpy(data, reinterpret_cast<uint32_t*>(address), size);
+}
+
+void Flash::LoadFloat(float *data, uint32_t address, uint32_t size)
+{
+    memcpy(data, reinterpret_cast<uint32_t*>(address), size);
 }

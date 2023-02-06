@@ -43,7 +43,29 @@ bool Flash::Clear()
 
 if(!Clear()) return false;
 
-bool Flash::Store()
+bool Flash::Store(uint16_t max_index, uint16_t *data)
+{
+    HAL_FLASH_Unlock();
+
+    HAL_StatusTypeDef write_result;
+    uint32_t address = SECTOR_1_ADDRESS_HEAD;
+    
+    for(int i = 0; i < MAX_LOG_INDEX; i++)
+    {
+        write_result = HAL_FLASH_Program(FLASH_TYPEPROGRAM_HALFWORD, address, *data++);
+
+        if(write_result != HAL_OK) break;
+
+        address += 2;
+        data++;
+    }
+
+    HAL_FLASH_Lock();
+
+    return write_result == HAL_OK;
+}
+
+bool Flash::Store(uint16_t max_index, uint16_t *data)
 {
     HAL_FLASH_Unlock();
 
@@ -53,8 +75,14 @@ bool Flash::Store()
     for(int i = 0; i < MAX_LOG_INDEX; i++)
     {
         write_result = HAL_FLASH_Program(FLASH_TYPEPROGRAM_HALFWORD, address, *data);
-        result = HAL_FLASH_Program(FLASH_TYPEPROGRAM_HALFWORD, address, *data);
+
+        if(write_result != HAL_OK) break;
+
+        address += 2;
+        data++;
     }
 
+    HAL_FLASH_Lock();
 
+    return write_result == HAL_OK;
 }

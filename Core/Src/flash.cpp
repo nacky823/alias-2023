@@ -35,7 +35,14 @@ bool Flash::Clear()
     // Fail => Sector number is stored.
     uint32_t failed_sector = 0;
 
-    if(HAL_FLASHEx_Erase(&erase, &failed_sector) != HAL_OK) return false;
+    if(HAL_FLASHEx_Erase(&erase, &failed_sector) != HAL_OK)
+    {
+#ifdef DEBUG_MODE
+        g_erase_failed_sector = failed_sector;
+#endif // DEBUG_MODE
+
+        return false;
+    }
 
     HAL_FLASH_Lock();
 

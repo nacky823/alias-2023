@@ -66,3 +66,39 @@ bool Flash::StoreUint16(uint32_t address, uint16_t *data, uint32_t number)
 
     return result == HAL_OK;
 }
+
+bool Flash::StoreInt16(uint32_t address, int16_t *data, uint32_t number)
+{
+    HAL_FLASH_Unlock();
+
+    HAL_StatusTypeDef result;
+    
+    for(uint32_t i = 0; i < number; i++)
+    {
+        result = HAL_FLASH_Program(FLASH_TYPEPROGRAM_HALFWORD, address, *data++);
+        address += 2;
+        if(result != HAL_OK) break;
+    }
+
+    HAL_FLASH_Lock();
+
+    return result == HAL_OK;
+}
+
+bool Flash::StoreFloat(uint32_t address, float *data, uint32_t number)
+{
+    HAL_FLASH_Unlock();
+
+    HAL_StatusTypeDef result;
+    
+    for(uint32_t i = 0; i < number; i++)
+    {
+        result = HAL_FLASH_Program(FLASH_TYPEPROGRAM_WORD, address, *data++);
+        address += 4;
+        if(result != HAL_OK) break;
+    }
+
+    HAL_FLASH_Lock();
+
+    return result == HAL_OK;
+}

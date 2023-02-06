@@ -31,58 +31,31 @@ bool Flash::Clear()
     erase.NbSectors    = 4;
     erase.VoltageRange = FLASH_VOLTAGE_RANGE_3;
 
-    // Fail => Sector number is stored.
     // Success => 0xFFFFFFFF is stored.
+    // Fail => Sector number is stored.
     uint32_t failed_sector = 0;
-    HAL_StatusTypeDef erase_result = HAL_FLASHEx_Erase(&erase, &failed_sector);
+
+    if(HAL_FLASHEx_Erase(&erase, &failed_sector) != HAL_OK) return false;
 
     HAL_FLASH_Lock();
 
-    return erase_result == HAL_OK && failed_sector == 0xFFFFFFFF;
+    return failed_sector == 0xFFFFFFFF;
 }
 
-if(!Clear()) return false;
-
-bool Flash::Store(uint16_t max_index, uint16_t *data)
+bool Flash::StoreUint16(uint32_t address, uint16_t *data, uint32_t number)
 {
     HAL_FLASH_Unlock();
 
-    HAL_StatusTypeDef write_result;
-    uint32_t address = SECTOR_1_ADDRESS_HEAD;
+    HAL_StatusTypeDef result;
     
-    for(int i = 0; i < MAX_LOG_INDEX; i++)
+    for(uint32_t i = 0; i < number; i++)
     {
-        write_result = HAL_FLASH_Program(FLASH_TYPEPROGRAM_HALFWORD, address, *data++);
-
-        if(write_result != HAL_OK) break;
-
+        result = HAL_FLASH_Program(FLASH_TYPEPROGRAM_HALFWORD, address, *data++);
         address += 2;
-        data++;
+        if(result != HAL_OK) break;
     }
 
     HAL_FLASH_Lock();
 
-    return write_result == HAL_OK;
-}
-
-bool Flash::Store(uint16_t max_index, uint16_t *data)
-{
-    HAL_FLASH_Unlock();
-
-    HAL_StatusTypeDef write_result;
-    uint32_t address = SECTOR_1_ADDRESS_HEAD;
-    
-    for(int i = 0; i < MAX_LOG_INDEX; i++)
-    {
-        write_result = HAL_FLASH_Program(FLASH_TYPEPROGRAM_HALFWORD, address, *data);
-
-        if(write_result != HAL_OK) break;
-
-        address += 2;
-        data++;
-    }
-
-    HAL_FLASH_Lock();
-
-    return write_result == HAL_OK;
+    return result == HAL_OK;
 }

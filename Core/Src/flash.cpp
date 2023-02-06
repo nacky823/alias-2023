@@ -7,10 +7,10 @@ bool Flash::Clear()
 
     FLASH_EraseInitTypeDef erase;
 
-    erase.TypeErase    = FLASH_TYPEERASE_SECTORS;
-    erase.Sector       = FLASH_SECTOR_1;
-    erase.NbSectors    = 4;
-    erase.VoltageRange = FLASH_VOLTAGE_RANGE_3;
+    erase.TypeErase    = FLASH_TYPEERASE_SECTORS; // Erasure range : Sectors
+    erase.Sector       = FLASH_SECTOR_1;          // Which sector : 1
+    erase.NbSectors    = 4;                       // How many sector : 4 (1,2,3,4)
+    erase.VoltageRange = FLASH_VOLTAGE_RANGE_3;   // Voltage range : 2.7 ~ 3.6 [V]
 
     // Success => 0xFFFFFFFF is stored.
     // Fail => Sector number is stored.
@@ -84,17 +84,7 @@ bool Flash::StoreFloat(uint32_t address, float *data, uint32_t number)
     return result == HAL_OK;
 }
 
-void Flash::LoadUint16(uint16_t *data, uint32_t address, uint32_t size)
-{
-    memcpy(data, reinterpret_cast<uint32_t*>(address), size);
-}
-
-void Flash::LoadInt16(int16_t *data, uint32_t address, uint32_t size)
-{
-    memcpy(data, reinterpret_cast<uint32_t*>(address), size);
-}
-
-void Flash::LoadFloat(float *data, uint32_t address, uint32_t size)
+void Flash::Load(void *data, uint32_t address, uint32_t size)
 {
     memcpy(data, reinterpret_cast<uint32_t*>(address), size);
 }

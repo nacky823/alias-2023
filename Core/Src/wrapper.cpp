@@ -42,6 +42,7 @@ void ExternalInterrupt(uint16_t gpio_pin)
 void Interrupt100us()
 {
     line_sensor.StoreConsecutiveAdcBuffers();
+    g_count_100us++;
 
 #ifdef DEBUG_MODE
     g_tim7++;
@@ -78,7 +79,8 @@ void Interrupt1ms()
             motor.Drive(trans, rotat);
             EmergencyStop();
             side_sensor.IgnoreJudgment();
-            if(side_sensor.GetGoalMarkerCount() >= 2) g_mode = FIRST_GOAL;
+            if(side_sensor.GetGoalMarkerCount() == 1) g_count_100us = 0;
+            else if(side_sensor.GetGoalMarkerCount() >= 2) g_mode = FIRST_GOAL;
             break;
 
         case FIRST_GOAL:

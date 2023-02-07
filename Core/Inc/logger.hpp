@@ -7,6 +7,7 @@
 
 #define LOG_MAX_CNT_10MM 6200
 #define FORMAL_10MM      10.0
+#define NORMAL_FUCOR_DPS 0.0610370 // 2000 / 32768
 
 class Logger
 {

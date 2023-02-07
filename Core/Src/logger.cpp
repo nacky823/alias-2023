@@ -1,4 +1,5 @@
 #include "logger.hpp"
+#include <math.h>
 
 Logger::Logger() : various_data_(), time_10mm_ms_(), gyro_data_yaw_(), excess_distance_() {}
 
@@ -74,8 +75,68 @@ void Logger::StoreLog()
 
 void Logger::InterpretLog()
 {
+
     
 
+}
+
+{
+    double dps = (GyroZLeft() + GyroZRight()) / 2.0;
+
+    double degree = dps * TIM6_PERIOD;
+
+}
+
+{
+    float distance_10mm = encoder.GetDistance10mm();
+
+    if(distance_10mm < FORMAL_10MM) return;
+
+    static int16_t index_num = 0;
+
+    uint16_t various, time_10mm;
+    int16_t gyro_yaw;
+    float excess;
+
+    uint32_t ref_adr_s1 = SECTOR_1_ADDRESS_HEAD + (intr_cnt * 2); // 参照場所
+    uint32_t ref_adr_s2 = SECTOR_2_ADDRESS_HEAD + (intr_cnt * 2);
+    uint32_t ref_adr_s3 = SECTOR_3_ADDRESS_HEAD + (intr_cnt * 2);
+    uint32_t ref_adr_s4 = SECTOR_4_ADDRESS_HEAD + (intr_cnt * 4);
+
+    memcpy(&various, ref_adr_s1, 2);
+    memcpy(&time_10mm, ref_adr_s2, 2);
+    memcpy(&gyro_yaw, ref_adr_s3, 2);
+    memcpy(&excess, ref_adr_s4, 4);
+    
+    double omega = gyro_yaw * NORMAL_FUCOR_DPS;
+    double degree = fabs(omega * TIM7_PERIOD * time_10mm);
+
+    if(degree > )
+
+
+    float now_position;
+
+    uint16_t now_index
+
+    now_index_ = index_num;
+
+    log_index_
+
+    refer_adderss_s1 
+
+
+
+    float log_10mm  = FORMAL_10MM + excess;
+    float now_10mm  = distance_10mm;
+    float init_10mm = log_10mm - now_10mm;
+
+    encoder.SetDistance10mm(init_10mm);
+
+
+
+        
+        
+    
 }
 
 float Logger::FindTargetVelocity()

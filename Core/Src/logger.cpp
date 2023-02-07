@@ -215,6 +215,27 @@ void Logger::Logging(uint8_t process_complete)
     iim_42652.ResetDegreeStackZ();
 }
 
+void Logger::StoreLog()
+{
+    if(flash_write_enable_ == 0) return;
+    else if(flash_write_enable_ == 1) flash_write_enable_ = 0;
+
+    static uint32_t address_a = HEAD_ADDRESS_BLOCK_A;
+    static uint32_t address_b = HEAD_ADDRESS_BLOCK_B;
+    static uint32_t address_c = HEAD_ADDRESS_BLOCK_C;
+    uint8_t error = 0;
+
+    if(!flash.StoreUint16(address_a, various_copy_, NUM_OF_LOG)) error = 1;
+    if(!flash.StoreFloat(address_b, radian_copy_, NUM_OF_LOG)) error = 1;
+    if(!flash.StoreFloat(address_c, const_distance_copy_, NUM_OF_LOG)) error = 1;
+
+    address_a += (2 * NUM_OF_LOG);
+    address_b += (4 * NUM_OF_LOG);
+    address_c += (4 * NUM_OF_LOG);
+
+    if(error == 1) led.ColorOrder('R');
+}
+
 float Logger::TargetVelocity(float distance)
 {
     double degree = imu.GetDegreeStackZ(); // [deg]

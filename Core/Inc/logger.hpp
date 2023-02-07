@@ -15,8 +15,8 @@ private:
     /* Data at 10mm intervals. */
     uint16_t various_data_[LOG_MAX_CNT_10MM]; // 12.4 [kByte]
     uint16_t time_10mm_ms_[LOG_MAX_CNT_10MM]; // 12.4 [kByte]
-    int16_t gyro_data_yaw_[LOG_MAX_CNT_10MM]; // 12.4 [kByte]
-    float excess_distance_[LOG_MAX_CNT_10MM]; // 24.8 [kByte]
+    float degree_z_[LOG_MAX_CNT_10MM]; // 12.4 [kByte]
+    float excess_mm_[LOG_MAX_CNT_10MM]; // 24.8 [kByte]
 
     Encoder encoder;
     SideSensor side_sensor;

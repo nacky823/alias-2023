@@ -73,17 +73,29 @@ void Logger::StoreLog()
     if(error == 1) led.ColorOrder('R');
 }
 
-void Logger::InterpretLog()
+float Logger::TargetVelocity(float distance)
 {
+    double degree = imu.GetDegreeStackZ(); // [deg]
+    double radian = degree * M_PI / 180.0; // [rad]
+    double radius = distance / radian;     // [mm]
 
-    
-
+    if(radius < 100) return TARGET_V_R10;
+    else if(radius < 300) return TARGET_V_R30;
+    else if(radius < 500) return TARGET_V_R50;
+    else if(radius < 800) return TARGET_V_R80;
+    else if(radius < 1000) return TARGET_V_R100;
 }
 
 {
-    log = 
+    float distance = encoder.GetDistance10mm();
+
+    if(distance < FORMAL_10MM) return;
+
+    static uint16_t call_cnt = 0;
+
 
 }
+
 
 {
     float distance_10mm = encoder.GetDistance10mm();
@@ -156,8 +168,68 @@ float Logger::FindTargetVelocity()
 
 }
 
+void Logger::Logging(uint8_t process_complete)
+{
+    float distance = encoder.GetDistanceStack();
+
+    if(distance < LOGGING_CONST_DISTANCE) return;
+
+    static uint16_t log_index = 0; // Count up when interrupt.
+
+    /* Mapping data of distance. */
+    const_distance_log_[log_index] = distance;
+
+    /* Mapping data of radian. */
+    double degree = iim_42652.GetDegreeStackZ();
+    double radian = degree * M_PI / 180.0;
+    radian_log_[log_index] = static_cast<double>(radian);
+
+    /* Various log */
+    static uint8_t pre_goal_cnt   = side_sensor.GetGoalMarkerCount();
+    static uint8_t pre_corner_cnt = side_sensor.GetCornerMarkerCount();
+    static uint8_t pre_cross_cnt  = side_sensor.GetCrossLineCount();
+    uint8_t goal_cnt   = side_sensor.GetGoalMarkerCount();
+    uint8_t corner_cnt = side_sensor.GetCornerMarkerCount();
+    uint8_t cross_cnt  = side_sensor.GetCrossLineCount();
+    uint16_t various_buff = 0;
+    if(process_complete == 1)        various_buff |= 0x0008;
+    if(pre_goal_cnt != goal_cnt)     various_buff |= 0x0004;
+    if(pre_corner_cnt != corner_cnt) various_buff |= 0x0002;
+    if(pre_cross_cnt != cross_cnt)   various_buff |= 0x0001;
+    pre_goal_cnt   = goal_cnt;
+    pre_corner_cnt = corner_cnt;
+    pre_cross_cnt  = cross_cnt;
+    various_log_[log_index] = various_buff;
+
+    if(log_index == LAST_LOG_INDEX)
+    {
+        memcpy(various_copy_, various_log_, (2 * NUM_OF_LOG));
+        memcpy(radian_copy_, radian_log_, (4 * NUM_OF_LOG));
+        memcpy(const_distance_copy_, const_distance_log_, (4 * NUM_OF_LOG));
+        log_index = 0;
+        flash_write_enable_ = 1;
+    }
+    else log_index++;
+
+    encoder.ResetDistanceStack();
+    iim_42652.ResetDegreeStackZ();
+}
+
+float Logger::TargetVelocity(float distance)
+{
+    double degree = imu.GetDegreeStackZ(); // [deg]
+    double radian = degree * M_PI / 180.0; // [rad]
 
 
+
+    double radius = distance / radian;     // [mm]
+
+    if(radius < 100) return TARGET_V_R10;
+    else if(radius < 300) return TARGET_V_R30;
+    else if(radius < 500) return TARGET_V_R50;
+    else if(radius < 800) return TARGET_V_R80;
+    else if(radius < 1000) return TARGET_V_R100;
+}
 
 
 

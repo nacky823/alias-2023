@@ -185,18 +185,14 @@ void Logger::Logging(uint8_t process_complete)
     radian_log_[log_index] = static_cast<double>(radian);
 
     /* Various log */
-    static uint8_t pre_goal_cnt   = side_sensor.GetGoalMarkerCount();
     static uint8_t pre_corner_cnt = side_sensor.GetCornerMarkerCount();
     static uint8_t pre_cross_cnt  = side_sensor.GetCrossLineCount();
-    uint8_t goal_cnt   = side_sensor.GetGoalMarkerCount();
     uint8_t corner_cnt = side_sensor.GetCornerMarkerCount();
     uint8_t cross_cnt  = side_sensor.GetCrossLineCount();
     uint16_t various_buff = 0;
-    if(process_complete == 1)        various_buff |= 0x0008;
-    if(pre_goal_cnt != goal_cnt)     various_buff |= 0x0004;
+    if(process_complete == 1)        various_buff |= 0x0004;
     if(pre_corner_cnt != corner_cnt) various_buff |= 0x0002;
     if(pre_cross_cnt != cross_cnt)   various_buff |= 0x0001;
-    pre_goal_cnt   = goal_cnt;
     pre_corner_cnt = corner_cnt;
     pre_cross_cnt  = cross_cnt;
     various_log_[log_index] = various_buff;
@@ -236,13 +232,18 @@ void Logger::StoreLog()
     if(error == 1) led.ColorOrder('R');
 }
 
+void
+{
+    
+}
+
+
+
+
+
+
 float Logger::TargetVelocity(float distance)
 {
-    double degree = imu.GetDegreeStackZ(); // [deg]
-    double radian = degree * M_PI / 180.0; // [rad]
-
-
-
     double radius = distance / radian;     // [mm]
 
     if(radius < 100) return TARGET_V_R10;

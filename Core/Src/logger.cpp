@@ -174,7 +174,8 @@ void Logger::Logging(uint8_t process_complete)
 
     if(distance < LOGGING_CONST_DISTANCE) return;
 
-    static uint16_t log_index = 0; // Count up when interrupt.
+    static uint16_t now_address = 0; // flash address count. (0 ~ 6199)
+    static uint16_t log_index = 0;   // Count up when interrupt.
 
     /* Mapping data of distance. */
     const_distance_log_[log_index] = distance;
@@ -198,8 +199,47 @@ void Logger::Logging(uint8_t process_complete)
     various_log_[log_index] = various_buff;
 
     static uint16_t straight_cnt = 0;
-    if(fabs(encoder.AngularVelocity()) < STRAIGHT_BORDER) straight_cnt++;
-    else straight_cnt = 0;
+    static uint8_t accel_straight_cnt = 0;
+    static uint8_t accel_step = 0;
+    if(fabs(encoder.AngularVelocity()) < STRAIGHT_BORDER_OMEGA)
+    {
+        straight_cnt++;
+        accel_straight_cnt++;
+        if(accel_straight_cnt >= CNT_OF_ACCEL_STEP_UP && accel_step < NUM_OF_ACCEL_STEP)
+        {
+            accel_step++;
+            accel_address_[accel_step-1] = now_address - CNT_OF_ACCEL_STEP_UP;
+            accel_straight_cnt = 0;
+        }
+    }
+    if else(straight_cnt > CNT_OF_ACCEL_STEP_UP)
+
+    if else(straight_cnt > CNT_OF_ACCEL_STEP_UP)
+    {
+        uint16_t step = straight_cnt / ACCEL_STEP_UP_CNT 
+        if(step > NUM_OF_ACCEL_STEP) step = NUM_OF_ACCEL_STEP;
+
+
+        for(int i = 1; i <= step; i++)
+        {
+            decel_address_[i-1] = (now_address-1) - (DIFF_NEXT_ACCEL_STEP * i);
+        }
+        straight_cnt = 0;
+        accel_straight_cnt = 0;
+        accel_step = 0;
+    }
+    else
+    {
+        straight_cnt = 0;
+        accel_straight_cnt = 0;
+        accel_step = 0;
+    }
+
+
+    if(straight_cnt == ACCEL_STEP_UP_CNT * 1)
+    {
+        accel_address_[0] = now_address - ACCEL_STEP_UP_CNT;
+    }
 
     if(log_index == LAST_LOG_INDEX)
     {
@@ -213,6 +253,7 @@ void Logger::Logging(uint8_t process_complete)
 
     encoder.ResetDistanceStack();
     iim_42652.ResetDegreeStackZ();
+    now_address++;
 }
 
 void Logger::StoreLog()

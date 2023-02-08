@@ -197,6 +197,10 @@ void Logger::Logging(uint8_t process_complete)
     pre_cross_cnt  = cross_cnt;
     various_log_[log_index] = various_buff;
 
+    static uint16_t straight_cnt = 0;
+    if(fabs(encoder.AngularVelocity()) < STRAIGHT_BORDER) straight_cnt++;
+    else straight_cnt = 0;
+
     if(log_index == LAST_LOG_INDEX)
     {
         memcpy(various_copy_, various_log_, (2 * NUM_OF_LOG));
@@ -232,10 +236,6 @@ void Logger::StoreLog()
     if(error == 1) led.ColorOrder('R');
 }
 
-void
-{
-    
-}
 
 
 

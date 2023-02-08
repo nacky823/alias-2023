@@ -212,13 +212,11 @@ void Logger::Logging(uint8_t process_complete)
     }
     else excess_stack_ = excess;
 
-    /* Accel position */
-    static uint16_t straight_cnt = 0;
-    static uint8_t accel_straight_cnt = 0;
+    /* Accel position log */
+    static uint16_t accel_straight_cnt = 0;
     static uint8_t accel_step = 0;
     if(fabs(encoder.AngularVelocity()) < STRAIGHT_BORDER_OMEGA)
     {
-        straight_cnt++;
         accel_straight_cnt++;
         if(accel_straight_cnt >= CNT_OF_ACCEL_STEP_UP && accel_step < NUM_OF_ACCEL_STEP)
         {
@@ -233,15 +231,10 @@ void Logger::Logging(uint8_t process_complete)
         {
             decel_address_[i-1] = (now_address-1) - (DIFF_NEXT_ACCEL_STEP * i);
         }
-        straight_cnt = 0;
         accel_straight_cnt = 0;
         accel_step = 0;
     }
-    else
-    {
-        straight_cnt = 0;
-        accel_straight_cnt = 0;
-    }
+    else accel_straight_cnt = 0;
 
     if(log_index == LAST_LOG_INDEX)
     {

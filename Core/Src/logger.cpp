@@ -173,6 +173,7 @@ void Logger::Logging(uint8_t process_complete)
     float distance = encoder.GetDistanceStack();
 
     if(distance < LOGGING_CONST_DISTANCE) return;
+    encoder.ResetDistanceStack();
 
     static uint16_t now_address = 0; // flash address count. (0 ~ 6199)
     static uint16_t log_index = 0;   // Count up when interrupt.
@@ -184,6 +185,7 @@ void Logger::Logging(uint8_t process_complete)
     double degree = iim_42652.GetDegreeStackZ();
     float radian = static_cast<float>(degree * M_PI / 180.0);
     radian_log_[log_index] = radian;
+    iim_42652.ResetDegreeStackZ();
 
     /* Various log */
     static uint8_t pre_corner_cnt = side_sensor.GetCornerMarkerCount();
@@ -238,16 +240,14 @@ void Logger::Logging(uint8_t process_complete)
 
     if(log_index == LAST_LOG_INDEX)
     {
-        memcpy(various_copy_, various_log_, (2 * NUM_OF_LOG));
-        memcpy(radian_copy_, radian_log_, (4 * NUM_OF_LOG));
-        memcpy(const_distance_copy_, const_distance_log_, (4 * NUM_OF_LOG));
         log_index = 0;
+        memcpy(const_distance_copy_, const_distance_log_, (4 * NUM_OF_LOG));
+        memcpy(radian_copy_, radian_log_, (4 * NUM_OF_LOG));
+        memcpy(various_copy_, various_log_, (2 * NUM_OF_LOG));
         flash_write_enable_ = 1;
     }
     else log_index++;
 
-    encoder.ResetDistanceStack();
-    iim_42652.ResetDegreeStackZ();
     now_address++;
 }
 

@@ -212,15 +212,9 @@ void Logger::Logging(uint8_t process_complete)
             accel_straight_cnt = 0;
         }
     }
-    if else(straight_cnt > CNT_OF_ACCEL_STEP_UP)
-
-    if else(straight_cnt > CNT_OF_ACCEL_STEP_UP)
+    if else(accel_step != 0)
     {
-        uint16_t step = straight_cnt / ACCEL_STEP_UP_CNT 
-        if(step > NUM_OF_ACCEL_STEP) step = NUM_OF_ACCEL_STEP;
-
-
-        for(int i = 1; i <= step; i++)
+        for(int i = 1; i <= accel_step; i++)
         {
             decel_address_[i-1] = (now_address-1) - (DIFF_NEXT_ACCEL_STEP * i);
         }
@@ -232,13 +226,6 @@ void Logger::Logging(uint8_t process_complete)
     {
         straight_cnt = 0;
         accel_straight_cnt = 0;
-        accel_step = 0;
-    }
-
-
-    if(straight_cnt == ACCEL_STEP_UP_CNT * 1)
-    {
-        accel_address_[0] = now_address - ACCEL_STEP_UP_CNT;
     }
 
     if(log_index == LAST_LOG_INDEX)
@@ -276,25 +263,3 @@ void Logger::StoreLog()
 
     if(error == 1) led.ColorOrder('R');
 }
-
-
-
-
-
-
-
-float Logger::TargetVelocity(float distance)
-{
-    double radius = distance / radian;     // [mm]
-
-    if(radius < 100) return TARGET_V_R10;
-    else if(radius < 300) return TARGET_V_R30;
-    else if(radius < 500) return TARGET_V_R50;
-    else if(radius < 800) return TARGET_V_R80;
-    else if(radius < 1000) return TARGET_V_R100;
-}
-
-
-
-
-

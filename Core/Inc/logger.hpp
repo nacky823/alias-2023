@@ -24,6 +24,8 @@ private:
     uint16_t accel_address_[NUM_OF_ACCEL_STEP];
     uint16_t decel_address_[NUM_OF_ACCEL_STEP];
 
+    float excess_stack_;
+
     Encoder encoder;
     SideSensor side_sensor;
     Iim42652 iim_42652;

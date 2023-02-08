@@ -182,8 +182,8 @@ void Logger::Logging(uint8_t process_complete)
 
     /* Mapping data of radian. */
     double degree = iim_42652.GetDegreeStackZ();
-    double radian = degree * M_PI / 180.0;
-    radian_log_[log_index] = static_cast<double>(radian);
+    float radian = static_cast<float>(degree * M_PI / 180.0);
+    radian_log_[log_index] = radian;
 
     /* Various log */
     static uint8_t pre_corner_cnt = side_sensor.GetCornerMarkerCount();
@@ -198,6 +198,21 @@ void Logger::Logging(uint8_t process_complete)
     pre_cross_cnt  = cross_cnt;
     various_log_[log_index] = various_buff;
 
+    /* Distance correction */
+    float excess = excess_stack_;
+    excess += distance - LOGGING_CONST_DISTANCE;
+    if(excess > LOGGING_CONST_DISTANCE)
+    {
+        now_address++;
+        log_index++;
+        const_distance_log_[log_index] = excess;
+        radian_log_[log_index] = radian;
+        various_log_[log_index] = VARIOUS_LOG_WHEN_COPY;
+        excess_stack_ = excess - LOGGING_CONST_DISTANCE;
+    }
+    else excess_stack_ = excess;
+
+    /* Accel position */
     static uint16_t straight_cnt = 0;
     static uint8_t accel_straight_cnt = 0;
     static uint8_t accel_step = 0;

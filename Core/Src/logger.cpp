@@ -4,76 +4,6 @@
 
 Logger::Logger() : various_data_(), time_10mm_ms_(), gyro_data_yaw_(), excess_distance_() {}
 
-void Logger::Logging(uint8_t interrupt_end)
-{
-    float distance_10mm = encoder.GetDistance10mm();
-
-    if(distance_10mm > FORMAL_10MM)
-    {
-        time_10mm_ms_[log_index] = static_cast<uint16_t>(g_count_100us);
-        g_count_100us = 0;
-
-        static uint16_t log_index = 0;
-        static uint8_t pre_goal_cnt   = side_sensor.GetGoalMarkerCount();
-        static uint8_t pre_corner_cnt = side_sensor.GetCornerMarkerCount();
-        static uint8_t pre_cross_cnt  = side_sensor.GetCrossLineCount();
-        uint8_t goal_cnt   = side_sensor.GetGoalMarkerCount();
-        uint8_t corner_cnt = side_sensor.GetCornerMarkerCount();
-        uint8_t cross_cnt  = side_sensor.GetCrossLineCount();
-        uint16_t various_buff = 0;
-
-        if(interrupt_end == 1)           various_buff |= 0x0008;
-        if(pre_goal_cnt != goal_cnt)     various_buff |= 0x0004;
-        if(pre_corner_cnt != corner_cnt) various_buff |= 0x0002;
-        if(pre_cross_cnt != cross_cnt)   various_buff |= 0x0001;
-    
-        pre_goal_cnt   = goal_cnt;
-        pre_corner_cnt = corner_cnt;
-        pre_cross_cnt  = cross_cnt;
-
-        various_data_[log_index]    = various_buff;
-        gyro_data_yaw_[log_index]   = iim_42652.GyroZLeft();
-        excess_distance_[log_index] = distance_10mm - FORMAL_10MM;
-
-        if(log_index >= (LOG_MAX_CNT_10MM - 1))
-        {
-            memcpy(various_copy_, various_data_, (2 * LOG_MAX_CNT_10MM));
-            memcpy(time_10mm_copy_, time_10mm_ms_, (2 * LOG_MAX_CNT_10MM));
-            memcpy(gyro_yaw_copy_, gyro_data_yaw_, (2 * LOG_MAX_CNT_10MM));
-            memcpy(excess_copy_, excess_distance_, (4 * LOG_MAX_CNT_10MM));
-            store_log_flag_ = 1;
-            log_index = 0;
-        }
-    
-        encoder.ResetDistance10mm();
-        log_index++;
-    }
-}
-
-void Logger::StoreLog()
-{
-    if(store_log_flag_ == 0) return;
-    else if(store_log_flag_ == 1) store_log_flag_ = 0;
-
-    static uint32_t address_s1 = SECTOR_1_ADDRESS_HEAD;
-    static uint32_t address_s2 = SECTOR_2_ADDRESS_HEAD;
-    static uint32_t address_s3 = SECTOR_3_ADDRESS_HEAD;
-    static uint32_t address_s4 = SECTOR_4_ADDRESS_HEAD;
-    uint8_t error = 0;
-
-    if(!flash.StoreUint16(address_s1, various_copy_, LOG_MAX_CNT_10MM)) error = 1;
-    if(!flash.StoreUint16(address_s2, time_10mm_copy_, LOG_MAX_CNT_10MM)) error = 1;
-    if(!flash.StoreInt16(address_s3, gyro_yaw_copy_, LOG_MAX_CNT_10MM)) error = 1;
-    if(!flash.StoreFloat(address_s4, excess_copy_, LOG_MAX_CNT_10MM)) error = 1;
-
-    address_s1 += (2 * LOG_MAX_CNT_10MM);
-    address_s2 += (2 * LOG_MAX_CNT_10MM);
-    address_s3 += (2 * LOG_MAX_CNT_10MM);
-    address_s4 += (4 * LOG_MAX_CNT_10MM);
-
-    if(error == 1) led.ColorOrder('R');
-}
-
 float Logger::TargetVelocity(float distance)
 {
     double degree = imu.GetDegreeStackZ(); // [deg]
@@ -85,16 +15,6 @@ float Logger::TargetVelocity(float distance)
     else if(radius < 500) return TARGET_V_R50;
     else if(radius < 800) return TARGET_V_R80;
     else if(radius < 1000) return TARGET_V_R100;
-}
-
-{
-    float distance = encoder.GetDistance10mm();
-
-    if(distance < FORMAL_10MM) return;
-
-    static uint16_t call_cnt = 0;
-
-
 }
 
 

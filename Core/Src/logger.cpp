@@ -249,16 +249,4 @@ void Logger::Loading()
 
 
 
-
-
-
-    if(radius < 100) return TARGET_V_R10;
-    else if(radius < 300) return TARGET_V_R30;
-    else if(radius < 500) return TARGET_V_R50;
-    else if(radius < 800) return TARGET_V_R80;
-    else if(radius < 1000) return TARGET_V_R100;
-
-
-
-
 }

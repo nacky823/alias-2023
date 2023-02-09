@@ -176,8 +176,9 @@ void Logger::Logging(uint8_t process_complete)
         {
             decel_address_[i-1] = (correction_address-1) - (DIFF_NEXT_ACCEL_STEP * i);
         }
-        accel_straight_cnt = 0;
+        accel_position_write_enable_ = accel_step;
         accel_step = 0;
+        accel_straight_cnt = 0;
     }
     else accel_straight_cnt = 0;
 
@@ -235,4 +236,9 @@ uint8_t Logger::StoreAccelPositionLog()
     }
     
     return 0;
+}
+
+void Logger::Loading()
+{
+
 }

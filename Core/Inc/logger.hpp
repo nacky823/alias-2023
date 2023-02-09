@@ -36,16 +36,15 @@ private:
     float excess_stack_;
 
     Encoder encoder;
-    SideSensor side_sensor;
     Iim42652 iim_42652;
-    Led led;
+    SideSensor side_sensor;
 
 public:
     Logger();
     void Logging(uint8_t);
 
-    void StoreLog();
-    float FindTargetVelocity();
+    uint8_t StorePeriodicLog();
+    uint8_t StoreAccelPositionLog();
 
 };
 

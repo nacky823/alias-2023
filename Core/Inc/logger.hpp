@@ -5,12 +5,13 @@
 #include "side_sensor.hpp"
 #include "iim_42652.hpp"
 
-#define LOG_MAX_CNT_10MM 6200
-#define FORMAL_10MM      10.0
-#define NORMAL_FUCOR_DPS 0.0610370 // 2000 / 32768
+#define LOGGING_CONST_DISTANCE 20.0 // [mm]
+#define LAST_LOG_INDEX 9
+#define NUM_OF_LOG 10
+#define STRAIGHT_BORDER_OMEGA 404
 #define NUM_OF_ACCEL_STEP 5
-#define CNT_OF_ACCEL_STEP_UP 16
-#define ACCEL_NEXT_STEP_DIFF 8
+#define DIFF_NEXT_ACCEL_STEP 4
+#define CNT_OF_ACCEL_STEP_UP 8
 
 class Logger
 {
@@ -34,6 +35,7 @@ private:
 public:
     Logger();
     void Logging(uint8_t);
+
     void StoreLog();
     float FindTargetVelocity();
 

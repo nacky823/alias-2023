@@ -15,12 +15,12 @@
 class Logger
 {
 private:
-    /* Data at 10mm intervals. */
-    uint16_t various_data_[LOG_MAX_CNT_10MM]; // 12.4 [kByte]
-    uint16_t time_10mm_ms_[LOG_MAX_CNT_10MM]; // 12.4 [kByte]
-    float degree_z_[LOG_MAX_CNT_10MM]; // 12.4 [kByte]
-    float excess_mm_[LOG_MAX_CNT_10MM]; // 24.8 [kByte]
+    /* Log at 20mm intervals */
+    float const_distance_log_[NUM_OF_LOG]; // total 12.4k[Byte]
+    float radian_log_[NUM_OF_LOG];         // total 12.4k[Byte]
+    uint16_t various_log_[NUM_OF_LOG];     // total  6.2k[Byte]
 
+    /* Accel position log */
     uint16_t accel_address_[NUM_OF_ACCEL_STEP];
     uint16_t decel_address_[NUM_OF_ACCEL_STEP];
 

@@ -179,10 +179,10 @@ void Logger::Logging(uint8_t process_complete)
     static uint16_t now_address = 0; // flash address count. (0 ~ 6199)
     static uint16_t log_index = 0;   // Count up when interrupt.
 
-    /* Mapping data of distance. */
+    /* Mapping data of distance */
     const_distance_log_[log_index] = distance;
 
-    /* Mapping data of radian. */
+    /* Mapping data of radian */
     double degree = iim_42652.GetDegreeStackZ();
     float radian = static_cast<float>(degree * M_PI / 180.0);
     radian_log_[log_index] = radian;

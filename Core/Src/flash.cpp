@@ -30,6 +30,23 @@ bool Flash::Clear()
     return failed_sector == 0xFFFFFFFF;
 }
 
+bool Flash::StoreUint8(uint32_t address, uint8_t *data, uint32_t number)
+{
+    HAL_FLASH_Unlock();
+
+    HAL_StatusTypeDef result;
+    
+    for(uint32_t i = 0; i < number; i++)
+    {
+        result = HAL_FLASH_Program(FLASH_TYPEPROGRAM_BYTE, address++, *data++);
+        if(result != HAL_OK) break;
+    }
+
+    HAL_FLASH_Lock();
+
+    return result == HAL_OK;
+}
+
 bool Flash::StoreUint16(uint32_t address, uint16_t *data, uint32_t number)
 {
     HAL_FLASH_Unlock();
@@ -87,4 +104,37 @@ bool Flash::StoreFloat(uint32_t address, float *data, uint32_t number)
 void Flash::Load(void *data, uint32_t address, uint32_t size)
 {
     memcpy(data, reinterpret_cast<uint32_t*>(address), size);
+}
+
+bool Flash::BlankJudgeByte(uint32_t address, uint32_t number)
+{
+    uint8_t byte[number];
+
+    memcpy(byte, reinterpret_cast<uint32_t*>(address), number);
+
+    for(uint32_t i = 0; i < number; i++) if(byte[i] != 0xFF) return false;
+
+    return true;
+}
+
+bool Flash::BlankJudgeHalfword(uint32_t address, uint32_t number)
+{
+    uint16_t half[number];
+
+    memcpy(half, reinterpret_cast<uint32_t*>(address), number*2);
+
+    for(uint32_t i = 0; i < number; i++) if(half[i] != 0xFFFF) return false;
+
+    return true;
+}
+
+bool Flash::BlankJudgeWord(uint32_t address, uint32_t number)
+{
+    uint32_t word[number];
+
+    memcpy(word, reinterpret_cast<uint32_t*>(address), number*4);
+
+    for(uint32_t i = 0; i < number; i++) if(word[i] != 0xFFFFFFFF) return false;
+
+    return true;
 }

@@ -208,7 +208,7 @@ void Logger::Logging(uint8_t process_complete)
         memcpy(const_distance_copy_, const_distance_log_, (4 * NUM_OF_LOG));
         memcpy(radian_copy_, radian_log_, (4 * NUM_OF_LOG));
         memcpy(various_copy_, various_log_, (2 * NUM_OF_LOG));
-        flash_write_enable_ = 1;
+        periodic_write_enable_ = 1;
     }
     else log_index++;
 
@@ -231,7 +231,7 @@ void Logger::Logging(uint8_t process_complete)
             memcpy(const_distance_copy_, const_distance_log_, (4 * NUM_OF_LOG));
             memcpy(radian_copy_, radian_log_, (4 * NUM_OF_LOG));
             memcpy(various_copy_, various_log_, (2 * NUM_OF_LOG));
-            flash_write_enable_ = 1;
+            periodic_write_enable_ = 1;
         }
         else log_index++;
     }
@@ -264,23 +264,55 @@ void Logger::Logging(uint8_t process_complete)
     now_address++;
 }
 
-void Logger::StoreLog()
+uint8_t Logger::StorePeriodicLog()
 {
-    if(flash_write_enable_ == 0) return;
-    else if(flash_write_enable_ == 1) flash_write_enable_ = 0;
+    if(periodic_write_enable_ == 0) return 0;
+    else if(periodic_write_enable_ == 1) periodic_write_enable_ = 0;
+    else return 0xFF;
 
     static uint32_t address_a = HEAD_ADDRESS_BLOCK_A;
     static uint32_t address_b = HEAD_ADDRESS_BLOCK_B;
     static uint32_t address_c = HEAD_ADDRESS_BLOCK_C;
-    uint8_t error = 0;
+    uint8_t result = 0;
 
-    if(!flash.StoreUint16(address_a, various_copy_, NUM_OF_LOG)) error = 1;
-    if(!flash.StoreFloat(address_b, radian_copy_, NUM_OF_LOG)) error = 1;
-    if(!flash.StoreFloat(address_c, const_distance_copy_, NUM_OF_LOG)) error = 1;
+    if(!flash.BlankJudgeWord(address_a, NUM_OF_LOG))     return 0x10;
+    if(!flash.BlankJudgeWord(address_b, NUM_OF_LOG))     return 0x20;
+    if(!flash.BlankJudgeHalfword(address_c, NUM_OF_LOG)) return 0x40;
 
-    address_a += (2 * NUM_OF_LOG);
-    address_b += (4 * NUM_OF_LOG);
-    address_c += (4 * NUM_OF_LOG);
+    if(!flash.StoreFloat(address_a, const_distance_copy_, NUM_OF_LOG)) result |= 0x01;
+    if(!flash.StoreFloat(address_b, radian_copy_, NUM_OF_LOG))         result |= 0x02;
+    if(!flash.StoreUint16(address_c, various_copy_, NUM_OF_LOG))       result |= 0x04;
 
-    if(error == 1) led.ColorOrder('R');
+    address_a += NUM_OF_LOG * 4;
+    address_b += NUM_OF_LOG * 4;
+    address_c += NUM_OF_LOG * 2;
+
+    return result;
+}
+
+uint8_t Logger::StoreAccelPositionLog()
+{
+    uint8_t accel_step = accel_position_write_enable_;
+    if(accel_step == 0) return 0;
+    else accel_position_write_enable_ = 0;
+
+    uint32_t address;
+    uint8_t accel = ACCEL_CODE;
+    uint8_t decel = DECEL_CODE;
+    uint8_t i;
+
+    for(i = 1; i <= accel_step; i++)
+    {
+        address = HEAD_ADDRESS_BLOCK_D + accel_address_[i-1];
+        if(!flash.BlankJudgment(address, 1))      return 0x10;
+        if(!flash.StoreUint8(address, &accel, 1)) return 0x20;
+    }
+    for(i = 1; i <= accel_step; i++)
+    {
+        address = HEAD_ADDRESS_BLOCK_D + decel_address_[i-1];
+        if(!flash.BlankJudgment(address, 1))      return 0x30;
+        if(!flash.StoreUint8(address, &decel, 1)) return 0x40;
+    }
+    
+    return 0;
 }

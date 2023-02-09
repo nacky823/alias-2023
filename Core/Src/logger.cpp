@@ -213,6 +213,7 @@ void Logger::Logging(uint8_t process_complete)
     else log_index++;
 
     /* Distance correction */
+    uint16_t correction_address = now_address;
     float excess = excess_stack_;
     excess += distance - LOGGING_CONST_DISTANCE;
     if(excess > LOGGING_CONST_DISTANCE)
@@ -245,7 +246,7 @@ void Logger::Logging(uint8_t process_complete)
         if(accel_straight_cnt >= CNT_OF_ACCEL_STEP_UP && accel_step < NUM_OF_ACCEL_STEP)
         {
             accel_step++;
-            accel_address_[accel_step-1] = now_address - CNT_OF_ACCEL_STEP_UP;
+            accel_address_[accel_step-1] = correction_address - CNT_OF_ACCEL_STEP_UP;
             accel_straight_cnt = 0;
         }
     }
@@ -253,7 +254,7 @@ void Logger::Logging(uint8_t process_complete)
     {
         for(int i = 1; i <= accel_step; i++)
         {
-            decel_address_[i-1] = (now_address-1) - (DIFF_NEXT_ACCEL_STEP * i);
+            decel_address_[i-1] = (correction_address-1) - (DIFF_NEXT_ACCEL_STEP * i);
         }
         accel_straight_cnt = 0;
         accel_step = 0;

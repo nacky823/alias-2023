@@ -4,91 +4,6 @@
 
 Logger::Logger() : various_data_(), time_10mm_ms_(), gyro_data_yaw_(), excess_distance_() {}
 
-float Logger::TargetVelocity(float distance)
-{
-    double degree = imu.GetDegreeStackZ(); // [deg]
-    double radian = degree * M_PI / 180.0; // [rad]
-    double radius = distance / radian;     // [mm]
-
-    if(radius < 100) return TARGET_V_R10;
-    else if(radius < 300) return TARGET_V_R30;
-    else if(radius < 500) return TARGET_V_R50;
-    else if(radius < 800) return TARGET_V_R80;
-    else if(radius < 1000) return TARGET_V_R100;
-}
-
-
-{
-    float distance_10mm = encoder.GetDistance10mm();
-
-    if(distance_10mm < FORMAL_10MM) return;
-    static uint16_t inter_cnt = 0; // index 0
-
-    // log data
-    uint16_t various, time_10mm;
-    int16_t gyro_yaw;
-    float excess;
-    uint32_t ref_adr_s1 = SECTOR_1_ADDRESS_HEAD + (intr_cnt * 2); // 参照場所
-    uint32_t ref_adr_s2 = SECTOR_2_ADDRESS_HEAD + (intr_cnt * 2);
-    uint32_t ref_adr_s3 = SECTOR_3_ADDRESS_HEAD + (intr_cnt * 2);
-    uint32_t ref_adr_s4 = SECTOR_4_ADDRESS_HEAD + (intr_cnt * 4);
-    memcpy(&various, ref_adr_s1, 2);
-    memcpy(&time_10mm, ref_adr_s2, 2);
-    memcpy(&gyro_yaw, ref_adr_s3, 4);
-    memcpy(&excess, ref_adr_s4, 4);
-    
-    double omega = gyro_yaw * NORMAL_FUCOR_DPS;
-    double degree = fabs(omega * TIM7_PERIOD * time_10mm);
-
-    if(degree > )
-
-
-    float now_position;
-
-    uint16_t now_index
-
-    now_index_ = index_num;
-
-    log_index_
-
-    refer_adderss_s1 
-
-
-
-    float log_10mm  = FORMAL_10MM + excess;
-    float now_10mm  = distance_10mm;
-    float init_10mm = log_10mm - now_10mm;
-
-    encoder.SetDistance10mm(init_10mm);
-
-
-
-        
-        
-    
-}
-
-float Logger::FindTargetVelocity()
-{
-    uint16_t various, time_10mm;
-    int16_t gyro_yaw;
-    float excess;
-
-    static uint16_t log_index = 0;
-    uint32_t address_s1 = SECTOR_1_ADDRESS_HEAD + (log_index * 2);
-    uint32_t address_s2 = SECTOR_2_ADDRESS_HEAD + (log_index * 2);
-    uint32_t address_s3 = SECTOR_3_ADDRESS_HEAD + (log_index * 2);
-    uint32_t address_s4 = SECTOR_4_ADDRESS_HEAD + (log_index * 4);
-
-    memcpy(&various, address_s1, 2);
-    memcpy(&time_10mm, address_s2, 2);
-    memcpy(&gyro_yaw, address_s3, 2);
-    memcpy(&excess, address_s4, 4);
-
-
-
-}
-
 void Logger::Logging(uint8_t process_complete)
 {
     float distance = encoder.GetDistanceStack();
@@ -332,6 +247,16 @@ void Logger::Loading()
 
 
 
+
+
+
+
+
+    if(radius < 100) return TARGET_V_R10;
+    else if(radius < 300) return TARGET_V_R30;
+    else if(radius < 500) return TARGET_V_R50;
+    else if(radius < 800) return TARGET_V_R80;
+    else if(radius < 1000) return TARGET_V_R100;
 
 
 

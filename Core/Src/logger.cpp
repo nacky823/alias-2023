@@ -1,5 +1,6 @@
 #include "logger.hpp"
 #include <math.h>
+#include <string.h>
 
 Logger::Logger() : various_data_(), time_10mm_ms_(), gyro_data_yaw_(), excess_distance_() {}
 
@@ -200,17 +201,38 @@ void Logger::Logging(uint8_t process_complete)
     pre_cross_cnt  = cross_cnt;
     various_log_[log_index] = various_buff;
 
+    /* Copy periodic log */
+    if(log_index == LAST_LOG_INDEX)
+    {
+        log_index = 0;
+        memcpy(const_distance_copy_, const_distance_log_, (4 * NUM_OF_LOG));
+        memcpy(radian_copy_, radian_log_, (4 * NUM_OF_LOG));
+        memcpy(various_copy_, various_log_, (2 * NUM_OF_LOG));
+        flash_write_enable_ = 1;
+    }
+    else log_index++;
+
     /* Distance correction */
     float excess = excess_stack_;
     excess += distance - LOGGING_CONST_DISTANCE;
     if(excess > LOGGING_CONST_DISTANCE)
     {
-        now_address++;
-        log_index++;
         const_distance_log_[log_index] = excess;
         radian_log_[log_index] = radian;
         various_log_[log_index] = VARIOUS_LOG_WHEN_COPY;
         excess_stack_ = excess - LOGGING_CONST_DISTANCE;
+        now_address++;
+
+        /* Copy periodic log */
+        if(log_index == LAST_LOG_INDEX)
+        {
+            log_index = 0;
+            memcpy(const_distance_copy_, const_distance_log_, (4 * NUM_OF_LOG));
+            memcpy(radian_copy_, radian_log_, (4 * NUM_OF_LOG));
+            memcpy(various_copy_, various_log_, (2 * NUM_OF_LOG));
+            flash_write_enable_ = 1;
+        }
+        else log_index++;
     }
     else excess_stack_ = excess;
 
@@ -237,16 +259,6 @@ void Logger::Logging(uint8_t process_complete)
         accel_step = 0;
     }
     else accel_straight_cnt = 0;
-
-    if(log_index == LAST_LOG_INDEX)
-    {
-        log_index = 0;
-        memcpy(const_distance_copy_, const_distance_log_, (4 * NUM_OF_LOG));
-        memcpy(radian_copy_, radian_log_, (4 * NUM_OF_LOG));
-        memcpy(various_copy_, various_log_, (2 * NUM_OF_LOG));
-        flash_write_enable_ = 1;
-    }
-    else log_index++;
 
     now_address++;
 }

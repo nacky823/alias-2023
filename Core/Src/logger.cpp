@@ -240,5 +240,100 @@ uint8_t Logger::StoreAccelPositionLog()
 
 void Logger::Loading()
 {
+    static uint16_t now_address = 0;
+
+    /* Load curvature radius */
+    float log_distance = *(reinterpret_cast<float*>(now_address + HEAD_ADDRESS_BLOCK_A));
+    float log_radian = *(reinterpret_cast<float*>(now_address + HEAD_ADDRESS_BLOCK_B));
+    float radius = log_distance / log_radian;
+
+    /* Load correction position */
+    uint16_t log_various = *(reinterpret_cast<uint16_t*>(now_address + HEAD_ADDRESS_BLOCK_C));
+    bool log_corner = false, log_corner_pass = false;
+    bool log_cross = false, log_cross_pass = false;
+    if(log_various & 0x0002 == 0x0002) log_corner = true;
+    if(log_various & 0x0001 == 0x0001) log_cross = true;
+
+    /* Get correction position */
+    bool run_corner = false, run_corner_pass = false;
+    bool run_cross = false, run_cross_pass = false;
+    uint8_t corner = side_sensor.GetCornerMarkerCount();
+    uint8_t cross = side_sensor.GetCrossLineCount();
+    static uint8_t pre_corner = corner;
+    static uint8_t pre_cross = cross;
+    if(corner > pre_corner) run_corner = true;
+    if(cross > pre_cross) run_cross = true;
+    pre_corner = corner;
+    pre_cross = cross;
+
+    /* Position correction at corner marker */
+    static uint16_t log_corner_address, run_corner_address;
+    static uint8_t log_corner_wait = 0, run_corner_wait = 0;
+    if(log_corner == true){
+        if(run_corner_pass == true){
+            now_address += now_address - run_corner_address;
+            run_corner_wait = 0;
+            run_corner_pass = false;
+        }else{
+            log_corner_address = now_address;
+            log_corner_pass = true;
+            log_corner_wait = CORRECTION_WAIT_COUNT;
+        }
+    }else{
+        if(run_corner_wait > 0) run_corner_wait--;
+        else run_corner_pass = false;
+    }
+    if(run_corner == true){
+        if(log_corner_pass == true){
+            now_address = log_corner_address;
+            log_corner_wait = 0;
+            log_corner_pass = false;
+        }else{
+            run_corner_address = now_address;
+            run_corner_pass = true;
+            run_corner_wait = CORRECTION_WAIT_COUNT;
+        }
+    }else{
+        if(log_corner_wait > 0) log_corner_wait--;
+        else log_corner_pass = false;
+    }
+
+    /* Position correction at cross line */
+    static uint16_t log_cross_address, run_cross_address;
+    static uint8_t log_cross_wait = 0, run_cross_wait = 0;
+    if(log_cross == true){
+        if(run_cross_pass == true){
+            now_address += now_address - run_cross_address;
+            run_cross_wait = 0;
+            run_cross_pass = false;
+        }else{
+            log_cross_address = now_address;
+            log_cross_pass = true;
+            log_cross_wait = CORRECTION_WAIT_COUNT;
+        }
+    }else{
+        if(run_cross_wait > 0) run_cross_wait--;
+        else run_cross_pass = false;
+    }
+    if(run_cross == true){
+        if(log_cross_pass == true){
+            now_address = log_cross_address;
+            log_cross_wait = 0;
+            log_cross_pass = false;
+        }else{
+            run_cross_address = now_address;
+            run_cross_pass = true;
+            run_cross_wait = CORRECTION_WAIT_COUNT;
+        }
+    }else{
+        if(log_cross_wait > 0) log_cross_wait--;
+        else log_cross_pass = false;
+    }
+
+
+
+
+
+
 
 }

@@ -2,12 +2,12 @@
 #define LOGGER_HPP_
 
 #include "encoder.hpp"
-#include "side_sensor.hpp"
 #include "iim_42652.hpp"
+#include "side_sensor.hpp"
 
 #define LOGGING_CONST_DISTANCE 20.0 // [mm]
+#define NUM_OF_LOG     10
 #define LAST_LOG_INDEX 9
-#define NUM_OF_LOG 10
 #define STRAIGHT_BORDER_OMEGA 404
 #define NUM_OF_ACCEL_STEP 5
 #define DIFF_NEXT_ACCEL_STEP 4
@@ -42,9 +42,9 @@ private:
 public:
     Logger();
     void Logging(uint8_t);
-
     uint8_t StorePeriodicLog();
     uint8_t StoreAccelPositionLog();
+    void Loading();
 
 };
 

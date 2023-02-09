@@ -2,7 +2,7 @@
 #include <math.h>
 #include <string.h>
 
-Logger::Logger() : various_data_(), time_10mm_ms_(), gyro_data_yaw_(), excess_distance_() {}
+Logger::Logger() : (), time_10mm_ms_(), gyro_data_yaw_(), excess_distance_() {}
 
 void Logger::Logging(uint8_t process_complete)
 {
@@ -133,18 +133,20 @@ uint8_t Logger::StoreAccelPositionLog()
     else accel_position_write_enable_ = 0;
 
     uint32_t address;
-    uint8_t accel = ACCEL_CODE;
-    uint8_t decel = DECEL_CODE;
+    uint8_t accel = 0; // step 0x01, 0x02, 0x03, 0x04, 0x05.
+    uint8_t decel = 0; // step 0x10, 0x20, 0x30, 0x40, 0x50.
     uint8_t i;
 
     for(i = 1; i <= accel_step; i++)
     {
+        accel = i;
         address = HEAD_ADDRESS_BLOCK_D + accel_address_[i-1];
         if(!flash.BlankJudgment(address, 1))      return 0x10;
         if(!flash.StoreUint8(address, &accel, 1)) return 0x20;
     }
     for(i = 1; i <= accel_step; i++)
     {
+        decel = i << 1;
         address = HEAD_ADDRESS_BLOCK_D + decel_address_[i-1];
         if(!flash.BlankJudgment(address, 1))      return 0x30;
         if(!flash.StoreUint8(address, &decel, 1)) return 0x40;
@@ -155,6 +157,11 @@ uint8_t Logger::StoreAccelPositionLog()
 
 void Logger::Loading()
 {
+    float distance = encoder.GetDistanceStack();
+
+    if(distance < LOGGING_CONST_DISTANCE) return;
+    encoder.ResetDistanceStack();
+
     static uint16_t now_address = 0;
 
     /* Load curvature radius */

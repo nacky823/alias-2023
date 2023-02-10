@@ -181,7 +181,7 @@
 class Iim42652
 {
 private:
-    degree_stack_z_;
+    double degree_stack_z_;
 
 public:
     Iim42652();

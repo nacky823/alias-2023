@@ -4,6 +4,7 @@
 #include "encoder.hpp"
 #include "iim_42652.hpp"
 #include "side_sensor.hpp"
+#include "flash.hpp"
 
 #define LOGGING_CONST_DISTANCE 20.0 // [mm]
 #define NUM_OF_LOG     10

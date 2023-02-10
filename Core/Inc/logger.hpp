@@ -34,6 +34,7 @@ private:
     uint8_t periodic_write_enable_;
     uint8_t accel_position_write_enable_;
     float excess_stack_;
+    float target_velocity_;
 
     Encoder encoder;
     Iim42652 iim_42652;

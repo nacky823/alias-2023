@@ -252,6 +252,8 @@ void Logger::Loading()
         else log_cross_pass = false;
     }
 
+    /*  */
+
 
 
 

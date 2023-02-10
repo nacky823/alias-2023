@@ -149,9 +149,39 @@ void Loop()
     }
 }
 
+extern uint16_t 
+extern uint16_t g_consecutive_buffers[NUMBER_OF_ADC][NUMBER_OF_SAMPLE];
+extern uint32_t g_line_left;
+extern uint32_t g_line_right;
+extern float g_line_diff;
+extern uint8_t g_line_emer;
+extern uint8_t g_line_calib;
 
 
-void Ini
+void InitialDebug()
+{
+#ifdef SENSOR_DEBUG
+    /* Line sensor */
+    line_sensor.UpdateAdcValues();
+    g_line_diff = line_sensor.LeftRightDifference();
+    g_line_emer = line_sensor.GetEmergencyStopFlag();
+    g_line_calib = line_sensor.CheckCalibration();
+    line_sensor.MonitorArrays();
+
+    /* Value to monitor
+     *
+     *
+     *
+     *
+     *
+     *
+     */
+
+
+
+
+}
+
 
 
 

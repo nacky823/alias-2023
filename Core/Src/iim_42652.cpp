@@ -111,6 +111,10 @@ void Iim42652::Update()
     double degree_z = avg_raw_z * NORMAL_FUCOR_DPS * TIM6_PERIOD;
 
     degree_stack_z_ += degree_z;
+
+#define DEBUG_MODE
+    g_deg_z = degree_z;
+#endif // DEBUG_MODE
 }
 
 void Iim42652::ResetDegreeStackZ()

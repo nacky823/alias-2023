@@ -26,13 +26,18 @@ void Init()
     line_sensor.Init();
     encoder.Init();
     motor.Init();
+    uint8_t imu_init = iim_42652.Init();
 
     HAL_TIM_Base_Start_IT(&htim2);
     HAL_TIM_Base_Start_IT(&htim5);
     HAL_TIM_Base_Start_IT(&htim6);
     HAL_TIM_Base_Start_IT(&htim7);
 
-    if(iim_42652.Init() == 0x09) led.Rainbow(2);
+    if(imu_init == 0x09) led.Rainbow(2);
+
+#ifdef DEBUG_MODE
+    g_imu_init = imu_init;
+#endif // DEBUG_MODE
 }
 
 void ExternalInterrupt(uint16_t gpio_pin)
@@ -166,6 +171,24 @@ void InitialDebug()
     g_goal_cnt = side_sensor.GetGoalMarkerCount();
     g_corner_cnt = side_sensor.GetCornerMarkerCount();
     g_cross_cnt = side_sensor.GetCrossLineCount();
+
+    /* IMU */
+    iim_42652.Update();
+    g_deg_stack_z = iim_42652.GetDegreeStackZ();
+    g_gyro_x_l  = iim_42652.GyroXLeft();
+    g_gyro_x_r  = iim_42652.GyroXRight();
+    g_gyro_y_l  = iim_42652.GyroYLeft();
+    g_gyro_y_r  = iim_42652.GyroYRight();
+    g_gyro_z_l  = iim_42652.GyroZLeft();
+    g_gyro_z_r  = iim_42652.GyroZRight();
+    g_accel_x_l = iim_42652.AccelXLeft();
+    g_accel_x_r = iim_42652.AccelXRight();
+    g_accel_y_l = iim_42652.AccelYLeft();
+    g_accel_y_r = iim_42652.AccelYRight();
+    g_accel_z_l = iim_42652.AccelZLeft();
+    g_accel_z_r = iim_42652.AccelZRight();
+
+
 
 
 

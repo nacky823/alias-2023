@@ -63,6 +63,32 @@ extern uint8_t g_goal_flag_cntup_2;
 extern uint8_t g_corner_flag_cntup_2;
 extern uint8_t g_cross_flag_cntup_2;
 
+/* IMU */
+extern uint8_t g_imu_who_l;
+extern uint8_t g_imu_who_r;
+extern uint8_t g_imu_bank_l;
+extern uint8_t g_imu_bank_r;
+extern uint8_t g_imu_pwr_l;
+extern uint8_t g_imu_pwr_r;
+extern uint8_t g_imu_init;
+extern double g_deg_stack_z;
+extern double g_deg_z;
+extern int16_t g_gyro_x_l;
+extern int16_t g_gyro_x_r;
+extern int16_t g_gyro_y_l;
+extern int16_t g_gyro_y_r;
+extern int16_t g_gyro_z_l;
+extern int16_t g_gyro_z_r;
+extern int16_t g_accel_x_l;
+extern int16_t g_accel_x_r;
+extern int16_t g_accel_y_l;
+extern int16_t g_accel_y_r;
+extern int16_t g_accel_z_l;
+extern int16_t g_accel_z_r;
+
+
+
+
 extern float monitor_p;
 extern float monitor_d;
 extern float monitor_i;
@@ -78,20 +104,8 @@ extern float g_duty_l;
 extern float g_duty_r;
 extern int16_t g_count_l;
 extern int16_t g_count_r;
-extern int16_t g_gyro_x_l;
-extern int16_t g_gyro_x_r;
-extern int16_t g_gyro_y_l;
-extern int16_t g_gyro_y_r;
-extern int16_t g_gyro_z_l;
-extern int16_t g_gyro_z_r;
-extern int16_t g_accel_x_l;
-extern int16_t g_accel_x_r;
-extern int16_t g_accel_y_l;
-extern int16_t g_accel_y_r;
-extern int16_t g_accel_z_l;
-extern int16_t g_accel_z_r;
-extern float g_adc_left;
-extern float g_adc_right;
+
+
 
 #endif // DEBUG_MODE
 

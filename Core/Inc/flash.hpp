@@ -13,9 +13,9 @@ public:
     bool StoreUint8(uint32_t, uint8_t *, uint32_t);
     bool StoreFloat(uint32_t, float *, uint32_t);
     void Load(void *, uint32_t, uint32_t);
-    bool BlankJudgeByte(uint32_t, uint32_t)
-    bool BlankJudgeHalfword(uint32_t, uint32_t)
-    bool BlankJudgeWord(uint32_t, uint32_t)
+    bool BlankJudgeByte(uint32_t, uint32_t);
+    bool BlankJudgeHalfword(uint32_t, uint32_t);
+    bool BlankJudgeWord(uint32_t, uint32_t);
 
 };
 

@@ -5,11 +5,11 @@
 #include "declare_extern.h"
 
 #define MAX_INTERRUPT_COUNT 250
-#define BLACK_BLACK_COUNT   2
-#define BLACK_WHITE_COUNT   1
-#define WHITE_BLACK_COUNT   1
-#define WHITE_WHITE_COUNT   0
-#define IGNORE_COUNT        20
+#define BLACK_BLACK_COUNT 2
+#define BLACK_WHITE_COUNT 1
+#define WHITE_BLACK_COUNT 1
+#define WHITE_WHITE_COUNT 0
+#define IGNORE_COUNT      5
 /* Digital side sensor : Black=1, White=0 */
 #define IO_OUTSIDE_L HAL_GPIO_ReadPin(GPIOB,GPIO_PIN_13)
 #define IO_INSIDE_L  HAL_GPIO_ReadPin(GPIOB,GPIO_PIN_14)

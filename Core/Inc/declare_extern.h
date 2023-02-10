@@ -34,12 +34,17 @@ extern float g_line_diff;
 extern uint8_t g_line_emer;
 extern uint8_t g_line_calib;
 
-
+/* Side seneor */
 extern uint8_t g_ignore_flag;
+extern uint8_t g_goal_cnt;
+extern uint8_t g_corner_cnt;
+extern uint8_t g_cross_cnt;
+/* Monitor method CountUp 1 */
 extern uint8_t g_pre_noise_state_cntup;
 extern uint8_t g_current_state_cntup;
 extern uint8_t g_exception_flags_cntup;
 extern uint8_t g_master_count_cntup;
+/* Monitor method CountUp 2 */
 extern uint8_t g_exception_flags_cross;
 extern uint8_t g_master_count_cross;
 extern uint8_t g_write_state_cntup;
@@ -49,6 +54,7 @@ extern uint8_t g_black_flag_cntup;
 extern uint8_t g_goal_flag_cntup;
 extern uint8_t g_corner_flag_cntup;
 extern uint8_t g_cross_flag_cntup;
+/* Monitor method CountUp 3 */
 extern uint8_t g_write_state_cntup_2;
 extern uint8_t g_goal_reach_cntup_2;
 extern uint8_t g_corner_reach_cntup_2;
@@ -56,6 +62,7 @@ extern uint8_t g_black_flag_cntup_2;
 extern uint8_t g_goal_flag_cntup_2;
 extern uint8_t g_corner_flag_cntup_2;
 extern uint8_t g_cross_flag_cntup_2;
+
 extern float monitor_p;
 extern float monitor_d;
 extern float monitor_i;

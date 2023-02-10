@@ -161,6 +161,11 @@ void InitialDebug()
     g_line_emer = line_sensor.GetEmergencyStopFlag();
     g_line_calib = line_sensor.CheckCalibration();
 
+    /* Side seneor */
+    side_sensor.IgnoreJudgment();
+    g_goal_cnt = side_sensor.GetGoalMarkerCount();
+    g_corner_cnt = side_sensor.GetCornerMarkerCount();
+    g_cross_cnt = side_sensor.GetCrossLineCount();
 
 
 

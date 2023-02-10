@@ -86,6 +86,17 @@ extern int16_t g_accel_y_r;
 extern int16_t g_accel_z_l;
 extern int16_t g_accel_z_r;
 
+/* Motor */
+extern float g_translation_ratio;
+extern float g_rotation_ratio;
+extern float g_sum_raito;
+extern float g_excess_ratio;
+extern float g_reduced_translation;
+extern float g_duty_l;
+extern float g_duty_r;
+extern int16_t g_motor_compare_l;
+extern int16_t g_motor_compare_r;
+
 
 
 
@@ -95,15 +106,6 @@ extern float monitor_i;
 extern float g_distance;
 extern int16_t g_count_enc_l;
 extern int16_t g_count_enc_r;
-extern float g_translation_ratio;
-extern float g_rotation_ratio;
-extern float g_sum;
-extern float g_excess;
-extern float g_reduced_translation;
-extern float g_duty_l;
-extern float g_duty_r;
-extern int16_t g_count_l;
-extern int16_t g_count_r;
 
 
 

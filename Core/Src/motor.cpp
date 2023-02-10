@@ -21,7 +21,7 @@ void Motor::Init()
 void Motor::Drive(float translation_ratio, float rotation_ratio)
 {
 #ifdef DEBUG_MODE
-    translation_ratio_ = translation_ratio;  rotation_ratio_ = rotation_ratio;
+    g_translation_ratio = translation_ratio;  g_rotation_ratio = rotation_ratio;
 #endif // DEBUG_MODE
 
     if(translation_ratio > LIMIT_TRANS_DUTY)       translation_ratio =  LIMIT_TRANS_DUTY;
@@ -36,7 +36,7 @@ void Motor::Drive(float translation_ratio, float rotation_ratio)
     translation_ratio -= excess;
 
 #ifdef DEBUG_MODE
-    sum_ = sum;  excess_ = excess;  reduced_translation_ = translation_ratio;
+    g_sum_raito = sum;  g_excess_ratio = excess;  g_reduced_translation = translation_ratio;
 #endif // DEBUG_MODE
 
     float duty_l = translation_ratio - rotation_ratio;
@@ -49,7 +49,7 @@ void Motor::Drive(float translation_ratio, float rotation_ratio)
     else if(duty_r < -1.0) duty_r = -1.0;
 
 #ifdef DEBUG_MODE
-    duty_l_ = duty_l;  duty_r_ = duty_r;
+    g_duty_l = duty_l;  g_duty_r = duty_r;
 #endif // DEBUG_MODE
 
     int16_t count_l = static_cast<int16_t>(COUNTER_PERIOD * duty_l);
@@ -65,7 +65,7 @@ void Motor::Drive(float translation_ratio, float rotation_ratio)
     __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_4, count_r);
 
 #ifdef DEBUG_MODE
-    count_l_ = count_l;  count_r_ = count_r;
+    g_motor_compare_l = count_l;  g_motor_compare_r = count_r;
 #endif // DEBUG_MODE
 }
 

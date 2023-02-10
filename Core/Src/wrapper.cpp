@@ -158,7 +158,6 @@ void Loop()
 
 void InitialDebug()
 {
-#ifdef SENSOR_DEBUG
     /* Line sensor */
     line_sensor.UpdateAdcValues();
     line_sensor.MonitorArrays();
@@ -175,18 +174,22 @@ void InitialDebug()
     /* IMU */
     iim_42652.Update();
     g_deg_stack_z = iim_42652.GetDegreeStackZ();
-    g_gyro_x_l  = iim_42652.GyroXLeft();
-    g_gyro_x_r  = iim_42652.GyroXRight();
-    g_gyro_y_l  = iim_42652.GyroYLeft();
-    g_gyro_y_r  = iim_42652.GyroYRight();
-    g_gyro_z_l  = iim_42652.GyroZLeft();
-    g_gyro_z_r  = iim_42652.GyroZRight();
+    g_gyro_x_l = iim_42652.GyroXLeft();
+    g_gyro_x_r = iim_42652.GyroXRight();
+    g_gyro_y_l = iim_42652.GyroYLeft();
+    g_gyro_y_r = iim_42652.GyroYRight();
+    g_gyro_z_l = iim_42652.GyroZLeft();
+    g_gyro_z_r = iim_42652.GyroZRight();
     g_accel_x_l = iim_42652.AccelXLeft();
     g_accel_x_r = iim_42652.AccelXRight();
     g_accel_y_l = iim_42652.AccelYLeft();
     g_accel_y_r = iim_42652.AccelYRight();
     g_accel_z_l = iim_42652.AccelZLeft();
     g_accel_z_r = iim_42652.AccelZRight();
+
+#ifdef MOTOR_DEBUG
+    /* Motor */
+    motor.Drive(0.10, 0);
 
 
 
@@ -196,6 +199,10 @@ void InitialDebug()
 }
 
 
+    motor.GetRatio(g_translation_ratio, g_rotation_ratio);
+    motor.GetLimitValues(g_sum_raito, g_excess_ratio, g_reduced_translation);
+    motor.GetDuty(g_duty_l, g_duty_r);
+    motor.GetCount(g_count_l, g_count_r);
 
 
 
@@ -229,33 +236,6 @@ void Monitor()
     g_distance      = encoder.GetDistance();
     g_distance_10mm = encoder.GetDistanceStack();
 
-    /* IMU */
-    if(g_imu_active == 0x09)
-    {
-        g_gyro_x_l  = iim_42652.GyroXLeft();
-        g_gyro_x_r  = iim_42652.GyroXRight();
-        g_gyro_y_l  = iim_42652.GyroYLeft();
-        g_gyro_y_r  = iim_42652.GyroYRight();
-        g_gyro_z_l  = iim_42652.GyroZLeft();
-        g_gyro_z_r  = iim_42652.GyroZRight();
-        g_accel_x_l = iim_42652.AccelXLeft();
-        g_accel_x_r = iim_42652.AccelXRight();
-        g_accel_y_l = iim_42652.AccelYLeft();
-        g_accel_y_r = iim_42652.AccelYRight();
-        g_accel_z_l = iim_42652.AccelZLeft();
-        g_accel_z_r = iim_42652.AccelZRight();
-    }
-
-    /* Line sensor */
-    line_sensor.MonitorArrays();
-    g_line_diff     = line_sensor.LeftRightDifference();
-    uint8_t line_eme = line_sensor.GetEmergencyStopFlag();
-    if(line_eme == 1) led_color = 0x02;
-    g_line_eme = line_eme;
-    uint8_t line_calib = line_sensor.CheckCalibration();
-    if(line_calib == 1) led_color = 0x01;
-    g_line_calib = line_calib;
-
     /* Motor */
     if(rotary_switch.State() == 0x03)
     {
@@ -266,12 +246,6 @@ void Monitor()
     motor.GetLimitValues(g_sum_raito, g_excess_ratio, g_reduced_translation);
     motor.GetDuty(g_duty_l, g_duty_r);
     motor.GetCount(g_count_l, g_count_r);
-
-    /* Side seneor */
-    side_sensor.IgnoreJudgment();
-    g_goal_cnt   = side_sensor.GetGoalMarkerCount();
-    g_corner_cnt = side_sensor.GetCornerMarkerCount();
-    g_cross_cnt  = side_sensor.GetCrossLineCount();
 
     /* LED */
     switch(led_color)

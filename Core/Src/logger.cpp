@@ -2,7 +2,7 @@
 #include <math.h>
 #include <string.h>
 
-Logger::Logger() : (), time_10mm_ms_(), gyro_data_yaw_(), excess_distance_() {}
+Logger::Logger() : const_distance_log_(), radian_log_(), various_log_(), const_distance_copy_(), radian_copy_(), various_copy_(), accel_address_(), decel_address_(), periodic_write_enable_(0), accel_position_write_enable_(0), excess_stack_(0), target_velocity_(MIN_VELOCITY) {}
 
 void Logger::Logging(uint8_t process_complete)
 {
@@ -146,7 +146,7 @@ uint8_t Logger::StoreAccelPositionLog()
     }
     for(i = 1; i <= accel_step; i++)
     {
-        decel = i << 1;
+        decel = i << 4;
         address = HEAD_ADDRESS_BLOCK_D + decel_address_[i-1];
         if(!flash.BlankJudgment(address, 1))      return 0x30;
         if(!flash.StoreUint8(address, &decel, 1)) return 0x40;
@@ -183,7 +183,13 @@ void Logger::Loading()
     uint8_t cross = side_sensor.GetCrossLineCount();
     static uint8_t pre_corner = corner;
     static uint8_t pre_cross = cross;
-    if(corner > pre_corner) run_corner = true;
+    static uint8_t straight_cnt = 0;
+    bool straight = false;
+    if(fabs(encoder.AngularVelocity()) < STRAIGHT_BORDER_OMEGA){
+        if(straight_cnt <= STRAIGHT_JUDGE_COUNT) straight_cnt++;
+        else straight = true;
+    }else straight_cnt = 0;
+    if(corner > pre_corner && straight) run_corner = true;
     if(cross > pre_cross) run_cross = true;
     pre_corner = corner;
     pre_cross = cross;
@@ -252,10 +258,31 @@ void Logger::Loading()
         else log_cross_pass = false;
     }
 
-    /*  */
+    /* Accel straight */
+    uint8_t accel_step = *(reinterpret_cast<uint8_t*>(now_address + HEAD_ADDRESS_BLOCK_D));
+    if(!straight) accel_step = 0x10;
+    float target = MIN_VELOCITY;
+    static float pre_target = MIN_VELOCITY;
+    switch(accel_step){
+        case 0x10: target = MIN_VELOCITY; break;
+        case 0x01:
+        case 0x20: target = MIN_VELOCITY + (ACCEL_VELOCITY * 1); break;
+        case 0x02:
+        case 0x30: target = MIN_VELOCITY + (ACCEL_VELOCITY * 2); break;
+        case 0x03:
+        case 0x40: target = MIN_VELOCITY + (ACCEL_VELOCITY * 3); break;
+        case 0x04:
+        case 0x50: target = MIN_VELOCITY + (ACCEL_VELOCITY * 4); break;
+        case 0x05: target = MIN_VELOCITY + (ACCEL_VELOCITY * 5); break;
+        default: target = pre_target; break;
+    }
+    pre_target = target;
+    target_velocity_ = target;
 
+    now_address++;
+}
 
-
-
-
+float Logger::GetTargetVelocity()
+{
+    return target_velocity_;
 }

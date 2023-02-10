@@ -12,8 +12,8 @@
 #define NUM_OF_ACCEL_STEP 5
 #define DIFF_NEXT_ACCEL_STEP 4
 #define CNT_OF_ACCEL_STEP_UP 8
-#define ACCEL_CODE 0x0A
-#define DECEL_CODE 0x0D
+#define MIN_TARGET_VELOCITY 1.2
+#define ACCEL_STEP_INTERVAL 0.5
 
 class Logger
 {
@@ -46,6 +46,7 @@ public:
     uint8_t StorePeriodicLog();
     uint8_t StoreAccelPositionLog();
     void Loading();
+    float GetTargetVelocity();
 
 };
 

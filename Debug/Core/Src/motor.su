@@ -1,0 +1,7 @@
+motor.cpp:4:1:Motor::Motor()	16	static
+motor.cpp:9:6:void Motor::Init()	16	static
+motor.cpp:21:6:void Motor::Drive(float, float)	56	static
+motor.cpp:73:6:void Motor::GetRatio(float&, float&)	24	static
+motor.cpp:79:6:void Motor::GetLimitValues(float&, float&, float&)	24	static
+motor.cpp:86:6:void Motor::GetDuty(float&, float&)	24	static
+motor.cpp:92:6:void Motor::GetCount(int16_t&, int16_t&)	24	static

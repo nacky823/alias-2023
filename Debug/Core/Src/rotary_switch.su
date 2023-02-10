@@ -1,0 +1,1 @@
+rotary_switch.cpp:3:9:uint8_t RotarySwitch::State()	24	static

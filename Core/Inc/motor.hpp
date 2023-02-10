@@ -12,25 +12,10 @@
 
 class Motor
 {
-#ifdef DEBUG_MODE
-private:
-    float translation_ratio_, rotation_ratio_;
-    float sum_, excess_, reduced_translation_;
-    float duty_l_, duty_r_;
-    int16_t count_l_, count_r_;
-#endif // DEBUG_MODE
-
 public:
     Motor();
     void Init();
     void Drive(float, float);
-
-#ifdef DEBUG_MODE
-    void GetRatio(float &, float &);
-    void GetLimitValues(float &, float &, float &);
-    void GetDuty(float &, float &);
-    void GetCount(int16_t &, int16_t &);
-#endif // DEBUG_MODE
 
 };
 

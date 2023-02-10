@@ -68,30 +68,3 @@ void Motor::Drive(float translation_ratio, float rotation_ratio)
     g_motor_compare_l = count_l;  g_motor_compare_r = count_r;
 #endif // DEBUG_MODE
 }
-
-#ifdef DEBUG_MODE
-void Motor::GetRatio(float &translation_ratio, float &rotation_ratio)
-{
-    translation_ratio = translation_ratio_;
-    rotation_ratio = rotation_ratio_;
-}
-
-void Motor::GetLimitValues(float &sum, float &excess, float &reduced_translation)
-{
-    sum = sum_;
-    excess = excess_;
-    reduced_translation = reduced_translation_;
-}
-
-void Motor::GetDuty(float &duty_l, float &duty_r)
-{
-    duty_l = duty_l_;
-    duty_r = duty_r_;
-}
-
-void Motor::GetCount(int16_t &count_l, int16_t &count_r)
-{
-    count_l = count_l_;
-    count_r = count_r_;
-}
-#endif // DEBUG_MODE

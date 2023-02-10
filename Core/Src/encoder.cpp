@@ -24,6 +24,7 @@ void Encoder::Update()
 
 #ifdef DEBUG_MODE
 	g_enc_cnt_l = count_l;  g_enc_cnt_r = count_r;
+	g_distance_l = distance_l;  g_distance_r = distance_r;
 #endif // DEBUG_MODE
 }
 

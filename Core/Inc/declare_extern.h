@@ -64,27 +64,25 @@ extern uint8_t g_corner_flag_cntup_2;
 extern uint8_t g_cross_flag_cntup_2;
 
 /* IMU */
-extern uint8_t g_imu_who_l;
-extern uint8_t g_imu_who_r;
-extern uint8_t g_imu_bank_l;
-extern uint8_t g_imu_bank_r;
-extern uint8_t g_imu_pwr_l;
-extern uint8_t g_imu_pwr_r;
+extern uint8_t g_imu_who_l, g_imu_who_r;
+extern uint8_t g_imu_bank_l, g_imu_bank_r;
+extern uint8_t g_imu_pwr_l, g_imu_pwr_r;
 extern uint8_t g_imu_init;
 extern double g_deg_stack_z;
 extern double g_deg_z;
-extern int16_t g_gyro_x_l;
-extern int16_t g_gyro_x_r;
-extern int16_t g_gyro_y_l;
-extern int16_t g_gyro_y_r;
-extern int16_t g_gyro_z_l;
-extern int16_t g_gyro_z_r;
-extern int16_t g_accel_x_l;
-extern int16_t g_accel_x_r;
-extern int16_t g_accel_y_l;
-extern int16_t g_accel_y_r;
-extern int16_t g_accel_z_l;
-extern int16_t g_accel_z_r;
+extern int16_t g_gyro_x_l, g_gyro_x_r;
+extern int16_t g_gyro_y_l, g_gyro_y_r;
+extern int16_t g_gyro_z_l, g_gyro_z_r;
+extern int16_t g_accel_x_l, g_accel_x_r;
+extern int16_t g_accel_y_l, g_accel_y_r;
+extern int16_t g_accel_z_l, g_accel_z_r;
+
+/* Encoder */
+extern int16_t g_enc_cnt_l, g_enc_cnt_r;
+extern float g_distance_l, g_distance_r;
+extern float g_distance;
+extern float g_distance_stack;
+extern float g_distance_diff;
 
 /* Motor */
 extern float g_translation_ratio;
@@ -92,10 +90,9 @@ extern float g_rotation_ratio;
 extern float g_sum_raito;
 extern float g_excess_ratio;
 extern float g_reduced_translation;
-extern float g_duty_l;
-extern float g_duty_r;
-extern int16_t g_motor_compare_l;
-extern int16_t g_motor_compare_r;
+extern float g_duty_l, g_duty_r;
+extern int16_t g_motor_compare_l, g_motor_compare_r;
+
 
 
 
@@ -103,9 +100,6 @@ extern int16_t g_motor_compare_r;
 extern float monitor_p;
 extern float monitor_d;
 extern float monitor_i;
-extern float g_distance;
-extern int16_t g_count_enc_l;
-extern int16_t g_count_enc_r;
 
 
 

@@ -12,7 +12,6 @@ class Encoder
 private:
     float distance_;
     float distance_stack_;
-    float total_distance_;
     float distance_difference_;
 
 public:
@@ -23,7 +22,6 @@ public:
     void ResetDistanceStack();
     float GetDistance();
     float GetDistanceStack();
-    float GetTotalDistance();
     float AngularVelocity();
 
 };

@@ -187,73 +187,15 @@ void InitialDebug()
     g_accel_z_l = iim_42652.AccelZLeft();
     g_accel_z_r = iim_42652.AccelZRight();
 
-#ifdef MOTOR_DEBUG
-    /* Motor */
-    motor.Drive(0.10, 0);
-
-
-
-
-
-
-}
-
-
-    motor.GetRatio(g_translation_ratio, g_rotation_ratio);
-    motor.GetLimitValues(g_sum_raito, g_excess_ratio, g_reduced_translation);
-    motor.GetDuty(g_duty_l, g_duty_r);
-    motor.GetCount(g_count_l, g_count_r);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#ifdef DEBUG_MODE
-void Monitor()
-{
-    uint8_t led_color = 0x00;
-
     /* Encoder */
     encoder.Update();
-    g_distance      = encoder.GetDistance();
-    g_distance_10mm = encoder.GetDistanceStack();
+    g_distance = encoder.GetDistance();
+    g_distance_stack = encoder.GetDistanceStack();
+    g_distance_diff = encoder.AngularVelocity();
 
-    /* Motor */
-    if(rotary_switch.State() == 0x03)
-    {
-        motor.Drive(0.10, 0);
-    }
-    else motor.Drive(0, 0);
-    motor.GetRatio(g_translation_ratio, g_rotation_ratio);
-    motor.GetLimitValues(g_sum_raito, g_excess_ratio, g_reduced_translation);
-    motor.GetDuty(g_duty_l, g_duty_r);
-    motor.GetCount(g_count_l, g_count_r);
-
-    /* LED */
-    switch(led_color)
-    {
-        case 0x01: led.ColorOrder('R'); break;
-        case 0x02: led.ColorOrder('G'); break;
-        default:   led.ColorOrder('X'); break;
-    }
+#ifdef MOTOR_DEBUG
+    motor.Drive(INIT_DEBUG_MOTOR_DUTY, 0);
+#endif // MOTOR_DEBUG
 }
 
 uint8_t ImuReadByte(uint8_t send_address, char imu_ic_lr)

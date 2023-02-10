@@ -1,10 +1,6 @@
 #include "motor.hpp"
 
-#ifdef DEBUG_MODE
-Motor::Motor() : translation_ratio_(0), rotation_ratio_(0), sum_(0), excess_(0), reduced_translation_(0), duty_l_(0), duty_r_(0), count_l_(0), count_r_(0) {}
-#else // DEBUG_MODE
 Motor::Motor() {}
-#endif // DEBUG_MODE
 
 void Motor::Init()
 {

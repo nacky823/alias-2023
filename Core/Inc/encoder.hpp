@@ -11,18 +11,20 @@ class Encoder
 {
 private:
     float distance_;
-    float distance_10mm_;
+    float distance_stack_;
     float total_distance_;
+    float distance_difference_;
 
 public:
     Encoder();
     void Init();
     void Update();
     void Reset();
-    void ResetDistance10mm();
+    void ResetDistanceStack();
     float GetDistance();
-    float GetDistance10mm();
+    float GetDistanceStack();
     float GetTotalDistance();
+    float AngularVelocity();
 
 };
 

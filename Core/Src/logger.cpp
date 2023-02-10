@@ -85,7 +85,7 @@ void Logger::Logging(uint8_t process_complete)
             accel_straight_cnt = 0;
         }
     }
-    if else(accel_step != 0)
+    else if(accel_step != 0)
     {
         for(int i = 1; i <= accel_step; i++)
         {

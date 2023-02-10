@@ -65,6 +65,21 @@ extern float g_duty_l;
 extern float g_duty_r;
 extern int16_t g_count_l;
 extern int16_t g_count_r;
+extern int16_t g_gyro_x_l;
+extern int16_t g_gyro_x_r;
+extern int16_t g_gyro_y_l;
+extern int16_t g_gyro_y_r;
+extern int16_t g_gyro_z_l;
+extern int16_t g_gyro_z_r;
+extern int16_t g_accel_x_l;
+extern int16_t g_accel_x_r;
+extern int16_t g_accel_y_l;
+extern int16_t g_accel_y_r;
+extern int16_t g_accel_z_l;
+extern int16_t g_accel_z_r;
+extern float g_adc_left;
+extern float g_adc_right;
+
 #endif // DEBUG_MODE
 
 #endif // DECLARE_EXTERN_H_

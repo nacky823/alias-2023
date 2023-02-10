@@ -3,19 +3,26 @@
 #include "iim_42652.hpp"
 #include "led.hpp"
 #include "line_sensor.hpp"
+#include "line_trace.hpp"
 #include "motor.hpp"
 #include "rotary_switch.hpp"
 #include "side_sensor.hpp"
 #include "declare_extern.h"
+#include "velocity_control.hpp"
+
+#define FIRST_RUN
+#define FIRST_GOAL
 
 Encoder encoder;
 Iim42652 iim_42652;
 Led led;
 LineSensor line_sensor;
+LineTrace line_trace;
 Logger logger;
 Motor motor;
 RotarySwitch rotary_switch;
 SideSensor side_sensor;
+VelocityControl velocity_control;
 
 void Init()
 {
@@ -73,7 +80,6 @@ void Interrupt1ms()
 
         case FIRST_RUN:
             encoder.UpdateCountDistance();
-            encoder.AddTotalDistance();
             line_sensor.UpdateAdcValues();
             float rotat = line_sensor.PidControl(LINE_KP_1, LINE_KI_1, LINE_KD_1);
             float trans = velocity_control.PidControl(TARGET_V_1, V_KP_1, V_KI_1, V_KD_1);
@@ -86,10 +92,6 @@ void Interrupt1ms()
 
         case FIRST_GOAL:
 
-        case SECOND_RUN:
-        case THIRD_RUN:
-        case FOURTH_RUN:
-        case FIFTH_RUN:
         default: break;
     }
 
@@ -156,9 +158,8 @@ void Monitor()
 
     /* Encoder */
     encoder.UpdateCountDistance();
-    encoder.GetCount(g_enc_cnt_l, g_enc_cnt_r);
     g_distance      = encoder.GetDistance();
-    g_distance_10mm = encoder.GetDistance10mm();
+    g_distance_10mm = encoder.GetDistanceStack();
 
     /* IMU */
     if(g_imu_active == 0x09)
@@ -180,12 +181,11 @@ void Monitor()
     /* Line sensor */
     line_sensor.MonitorArrays();
     g_line_diff     = line_sensor.LeftRightDifference();
-    g_new_line_diff = line_sensor.Difference();
     uint8_t line_eme = line_sensor.GetEmergencyStopFlag();
-    if(line_eme == 1) color = 0x02;
+    if(line_eme == 1) led_color = 0x02;
     g_line_eme = line_eme;
     uint8_t line_calib = line_sensor.CheckCalibration();
-    if(line_calib == 1) color = 0x01;
+    if(line_calib == 1) led_color = 0x01;
     g_line_calib = line_calib;
 
     /* Motor */

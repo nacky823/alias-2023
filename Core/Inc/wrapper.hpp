@@ -10,6 +10,7 @@ void Interrupt100us();
 void Interrupt1ms();
 
 uint8_t ImuActive();
+void EmergencyStop();
 
 #ifdef DEBUG_MODE
 void Monitor();

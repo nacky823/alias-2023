@@ -13,7 +13,13 @@
 #define DIFF_NEXT_ACCEL_STEP 4
 #define CNT_OF_ACCEL_STEP_UP 8
 #define MIN_TARGET_VELOCITY 1.2
-#define ACCEL_STEP_INTERVAL 0.5
+#define ACCEL_VELOCITY 0.5
+#define CORRECTION_WAIT_COUNT 3
+
+#define HEAD_ADDRESS_BLOCK_A 0x00
+#define HEAD_ADDRESS_BLOCK_B 0x00
+#define HEAD_ADDRESS_BLOCK_C 0x00
+#define HEAD_ADDRESS_BLOCK_D 0x00
 
 class Logger
 {
@@ -39,6 +45,7 @@ private:
     Encoder encoder;
     Iim42652 iim_42652;
     SideSensor side_sensor;
+    Flash flash;
 
 public:
     Logger();

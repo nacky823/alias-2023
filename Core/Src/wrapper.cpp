@@ -12,6 +12,7 @@ Encoder encoder;
 Iim42652 iim_42652;
 Led led;
 LineSensor line_sensor;
+Logger logger;
 Motor motor;
 RotarySwitch rotary_switch;
 SideSensor side_sensor;

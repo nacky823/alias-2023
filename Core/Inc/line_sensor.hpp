@@ -4,10 +4,10 @@
 #include "main.h"
 #include "declare_extern.h"
 
-#define LED_COMPARE           500
-#define MAX_VALUE             1000
+#define LED_COMPARE 500
+#define MAX_VALUE 1000
 #define EMERGENCY_STOP_BORDER 700
-#define CALIBRATION_COUNT     1500 // 1[ms]
+#define CALIBRATION_COUNT 1500 // 1.25[ms]
 
 class LineSensor
 {

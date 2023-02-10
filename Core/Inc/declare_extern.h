@@ -21,14 +21,20 @@ extern TIM_HandleTypeDef htim12;
 extern TIM_HandleTypeDef htim14;
 
 #ifdef DEBUG_MODE
-extern uint16_t monitor_adc_buffers[NUMBER_OF_ADC];
-extern uint16_t monitor_consecutive_buffers[NUMBER_OF_ADC][NUMBER_OF_SAMPLE];
-extern uint16_t monitor_max_adc_values[NUMBER_OF_ADC];
-extern uint16_t monitor_min_adc_values[NUMBER_OF_ADC];
-extern uint16_t monitor_line_sensor_values[NUMBER_OF_ADC];
-extern uint16_t progress_left_right_difference;
-extern uint16_t monitor_line_sensor_left;
-extern uint16_t monitor_line_sensor_right;
+
+/* Line sensor */
+extern uint16_t g_adc_buffers[NUMBER_OF_ADC];
+extern uint16_t g_consecutive_buffers[NUMBER_OF_ADC][NUMBER_OF_SAMPLE];
+extern uint16_t g_max_adc_values[NUMBER_OF_ADC];
+extern uint16_t g_min_adc_values[NUMBER_OF_ADC];
+extern uint16_t g_adc_values[NUMBER_OF_ADC];
+extern uint32_t g_line_left;
+extern uint32_t g_line_right;
+extern float g_line_diff;
+extern uint8_t g_line_emer;
+extern uint8_t g_line_calib;
+
+
 extern uint8_t g_ignore_flag;
 extern uint8_t g_pre_noise_state_cntup;
 extern uint8_t g_current_state_cntup;

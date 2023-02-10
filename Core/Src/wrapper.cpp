@@ -10,9 +10,6 @@
 #include "declare_extern.h"
 #include "velocity_control.hpp"
 
-#define FIRST_RUN
-#define FIRST_GOAL
-
 Encoder encoder;
 Iim42652 iim_42652;
 Led led;
@@ -29,10 +26,13 @@ void Init()
     line_sensor.Init();
     encoder.Init();
     motor.Init();
-    if(iim_42652.Init() == 0x09) led.ColorOrder('B');
 
-    HAL_TIM_Base_Start_IT(&htim7);
+    HAL_TIM_Base_Start_IT(&htim2);
+    HAL_TIM_Base_Start_IT(&htim5);
     HAL_TIM_Base_Start_IT(&htim6);
+    HAL_TIM_Base_Start_IT(&htim7);
+
+    if(iim_42652.Init() == 0x09) led.Rainbow(2);
 }
 
 void ExternalInterrupt(uint16_t gpio_pin)
@@ -47,17 +47,16 @@ void ExternalInterrupt(uint16_t gpio_pin)
 #endif // DEBUG_MODE
 }
 
-void Interrupt100us()
+void InterruptTim7()
 {
     line_sensor.StoreConsecutiveAdcBuffers();
-    g_count_100us++;
 
 #ifdef DEBUG_MODE
     g_tim7++;
 #endif // DEBUG_MODE
 }
 
-void Interrupt1ms()
+void InterruptTim6()
 {
     switch(g_mode)
     {
@@ -90,7 +89,6 @@ void Interrupt1ms()
             else if(side_sensor.GetGoalMarkerCount() >= 2) g_mode = FIRST_GOAL;
             break;
 
-        case FIRST_GOAL:
 
         default: break;
     }
@@ -151,13 +149,40 @@ void Loop()
     }
 }
 
+
+
+void Ini
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #ifdef DEBUG_MODE
 void Monitor()
 {
     uint8_t led_color = 0x00;
 
     /* Encoder */
-    encoder.UpdateCountDistance();
+    encoder.Update();
     g_distance      = encoder.GetDistance();
     g_distance_10mm = encoder.GetDistanceStack();
 

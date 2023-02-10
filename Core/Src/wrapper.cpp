@@ -156,7 +156,13 @@ void Loop()
 
 
 
-void InitialDebug()
+#ifdef DEBUG_MODE
+void FlashTest()
+{
+
+}
+
+void InitialTest()
 {
     /* Line sensor */
     line_sensor.UpdateAdcValues();

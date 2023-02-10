@@ -29,6 +29,7 @@ public:
  *   FLASH_DATA     (r) : ORIGIN = 0x08004000,   LENGTH = 112K
  *   FLASH         (rx) : ORIGIN = 0x08020000,   LENGTH = 896K
  * }
+ *
  */
 
 #endif // FLASH_HPP_

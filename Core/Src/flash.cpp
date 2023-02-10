@@ -106,7 +106,7 @@ void Flash::Load(void *data, uint32_t address, uint32_t size)
     memcpy(data, reinterpret_cast<uint32_t*>(address), size);
 }
 
-bool Flash::BlankJudgeByte(uint32_t address, uint32_t number)
+bool Flash::CheckBlankByte(uint32_t address, uint32_t number)
 {
     uint8_t byte[number];
 
@@ -117,7 +117,7 @@ bool Flash::BlankJudgeByte(uint32_t address, uint32_t number)
     return true;
 }
 
-bool Flash::BlankJudgeHalfword(uint32_t address, uint32_t number)
+bool Flash::CheckBlankHalfword(uint32_t address, uint32_t number)
 {
     uint16_t half[number];
 
@@ -128,7 +128,7 @@ bool Flash::BlankJudgeHalfword(uint32_t address, uint32_t number)
     return true;
 }
 
-bool Flash::BlankJudgeWord(uint32_t address, uint32_t number)
+bool Flash::CheckBlankWord(uint32_t address, uint32_t number)
 {
     uint32_t word[number];
 

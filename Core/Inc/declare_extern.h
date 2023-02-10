@@ -93,6 +93,8 @@ extern float g_reduced_translation;
 extern float g_duty_l, g_duty_r;
 extern int16_t g_motor_compare_l, g_motor_compare_r;
 
+/* Flash */
+extern uint32_t g_erase_failed_sector;
 
 
 

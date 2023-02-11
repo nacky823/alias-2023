@@ -8,14 +8,14 @@ class Flash
 {
 public:
     bool Clear();
+    bool StoreUint8(uint32_t, uint8_t *, uint32_t);
     bool StoreUint16(uint32_t, uint16_t *, uint32_t);
     bool StoreInt16(uint32_t, int16_t *, uint32_t);
-    bool StoreUint8(uint32_t, uint8_t *, uint32_t);
     bool StoreFloat(uint32_t, float *, uint32_t);
     void Load(void *, uint32_t, uint32_t);
-    bool BlankJudgeByte(uint32_t, uint32_t);
-    bool BlankJudgeHalfword(uint32_t, uint32_t);
-    bool BlankJudgeWord(uint32_t, uint32_t);
+    bool CheckBlankByte(uint32_t, uint32_t);
+    bool CheckBlankHalfword(uint32_t, uint32_t);
+    bool CheckBlankWord(uint32_t, uint32_t);
 
 };
 

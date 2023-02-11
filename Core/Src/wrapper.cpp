@@ -157,9 +157,41 @@ void Loop()
 
 
 #ifdef DEBUG_MODE
-void FlashTest()
+uint8_t FlashTest()
 {
+    uint32_t num_of_data = 3;
+    uint8_t a[num_of_data] = {1,2,3};
+    uint16_t b[num_of_data] = {4,5,6};
+    int16_t c[num_of_data] = {-7,-8,-9};
+    float d[num_of_data] = {0.1,0.2,0.3};
+    uint8_t buff_a[num_of_data];
+    uint16_t buff_b[num_of_data];
+    int16_t buff_c[num_of_data];
+    float buff_d[num_of_data];
 
+    if(!flash.Clear()) return 0x01;
+
+    if(!flash.CheckBlankByte(SECTOR_1_ADDRESS_HEAD, num_of_data)) return 0x02;
+    if(!flash.StoreUint8(SECTOR_1_ADDRESS_HEAD, &a, num_of_data)) return 0x03;
+    if(!flash.Load(buff_a, SECTOR_1_ADDRESS_HEAD, num_of_data)) return 0x04;
+    for(i = 0; i < num_of_data; i++) if(a[i] != buff_a[i]) return 0x05;
+
+    if(!flash.CheckBlankHalfword(SECTOR_2_ADDRESS_HEAD, num_of_data)) return 0x06;
+    if(!flash.StoreUint16(SECTOR_2_ADDRESS_HEAD, &b, num_of_data)) return 0x07;
+    if(!flash.Load(buff_b, SECTOR_2_ADDRESS_HEAD, num_of_data*2)) return 0x08;
+    for(i = 0; i < num_of_data; i++) if(b[i] != buff_b[i]) return 0x09;
+
+    if(!flash.CheckBlankHalfword(SECTOR_3_ADDRESS_HEAD, num_of_data)) return 0x0A;
+    if(!flash.StoreInt16(SECTOR_3_ADDRESS_HEAD, &c, num_of_data)) return 0x0B;
+    if(!flash.Load(buff_c, SECTOR_3_ADDRESS_HEAD, num_of_data*2)) return 0x0C;
+    for(i = 0; i < num_of_data; i++) if(c[i] != buff_c[i]) return 0x0D;
+
+    if(!flash.CheckBlankWord(SECTOR_4_ADDRESS_HEAD, num_of_data)) return 0x0E;
+    if(!flash.StoreFloat(SECTOR_4_ADDRESS_HEAD, &d, num_of_data)) return 0x0F;
+    if(!flash.Load(buff_d, SECTOR_4_ADDRESS_HEAD, num_of_data*4)) return 0x10;
+    for(i = 0; i < num_of_data; i++) if(d[i] != buff_d[i]) return 0x11;
+
+    return 0x12;
 }
 
 void InitialTest()

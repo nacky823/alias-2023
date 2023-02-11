@@ -40,6 +40,7 @@ void Init()
 #endif // DEBUG_MODE
 }
 
+
 void ExternalInterrupt(uint16_t gpio_pin)
 {
     if(gpio_pin == GPIO_PIN_12)     g_main_while_reset = 1;
@@ -52,6 +53,7 @@ void ExternalInterrupt(uint16_t gpio_pin)
 #endif // DEBUG_MODE
 }
 
+
 void InterruptTim7()
 {
     line_sensor.StoreConsecutiveAdcBuffers();
@@ -60,6 +62,7 @@ void InterruptTim7()
     g_tim7++;
 #endif // DEBUG_MODE
 }
+
 
 void InterruptTim6()
 {
@@ -73,9 +76,8 @@ void InterruptTim6()
         case READY:
             line_sensor.UpdateAdcValues();
             g_line_calib = line_sensor.CheckCalibration();
-            if(g_line_calib == 1) led.ColorOrder('R');
-            else if(g_line_calib == 0) led.ColorOrder('X');
-            else led.ColorOrder('W');
+            if(g_line_calib == 0) led.ColorOrder('X');
+            else led.ColorOrder('R');
             break;
 
         case STANDBY:
@@ -83,17 +85,17 @@ void InterruptTim6()
             break;
 
         case FIRST_RUN:
-            encoder.UpdateCountDistance();
             line_sensor.UpdateAdcValues();
-            float rotat = line_sensor.PidControl(LINE_KP_1, LINE_KI_1, LINE_KD_1);
-            float trans = velocity_control.PidControl(TARGET_V_1, V_KP_1, V_KI_1, V_KD_1);
-            motor.Drive(trans, rotat);
+            encoder.Update();
+            g_rotat = line_trace.PidControl(LINE_KP_1, LINE_KI_1, LINE_KD_1);
+            g_trans = velocity_control.PidControl(TARGET_V_1, V_KP_1, V_KI_1, V_KD_1);
+            motor.Drive(g_trans, g_rotat);
             EmergencyStop();
             side_sensor.IgnoreJudgment();
-            if(side_sensor.GetGoalMarkerCount() == 1) g_count_100us = 0;
-            else if(side_sensor.GetGoalMarkerCount() >= 2) g_mode = FIRST_GOAL;
+            g_goal_cnt = side_sensor.GetGoalMarkerCount();
+            if(g_goal_cnt == 1) 
+            else if(g_goal_cnt >= 2) g_mode = FIRST_GOAL;
             break;
-
 
         default: break;
     }
@@ -103,6 +105,7 @@ void InterruptTim6()
 #endif // DEBUG_MODE
 }
 
+
 void Loop()
 {
     g_main_while_reset = 0;
@@ -110,6 +113,32 @@ void Loop()
 
     switch(g_switch_state)
     {
+#ifdef DEBUG_MODE
+        case 0x0D: // Flash debug
+            HAL_Delay(SWITCH_CHANGE_INTERVAL_MS);
+            if(g_main_while_reset == 1) break;
+            led.Blink(3, 'R', 'X');
+            g_mode = STANDBY;
+            HAL_Delay(SWITCH_CHANGE_INTERVAL_MS);
+            if(g_main_while_reset == 1) break;
+
+            led.Blink(3, 'R', 'X');
+            g_flash_test = FlashTest();
+
+            while(g_main_while_reset == 0) {}
+            break;
+
+        case 0x0E: // Debug mode
+            HAL_Delay(SWITCH_CHANGE_INTERVAL_MS);
+            if(g_main_while_reset == 1) break;
+
+            led.Blink(3, 'G', 'X');
+            g_mode = DEBUG;
+
+            while(g_main_while_reset == 0) {}
+            break;
+#endif // DEBUG_MODE
+
         case 0x0F:
             HAL_Delay(SWITCH_CHANGE_INTERVAL_MS);
             if(g_main_while_reset == 1) break;
@@ -139,10 +168,6 @@ void Loop()
             while(g_main_while_reset == 0) {}
             break;
 
-        case 0x02:
-        case 0x03:
-        case 0x04:
-        case 0x05:
         default:
             HAL_Delay(SWITCH_CHANGE_INTERVAL_MS);
             if(g_main_while_reset == 1) break;
@@ -153,7 +178,6 @@ void Loop()
             break;
     }
 }
-
 
 
 #ifdef DEBUG_MODE

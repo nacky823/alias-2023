@@ -32,7 +32,6 @@ extern uint32_t g_line_left;
 extern uint32_t g_line_right;
 extern float g_line_diff;
 extern uint8_t g_line_emer;
-extern uint8_t g_line_calib;
 
 /* Side seneor */
 extern uint8_t g_ignore_flag;
@@ -96,6 +95,14 @@ extern int16_t g_motor_compare_l, g_motor_compare_r;
 /* Flash */
 extern uint32_t g_erase_failed_sector;
 
+/* Main */
+extern uint8_t g_flash_test;
+
+extern uint32_t g_external_interrupt;
+extern uint32_t g_tim7;
+extern uint32_t g_tim6;
+extern uint32_t g_tim5;
+extern uint32_t g_tim2;
 
 
 
@@ -106,5 +113,12 @@ extern float monitor_i;
 
 
 #endif // DEBUG_MODE
+
+extern uint8_t g_line_calib;
+
+/* Main */
+extern uint8_t g_main_while_reset;
+extern uint8_t g_switch_state;
+extern uint8_t g_mode;
 
 #endif // DECLARE_EXTERN_H_

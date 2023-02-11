@@ -105,10 +105,18 @@ extern uint32_t g_tim5;
 extern uint32_t g_tim2;
 
 
+/* Line trace */
+extern float g_trace_p;
+extern float g_trace_i;
+extern float g_trace_d;
 
-extern float monitor_p;
-extern float monitor_d;
-extern float monitor_i;
+/* Velocity control */
+extern float g_target_velocity;
+extern float g_current_velocity;
+extern float g_filter_velocity;
+extern float g_velocity_error;
+extern float g_velocity_p, g_velocity_i, g_velocity_d;
+extern float g_velocity_p_gain, g_velocity_i_gain, g_velocity_d_gain;
 
 
 

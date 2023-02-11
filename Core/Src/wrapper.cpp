@@ -93,15 +93,44 @@ void InterruptTim6()
             EmergencyStop();
             side_sensor.IgnoreJudgment();
             g_goal_cnt = side_sensor.GetGoalMarkerCount();
-            if(g_goal_cnt == 1) 
+            if(g_goal_cnt == 1)
             else if(g_goal_cnt >= 2) g_mode = FIRST_GOAL;
             break;
 
         default: break;
     }
+    g_tim6_complete = 1;
 
 #ifdef DEBUG_MODE
     g_tim6++;
+#endif // DEBUG_MODE
+}
+
+
+void InterruptTim5()
+{
+    switch(g_mode)
+    {
+
+    }
+    g_tim5_complete = 1;
+
+#ifdef DEBUG_MODE
+    g_tim5++;
+#endif // DEBUG_MODE
+}
+
+
+void InterruptTim2()
+{
+    switch(g_mode)
+    {
+
+    }
+    g_tim2_complete = 1;
+
+#ifdef DEBUG_MODE
+    g_tim2++;
 #endif // DEBUG_MODE
 }
 
@@ -114,7 +143,7 @@ void Loop()
     switch(g_switch_state)
     {
 #ifdef DEBUG_MODE
-        case 0x0D: // Flash debug
+        case 0x0B: // Flash debug
             HAL_Delay(SWITCH_CHANGE_INTERVAL_MS);
             if(g_main_while_reset == 1) break;
             led.Blink(3, 'R', 'X');
@@ -128,12 +157,32 @@ void Loop()
             while(g_main_while_reset == 0) {}
             break;
 
-        case 0x0E: // Debug mode
+        case 0x0C: // Velocity control debug
+            HAL_Delay(SWITCH_CHANGE_INTERVAL_MS);
+            if(g_main_while_reset == 1) break;
+
+            led.Blink(3, 'B', 'X');
+            g_mode = VELOCITY_CONTROL_DEBUG;
+
+            while(g_main_while_reset == 0) {}
+            break;
+
+        case 0x0D: // Line trace debug
+            HAL_Delay(SWITCH_CHANGE_INTERVAL_MS);
+            if(g_main_while_reset == 1) break;
+
+            led.Blink(3, 'C', 'X');
+            g_mode = LINE_TRACE_DEBUG;
+
+            while(g_main_while_reset == 0) {}
+            break;
+
+        case 0x0E: // Initial debug
             HAL_Delay(SWITCH_CHANGE_INTERVAL_MS);
             if(g_main_while_reset == 1) break;
 
             led.Blink(3, 'G', 'X');
-            g_mode = DEBUG;
+            g_mode = INITIAL_DEBUG;
 
             while(g_main_while_reset == 0) {}
             break;

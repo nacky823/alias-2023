@@ -9,7 +9,7 @@ void VelocityControl::Init()
 
 float VelocityControl::PidControl(float target, float p_gain, float i_gain, float d_gain)
 {
-    float current = encoder.GetDistance(); // [mm/ms] Omit division 1ms period.
+    float current = encoder.GetDistance() / TIM6_PERIOD; // [mm/ms]
 
     static float pre_filter = 0.0;
     float filter = pre_filter * (1.0 - LPF_VELOCITY) + (current * LPF_VELOCITY);

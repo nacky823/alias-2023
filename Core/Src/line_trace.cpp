@@ -23,9 +23,9 @@ float LineTrace::PidControl(float p_gain, float i_gain, float d_gain)
     i = i_gain * integral_error_;
 
 #ifdef DEBUG_MODE
-    monitor_p = p;
-    monitor_d = d;
-    monitor_i = i;
+    g_trace_p = p;
+    g_trace_d = d;
+    g_trace_i = i;
 #endif // DEBUG_MODE
 
     pre_error = error;

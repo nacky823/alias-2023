@@ -134,5 +134,6 @@ extern uint8_t g_store_periodic_log;
 extern uint8_t g_store_accel_log;
 extern uint8_t g_store_log_error;
 extern float g_trans, g_rotat;
+extern uint8_t g_emergency_stop;
 
 #endif // DECLARE_EXTERN_H_

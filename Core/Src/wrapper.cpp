@@ -43,10 +43,14 @@ void Init()
 
 void ExternalInterrupt(uint16_t gpio_pin)
 {
-    if(gpio_pin == GPIO_PIN_12)     g_main_while_reset = 1;
-    else if(gpio_pin == GPIO_PIN_2) g_main_while_reset = 1;
-    else if(gpio_pin == GPIO_PIN_1) g_main_while_reset = 1;
-    else if(gpio_pin == GPIO_PIN_0) g_main_while_reset = 1;
+    switch(gpio_pin)
+    {
+        case GPIO_PIN_12:
+        case GPIO_PIN_2:
+        case GPIO_PIN_1:
+        case GPIO_PIN_0:
+        default: g_main_while_reset = 1; led.ColorOrder('X'); break;
+    }
 
 #ifdef DEBUG_MODE
     g_external_interrupt++;
@@ -82,15 +86,39 @@ void InterruptTim6()
         case FIRST_RUN:
             if(g_tim6_complete == 0) g_tim6_yet = 0x01;
             g_tim6_complete = 0;
+            /* Sensor update */
             line_sensor.UpdateAdcValues();
             encoder.Update();
-            g_rotat = line_trace.PidControl(LINE_KP_1, LINE_KI_1, LINE_KD_1);
-            g_trans = velocity_control.PidControl(TARGET_V_1, V_KP_1, V_KI_1, V_KD_1);
-            motor.Drive(g_trans, g_rotat);
-            EmergencyStop();
             side_sensor.IgnoreJudgment();
             g_goal_cnt = side_sensor.GetGoalMarkerCount();
-            if(g_goal_cnt >= 2) g_mode = FIRST_GOAL;
+            /* Motor control */
+            float target = TargetVelocity(MIN_VELOCITY);
+            g_trans = velocity_control.PidControl(target, V_P_1, V_I_1, V_D_1);
+            g_rotat = line_trace.PidControl(LINE_P_1, LINE_I_1, LINE_D_1);
+            motor.Drive(g_trans, g_rotat);
+            EmergencyStop();
+            break;
+        
+        case FIRST_GOAL:
+            motor.Drive(0, 0);
+            if(g_first_log_failed == 1) led.ColorOrder('R');
+            else led.ColorOrder('B');
+            break;
+
+        case SECOND_RUN:
+            if(g_tim6_complete == 0) g_tim6_yet = 0x01;
+            g_tim6_complete = 0;
+            /* Sensor update */
+            line_sensor.UpdateAdcValues();
+            encoder.Update();
+            side_sensor.IgnoreJudgment();
+            g_goal_cnt = side_sensor.GetGoalMarkerCount();
+            /* Motor control */
+            float target = TargetVelocity(logger.GetTargetVelocity());
+            g_trans = velocity_control.PidControl(target, V_P_1, V_I_1, V_D_1);
+            g_rotat = line_trace.PidControl(LINE_P_1, LINE_I_1, LINE_D_1);
+            motor.Drive(g_trans, g_rotat);
+            EmergencyStop();
             break;
 
         default: break;
@@ -105,20 +133,31 @@ void InterruptTim6()
 
 void InterruptTim5()
 {
+    if(g_tim5_complete == 0) g_tim5_yet = 0x02;
+    g_tim5_complete = 0;
+
     switch(g_mode)
     {
         case FIRST_RUN:
-            if(g_tim5_complete == 0) g_tim5_yet = 0x02;
-            g_tim5_complete = 0;
             iim_42652.Update();
             uint8_t process_complete = 0;
             process_complete |= g_tim6_yet;
             process_complete |= g_tim5_yet;
             process_complete |= g_tim2_yet;
-            if(g_goal_cnt == 1) Logging(process_complete);
+            if(g_goal_cnt == 1) logger.Logging(process_complete);
             g_tim6_yet = 0;
             g_tim5_yet = 0;
             g_tim2_yet = 0;
+            break;
+
+        case SECOND_RUN:
+            iim_42652.Update();
+            uint8_t process_complete = 0;
+            process_complete |= g_tim6_yet;
+            process_complete |= g_tim5_yet;
+            if(g_goal_cnt == 1) logger.Loading();
+            g_tim6_yet = 0;
+            g_tim5_yet = 0;
             break;
 
         default: break;
@@ -136,12 +175,23 @@ void InterruptTim2()
     switch(g_mode)
     {
         case FIRST_RUN:
+            if(g_emergency_stop == 1)
+            {
+                g_mode = STANDBY; break;
+            }
             if(g_tim2_complete == 0) g_tim2_yet = 0x02;
             g_tim2_complete = 0;
+
             g_store_periodic_log = logger.StorePeriodicLog();
             g_store_accel_log = logger.StoreAccelPositionLog();
-            if(g_store_periodic_log + g_store_accel_log != 0) g_store_log_error = 1;
+            if(g_store_periodic_log + g_store_accel_log != 0)
+            {
+                g_store_log_error = 1;
+                g_first_log_failed = 1;
+            }
             else g_store_log_error = 0;
+
+            if(g_run_end == 1) g_mode = FIRST_GOAL;
             break;
 
         default: break;
@@ -246,6 +296,43 @@ void Loop()
             while(g_main_while_reset == 0) { led.Blink(1, 'W', 'X'); }
             break;
     }
+}
+
+
+void EmergencyStop()
+{
+    static uint8_t emergency_cnt = 0;
+
+    if(emergency_cnt >= EMERGENCY_STOP_COUNT)
+    {
+        motor.Drive(0, 0);
+        led.ColorOrder('W');
+        g_emergency_stop = 1;
+    }
+    else if(line_sensor.GetEmergencyStopFlag() == 1) emergency_cnt++;
+    else emergency_cnt = 0;
+}
+
+
+float TargetVelocity(float target)
+{
+    static uint8_t slow_cnt = 0;
+    static uint8_t stop_cnt = 0;
+
+    if(g_goal_cnt == 1) return target;
+    else if(g_goal_cnt >= 2)
+    {
+        if(slow_cnt < GOAL_SLOW_COUNT)
+        {
+            slow_cnt++; return GOAL_SLOW_VELOCITY;
+        }
+        else if(stop_cnt < GOAL_STOP_COUNT)
+        {
+            stop_cnt++; return 0;
+        }
+        else g_run_end = 1; return 0;
+    }
+    else return MIN_VELOCITY;
 }
 
 

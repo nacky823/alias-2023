@@ -128,5 +128,11 @@ extern uint8_t g_line_calib;
 extern uint8_t g_main_while_reset;
 extern uint8_t g_switch_state;
 extern uint8_t g_mode;
+extern uint8_t g_tim6_complete, g_tim5_complete, g_tim2_complete;
+extern uint8_t g_tim6_yet, g_tim5_yet, g_tim2_yet;
+extern uint8_t g_store_periodic_log;
+extern uint8_t g_store_accel_log;
+extern uint8_t g_store_log_error;
+extern float g_trans, g_rotat;
 
 #endif // DECLARE_EXTERN_H_

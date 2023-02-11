@@ -103,8 +103,7 @@ void Logger::Logging(uint8_t process_complete)
 uint8_t Logger::StorePeriodicLog()
 {
     if(periodic_write_enable_ == 0) return 0;
-    else if(periodic_write_enable_ == 1) periodic_write_enable_ = 0;
-    else return 0xFF;
+    else periodic_write_enable_ = 0;
 
     static uint32_t address_a = HEAD_ADDRESS_BLOCK_A;
     static uint32_t address_b = HEAD_ADDRESS_BLOCK_B;

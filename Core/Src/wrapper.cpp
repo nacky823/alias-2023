@@ -68,11 +68,6 @@ void InterruptTim6()
 {
     switch(g_mode)
     {
-        case RESET:
-            motor.Drive(0, 0);
-            led.ColorOrder('G');
-            break;
-
         case READY:
             line_sensor.UpdateAdcValues();
             g_line_calib = line_sensor.CheckCalibration();
@@ -85,6 +80,8 @@ void InterruptTim6()
             break;
 
         case FIRST_RUN:
+            if(g_tim6_complete == 0) g_tim6_yet = 0x01;
+            g_tim6_complete = 0;
             line_sensor.UpdateAdcValues();
             encoder.Update();
             g_rotat = line_trace.PidControl(LINE_KP_1, LINE_KI_1, LINE_KD_1);
@@ -93,8 +90,7 @@ void InterruptTim6()
             EmergencyStop();
             side_sensor.IgnoreJudgment();
             g_goal_cnt = side_sensor.GetGoalMarkerCount();
-            if(g_goal_cnt == 1)
-            else if(g_goal_cnt >= 2) g_mode = FIRST_GOAL;
+            if(g_goal_cnt >= 2) g_mode = FIRST_GOAL;
             break;
 
         default: break;
@@ -111,7 +107,21 @@ void InterruptTim5()
 {
     switch(g_mode)
     {
+        case FIRST_RUN:
+            if(g_tim5_complete == 0) g_tim5_yet = 0x02;
+            g_tim5_complete = 0;
+            iim_42652.Update();
+            uint8_t process_complete = 0;
+            process_complete |= g_tim6_yet;
+            process_complete |= g_tim5_yet;
+            process_complete |= g_tim2_yet;
+            if(g_goal_cnt == 1) Logging(process_complete);
+            g_tim6_yet = 0;
+            g_tim5_yet = 0;
+            g_tim2_yet = 0;
+            break;
 
+        default: break;
     }
     g_tim5_complete = 1;
 
@@ -125,7 +135,16 @@ void InterruptTim2()
 {
     switch(g_mode)
     {
+        case FIRST_RUN:
+            if(g_tim2_complete == 0) g_tim2_yet = 0x02;
+            g_tim2_complete = 0;
+            g_store_periodic_log = logger.StorePeriodicLog();
+            g_store_accel_log = logger.StoreAccelPositionLog();
+            if(g_store_periodic_log + g_store_accel_log != 0) g_store_log_error = 1;
+            else g_store_log_error = 0;
+            break;
 
+        default: break;
     }
     g_tim2_complete = 1;
 
@@ -212,6 +231,7 @@ void Loop()
             if(g_main_while_reset == 1) break;
 
             led.Blink(3, 'B', 'X');
+            g_tim6_complete = 1;
             g_mode = FIRST_RUN;
 
             while(g_main_while_reset == 0) {}

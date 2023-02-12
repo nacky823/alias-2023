@@ -8,8 +8,8 @@ extern "C" {
 #include "stm32f4xx_hal.h"
 
 #ifdef DEBUG_MODE
-uint8_t FlashTest();
 void InitialTest();
+uint8_t FlashTest();
 uint8_t ImuReadByte(uint8_t, char);
 void ImuWriteByte(uint8_t, uint8_t, char);
 #endif // DEBUG_MODE

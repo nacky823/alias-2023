@@ -18,8 +18,8 @@ float VelocityControl::PidControl(float target, float p_gain, float i_gain, floa
     float error = target - filter;
     static float pre_error = error;
 
-    float differential_error = (error - pre_error) / INTERRUPT_PERIOD_TIM6_S;
-    float integral_error = (error + pre_error) / 2.0 * INTERRUPT_PERIOD_TIM6_S;
+    float differential_error = (error - pre_error) / TIM6_PERIOD_S;
+    float integral_error = (error + pre_error) / 2.0 * TIM6_PERIOD_S;
     SetIntegralError(integral_error);
     pre_error = error;
 

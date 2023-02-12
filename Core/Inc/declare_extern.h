@@ -108,7 +108,7 @@ extern float g_velocity_p, g_velocity_i, g_velocity_d;
 extern float g_velocity_p_gain, g_velocity_i_gain, g_velocity_d_gain;
 
 /* Wrapper */
-extern uint8_t g_imu_init
+extern uint8_t g_imu_init;
 extern uint32_t g_external_interrupt;
 extern uint32_t g_tim7;
 extern uint32_t g_tim6;

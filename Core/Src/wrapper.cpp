@@ -54,7 +54,11 @@ void Init()
     HAL_TIM_Base_Start_IT(&htim6);
     HAL_TIM_Base_Start_IT(&htim7);
 
-    if(imu_init == 0x09) led.Rainbow(2);
+    if(imu_init == 0x09)
+    {
+        led.Blink(1,'R','G');
+        led.Blink(1,'B','X');
+    }
 
 #ifdef DEBUG_MODE
     g_imu_init = imu_init;
@@ -302,7 +306,10 @@ void Loop()
             led.Blink(3, 'R', 'X');
             g_flash_test = FlashTest();
 
-            while(g_main_while_reset == 0) {}
+            while(g_main_while_reset == 0)
+            {
+                if(g_flash_test == 0x0E) led.Rainbow(1);
+            }
             break;
 
         case 0x0C: // Velocity control debug
@@ -348,11 +355,11 @@ void Loop()
 
             led.Blink(3, 'R', 'X');
             g_flash_erase = 0;
-            if(!flash.Clear()) flash_erase = 1;
+            if(!flash.Clear()) g_flash_erase = 1;
 
             while(g_main_while_reset == 0)
             {
-                if(flash_erase == 0) led.Rainbow(1);
+                if(g_flash_erase == 0) led.Rainbow(1);
             }
             break;
 #endif // DEBUG_MODE
@@ -390,8 +397,7 @@ void Loop()
             HAL_Delay(SWITCH_CHANGE_INTERVAL_MS);
             if(g_main_while_reset == 1) break;
 
-            led.Blink(3, 'M', 'B');
-            led.ColorOrder('X');
+            led.Blink(3, 'M', 'X');
             g_mode = SECOND_RUN;
 
             while(g_main_while_reset == 0) {}
@@ -470,6 +476,7 @@ float TargetVelocity(float target, float min)
     else return min;
 }
 
+
 float TargetDuty(float target, float min)
 {
     static uint8_t slow_cnt = 0;
@@ -494,8 +501,8 @@ float TargetDuty(float target, float min)
     else return min;
 }
 
-#ifdef DEBUG_MODE
 
+#ifdef DEBUG_MODE
 uint8_t FlashTest()
 {
     uint32_t address_1 = SECTOR_1_ADDRESS_HEAD;

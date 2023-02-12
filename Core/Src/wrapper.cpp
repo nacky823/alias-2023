@@ -271,7 +271,7 @@ void InterruptTim2()
     switch(g_mode)
     {
         case FIRST_RUN:
-            if(g_goal_cnt == 1);
+            if(g_goal_cnt == 1)
             {
                 g_store_periodic_log = logger.StorePeriodicLog();
                 g_store_accel_log = logger.StoreAccelPositionLog();

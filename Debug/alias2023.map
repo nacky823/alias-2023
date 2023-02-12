@@ -2026,11 +2026,11 @@ Discarded input sections
  .text.InterruptTim7
                 0x0000000000000000       0x20 Core/Src/wrapper.o
  .text.InterruptTim6
-                0x0000000000000000      0x524 Core/Src/wrapper.o
+                0x0000000000000000      0x52c Core/Src/wrapper.o
  .text.InterruptTim5
                 0x0000000000000000       0xdc Core/Src/wrapper.o
  .text.InterruptTim2
-                0x0000000000000000       0xb0 Core/Src/wrapper.o
+                0x0000000000000000       0xbc Core/Src/wrapper.o
  .text.Loop     0x0000000000000000      0x334 Core/Src/wrapper.o
  .bss._ZZ13EmergencyStopE13emergency_cnt
                 0x0000000000000000        0x1 Core/Src/wrapper.o
@@ -6007,7 +6007,7 @@ OUTPUT(alias2023.elf elf32-littlearm)
  .debug_macro   0x0000000000023450      0x202 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.o
  .debug_macro   0x0000000000023652      0x201 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.o
 
-.debug_line     0x0000000000000000    0x1033b
+.debug_line     0x0000000000000000    0x10342
  .debug_line    0x0000000000000000      0x7e5 Core/Src/encoder.o
  .debug_line    0x00000000000007e5      0x986 Core/Src/iim_42652.o
  .debug_line    0x000000000000116b      0x995 Core/Src/line_sensor.o
@@ -6020,17 +6020,17 @@ OUTPUT(alias2023.elf elf32-littlearm)
  .debug_line    0x0000000000005739      0x836 Core/Src/stm32f4xx_it.o
  .debug_line    0x0000000000005f6f      0x761 Core/Src/system_stm32f4xx.o
  .debug_line    0x00000000000066d0      0x7e3 Core/Src/velocity_control.o
- .debug_line    0x0000000000006eb3      0xda7 Core/Src/wrapper.o
- .debug_line    0x0000000000007c5a       0x85 Core/Startup/startup_stm32f405rgtx.o
- .debug_line    0x0000000000007cdf      0x94b Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.o
- .debug_line    0x000000000000862a      0xbb0 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_adc.o
- .debug_line    0x00000000000091da      0xa6f Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.o
- .debug_line    0x0000000000009c49      0x92a Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.o
- .debug_line    0x000000000000a573     0x1bf9 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.o
- .debug_line    0x000000000000c16c      0x9a3 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.o
- .debug_line    0x000000000000cb0f     0x1107 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.o
- .debug_line    0x000000000000dc16     0x19c4 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.o
- .debug_line    0x000000000000f5da      0xd61 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.o
+ .debug_line    0x0000000000006eb3      0xdae Core/Src/wrapper.o
+ .debug_line    0x0000000000007c61       0x85 Core/Startup/startup_stm32f405rgtx.o
+ .debug_line    0x0000000000007ce6      0x94b Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.o
+ .debug_line    0x0000000000008631      0xbb0 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_adc.o
+ .debug_line    0x00000000000091e1      0xa6f Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.o
+ .debug_line    0x0000000000009c50      0x92a Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.o
+ .debug_line    0x000000000000a57a     0x1bf9 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.o
+ .debug_line    0x000000000000c173      0x9a3 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.o
+ .debug_line    0x000000000000cb16     0x1107 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.o
+ .debug_line    0x000000000000dc1d     0x19c4 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.o
+ .debug_line    0x000000000000f5e1      0xd61 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.o
 
 .debug_str      0x0000000000000000    0xca0bb
  .debug_str     0x0000000000000000    0xbe4d5 Core/Src/encoder.o

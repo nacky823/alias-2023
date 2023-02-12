@@ -22,16 +22,18 @@
 #define VELOCITY_D_GAIN  0.0
 #define LIMIT_TRANS_DUTY 0.90
 
-/* ----- Internal timer ----- */
-#define INTERRUPT_PERIOD_TIM6_MS 1.0
-#define INTERRUPT_PERIOD_TIM6_S  0.0010
-
 /* ----- Line sensor ----- */
 #define LINE_SENSOR_CORRECTION 0.950
 #define NUMBER_OF_ADC 14
 #define HALF_NUMBER_OF_ADC 7
 #define NUMBER_OF_SAMPLE 10
 #define INDEX_OF_SAMPLE_MEDIAN 5
+
+/* ----- IMU ----- */
+#define NORMAL_FUCOR_DPS 0.061037
+
+/* ----- Internal timer ----- */
+#define TIM6_PERIOD 1.25 // [ms]
 
 /* ----- Flash memory address ----- */
 #define SECTOR_1_ADDRESS_HEAD 0x08004000 // 16 [KB]

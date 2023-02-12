@@ -6,6 +6,7 @@
 
 #define START_COUNT 32767
 #define DISTANCE_PER_COUNT 0.007191 // tempolary [mm]
+#define MACHINE_TREAD 404 //temp [mm]
 
 class Encoder
 {

@@ -55,7 +55,7 @@ void Logger::Logging(uint8_t process_complete)
     {
         const_distance_log_[log_index] = excess;
         radian_log_[log_index] = radian;
-        various_log_[log_index] = VARIOUS_LOG_WHEN_COPY;
+        various_log_[log_index] = VARIOUS_LOG_DATA_WHEN_COPY;
         excess_stack_ = excess - LOGGING_CONST_DISTANCE;
         now_address++;
 
@@ -110,9 +110,9 @@ uint8_t Logger::StorePeriodicLog()
     static uint32_t address_c = HEAD_ADDRESS_BLOCK_C;
     uint8_t result = 0;
 
-    if(!flash.BlankJudgeWord(address_a, NUM_OF_LOG))     return 0x10;
-    if(!flash.BlankJudgeWord(address_b, NUM_OF_LOG))     return 0x20;
-    if(!flash.BlankJudgeHalfword(address_c, NUM_OF_LOG)) return 0x40;
+    if(!flash.CheckBlankWord(address_a, NUM_OF_LOG))     return 0x10;
+    if(!flash.CheckBlankWord(address_b, NUM_OF_LOG))     return 0x20;
+    if(!flash.CheckBlankHalfword(address_c, NUM_OF_LOG)) return 0x40;
 
     if(!flash.StoreFloat(address_a, const_distance_copy_, NUM_OF_LOG)) result |= 0x01;
     if(!flash.StoreFloat(address_b, radian_copy_, NUM_OF_LOG))         result |= 0x02;

@@ -112,7 +112,7 @@ void Iim42652::Update()
 
     degree_stack_z_ += degree_z;
 
-#define DEBUG_MODE
+#ifdef DEBUG_MODE
     g_deg_z = degree_z;
 #endif // DEBUG_MODE
 }

@@ -4,21 +4,21 @@
 #include "macro.h"
 
 extern ADC_HandleTypeDef hadc1;
-extern DMA_HandleTypeDef hdma_adc1;
 
 extern I2C_HandleTypeDef hi2c2;
 
 extern SPI_HandleTypeDef hspi3;
 
 extern TIM_HandleTypeDef htim1;
+extern TIM_HandleTypeDef htim2;
 extern TIM_HandleTypeDef htim3;
 extern TIM_HandleTypeDef htim4;
+extern TIM_HandleTypeDef htim5;
 extern TIM_HandleTypeDef htim6;
 extern TIM_HandleTypeDef htim7;
 extern TIM_HandleTypeDef htim8;
 extern TIM_HandleTypeDef htim11;
 extern TIM_HandleTypeDef htim12;
-extern TIM_HandleTypeDef htim14;
 
 #ifdef DEBUG_MODE
 
@@ -108,7 +108,7 @@ extern float g_velocity_error;
 extern float g_velocity_p, g_velocity_i, g_velocity_d;
 extern float g_velocity_p_gain, g_velocity_i_gain, g_velocity_d_gain;
 
-/* Main */
+/* Wrapper */
 extern uint8_t g_flash_test;
 
 extern uint32_t g_external_interrupt;
@@ -117,14 +117,11 @@ extern uint32_t g_tim6;
 extern uint32_t g_tim5;
 extern uint32_t g_tim2;
 
-
-
-
 #endif // DEBUG_MODE
 
 extern uint8_t g_line_calib;
 
-/* Main */
+/* Wrapper */
 extern uint8_t g_main_while_reset;
 extern uint8_t g_switch_state;
 extern uint8_t g_mode;

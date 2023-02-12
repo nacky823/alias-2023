@@ -32,6 +32,8 @@
 #define VELOCITY_CONTROL 0x04
 #define LINE_TRACE 0x05
 
+uint8_t FlashTest();
+
 Encoder encoder;
 Flash flash;
 Iim42652 iim_42652;

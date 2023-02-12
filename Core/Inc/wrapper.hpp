@@ -8,13 +8,6 @@ extern "C" {
 #include "stm32f4xx_hal.h"
 #include "declare_extern.h"
 
-#ifdef DEBUG_MODE
-uint8_t FlashTest();
-void InitialTest();
-uint8_t ImuReadByte(uint8_t, char);
-void ImuWriteByte(uint8_t, uint8_t, char);
-#endif // DEBUG_MODE
-
 void Init();
 void ExternalInterrupt(uint16_t);
 void InterruptTim7();
@@ -26,6 +19,13 @@ void Loop();
 void EmergencyStop();
 float TargetVelocity(float target, float min);
 float TargetDuty(float target, float min);
+
+#ifdef DEBUG_MODE
+uint8_t FlashTest();
+void InitialTest();
+uint8_t ImuReadByte(uint8_t, char);
+void ImuWriteByte(uint8_t, uint8_t, char);
+#endif // DEBUG_MODE
 
 #ifdef __cplusplus
 }

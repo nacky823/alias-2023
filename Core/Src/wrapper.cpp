@@ -183,6 +183,34 @@ void InterruptTim6()
             }
             break;
 
+#ifdef DEBUG_MODE
+        case INITIAL_DEBUG:
+            InitialTest();
+            break;
+        
+        case LINE_TRACE_DEBUG:
+            /* Sensor update */
+            line_sensor.UpdateAdcValues();
+            encoder.Update();
+            side_sensor.IgnoreJudgment();
+            g_goal_cnt = side_sensor.GetGoalMarkerCount();
+            /* Motor control */
+            g_rotat = line_trace.PidControl(LINE_P_1, LINE_I_1, LINE_D_1);
+            motor.Drive(0, g_rotat);
+            break;
+        
+        case VELOCITY_CONTROL:
+            /* Sensor update */
+            line_sensor.UpdateAdcValues();
+            encoder.Update();
+            side_sensor.IgnoreJudgment();
+            g_goal_cnt = side_sensor.GetGoalMarkerCount();
+            /* Motor control */
+            g_trans = velocity_control.PidControl(MIN_VELOCITY, V_P_1, V_I_1, V_D_1);
+            motor.Drive(g_trans, 0);
+            break;
+#endif // DEBUG_MODE
+
         default:
             motor.Drive(0, 0); break;
     }

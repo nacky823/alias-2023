@@ -49,11 +49,6 @@ void Init()
     motor.Init();
     uint8_t imu_init = iim_42652.Init();
 
-    HAL_TIM_Base_Start_IT(&htim2);
-    HAL_TIM_Base_Start_IT(&htim5);
-    HAL_TIM_Base_Start_IT(&htim6);
-    HAL_TIM_Base_Start_IT(&htim7);
-
     if(imu_init == 0x09)
     {
         led.Blink(1,'R','G');
@@ -63,6 +58,11 @@ void Init()
 #ifdef DEBUG_MODE
     g_imu_init = imu_init;
 #endif // DEBUG_MODE
+
+    HAL_TIM_Base_Start_IT(&htim2);
+    HAL_TIM_Base_Start_IT(&htim5);
+    HAL_TIM_Base_Start_IT(&htim6);
+    HAL_TIM_Base_Start_IT(&htim7);
 }
 
 

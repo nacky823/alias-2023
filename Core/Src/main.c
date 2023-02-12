@@ -22,6 +22,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include "wrapper.hpp"
 
 /* USER CODE END Includes */
 
@@ -83,6 +84,30 @@ static void MX_TIM5_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+{
+  if(htim->Instance == TIM2)
+  {
+    InterruptTim2();
+  }
+  if(htim->Instance == TIM5)
+  {
+    InterruptTim5();
+  }
+  if(htim->Instance == TIM6)
+  {
+    InterruptTim6();
+  }
+  if(htim->Instance == TIM7)
+  {
+    InterruptTim7();
+  }
+}
+
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
+{
+  ExternalInterrupt(GPIO_Pin);
+}
 
 /* USER CODE END 0 */
 
@@ -93,6 +118,7 @@ static void MX_TIM5_Init(void);
 int main(void)
 {
   /* USER CODE BEGIN 1 */
+  Init();
 
   /* USER CODE END 1 */
 
@@ -138,6 +164,7 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+    Loop();
   }
   /* USER CODE END 3 */
 }

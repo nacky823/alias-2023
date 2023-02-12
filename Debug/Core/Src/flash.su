@@ -1,0 +1,9 @@
+flash.cpp:4:6:bool Flash::Clear()	40	static
+flash.cpp:33:6:bool Flash::StoreUint8(uint32_t, uint8_t*, uint32_t)	40	static
+flash.cpp:50:6:bool Flash::StoreUint16(uint32_t, uint16_t*, uint32_t)	40	static
+flash.cpp:68:6:bool Flash::StoreInt16(uint32_t, int16_t*, uint32_t)	40	static
+flash.cpp:86:6:bool Flash::StoreFloat(uint32_t, float*, uint32_t)	40	static
+flash.cpp:104:6:void Flash::Load(void*, uint32_t, uint32_t)	24	static
+flash.cpp:109:6:bool Flash::CheckBlankByte(uint32_t, uint32_t)	48	dynamic
+flash.cpp:120:6:bool Flash::CheckBlankHalfword(uint32_t, uint32_t)	56	dynamic
+flash.cpp:131:6:bool Flash::CheckBlankWord(uint32_t, uint32_t)	56	dynamic

@@ -1,0 +1,8 @@
+side_sensor.cpp:3:1:SideSensor::SideSensor()	16	static
+side_sensor.cpp:5:6:void SideSensor::SensorUpdate()	24	static
+side_sensor.cpp:38:6:void SideSensor::IgnoreJudgment()	24	static
+side_sensor.cpp:70:6:void SideSensor::NoiseTolerance()	24	static
+side_sensor.cpp:89:6:void SideSensor::CountUp()	32	static
+side_sensor.cpp:185:9:uint8_t SideSensor::GetGoalMarkerCount()	16	static
+side_sensor.cpp:190:9:uint8_t SideSensor::GetCornerMarkerCount()	16	static
+side_sensor.cpp:195:9:uint8_t SideSensor::GetCrossLineCount()	16	static

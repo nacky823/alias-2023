@@ -1,0 +1,8 @@
+encoder.cpp:3:1:Encoder::Encoder()	16	static
+encoder.cpp:5:6:void Encoder::Init()	16	static
+encoder.cpp:11:6:void Encoder::Update()	40	static
+encoder.cpp:31:6:void Encoder::Reset()	16	static
+encoder.cpp:40:6:void Encoder::ResetDistanceStack()	16	static
+encoder.cpp:45:7:float Encoder::GetDistance()	16	static
+encoder.cpp:50:7:float Encoder::GetDistanceStack()	16	static
+encoder.cpp:55:7:float Encoder::AngularVelocity()	24	static

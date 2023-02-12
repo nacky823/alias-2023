@@ -1,0 +1,22 @@
+iim_42652.cpp:3:1:Iim42652::Iim42652()	16	static
+iim_42652.cpp:5:9:uint8_t Iim42652::Init()	24	static
+iim_42652.cpp:44:9:uint8_t Iim42652::Read(uint8_t, char)	24	static
+iim_42652.cpp:62:6:void Iim42652::Write(uint8_t, uint8_t, char)	16	static
+iim_42652.cpp:76:6:bool Iim42652::CheckRead(uint8_t, uint8_t, char)	24	static
+iim_42652.cpp:89:6:bool Iim42652::CheckWrite(uint8_t, uint8_t, char)	16	static
+iim_42652.cpp:96:9:int16_t Iim42652::Read2Byte(uint8_t, uint8_t, char)	24	static
+iim_42652.cpp:106:6:void Iim42652::Update()	48	static
+iim_42652.cpp:120:6:void Iim42652::ResetDegreeStackZ()	16	static
+iim_42652.cpp:125:8:double Iim42652::GetDegreeStackZ()	16	static
+iim_42652.cpp:130:9:int16_t Iim42652::GyroXLeft()	16	static
+iim_42652.cpp:135:9:int16_t Iim42652::GyroXRight()	16	static
+iim_42652.cpp:140:9:int16_t Iim42652::GyroYLeft()	16	static
+iim_42652.cpp:145:9:int16_t Iim42652::GyroYRight()	16	static
+iim_42652.cpp:150:9:int16_t Iim42652::GyroZLeft()	16	static
+iim_42652.cpp:155:9:int16_t Iim42652::GyroZRight()	16	static
+iim_42652.cpp:160:9:int16_t Iim42652::AccelXLeft()	16	static
+iim_42652.cpp:165:9:int16_t Iim42652::AccelXRight()	16	static
+iim_42652.cpp:170:9:int16_t Iim42652::AccelYLeft()	16	static
+iim_42652.cpp:175:9:int16_t Iim42652::AccelYRight()	16	static
+iim_42652.cpp:180:9:int16_t Iim42652::AccelZLeft()	16	static
+iim_42652.cpp:185:9:int16_t Iim42652::AccelZRight()	16	static

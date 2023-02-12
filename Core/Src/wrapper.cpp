@@ -470,10 +470,10 @@ uint8_t FlashTest()
     uint16_t b[num_of_data] = {4,5,6};
     int16_t c[num_of_data] = {-7,-8,-9};
     float d[num_of_data] = {0.1,0.2,0.3};
-    uint8_t buff_a[num_of_data];
-    uint16_t buff_b[num_of_data];
-    int16_t buff_c[num_of_data];
-    float buff_d[num_of_data];
+    uint8_t buff_a[num_of_data] = {0};
+    uint16_t buff_b[num_of_data] = {0};
+    int16_t buff_c[num_of_data] = {0};
+    float buff_d[num_of_data] = {0};
 
     if(!flash.Clear()) return 0x01;
 

@@ -1,0 +1,5 @@
+velocity_control.cpp:3:1:VelocityControl::VelocityControl()	16	static
+velocity_control.cpp:5:6:void VelocityControl::Init()	16	static
+velocity_control.cpp:10:7:float VelocityControl::PidControl(float, float, float, float)	72	static
+velocity_control.cpp:42:6:void VelocityControl::SetIntegralError(float)	16	static
+velocity_control.cpp:47:7:float VelocityControl::GetIntegralError()	16	static

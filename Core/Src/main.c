@@ -146,7 +146,6 @@ float g_velocity_p = 0, g_velocity_i = 0, g_velocity_d = 0;
 float g_velocity_p_gain = 0, g_velocity_i_gain = 0, g_velocity_d_gain = 0;
 
 /* Wrapper */
-uint8_t g_imu_init = 0;
 uint32_t g_external_interrupt = 0;
 uint32_t g_tim7 = 0;
 uint32_t g_tim6 = 0;

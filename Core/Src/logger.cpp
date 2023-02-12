@@ -172,8 +172,8 @@ void Logger::Loading()
     uint16_t log_various = *(reinterpret_cast<uint16_t*>(now_address + HEAD_ADDRESS_BLOCK_C));
     bool log_corner = false, log_corner_pass = false;
     bool log_cross = false, log_cross_pass = false;
-    if(log_various & 0x0002 == 0x0002) log_corner = true;
-    if(log_various & 0x0001 == 0x0001) log_cross = true;
+    if((log_various & 0x0002) == 0x0002) log_corner = true;
+    if((log_various & 0x0001) == 0x0001) log_cross = true;
 
     /* Get correction position */
     bool run_corner = false, run_corner_pass = false;

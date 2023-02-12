@@ -1,10 +1,11 @@
 #ifndef LOGGER_HPP_
 #define LOGGER_HPP_
 
+#include "macro.h"
 #include "encoder.hpp"
+#include "flash.hpp"
 #include "iim_42652.hpp"
 #include "side_sensor.hpp"
-#include "flash.hpp"
 
 #define LOGGING_CONST_DISTANCE 20.0 // [mm]
 #define NUM_OF_LOG     10
@@ -17,10 +18,10 @@
 #define ACCEL_VELOCITY 0.5
 #define CORRECTION_WAIT_COUNT 3
 
-#define HEAD_ADDRESS_BLOCK_A 0x00
-#define HEAD_ADDRESS_BLOCK_B 0x00
-#define HEAD_ADDRESS_BLOCK_C 0x00
-#define HEAD_ADDRESS_BLOCK_D 0x00
+#define HEAD_ADDRESS_BLOCK_A SECTOR_2_ADDRESS_HEAD
+#define HEAD_ADDRESS_BLOCK_B SECTOR_3_ADDRESS_HEAD
+#define HEAD_ADDRESS_BLOCK_C SECTOR_4_ADDRESS_HEAD
+#define HEAD_ADDRESS_BLOCK_D SECTOR_1_ADDRESS_HEAD
 
 class Logger
 {
@@ -44,9 +45,9 @@ private:
     float target_velocity_;
 
     Encoder encoder;
+    Flash flash;
     Iim42652 iim_42652;
     SideSensor side_sensor;
-    Flash flash;
 
 public:
     Logger();

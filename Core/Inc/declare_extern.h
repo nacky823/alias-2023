@@ -95,16 +95,6 @@ extern int16_t g_motor_compare_l, g_motor_compare_r;
 /* Flash */
 extern uint32_t g_erase_failed_sector;
 
-/* Main */
-extern uint8_t g_flash_test;
-
-extern uint32_t g_external_interrupt;
-extern uint32_t g_tim7;
-extern uint32_t g_tim6;
-extern uint32_t g_tim5;
-extern uint32_t g_tim2;
-
-
 /* Line trace */
 extern float g_trace_p;
 extern float g_trace_i;
@@ -117,6 +107,16 @@ extern float g_filter_velocity;
 extern float g_velocity_error;
 extern float g_velocity_p, g_velocity_i, g_velocity_d;
 extern float g_velocity_p_gain, g_velocity_i_gain, g_velocity_d_gain;
+
+/* Main */
+extern uint8_t g_flash_test;
+
+extern uint32_t g_external_interrupt;
+extern uint32_t g_tim7;
+extern uint32_t g_tim6;
+extern uint32_t g_tim5;
+extern uint32_t g_tim2;
+
 
 
 

@@ -1,16 +1,38 @@
 #include "wrapper.hpp"
 #include "encoder.hpp"
+#include "flash.hpp"
 #include "iim_42652.hpp"
 #include "led.hpp"
 #include "line_sensor.hpp"
 #include "line_trace.hpp"
+#include "logger.hpp"
 #include "motor.hpp"
 #include "rotary_switch.hpp"
 #include "side_sensor.hpp"
-#include "declare_extern.h"
 #include "velocity_control.hpp"
+#include "macro.h"
+#include "declare_extern.h"
+
+#define SWITCH_CHANGE_INTERVAL_MS 3000 // [ms]
+#define EMERGENCY_STOP_COUNT 5 // tim6 [ms]
+#define GOAL_SLOW_COUNT 10     // tim6 [ms]
+#define GOAL_SLOW_VELOCITY 1.0 // [mm/ms]
+#define GOAL_STOP_COUNT 2000   // tim6 [ms]
+/* g_mode */
+#define VELOCITY_CONTROL_DEBUG 0x0C
+#define LINE_TRACE_DEBUG 0x0D
+#define INITIAL_DEBUG 0x0E
+#define READY 0x0F
+#define STANDBY 0x00
+#define FIRST_RUN 0x01
+#define FIRST_GOAL 0x10
+#define SECOND_RUN 0x02
+#define SECOND_GOAL 0x20
+#define VELOCITY_CONTROL 0x04
+#define LINE_TRACE 0x05
 
 Encoder encoder;
+Flash flash;
 Iim42652 iim_42652;
 Led led;
 LineSensor line_sensor;
@@ -70,6 +92,9 @@ void InterruptTim7()
 
 void InterruptTim6()
 {
+    if(g_tim6_complete == 0) g_tim6_yet = 0x01;
+    g_tim6_complete = 0;
+
     switch(g_mode)
     {
         case READY:
@@ -84,15 +109,13 @@ void InterruptTim6()
             break;
 
         case FIRST_RUN:
-            if(g_tim6_complete == 0) g_tim6_yet = 0x01;
-            g_tim6_complete = 0;
             /* Sensor update */
             line_sensor.UpdateAdcValues();
             encoder.Update();
             side_sensor.IgnoreJudgment();
             g_goal_cnt = side_sensor.GetGoalMarkerCount();
             /* Motor control */
-            float target = TargetVelocity(MIN_VELOCITY);
+            float target = TargetVelocity(MIN_VELOCITY, MIN_VELOCITY);
             g_trans = velocity_control.PidControl(target, V_P_1, V_I_1, V_D_1);
             g_rotat = line_trace.PidControl(LINE_P_1, LINE_I_1, LINE_D_1);
             motor.Drive(g_trans, g_rotat);
@@ -106,22 +129,63 @@ void InterruptTim6()
             break;
 
         case SECOND_RUN:
-            if(g_tim6_complete == 0) g_tim6_yet = 0x01;
-            g_tim6_complete = 0;
             /* Sensor update */
             line_sensor.UpdateAdcValues();
             encoder.Update();
             side_sensor.IgnoreJudgment();
             g_goal_cnt = side_sensor.GetGoalMarkerCount();
             /* Motor control */
-            float target = TargetVelocity(logger.GetTargetVelocity());
+            float target = TargetVelocity(logger.GetTargetVelocity(), MIN_VELOCITY);
             g_trans = velocity_control.PidControl(target, V_P_1, V_I_1, V_D_1);
             g_rotat = line_trace.PidControl(LINE_P_1, LINE_I_1, LINE_D_1);
             motor.Drive(g_trans, g_rotat);
             EmergencyStop();
+            if(g_run_end == 1) g_mode = SECOND_GOAL;
             break;
 
-        default: break;
+        case SECOND_GOAL:
+            motor.Drive(0, 0);
+            break;
+
+        case LINE_TRACE:
+            /* Sensor update */
+            line_sensor.UpdateAdcValues();
+            encoder.Update();
+            side_sensor.IgnoreJudgment();
+            g_goal_cnt = side_sensor.GetGoalMarkerCount();
+            /* Motor control */
+            float common_speed = TargetDuty(COMMON_DUTY, COMMON_DUTY);
+            g_rotat = line_trace.PidControl(LINE_P_1, LINE_I_1, LINE_D_1);
+            motor.Drive(common_speed, g_rotat);
+            EmergencyStop();
+            if(g_run_end == 1)
+            {
+                led.ColorOrder('Y');
+                g_mode = STANDBY;
+            }
+            break;
+
+        case VELOCITY_CONTROL:
+            /* Sensor update */
+            line_sensor.UpdateAdcValues();
+            encoder.Update();
+            side_sensor.IgnoreJudgment();
+            g_goal_cnt = side_sensor.GetGoalMarkerCount();
+            /* Motor control */
+            float target = TargetVelocity(MIN_VELOCITY, MIN_VELOCITY);
+            g_trans = velocity_control.PidControl(target, V_P_1, V_I_1, V_D_1);
+            g_rotat = line_trace.PidControl(LINE_P_1, LINE_I_1, LINE_D_1);
+            motor.Drive(g_trans, g_rotat);
+            EmergencyStop();
+            if(g_run_end == 1)
+            {
+                led.ColorOrder('C');
+                g_mode = STANDBY;
+            }
+            break;
+
+        default:
+            motor.Drive(0, 0); break;
     }
     g_tim6_complete = 1;
 
@@ -152,12 +216,7 @@ void InterruptTim5()
 
         case SECOND_RUN:
             iim_42652.Update();
-            uint8_t process_complete = 0;
-            process_complete |= g_tim6_yet;
-            process_complete |= g_tim5_yet;
             if(g_goal_cnt == 1) logger.Loading();
-            g_tim6_yet = 0;
-            g_tim5_yet = 0;
             break;
 
         default: break;
@@ -172,24 +231,17 @@ void InterruptTim5()
 
 void InterruptTim2()
 {
+    if(g_tim2_complete == 0) g_tim2_yet = 0x02;
+    g_tim2_complete = 0;
+
+    if(g_emergency_stop == 1) g_mode =STANDBY;
+
     switch(g_mode)
     {
         case FIRST_RUN:
-            if(g_emergency_stop == 1)
-            {
-                g_mode = STANDBY; break;
-            }
-            if(g_tim2_complete == 0) g_tim2_yet = 0x02;
-            g_tim2_complete = 0;
-
             g_store_periodic_log = logger.StorePeriodicLog();
             g_store_accel_log = logger.StoreAccelPositionLog();
-            if(g_store_periodic_log + g_store_accel_log != 0)
-            {
-                g_store_log_error = 1;
-                g_first_log_failed = 1;
-            }
-            else g_store_log_error = 0;
+            if(g_store_periodic_log + g_store_accel_log != 0) g_first_log_failed = 1;
 
             if(g_run_end == 1) g_mode = FIRST_GOAL;
             break;
@@ -230,7 +282,8 @@ void Loop()
             HAL_Delay(SWITCH_CHANGE_INTERVAL_MS);
             if(g_main_while_reset == 1) break;
 
-            led.Blink(3, 'B', 'X');
+            led.Blink(3, 'G', 'B');
+            led.ColorOrder('X');
             g_mode = VELOCITY_CONTROL_DEBUG;
 
             while(g_main_while_reset == 0) {}
@@ -240,7 +293,8 @@ void Loop()
             HAL_Delay(SWITCH_CHANGE_INTERVAL_MS);
             if(g_main_while_reset == 1) break;
 
-            led.Blink(3, 'C', 'X');
+            led.Blink(3, 'G', 'Y');
+            led.ColorOrder('X');
             g_mode = LINE_TRACE_DEBUG;
 
             while(g_main_while_reset == 0) {}
@@ -254,6 +308,25 @@ void Loop()
             g_mode = INITIAL_DEBUG;
 
             while(g_main_while_reset == 0) {}
+            break;
+#else // DEBUG_MODE
+        
+        case 0x0E: // Flash erase
+            HAL_Delay(SWITCH_CHANGE_INTERVAL_MS);
+            if(g_main_while_reset == 1) break;
+            led.Blink(3, 'R', 'X');
+            g_mode = STANDBY;
+            HAL_Delay(SWITCH_CHANGE_INTERVAL_MS);
+            if(g_main_while_reset == 1) break;
+
+            led.Blink(3, 'R', 'X');
+            uint8_t flash_erase = 0;
+            if(!flash.Clear()) flash_erase = 1;
+
+            while(g_main_while_reset == 0)
+            {
+                if(flash_erase == 0) led.Rainbow(1);
+            }
             break;
 #endif // DEBUG_MODE
 
@@ -281,8 +354,40 @@ void Loop()
             if(g_main_while_reset == 1) break;
 
             led.Blink(3, 'B', 'X');
-            g_tim6_complete = 1;
             g_mode = FIRST_RUN;
+
+            while(g_main_while_reset == 0) {}
+            break;
+
+        case 0x02:
+            HAL_Delay(SWITCH_CHANGE_INTERVAL_MS);
+            if(g_main_while_reset == 1) break;
+
+            led.Blink(3, 'M', 'B');
+            led.ColorOrder('X');
+            g_mode = SECOND_RUN;
+
+            while(g_main_while_reset == 0) {}
+            break;
+
+        case 0x04: // Velocity control
+            HAL_Delay(SWITCH_CHANGE_INTERVAL_MS);
+            if(g_main_while_reset == 1) break;
+
+            led.Blink(3, 'G', 'B');
+            led.ColorOrder('X');
+            g_mode = VELOCITY_CONTROL;
+
+            while(g_main_while_reset == 0) {}
+            break;
+
+        case 0x05: // Line trace
+            HAL_Delay(SWITCH_CHANGE_INTERVAL_MS);
+            if(g_main_while_reset == 1) break;
+
+            led.Blink(3, 'G', 'Y');
+            led.ColorOrder('X');
+            g_mode = LINE_TRACE;
 
             while(g_main_while_reset == 0) {}
             break;
@@ -314,7 +419,7 @@ void EmergencyStop()
 }
 
 
-float TargetVelocity(float target)
+float TargetVelocity(float target, float min)
 {
     static uint8_t slow_cnt = 0;
     static uint8_t stop_cnt = 0;
@@ -332,9 +437,29 @@ float TargetVelocity(float target)
         }
         else g_run_end = 1; return 0;
     }
-    else return MIN_VELOCITY;
+    else return min;
 }
 
+float TargetDuty(float target, float min)
+{
+    static uint8_t slow_cnt = 0;
+    static uint8_t stop_cnt = 0;
+
+    if(g_goal_cnt == 1) return target;
+    else if(g_goal_cnt >= 2)
+    {
+        if(slow_cnt < GOAL_SLOW_COUNT)
+        {
+            slow_cnt++; return min * 0.6;
+        }
+        else if(stop_cnt < GOAL_STOP_COUNT)
+        {
+            stop_cnt++; return 0;
+        }
+        else g_run_end = 1; return 0;
+    }
+    else return min;
+}
 
 #ifdef DEBUG_MODE
 uint8_t FlashTest()

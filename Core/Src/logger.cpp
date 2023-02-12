@@ -29,7 +29,7 @@ void Logger::Logging(uint8_t process_complete)
     uint8_t corner_cnt = side_sensor.GetCornerMarkerCount();
     uint8_t cross_cnt  = side_sensor.GetCrossLineCount();
     uint16_t various_buff = 0;
-    if(process_complete == 1)        various_buff |= 0x0004;
+    if(process_complete != 0)        various_buff |= 0x0004;
     if(pre_corner_cnt != corner_cnt) various_buff |= 0x0002;
     if(pre_cross_cnt != cross_cnt)   various_buff |= 0x0001;
     pre_corner_cnt = corner_cnt;

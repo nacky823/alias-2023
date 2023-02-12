@@ -9,8 +9,8 @@ wrapper.cpp:434:6:void EmergencyStop()	8	static
 wrapper.cpp:449:7:float TargetVelocity(float, float)	16	static
 wrapper.cpp:473:7:float TargetDuty(float, float)	24	static
 wrapper.cpp:499:9:uint8_t FlashTest()	152	dynamic
-wrapper.cpp:541:6:void InitialTest()	8	static
-wrapper.cpp:582:9:uint8_t ImuReadByte(uint8_t, char)	16	static
-wrapper.cpp:587:6:void ImuWriteByte(uint8_t, uint8_t, char)	16	static
-wrapper.cpp:590:1:void __static_initialization_and_destruction_0(int, int)	16	static
-wrapper.cpp:590:1:cpp)	8	static
+wrapper.cpp:540:6:void InitialTest()	8	static
+wrapper.cpp:581:9:uint8_t ImuReadByte(uint8_t, char)	16	static
+wrapper.cpp:586:6:void ImuWriteByte(uint8_t, uint8_t, char)	16	static
+wrapper.cpp:589:1:void __static_initialization_and_destruction_0(int, int)	16	static
+wrapper.cpp:589:1:cpp)	8	static

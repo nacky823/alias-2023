@@ -115,8 +115,8 @@ void InterruptTim6()
             side_sensor.IgnoreJudgment();
             g_goal_cnt = side_sensor.GetGoalMarkerCount();
             /* Motor control */
-            float target = TargetVelocity(MIN_VELOCITY, MIN_VELOCITY);
-            g_trans = velocity_control.PidControl(target, V_P_1, V_I_1, V_D_1);
+            g_target = TargetVelocity(MIN_VELOCITY, MIN_VELOCITY);
+            g_trans = velocity_control.PidControl(g_target, V_P_1, V_I_1, V_D_1);
             g_rotat = line_trace.PidControl(LINE_P_1, LINE_I_1, LINE_D_1);
             motor.Drive(g_trans, g_rotat);
             EmergencyStop();
@@ -135,8 +135,8 @@ void InterruptTim6()
             side_sensor.IgnoreJudgment();
             g_goal_cnt = side_sensor.GetGoalMarkerCount();
             /* Motor control */
-            float target = TargetVelocity(logger.GetTargetVelocity(), MIN_VELOCITY);
-            g_trans = velocity_control.PidControl(target, V_P_1, V_I_1, V_D_1);
+            g_target = TargetVelocity(logger.GetTargetVelocity(), MIN_VELOCITY);
+            g_trans = velocity_control.PidControl(g_target, V_P_1, V_I_1, V_D_1);
             g_rotat = line_trace.PidControl(LINE_P_1, LINE_I_1, LINE_D_1);
             motor.Drive(g_trans, g_rotat);
             EmergencyStop();
@@ -154,9 +154,9 @@ void InterruptTim6()
             side_sensor.IgnoreJudgment();
             g_goal_cnt = side_sensor.GetGoalMarkerCount();
             /* Motor control */
-            float common_speed = TargetDuty(COMMON_DUTY, COMMON_DUTY);
+            g_common_speed = TargetDuty(COMMON_DUTY, COMMON_DUTY);
             g_rotat = line_trace.PidControl(LINE_P_1, LINE_I_1, LINE_D_1);
-            motor.Drive(common_speed, g_rotat);
+            motor.Drive(g_common_speed, g_rotat);
             EmergencyStop();
             if(g_run_end == 1)
             {
@@ -172,8 +172,8 @@ void InterruptTim6()
             side_sensor.IgnoreJudgment();
             g_goal_cnt = side_sensor.GetGoalMarkerCount();
             /* Motor control */
-            float target = TargetVelocity(MIN_VELOCITY, MIN_VELOCITY);
-            g_trans = velocity_control.PidControl(target, V_P_1, V_I_1, V_D_1);
+            g_target = TargetVelocity(MIN_VELOCITY, MIN_VELOCITY);
+            g_trans = velocity_control.PidControl(g_target, V_P_1, V_I_1, V_D_1);
             g_rotat = line_trace.PidControl(LINE_P_1, LINE_I_1, LINE_D_1);
             motor.Drive(g_trans, g_rotat);
             EmergencyStop();
@@ -204,11 +204,11 @@ void InterruptTim5()
     {
         case FIRST_RUN:
             iim_42652.Update();
-            uint8_t process_complete = 0;
-            process_complete |= g_tim6_yet;
-            process_complete |= g_tim5_yet;
-            process_complete |= g_tim2_yet;
-            if(g_goal_cnt == 1) logger.Logging(process_complete);
+            g_process_complete = 0;
+            g_process_complete |= g_tim6_yet;
+            g_process_complete |= g_tim5_yet;
+            g_process_complete |= g_tim2_yet;
+            if(g_goal_cnt == 1) logger.Logging(g_process_complete);
             g_tim6_yet = 0;
             g_tim5_yet = 0;
             g_tim2_yet = 0;
@@ -320,7 +320,7 @@ void Loop()
             if(g_main_while_reset == 1) break;
 
             led.Blink(3, 'R', 'X');
-            uint8_t flash_erase = 0;
+            g_flash_erase = 0;
             if(!flash.Clear()) flash_erase = 1;
 
             while(g_main_while_reset == 0)
@@ -464,7 +464,7 @@ float TargetDuty(float target, float min)
 #ifdef DEBUG_MODE
 uint8_t FlashTest()
 {
-    uint32_t num_of_data = 3;
+    uint32_t i, num_of_data = 3;
     uint8_t a[num_of_data] = {1,2,3};
     uint16_t b[num_of_data] = {4,5,6};
     int16_t c[num_of_data] = {-7,-8,-9};
@@ -478,7 +478,7 @@ uint8_t FlashTest()
 
     if(!flash.CheckBlankByte(SECTOR_1_ADDRESS_HEAD, num_of_data)) return 0x02;
     if(!flash.StoreUint8(SECTOR_1_ADDRESS_HEAD, &a, num_of_data)) return 0x03;
-    if(!flash.Load(buff_a, SECTOR_1_ADDRESS_HEAD, num_of_data)) return 0x04;
+    memcpy(buff_a, reinterpret_cast<uint32_t*>(SECTOR_1_ADDRESS_HEAD), num_of_data);
     for(i = 0; i < num_of_data; i++) if(a[i] != buff_a[i]) return 0x05;
 
     if(!flash.CheckBlankHalfword(SECTOR_2_ADDRESS_HEAD, num_of_data)) return 0x06;

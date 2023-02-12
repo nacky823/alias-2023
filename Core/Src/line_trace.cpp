@@ -14,8 +14,8 @@ float LineTrace::PidControl(float p_gain, float i_gain, float d_gain)
     float p, d, i;
 
     error = line_sensor.LeftRightDifference();
-    differential_error = (error - pre_error) / INTERRUPT_PERIOD_TIM6_S;
-    integral_error = (error + pre_error) / 2.0 * INTERRUPT_PERIOD_TIM6_S;
+    differential_error = (error - pre_error) / TIM6_PERIOD_S;
+    integral_error = (error + pre_error) / 2.0 * TIM6_PERIOD_S;
     SetIntegralError(integral_error);
 
     p = p_gain * error;

@@ -98,7 +98,7 @@ float LineSensor::LeftRightDifference()
     uint32_t left = 0, right = 0;
 
     for(i = 0; i < HALF_NUMBER_OF_ADC; i++) left += adc_values_[i];
-    for(i = HALF_NUMBER_OF_ADC; i < NUMBER_OF_ADC; i++) rigit += adc_values_[i];
+    for(i = HALF_NUMBER_OF_ADC; i < NUMBER_OF_ADC; i++) right += adc_values_[i];
 
 #ifdef DEBUG_MODE
     g_line_left = left;  g_line_right = right;

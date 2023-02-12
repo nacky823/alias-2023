@@ -34,6 +34,7 @@
 
 /* ----- Internal timer ----- */
 #define TIM6_PERIOD 1.25 // [ms]
+#define TIM6_PERIOD_S 0.00125 // [s]
 
 /* ----- Flash memory address ----- */
 #define SECTOR_1_ADDRESS_HEAD 0x08004000 // 16 [KB]

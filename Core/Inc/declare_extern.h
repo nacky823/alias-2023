@@ -134,5 +134,9 @@ extern float g_rotat;
 extern uint8_t g_first_log_failed;
 extern uint8_t g_store_periodic_log;
 extern uint8_t g_store_accel_log;
+extern float g_target;
+extern float g_common_speed;
+extern uint8_t g_process_complete;
+extern uint8_t g_flash_erase;
 
 #endif // DECLARE_EXTERN_H_

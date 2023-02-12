@@ -16,7 +16,7 @@ private:
 public:
     VelocityControl();
     void Init();
-    void PidControl(float, float, float, float);
+    float PidControl(float, float, float, float);
     float GetIntegralError();
 
 };

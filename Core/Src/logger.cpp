@@ -140,14 +140,14 @@ uint8_t Logger::StoreAccelPositionLog()
     {
         accel = i;
         address = HEAD_ADDRESS_BLOCK_D + accel_address_[i-1];
-        if(!flash.BlankJudgment(address, 1))      return 0x10;
+        if(!flash.CheckBlankByte(address, 1))      return 0x10;
         if(!flash.StoreUint8(address, &accel, 1)) return 0x20;
     }
     for(i = 1; i <= accel_step; i++)
     {
         decel = i << 4;
         address = HEAD_ADDRESS_BLOCK_D + decel_address_[i-1];
-        if(!flash.BlankJudgment(address, 1))      return 0x30;
+        if(!flash.CheckBlankByte(address, 1))      return 0x30;
         if(!flash.StoreUint8(address, &decel, 1)) return 0x40;
     }
     

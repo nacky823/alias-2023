@@ -148,6 +148,7 @@ void InterruptTim6()
 
         case SECOND_GOAL:
             motor.Drive(0, 0);
+            led.ColorOrder('M');
             break;
 
         case LINE_TRACE:
@@ -270,11 +271,13 @@ void InterruptTim2()
     switch(g_mode)
     {
         case FIRST_RUN:
-            g_store_periodic_log = logger.StorePeriodicLog();
-            g_store_accel_log = logger.StoreAccelPositionLog();
-            if(g_store_periodic_log + g_store_accel_log != 0) g_first_log_failed = 1;
-
-            if(g_run_end == 1) g_mode = FIRST_GOAL;
+            if(g_goal_cnt == 1);
+            {
+                g_store_periodic_log = logger.StorePeriodicLog();
+                g_store_accel_log = logger.StoreAccelPositionLog();
+                if(g_store_periodic_log + g_store_accel_log != 0) g_first_log_failed = 1;
+            }
+            else if(g_run_end == 1) g_mode = FIRST_GOAL;
             break;
 
         default: break;

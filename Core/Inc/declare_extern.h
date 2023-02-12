@@ -21,7 +21,6 @@ extern TIM_HandleTypeDef htim11;
 extern TIM_HandleTypeDef htim12;
 
 #ifdef DEBUG_MODE
-
 /* Line sensor */
 extern uint16_t g_adc_buffers[NUMBER_OF_ADC];
 extern uint16_t g_consecutive_buffers[NUMBER_OF_ADC][NUMBER_OF_SAMPLE];
@@ -115,7 +114,6 @@ extern uint32_t g_tim6;
 extern uint32_t g_tim5;
 extern uint32_t g_tim2;
 extern uint8_t g_flash_test;
-
 #endif // DEBUG_MODE
 
 /* Wrapper */

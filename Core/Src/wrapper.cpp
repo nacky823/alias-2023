@@ -10,8 +10,6 @@
 #include "rotary_switch.hpp"
 #include "side_sensor.hpp"
 #include "velocity_control.hpp"
-#include "macro.h"
-#include "declare_extern.h"
 #include <string.h>
 
 #define SWITCH_CHANGE_INTERVAL_MS 3000 // [ms]
@@ -31,8 +29,6 @@
 #define SECOND_GOAL 0x20
 #define VELOCITY_CONTROL 0x04
 #define LINE_TRACE 0x05
-
-uint8_t FlashTest();
 
 Encoder encoder;
 Flash flash;

@@ -1,0 +1,16 @@
+wrapper.cpp:49:6:void Init()	16	static
+wrapper.cpp:69:6:void ExternalInterrupt(uint16_t)	16	static
+wrapper.cpp:86:6:void InterruptTim7()	8	static
+wrapper.cpp:96:6:void InterruptTim6()	8	static
+wrapper.cpp:201:6:void InterruptTim5()	8	static
+wrapper.cpp:235:6:void InterruptTim2()	8	static
+wrapper.cpp:262:6:void Loop()	8	static
+wrapper.cpp:410:6:void EmergencyStop()	8	static
+wrapper.cpp:425:7:float TargetVelocity(float, float)	16	static
+wrapper.cpp:449:7:float TargetDuty(float, float)	24	static
+wrapper.cpp:475:9:uint8_t FlashTest()	152	dynamic
+wrapper.cpp:516:6:void InitialTest()	8	static
+wrapper.cpp:557:9:uint8_t ImuReadByte(uint8_t, char)	16	static
+wrapper.cpp:562:6:void ImuWriteByte(uint8_t, uint8_t, char)	16	static
+wrapper.cpp:565:1:void __static_initialization_and_destruction_0(int, int)	16	static
+wrapper.cpp:565:1:cpp)	8	static

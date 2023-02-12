@@ -59,7 +59,122 @@ TIM_HandleTypeDef htim11;
 TIM_HandleTypeDef htim12;
 
 /* USER CODE BEGIN PV */
+#ifdef DEBUG_MODE
+/* Line sensor */
+uint16_t g_adc_buffers[NUMBER_OF_ADC] = {0};
+uint16_t g_consecutive_buffers[NUMBER_OF_ADC][NUMBER_OF_SAMPLE] = {{0}};
+uint16_t g_max_adc_values[NUMBER_OF_ADC] = {0};
+uint16_t g_min_adc_values[NUMBER_OF_ADC] = {0};
+uint16_t g_adc_values[NUMBER_OF_ADC] = {0};
+uint32_t g_line_left = 0;
+uint32_t g_line_right = 0;
+float g_line_diff = 0;
+uint8_t g_line_emer = 0;
 
+/* Side seneor */
+uint8_t g_ignore_flag = 0;
+uint8_t g_corner_cnt = 0;
+uint8_t g_cross_cnt = 0;
+/* Monitor method CountUp 1 */
+uint8_t g_pre_noise_state_cntup = 0;
+uint8_t g_current_state_cntup = 0;
+uint8_t g_exception_flags_cntup = 0;
+uint8_t g_master_count_cntup = 0;
+/* Monitor method CountUp 2 */
+uint8_t g_exception_flags_cross = 0;
+uint8_t g_master_count_cross = 0;
+uint8_t g_write_state_cntup = 0;
+uint8_t g_goal_reach_cntup = 0;
+uint8_t g_corner_reach_cntup = 0;
+uint8_t g_black_flag_cntup = 0;
+uint8_t g_goal_flag_cntup = 0;
+uint8_t g_corner_flag_cntup = 0;
+uint8_t g_cross_flag_cntup = 0;
+/* Monitor method CountUp 3 */
+uint8_t g_write_state_cntup_2 = 0;
+uint8_t g_goal_reach_cntup_2 = 0;
+uint8_t g_corner_reach_cntup_2 = 0;
+uint8_t g_black_flag_cntup_2 = 0;
+uint8_t g_goal_flag_cntup_2 = 0;
+uint8_t g_corner_flag_cntup_2 = 0;
+uint8_t g_cross_flag_cntup_2 = 0;
+
+/* IMU */
+uint8_t g_imu_who_l = 0, g_imu_who_r = 0;
+uint8_t g_imu_bank_l = 0, g_imu_bank_r = 0;
+uint8_t g_imu_pwr_l = 0, g_imu_pwr_r = 0;
+uint8_t g_imu_init = 0;
+double g_deg_stack_z = 0;
+double g_deg_z = 0;
+int16_t g_gyro_x_l = 0, g_gyro_x_r = 0;
+int16_t g_gyro_y_l = 0, g_gyro_y_r = 0;
+int16_t g_gyro_z_l = 0, g_gyro_z_r = 0;
+int16_t g_accel_x_l = 0, g_accel_x_r = 0;
+int16_t g_accel_y_l = 0, g_accel_y_r = 0;
+int16_t g_accel_z_l = 0, g_accel_z_r = 0;
+
+/* Encoder */
+int16_t g_enc_cnt_l = 0, g_enc_cnt_r = 0;
+float g_distance_l = 0, g_distance_r = 0;
+float g_distance = 0;
+float g_distance_stack = 0;
+float g_distance_diff = 0;
+
+/* Motor */
+float g_translation_ratio = 0;
+float g_rotation_ratio = 0;
+float g_sum_raito = 0;
+float g_excess_ratio = 0;
+float g_reduced_translation = 0;
+float g_duty_l = 0, g_duty_r = 0;
+int16_t g_motor_compare_l = 0, g_motor_compare_r = 0;
+
+/* Flash */
+uint32_t g_erase_failed_sector = 0;
+
+/* Line trace */
+float g_trace_p = 0;
+float g_trace_i = 0;
+float g_trace_d = 0;
+
+/* Velocity control */
+float g_target_velocity = 0;
+float g_current_velocity = 0;
+float g_filter_velocity = 0;
+float g_velocity_error = 0;
+float g_velocity_p = 0, g_velocity_i = 0, g_velocity_d = 0;
+float g_velocity_p_gain = 0, g_velocity_i_gain = 0, g_velocity_d_gain = 0;
+
+/* Wrapper */
+uint8_t g_imu_init = 0;
+uint32_t g_external_interrupt = 0;
+uint32_t g_tim7 = 0;
+uint32_t g_tim6 = 0;
+uint32_t g_tim5 = 0;
+uint32_t g_tim2 = 0;
+uint8_t g_flash_test = 0;
+#endif // DEBUG_MODE
+
+/* Wrapper */
+uint8_t g_main_while_reset = 0;
+uint8_t g_switch_state = 0;
+uint8_t g_mode = 0;
+uint8_t g_emergency_stop = 0;
+uint8_t g_run_end = 0;
+/* Timer */
+uint8_t g_tim6_complete = 0, g_tim5_complete = 0, g_tim2_complete = 0;
+uint8_t g_tim6_yet = 0, g_tim5_yet = 0, g_tim2_yet = 0;
+uint8_t g_line_calib = 0;
+uint8_t g_goal_cnt = 0;
+float g_trans = 0;
+float g_rotat = 0;
+uint8_t g_first_log_failed = 0;
+uint8_t g_store_periodic_log = 0;
+uint8_t g_store_accel_log = 0;
+float g_target = 0;
+float g_common_speed = 0;
+uint8_t g_process_complete = 0;
+uint8_t g_flash_erase = 0;
 
 /* USER CODE END PV */
 

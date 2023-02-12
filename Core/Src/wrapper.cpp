@@ -516,26 +516,25 @@ uint8_t FlashTest()
 
     if(!flash.CheckBlankByte(address_1, num_of_data)) return 0x02;
     if(!flash.StoreUint8(address_1, a, num_of_data)) return 0x03;
-    //memcpy(buff_a, reinterpret_cast<uint32_t*>(address_1), num_of_data);
     flash.Load(buff_a, address_1, num_of_data);
-    for(i = 0; i < num_of_data; i++) if(a[i] != buff_a[i]) return 0x05;
+    for(i = 0; i < num_of_data; i++) if(a[i] != buff_a[i]) return 0x04;
 
-    if(!flash.CheckBlankHalfword(address_2, num_of_data)) return 0x06;
-    if(!flash.StoreUint16(address_2, b, num_of_data)) return 0x07;
+    if(!flash.CheckBlankHalfword(address_2, num_of_data)) return 0x05;
+    if(!flash.StoreUint16(address_2, b, num_of_data)) return 0x06;
     flash.Load(buff_b, address_2, num_of_data*2);
-    for(i = 0; i < num_of_data; i++) if(b[i] != buff_b[i]) return 0x09;
+    for(i = 0; i < num_of_data; i++) if(b[i] != buff_b[i]) return 0x07;
 
-    if(!flash.CheckBlankHalfword(address_3, num_of_data)) return 0x0A;
-    if(!flash.StoreInt16(address_3, c, num_of_data)) return 0x0B;
+    if(!flash.CheckBlankHalfword(address_3, num_of_data)) return 0x08;
+    if(!flash.StoreInt16(address_3, c, num_of_data)) return 0x09;
     flash.Load(buff_c, address_3, num_of_data*2);
-    for(i = 0; i < num_of_data; i++) if(c[i] != buff_c[i]) return 0x0D;
+    for(i = 0; i < num_of_data; i++) if(c[i] != buff_c[i]) return 0x0A;
 
-    if(!flash.CheckBlankWord(address_4, num_of_data)) return 0x0E;
-    if(!flash.StoreFloat(address_4, d, num_of_data)) return 0x0F;
+    if(!flash.CheckBlankWord(address_4, num_of_data)) return 0x0B;
+    if(!flash.StoreFloat(address_4, d, num_of_data)) return 0x0C;
     flash.Load(buff_d, address_4, num_of_data*4);
-    for(i = 0; i < num_of_data; i++) if(d[i] != buff_d[i]) return 0x11;
+    for(i = 0; i < num_of_data; i++) if(d[i] != buff_d[i]) return 0x0D;
 
-    return 0x12;
+    return 0x0E;
 }
 
 void InitialTest()

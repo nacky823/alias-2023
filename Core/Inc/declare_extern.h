@@ -35,7 +35,6 @@ extern uint8_t g_line_emer;
 
 /* Side seneor */
 extern uint8_t g_ignore_flag;
-extern uint8_t g_goal_cnt;
 extern uint8_t g_corner_cnt;
 extern uint8_t g_cross_cnt;
 /* Monitor method CountUp 1 */
@@ -109,28 +108,31 @@ extern float g_velocity_p, g_velocity_i, g_velocity_d;
 extern float g_velocity_p_gain, g_velocity_i_gain, g_velocity_d_gain;
 
 /* Wrapper */
-extern uint8_t g_flash_test;
-
+extern uint8_t g_imu_init
 extern uint32_t g_external_interrupt;
 extern uint32_t g_tim7;
 extern uint32_t g_tim6;
 extern uint32_t g_tim5;
 extern uint32_t g_tim2;
+extern uint8_t g_flash_test;
 
 #endif // DEBUG_MODE
-
-extern uint8_t g_line_calib;
 
 /* Wrapper */
 extern uint8_t g_main_while_reset;
 extern uint8_t g_switch_state;
 extern uint8_t g_mode;
+extern uint8_t g_emergency_stop;
+extern uint8_t g_run_end;
+/* Timer */
 extern uint8_t g_tim6_complete, g_tim5_complete, g_tim2_complete;
 extern uint8_t g_tim6_yet, g_tim5_yet, g_tim2_yet;
+extern uint8_t g_line_calib;
+extern uint8_t g_goal_cnt;
+extern float g_trans;
+extern float g_rotat;
+extern uint8_t g_first_log_failed;
 extern uint8_t g_store_periodic_log;
 extern uint8_t g_store_accel_log;
-extern uint8_t g_store_log_error;
-extern float g_trans, g_rotat;
-extern uint8_t g_emergency_stop;
 
 #endif // DECLARE_EXTERN_H_

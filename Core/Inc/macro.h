@@ -3,8 +3,17 @@
 
 /* ----- Debug mode ----- */
 #define DEBUG_MODE
-#define MOTOR_DEBUG
-#define INIT_DEBUG_MOTOR_DUTY 0.2
+
+/* ----- Parameter adjustment ----- */
+#define INIT_DEBUG_MOTOR_DUTY 0.0
+#define V_P_1 0.0
+#define V_I_1 0.0
+#define V_D_1 0.0
+#define LINE_P_1 0.0
+#define LINE_I_1 0.0
+#define LINE_D_1 0.0
+#define MIN_VELOCITY 1.3
+#define COMMON_DUTY 0.2
 
 /* ----- Velocity control ----- */
 #define LPF_VELOCITY     0.70

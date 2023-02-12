@@ -536,9 +536,8 @@ void InitialTest()
     g_distance_stack = encoder.GetDistanceStack();
     g_distance_diff = encoder.AngularVelocity();
 
-#ifdef MOTOR_DEBUG
+    /* Motor */
     motor.Drive(INIT_DEBUG_MOTOR_DUTY, 0);
-#endif // MOTOR_DEBUG
 }
 
 uint8_t ImuReadByte(uint8_t send_address, char imu_ic_lr)

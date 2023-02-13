@@ -6691,9 +6691,9 @@ static void MX_SPI3_Init(void)
  80234e2:	4b0e      	ldr	r3, [pc, #56]	; (802351c <MX_SPI3_Init+0x64>)
  80234e4:	f44f 7200 	mov.w	r2, #512	; 0x200
  80234e8:	619a      	str	r2, [r3, #24]
-  hspi3.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_64;
+  hspi3.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_128;
  80234ea:	4b0c      	ldr	r3, [pc, #48]	; (802351c <MX_SPI3_Init+0x64>)
- 80234ec:	2228      	movs	r2, #40	; 0x28
+ 80234ec:	2230      	movs	r2, #48	; 0x30
  80234ee:	61da      	str	r2, [r3, #28]
   hspi3.Init.FirstBit = SPI_FIRSTBIT_MSB;
  80234f0:	4b0a      	ldr	r3, [pc, #40]	; (802351c <MX_SPI3_Init+0x64>)

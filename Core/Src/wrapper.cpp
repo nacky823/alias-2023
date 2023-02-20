@@ -85,7 +85,7 @@ void ExternalInterrupt(uint16_t gpio_pin)
 
 void InterruptTim7()
 {
-    line_sensor.StoreConsecutiveAdcBuffers();
+    line_sensor.StoreConsecutiveBuff();
 
 #ifdef DEBUG_MODE
     g_tim7++;
@@ -101,7 +101,7 @@ void InterruptTim6()
     switch(g_mode)
     {
         case READY:
-            line_sensor.UpdateAdcValues();
+            line_sensor.Update();
             g_line_calib = line_sensor.CheckCalibration();
             if(g_line_calib == 0) led.ColorOrder('X');
             else led.ColorOrder('R');
@@ -113,7 +113,7 @@ void InterruptTim6()
 
         case FIRST_RUN:
             /* Sensor update */
-            line_sensor.UpdateAdcValues();
+            line_sensor.Update();
             encoder.Update();
             side_sensor.IgnoreJudgment();
             g_goal_cnt = side_sensor.GetGoalMarkerCount();
@@ -133,7 +133,7 @@ void InterruptTim6()
 
         case SECOND_RUN:
             /* Sensor update */
-            line_sensor.UpdateAdcValues();
+            line_sensor.Update();
             encoder.Update();
             side_sensor.IgnoreJudgment();
             g_goal_cnt = side_sensor.GetGoalMarkerCount();
@@ -153,7 +153,7 @@ void InterruptTim6()
 
         case LINE_TRACE:
             /* Sensor update */
-            line_sensor.UpdateAdcValues();
+            line_sensor.Update();
             encoder.Update();
             side_sensor.IgnoreJudgment();
             g_goal_cnt = side_sensor.GetGoalMarkerCount();
@@ -171,7 +171,7 @@ void InterruptTim6()
 
         case VELOCITY_CONTROL:
             /* Sensor update */
-            line_sensor.UpdateAdcValues();
+            line_sensor.Update();
             encoder.Update();
             side_sensor.IgnoreJudgment();
             g_goal_cnt = side_sensor.GetGoalMarkerCount();
@@ -195,7 +195,7 @@ void InterruptTim6()
         
         case LINE_TRACE_DEBUG:
             /* Sensor update */
-            line_sensor.UpdateAdcValues();
+            line_sensor.Update();
             encoder.Update();
             side_sensor.IgnoreJudgment();
             g_goal_cnt = side_sensor.GetGoalMarkerCount();
@@ -206,7 +206,7 @@ void InterruptTim6()
         
         case VELOCITY_CONTROL_DEBUG:
             /* Sensor update */
-            line_sensor.UpdateAdcValues();
+            line_sensor.Update();
             encoder.Update();
             side_sensor.IgnoreJudgment();
             g_goal_cnt = side_sensor.GetGoalMarkerCount();
@@ -550,7 +550,7 @@ uint8_t FlashTest()
 void InitialTest()
 {
     /* Line sensor */
-    line_sensor.UpdateAdcValues();
+    line_sensor.Update();
     line_sensor.MonitorArrays();
     g_line_diff = line_sensor.LeftRightDifference();
     g_line_emer = line_sensor.GetEmergencyStopFlag();

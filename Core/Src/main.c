@@ -61,15 +61,18 @@ TIM_HandleTypeDef htim12;
 /* USER CODE BEGIN PV */
 #ifdef DEBUG_MODE
 /* Line sensor */
-uint16_t g_adc_buffers[NUMBER_OF_ADC] = {0};
-uint16_t g_consecutive_buffers[NUMBER_OF_ADC][NUMBER_OF_SAMPLE] = {{0}};
-uint16_t g_max_adc_values[NUMBER_OF_ADC] = {0};
-uint16_t g_min_adc_values[NUMBER_OF_ADC] = {0};
-uint16_t g_adc_values[NUMBER_OF_ADC] = {0};
-uint32_t g_line_left = 0;
-uint32_t g_line_right = 0;
 float g_line_diff = 0;
 uint8_t g_line_emer = 0;
+
+bool g_error_handler_adc1 = false;
+bool g_error_handler_tim11 = false;
+uint16_t g_line_buff[NUM_OF_LINE_SENSORS] = {0};
+uint16_t g_consecutive_line_buff[NUM_OF_LINE_SENSORS][CONSECUTIVE_TIMES] = {{0}};
+uint16_t g_max_line_valu[NUM_OF_LINE_SENSORS] = {0};
+uint16_t g_min_line_valu[NUM_OF_LINE_SENSORS] = {0};
+uint16_t g_line_valu[NUM_OF_LINE_SENSORS] = {0};
+uint32_t g_line_left = 0;
+uint32_t g_line_right = 0;
 
 /* Side seneor */
 uint8_t g_ignore_flag = 0;

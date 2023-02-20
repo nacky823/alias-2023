@@ -4,6 +4,7 @@
 #include "macro.h"
 
 extern ADC_HandleTypeDef hadc1;
+extern DMA_HandleTypeDef hdma_adc1;
 
 extern I2C_HandleTypeDef hi2c2;
 

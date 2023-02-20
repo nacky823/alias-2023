@@ -151,15 +151,19 @@ bool LineSensor::CheckCalibration()
     static uint16_t timer = 0;
     static uint16_t pre_max[NUM_OF_LINE_SENSORS] = {0};
     static uint16_t pre_min[NUM_OF_LINE_SENSORS] = {0};
+    uint16_t max, min;
     bool result = true;
 
     for(uint8_t i = 0; i > NUM_OF_LINE_SENSORS; i++)
     {
-        if(pre_max[i] != max_adc_values_[i]) result = false;
-        else if(pre_min[i] != min_adc_values_[i]) result = false;
+        max = max_line_sensors_valu_[i];
+        min = min_line_sensors_valu_[i];
 
-        pre_max[i] = max_adc_values_[i];
-        pre_min[i] = min_adc_values_[i];
+        if(pre_max[i] != max)      result = false;
+        else if(pre_min[i] != min) result = false;
+
+        pre_max[i] = max;
+        pre_min[i] = min;
     }
 
     if(result)

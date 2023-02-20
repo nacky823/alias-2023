@@ -21,6 +21,15 @@ extern TIM_HandleTypeDef htim11;
 extern TIM_HandleTypeDef htim12;
 
 #ifdef DEBUG_MODE
+/* Anywhere */
+extern uint16_t monitor_count;
+
+/*
+#ifdef DEBUG_MODE
+monitor_count++;
+#endif // DEBUG_MODE
+*/
+
 /* Line sensor */
 extern uint16_t g_adc_buffers[NUMBER_OF_ADC];
 extern uint16_t g_consecutive_buffers[NUMBER_OF_ADC][NUMBER_OF_SAMPLE];

@@ -4,31 +4,47 @@
 #include "main.h"
 #include "declare_extern.h"
 
-#define LED_COMPARE 500
-#define MAX_VALUE 1000
-#define EMERGENCY_STOP_BORDER 700
-#define CALIBRATION_COUNT 1500 // 1.25[ms]
+#define LINE_SENSORS_LED_COMPARE 500  // PWM COMPARE
+#define NUM_OF_LINE_SENSORS      14
+#define HALF_NUM_OF_LINE_SENSORS 7    // Use left-right difference.
+#define CONSECUTIVE_TIMES        10
+#define HALF_CONSECUTIVE_TIMES   5    // Use sorted median.
+#define MAX_NORMALIZED_VALU      2000 // Normalization
+#define EMERGENCY_STOP_BORDER    1700 // Normalization
+#define CALIBRATION_SUCCESS_TIME 1500 // tim6[ms]
+
+#ifdef DEBUG_MODE
+extern bool g_error_handler_adc1;  // false
+extern bool g_error_handler_tim11; // false
+extern uint16_t g_line_buff[NUM_OF_LINE_SENSORS];
+extern uint16_t g_consecutive_line_buff[NUM_OF_LINE_SENSORS][CONSECUTIVE_TIMES];
+extern uint16_t g_max_line_valu[NUM_OF_LINE_SENSORS];
+extern uint16_t g_min_line_valu[NUM_OF_LINE_SENSORS];
+extern uint16_t g_line_valu[NUM_OF_LINE_SENSORS];
+extern uint32_t g_line_left;
+extern uint32_t g_line_right;
+#endif // DEBUG_MODE
 
 class LineSensor
 {
 private:
-    uint16_t adc_buffers_[NUMBER_OF_ADC];
-    uint16_t consecutive_adc_buffers_[NUMBER_OF_SAMPLE][NUMBER_OF_ADC];
-    uint16_t max_adc_values_[NUMBER_OF_ADC];
-    uint16_t min_adc_values_[NUMBER_OF_ADC];
-    uint16_t adc_values_[NUMBER_OF_ADC];
-    uint8_t emergency_stop_flag_;
+    uint16_t line_sensors_buff_[NUM_OF_LINE_SENSORS];
+    uint16_t consecutive_line_sensors_buff_[CONSECUTIVE_TIMES][NUM_OF_LINE_SENSORS];
+    uint16_t max_line_sensors_valu_[NUM_OF_LINE_SENSORS];
+    uint16_t min_line_sensors_valu_[NUM_OF_LINE_SENSORS];
+    uint16_t line_sensors_valu_[NUM_OF_LINE_SENSORS];
+    bool emergency_stop_flag_;
 
     void MergeSort(uint16_t [], uint8_t, uint8_t);
 
 public:
     LineSensor();
     void Init();
-    void StoreConsecutiveAdcBuffers();
-    void UpdateAdcValues();
+    void StoreConsecutiveBuff();
+    void Update();
+    bool GetEmergencyStopFlag();
     float LeftRightDifference();
-    uint8_t GetEmergencyStopFlag();
-    uint8_t CheckCalibration();
+    bool CheckCalibration();
 
 #ifdef DEBUG_MODE
     void MonitorArrays();

@@ -47,6 +47,7 @@ void Init()
     line_sensor.Init();
     encoder.Init();
     motor.Init();
+    /*
     uint8_t imu_init = iim_42652.Init();
 
     if(imu_init == 0x09)
@@ -58,6 +59,7 @@ void Init()
 #ifdef DEBUG_MODE
     g_imu_init = imu_init;
 #endif // DEBUG_MODE
+    */
 
     HAL_TIM_Base_Start_IT(&htim2);
     HAL_TIM_Base_Start_IT(&htim5);
@@ -562,7 +564,7 @@ void InitialTest()
     g_corner_cnt = side_sensor.GetCornerMarkerCount();
     g_cross_cnt = side_sensor.GetCrossLineCount();
 
-    /* IMU */
+    /* IMU *
     iim_42652.Update();
     g_deg_stack_z = iim_42652.GetDegreeStackZ();
     g_gyro_x_l = iim_42652.GyroXLeft();
@@ -577,6 +579,8 @@ void InitialTest()
     g_accel_y_r = iim_42652.AccelYRight();
     g_accel_z_l = iim_42652.AccelZLeft();
     g_accel_z_r = iim_42652.AccelZRight();
+    */
+
 
     /* Encoder */
     encoder.Update();

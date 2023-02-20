@@ -31,13 +31,6 @@ monitor_count++;
 */
 
 /* Line sensor */
-extern uint16_t g_adc_buffers[NUMBER_OF_ADC];
-extern uint16_t g_consecutive_buffers[NUMBER_OF_ADC][NUMBER_OF_SAMPLE];
-extern uint16_t g_max_adc_values[NUMBER_OF_ADC];
-extern uint16_t g_min_adc_values[NUMBER_OF_ADC];
-extern uint16_t g_adc_values[NUMBER_OF_ADC];
-extern uint32_t g_line_left;
-extern uint32_t g_line_right;
 extern float g_line_diff;
 extern uint8_t g_line_emer;
 

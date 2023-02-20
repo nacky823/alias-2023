@@ -7,6 +7,7 @@ extern "C" {
 
 #include "stm32f4xx_hal.h"
 #include "declare_extern.h"
+#include <stdbool.h>
 
 void Init();
 void ExternalInterrupt(uint16_t);

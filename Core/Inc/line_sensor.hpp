@@ -5,17 +5,15 @@
 #include "declare_extern.h"
 
 #define LINE_SENSORS_LED_COMPARE 500  // PWM COMPARE
-#define NUM_OF_LINE_SENSORS      14
 #define HALF_NUM_OF_LINE_SENSORS 7    // Use left-right difference.
-#define CONSECUTIVE_TIMES        10
 #define HALF_CONSECUTIVE_TIMES   5    // Use sorted median.
 #define MAX_NORMALIZED_VALU      2000 // Normalization
 #define EMERGENCY_STOP_BORDER    1700 // Normalization
 #define CALIBRATION_SUCCESS_TIME 1500 // tim6[ms]
 
 #ifdef DEBUG_MODE
-extern bool g_error_handler_adc1;  // false
-extern bool g_error_handler_tim11; // false
+extern bool g_error_handler_adc1;
+extern bool g_error_handler_tim11;
 extern uint16_t g_line_buff[NUM_OF_LINE_SENSORS];
 extern uint16_t g_consecutive_line_buff[NUM_OF_LINE_SENSORS][CONSECUTIVE_TIMES];
 extern uint16_t g_max_line_valu[NUM_OF_LINE_SENSORS];

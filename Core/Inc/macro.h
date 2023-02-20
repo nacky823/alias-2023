@@ -24,10 +24,8 @@
 
 /* ----- Line sensor ----- */
 #define LINE_SENSOR_CORRECTION 0.950
-#define NUMBER_OF_ADC 14
-#define HALF_NUMBER_OF_ADC 7
-#define NUMBER_OF_SAMPLE 10
-#define INDEX_OF_SAMPLE_MEDIAN 5
+#define NUM_OF_LINE_SENSORS      14
+#define CONSECUTIVE_TIMES        10
 
 /* ----- IMU ----- */
 #define NORMAL_FUCOR_DPS 0.061037

@@ -6,3 +6,8 @@ void Test::InitialTest()
 {
 
 }
+
+void Test::LineSensor()
+{
+
+}

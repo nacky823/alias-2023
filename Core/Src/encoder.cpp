@@ -1,11 +1,20 @@
 #include "encoder.hpp"
 
-Encoder::Encoder() : distance_(0), distance_stack_(0), distance_difference_(0) {}
+Encoder::Encoder() : distance_(0)
+				   , distance_stack_(0)
+				   , distance_difference_(0) {}
 
 void Encoder::Init()
 {
-	HAL_TIM_Encoder_Start(&htim8,TIM_CHANNEL_ALL);
-	HAL_TIM_Encoder_Start(&htim4,TIM_CHANNEL_ALL);
+	if(HAL_TIM_Encoder_Start(&htim8,TIM_CHANNEL_ALL) != HAL_OK)
+	{
+		Error_Handler();
+	}
+
+	if(HAL_TIM_Encoder_Start(&htim4,TIM_CHANNEL_ALL) != HAL_OK)
+	{
+		Error_Handler();
+	}
 }
 
 void Encoder::Update()

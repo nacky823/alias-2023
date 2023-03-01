@@ -2,7 +2,6 @@
 #define IIM_42652_HPP_
 
 #include "stm32f4xx_hal.h"
-#include "declare_extern.h"
 
 #define CS_RESET_L HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, GPIO_PIN_RESET)
 #define CS_SET_L   HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, GPIO_PIN_SET)

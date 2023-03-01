@@ -1,4 +1,5 @@
 #include "iim_42652.hpp"
+#include "declare_extern.h"
 
 Iim42652::Iim42652() : degree_stack_z_(0) {}
 

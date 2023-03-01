@@ -14,8 +14,10 @@ private:
     void SetIntegralError(float);
     float PidControl(float, float, float);
 
+    LineSensor *line_sensor_;
+
 public:
-    LineTrace();
+    LineTrace(LineSensor *);
     float DeterminePidGain(float);
     void ResetIntegralError();
 

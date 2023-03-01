@@ -1,6 +1,9 @@
 #include "line_trace.hpp"
 
-LineTrace::LineTrace() : integral_error_(0) {}
+LineTrace::LineTrace(LineSensor *line_sensor) : integral_error_(0)
+{
+    line_sensor_ = line_sensor;
+}
 
 float LineTrace::DeterminePidGain(float target_velocity)
 {
@@ -30,11 +33,11 @@ float LineTrace::DeterminePidGain(float target_velocity)
 
 float LineTrace::PidControl(float p_gain, float i_gain, float d_gain)
 {
-    static float pre_error = line_sensor.LeftRightDifference();
+    static float pre_error = line_sensor_->LeftRightDifference();
     float error, differential_error, integral_error;
     float p, d, i;
 
-    error = line_sensor.LeftRightDifference();
+    error = line_sensor_->LeftRightDifference();
     differential_error = (error - pre_error) / TIM6_PERIOD_S;
     integral_error = (error + pre_error) / 2.0 * TIM6_PERIOD_S;
     SetIntegralError(integral_error);

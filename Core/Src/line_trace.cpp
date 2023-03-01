@@ -2,9 +2,30 @@
 
 LineTrace::LineTrace() : integral_error_(0) {}
 
-void LineTrace::Init()
+float LineTrace::DeterminePidGain(float target_velocity)
 {
-    integral_error_ = 0.0;
+    float p_gain, i_gain, d_gain;
+
+    if(target_velocity < TARGET_VELOCITY_0)
+    {
+        p_gain = LINE_P_GAIN_0;
+        i_gain = LINE_I_GAIN_0;
+        d_gain = LINE_D_GAIN_0;
+    }
+    else if(target_velocity < TARGET_VELOCITY_1)
+    {
+        p_gain = LINE_P_GAIN_1;
+        i_gain = LINE_I_GAIN_1;
+        d_gain = LINE_D_GAIN_1;
+    }
+    else // Error handler
+    {
+        p_gain = 0;
+        i_gain = 0;
+        d_gain = 0;
+    }
+
+    return PidControl(p_gain, i_gain, d_gain);
 }
 
 float LineTrace::PidControl(float p_gain, float i_gain, float d_gain)
@@ -36,6 +57,11 @@ float LineTrace::PidControl(float p_gain, float i_gain, float d_gain)
 void LineTrace::SetIntegralError(float integral_error)
 {
     integral_error_ += integral_error;
+}
+
+void LineTrace::ResetIntegralError()
+{
+    integral_error_ = 0.0;
 }
 
 #ifdef DEBUG_MODE

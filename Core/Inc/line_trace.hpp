@@ -3,19 +3,21 @@
 
 #include "line_sensor.hpp"
 
+#define TARGET_VELOCITY_0 1.0
+#define TARGET_VELOCITY_1 2.0
+
 class LineTrace
 {
 private:
     float integral_error_;
 
     void SetIntegralError(float);
-
-    LineSensor line_sensor;
+    float PidControl(float, float, float);
 
 public:
     LineTrace();
-    void Init();
-    float PidControl(float, float, float);
+    float DeterminePidGain(float);
+    void ResetIntegralError();
 
 #ifdef DEBUG_MODE
     float GetIntegralError();

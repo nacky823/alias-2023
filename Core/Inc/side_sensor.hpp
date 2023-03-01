@@ -2,7 +2,6 @@
 #define SIDE_SENSOR_HPP_
 
 #include "stm32f4xx_hal.h"
-#include "declare_extern.h"
 
 #define MAX_INTERRUPT_COUNT 250
 #define BLACK_BLACK_COUNT 2

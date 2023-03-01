@@ -1,6 +1,12 @@
 #include "side_sensor.hpp"
+#include "declare_extern.h"
 
-SideSensor::SideSensor() : read_state_flags_(0), write_state_flags_(0), exception_flags_(0), master_count_(0), corner_marker_count_(0), cross_line_count_(0) {}
+SideSensor::SideSensor() : read_state_flags_(0)
+                         , write_state_flags_(0)
+                         , exception_flags_(0)
+                         , master_count_(0)
+                         , corner_marker_count_(0)
+                         , cross_line_count_(0) {}
 
 void SideSensor::SensorUpdate()
 {

@@ -11,13 +11,21 @@
 #define B_OFF HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_SET)
 #define BLINK_INTERVAL_MS   400
 #define RAINBOW_INTERVAL_MS 300
+#define BLINK_INTERVAL_TIMX 40  // timer2[ms]
 
 class Led
 {
+private:
+    uint8_t interrupt_count_;
+    uint8_t interrupt_timer_;
+
 public:
+    Led();
     void ColorOrder(char);
     void Blink(uint8_t, char, char);
     void Rainbow(uint8_t);
+    bool BlinkInterrupt(uint8_t, char, char);
+    void ResetInterrupt();
 
 };
 

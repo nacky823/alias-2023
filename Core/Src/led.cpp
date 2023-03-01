@@ -1,5 +1,8 @@
 #include "led.hpp"
 
+Led::Led() : interrupt_count_(0)
+           , interrupt_timer_(0) {}
+
 void Led::ColorOrder(char color)
 {
     switch(color)

@@ -19,32 +19,32 @@ Run::Run(Encoder *encoder,
            , mode_complete_(true)
            , store_log_failed_(true)
 {
-    Encoder_         = Encoder;
-    Flash_           = flash;
-    Iim42652_        = iim_42652;
-    Led_             = led;
-    LineSensor_      = line_sensor;
-    LineTrace_       = line_trace;
-    Logger_          = logger;
-    Motor_           = motor;
-    RotarySwitch_    = rotary_switch;
-    SideSensor_      = side_sensor;
-    VelocityControl_ = velocity_control;
+    encoder_          = encoder;
+    flash_            = flash;
+    iim_42652_        = iim_42652;
+    led_              = led;
+    line_sensor_      = line_sensor;
+    line_trace_       = line_trace;
+    logger_           = logger;
+    motor_            = motor;
+    rotary_switch_    = rotary_switch;
+    side_sensor_      = side_sensor;
+    velocity_control_ = velocity_control;
 }
 
 void Run::Init()
 {
-    line_sensor.Init();
-    encoder.Init();
-    motor.Init();
-    uint8_t imu_init = iim_42652.Init();
+    line_sensor_->Init();
+    encoder_->Init();
+    motor_->Init();
+    uint8_t imu_init = iim_42652_->Init();
 
     bool flash_erase = true;
-    uint8_t switch_state = rotary_switch.State();
+    uint8_t switch_state = rotary_switch_->State();
     if(switch_state == 0x0E)
     {
-        led.Blink(3, 'R', 'X');
-        if(!flash.Clear()) flash_erase = false;
+        led_->Blink(3, 'R', 'X');
+        if(!flash_->Clear()) flash_erase = false;
     }
 
 #ifdef DEBUG_MODE
@@ -55,13 +55,13 @@ void Run::Init()
 
     if(flash_erase && imu_init == 0x09)
     {
-        led.Rainbow(1);
+        led_->Rainbow(1);
         HAL_TIM_Base_Start_IT(&htim2);
         HAL_TIM_Base_Start_IT(&htim6);
         HAL_TIM_Base_Start_IT(&htim7);
     }
-    else if(flash_erase) led.ColorOrder('Y');
-    else led.ColorOrder('R');
+    else if(flash_erase) led_->ColorOrder('Y');
+    else led_->ColorOrder('R');
 }
 
 void Run::UpdateRunMode()

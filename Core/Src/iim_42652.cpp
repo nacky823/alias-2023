@@ -1,9 +1,14 @@
 #include "iim_42652.hpp"
 
-Iim42652::Iim42652() {}
+Iim42652::Iim42652() : degree_stack_z_(0) {}
 
 uint8_t Iim42652::Init()
 {
+    Write(REG_BANK_SEL_ADD, REG_BANK_SEL_RES, 'L');
+    HAL_Delay(100); // wait 100ms
+    Write(REG_BANK_SEL_ADD, REG_BANK_SEL_RES, 'R');
+    HAL_Delay(100); // wait 100ms
+
     uint8_t who_l  = Read(WHO_AM_I_ADD, 'L');
     uint8_t who_r  = Read(WHO_AM_I_ADD, 'R');
     uint8_t bank_l = Read(REG_BANK_SEL_ADD, 'L');

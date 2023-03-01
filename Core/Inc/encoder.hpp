@@ -2,7 +2,6 @@
 #define ENCODER_HPP_
 
 #include "stm32f4xx_hal.h"
-#include "declare_extern.h"
 
 #define START_COUNT 32767
 #define DISTANCE_PER_COUNT 0.007191 // tempolary [mm]

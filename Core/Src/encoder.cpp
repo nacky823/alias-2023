@@ -1,4 +1,5 @@
 #include "encoder.hpp"
+#include "declare_extern.h"
 
 Encoder::Encoder() : distance_(0)
 				   , distance_stack_(0)

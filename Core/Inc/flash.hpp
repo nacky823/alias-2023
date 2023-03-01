@@ -2,7 +2,6 @@
 #define FLASH_HPP_
 
 #include "stm32f4xx_hal.h"
-#include "declare_extern.h"
 
 class Flash
 {

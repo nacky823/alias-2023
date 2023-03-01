@@ -1,4 +1,5 @@
 #include "flash.hpp"
+#include "declare_extern.h"
 #include <string.h>
 
 bool Flash::Clear()

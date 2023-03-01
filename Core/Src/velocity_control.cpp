@@ -1,18 +1,43 @@
 #include "velocity_control.hpp"
+#include "macro.h"
 
-VelocityControl::VelocityControl() : integral_error_(0) {}
-
-void VelocityControl::Init()
+VelocityControl::VelocityControl(Encoder *encoder) : integral_error_(0)
 {
-    integral_error_ = 0.0;
+    encoder_ = encoder;
+}
+
+float VelocityControl::DeterminePidGain(float target_velocity)
+{
+    float p_gain, i_gain, d_gain;
+
+    if(target_velocity < TARGET_VELOCITY_0)
+    {
+        p_gain = LINE_P_GAIN_0;
+        i_gain = LINE_I_GAIN_0;
+        d_gain = LINE_D_GAIN_0;
+    }
+    else if(target_velocity < TARGET_VELOCITY_1)
+    {
+        p_gain = LINE_P_GAIN_1;
+        i_gain = LINE_I_GAIN_1;
+        d_gain = LINE_D_GAIN_1;
+    }
+    else // Error handler
+    {
+        p_gain = 0;
+        i_gain = 0;
+        d_gain = 0;
+    }
+
+    return PidControl(p_gain, i_gain, d_gain);
 }
 
 float VelocityControl::PidControl(float target, float p_gain, float i_gain, float d_gain)
 {
-    float current = encoder.GetDistance() / TIM6_PERIOD; // [mm/ms]
+    float current = encoder_->GetDistance() / TIM6_PERIOD; // [mm/ms]
 
     static float pre_filter = 0.0;
-    float filter = pre_filter * (1.0 - LPF_VELOCITY) + (current * LPF_VELOCITY);
+    float filter = pre_filter * (1.0 - VELOCITY_LPF_RATIO) + (current * VELOCITY_LPF_RATIO);
     pre_filter = filter;
 
     float error = target - filter;
@@ -44,7 +69,14 @@ void VelocityControl::SetIntegralError(float integral_error)
     integral_error_ += integral_error;
 }
 
+void VelocityControl::ResetIntegralError()
+{
+    integral_error_ = 0.0;
+}
+
+#ifdef DEBUG_MODE
 float VelocityControl::GetIntegralError()
 {
     return integral_error_;
 }
+#endif // DEBUG_MODE

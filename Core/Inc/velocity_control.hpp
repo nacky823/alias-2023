@@ -1,7 +1,6 @@
 #ifndef VELOCITY_CONTROL_HPP_
 #define VELOCITY_CONTROL_HPP_
 
-#include "macro.h"
 #include "encoder.hpp"
 
 class VelocityControl
@@ -10,14 +9,18 @@ private:
     float integral_error_;
 
     void SetIntegralError(float);
+    float PidControl(float, float, float, float);
 
-    Encoder encoder;
+    Encoder *encoder_;
 
 public:
-    VelocityControl();
-    void Init();
-    float PidControl(float, float, float, float);
+    VelocityControl(Encoder *);
+    float DeterminePidGain(float);
+    void ResetIntegralError();
+
+#ifdef DEBUG_MODE
     float GetIntegralError();
+#endif // DEBUG_MODE
 
 };
 

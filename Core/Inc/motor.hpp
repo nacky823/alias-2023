@@ -2,7 +2,6 @@
 #define MOTOR_HPP_
 
 #include "main.h"
-#include "declare_extern.h"
 
 #define FORWARD_L  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, GPIO_PIN_SET)
 #define BACKWARD_L HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, GPIO_PIN_RESET)
@@ -13,7 +12,6 @@
 class Motor
 {
 public:
-    Motor();
     void Init();
     void Drive(float, float);
 

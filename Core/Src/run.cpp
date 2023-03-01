@@ -1,6 +1,36 @@
 #include "run.hpp"
+#include "declare_extern.h"
 
-Run::Run() : run_mode_(0), switch_interval_wait_timer_(0), switch_interval_wait_enable_(true), switch_interval_led_enable_(true), mode_complete_(true), store_log_failed_(true) {}
+Run::Run(Encoder *encoder,
+         Flash *flash,
+         Iim42652 *iim_42652,
+         Led *led,
+         LineSensor *line_sensor,
+         LineTrace *line_trace,
+         Logger *logger,
+         Moter *motor,
+         RotarySwitch *rotary_switch,
+         SideSensor *side_sensor,
+         VelocityControl *velocity_control
+         ) : run_mode_(0)
+           , switch_interval_wait_timer_(0)
+           , switch_interval_wait_enable_(true)
+           , switch_interval_led_enable_(true)
+           , mode_complete_(true)
+           , store_log_failed_(true)
+{
+    Encoder_         = Encoder;
+    Flash_           = flash;
+    Iim42652_        = iim_42652;
+    Led_             = led;
+    LineSensor_      = line_sensor;
+    LineTrace_       = line_trace;
+    Logger_          = logger;
+    Motor_           = motor;
+    RotarySwitch_    = rotary_switch;
+    SideSensor_      = side_sensor;
+    VelocityControl_ = velocity_control;
+}
 
 void Run::Init()
 {

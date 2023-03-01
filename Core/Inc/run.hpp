@@ -2,7 +2,6 @@
 #define RUN_HPP_
 
 #include "stm32f4xx_hal.h"
-#include "declare_extern.h"
 #include "encoder.hpp"
 #include "flash.hpp"
 #include "iim_42652.hpp"
@@ -66,20 +65,30 @@ private:
     bool mode_complete_;
     bool store_log_failed_;
 
-    Encoder encoder;
-    Flash flash;
-    Iim42652 iim_42652;
-    Led led;
-    LineSensor line_sensor;
-    LineTrace line_trace;
-    Logger logger;
-    Motor motor;
-    RotarySwitch rotary_switch;
-    SideSensor side_sensor;
-    VelocityControl velocity_control;
+    Encoder *encoder_;
+    Flash *flash_;
+    Iim42652 *iim_42652_;
+    Led *led_;
+    LineSensor *line_sensor_;
+    LineTrace *line_trace_;
+    Logger *logger_;
+    Motor *motor_;
+    RotarySwitch *rotary_switch_;
+    SideSensor *side_sensor_;
+    VelocityControl *velocity_control_;
 
 public:
-    Run();
+    Run(Encoder *,
+        Flash *,
+        Iim42652 *,
+        Led *,
+        LineSensor *,
+        LineTrace *,
+        Logger *,
+        Motor *,
+        RotarySwitch *,
+        SideSensor *,
+        VelocityControl *);
     void Init();
     void UpdateRunMode();
     void RunMode();

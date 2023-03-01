@@ -9,11 +9,19 @@ void Encoder::Init()
 {
 	if(HAL_TIM_Encoder_Start(&htim8,TIM_CHANNEL_ALL) != HAL_OK)
 	{
+#ifdef DEBUG_MODE
+        g_error_handler_tim8 = true;
+#endif // DEBUG_MODE
+
 		Error_Handler();
 	}
 
 	if(HAL_TIM_Encoder_Start(&htim4,TIM_CHANNEL_ALL) != HAL_OK)
 	{
+#ifdef DEBUG_MODE
+        g_error_handler_tim4 = true;
+#endif // DEBUG_MODE
+
 		Error_Handler();
 	}
 }
@@ -33,8 +41,10 @@ void Encoder::Update()
 	distance_difference_ = distance_r - distance_l;
 
 #ifdef DEBUG_MODE
-	g_enc_cnt_l = count_l;  g_enc_cnt_r = count_r;
-	g_distance_l = distance_l;  g_distance_r = distance_r;
+	g_enc_cnt_l = count_l;
+	g_enc_cnt_r = count_r;
+	g_distance_l = distance_l;
+	g_distance_r = distance_r;
 #endif // DEBUG_MODE
 }
 

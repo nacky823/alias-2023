@@ -45,3 +45,38 @@ void Led::Rainbow(uint8_t times)
         HAL_Delay(RAINBOW_INTERVAL_MS);
     }
 }
+
+bool Led::BlinkInterrupt(uint8_t times, char color_1, char color_2)
+{
+    uint8_t count = interrupt_count_;
+    uint8_t timer = interrupt_timer_;
+    bool blink_continue = true;
+
+    if(count < times){
+        if(timer < BLINK_INTERVAL_TIMX){
+            ColorOrder(color_1);
+            timer++;
+        }else if(timer < (BLINK_INTERVAL_TIMX + BLINK_INTERVAL_TIMX)){
+            ColorOrder(color_2);
+            timer++;
+        }else{
+            count++;
+            timer = 0;
+        }
+    }else{
+        ColorOrder('X');
+        count = 0;
+        blink_continue = false;
+    }
+
+    interrupt_count_ = count;
+    interrupt_timer_ = timer;
+
+    return blink_continue;
+}
+
+void Led::ResetInterrupt()
+{
+    interrupt_count_ = 0;
+    interrupt_timer_ = 0;
+}

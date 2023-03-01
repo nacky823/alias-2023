@@ -21,6 +21,7 @@
 #define VELOCITY_I_GAIN  0.0
 #define VELOCITY_D_GAIN  0.0
 #define LIMIT_TRANS_DUTY 0.90
+#define MAX_VELOCITY     4.0
 
 /* ----- Line sensor ----- */
 #define LINE_SENSOR_CORRECTION 0.950

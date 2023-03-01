@@ -10,17 +10,11 @@ float VelocityControl::DeterminePidGain(float target_velocity)
 {
     float p_gain, i_gain, d_gain;
 
-    if(target_velocity < TARGET_VELOCITY_0)
+    if(target_velocity < MAX_VELOCITY)
     {
-        p_gain = LINE_P_GAIN_0;
-        i_gain = LINE_I_GAIN_0;
-        d_gain = LINE_D_GAIN_0;
-    }
-    else if(target_velocity < TARGET_VELOCITY_1)
-    {
-        p_gain = LINE_P_GAIN_1;
-        i_gain = LINE_I_GAIN_1;
-        d_gain = LINE_D_GAIN_1;
+        p_gain = VELOCITY_P_GAIN;
+        i_gain = VELOCITY_I_GAIN;
+        d_gain = VELOCITY_D_GAIN;
     }
     else // Error handler
     {

@@ -66,7 +66,7 @@ void Run::Init()
 
 void Run::UpdateRunMode()
 {
-    uint8_t switch_state = rotary_switch.State();
+    uint8_t switch_state = rotary_switch_->State();
     static uint8_t pre_switch_state = switch_state;
     static bool interval_enable = true;
 
@@ -79,7 +79,7 @@ void Run::UpdateRunMode()
     {
         SetRunMode(STANDBY);
         WhenSwitchChange();
-        led.ResetInterrupt();
+        led_->ResetInterrupt();
         interval_enable = true;
     }
     else if(interval_enable)
@@ -133,17 +133,17 @@ bool Run::SwitchChangeInterval(uint8_t switch_state)
         switch(switch_state)
         {
 #ifdef DEBUG_MODE
-            case 0x0B: led_enable = led.BlinkInterrupt(3, 'G', 'B'); break;
-            case 0x0C: led_enable = led.BlinkInterrupt(3, 'G', 'Y'); break;
-            case 0x0D: led_enable = led.BlinkInterrupt(3, 'G', 'X'); break;
+            case 0x0B: led_enable = led_->BlinkInterrupt(3, 'G', 'B'); break;
+            case 0x0C: led_enable = led_->BlinkInterrupt(3, 'G', 'Y'); break;
+            case 0x0D: led_enable = led_->BlinkInterrupt(3, 'G', 'X'); break;
 #endif // DEBUG_MODE
 
-            case 0x0F: led_enable = led.BlinkInterrupt(3, 'Y', 'X'); break;
-            case 0x01: led_enable = led.BlinkInterrupt(3, 'B', 'X'); break;
-            case 0x02: led_enable = led.BlinkInterrupt(3, 'M', 'X'); break;
-            case 0x07: led_enable = led.BlinkInterrupt(3, 'G', 'B'); break;
-            case 0x08: led_enable = led.BlinkInterrupt(3, 'G', 'Y'); break;
-            default:   led_enable = led.BlinkInterrupt(3, 'X', 'W'); break;
+            case 0x0F: led_enable = led_->BlinkInterrupt(3, 'Y', 'X'); break;
+            case 0x01: led_enable = led_->BlinkInterrupt(3, 'B', 'X'); break;
+            case 0x02: led_enable = led_->BlinkInterrupt(3, 'M', 'X'); break;
+            case 0x07: led_enable = led_->BlinkInterrupt(3, 'G', 'B'); break;
+            case 0x08: led_enable = led_->BlinkInterrupt(3, 'G', 'Y'); break;
+            default:   led_enable = led_->BlinkInterrupt(3, 'X', 'W'); break;
         }
     }
     else if(wait_enable)
@@ -167,7 +167,7 @@ bool Run::SwitchChangeInterval(uint8_t switch_state)
 bool Run::EmergencyStop()
 {
     static uint8_t emergency_timer = 0;
-    bool line_emergency = line_sensor.GetEmergencyStopFlag();
+    bool line_emergency = line_sensor_->GetEmergencyStopFlag();
 
     if(emergency_timer >= EMERGENCY_STOP_TIME)
     {
@@ -207,125 +207,125 @@ void Run::RunMode()
 
 void Run::ModeEmergency()
 {
-    motor.Drive(0, 0);
+    motor_->Drive(0, 0);
 }
 
 void Run::ModeReady()
 {
-    line_sensor.Update();
-    if(line_sensor.CheckCalibration()) led.ColorOrder('X');
-    else led.ColorOrder('R');
+    line_sensor_->Update();
+    if(line_sensor_->CheckCalibration()) led_->ColorOrder('X');
+    else led_->ColorOrder('R');
 }
 
 void Run::ModeStandby()
 {
-    motor.Drive(0, 0);
+    motor_->Drive(0, 0);
 }
 
 void Run::ModeFirstRun()
 {
     /* Sensor update */
-    line_sensor.Update();
-    encoder.Update();
-    iim_42652.Update();
-    side_sensor.IgnoreJudgment();
+    line_sensor_->Update();
+    encoder_->Update();
+    iim_42652_->Update();
+    side_sensor_->IgnoreJudgment();
     /* Emergency stop */
     if(EmergencyStop()) return;
     /* Logging */
-    uint8_t goal_count = side_sensor.GetGoalMarkerCount();
-    if(goal_count == 1) logger.Logging(mode_complete_);
+    uint8_t goal_count = side_sensor_->GetGoalMarkerCount();
+    if(goal_count == 1) logger_->Logging(mode_complete_);
     mode_complete_ = false;
-    uint8_t period_success = logger.StorePeriodicLog();
-    uint8_t accel_success = logger.StoreAccelPositionLog();
+    uint8_t period_success = logger_->StorePeriodicLog();
+    uint8_t accel_success = logger_->StoreAccelPositionLog();
     if(period_success != 0 || !accel_success != 0) store_log_failed_ = true;
     /* Motor control */
     float target_velocity = FirstTargetVelocity(goal_count);
-    float trans_ratio = velocity_control.DeterminePidGain(target_velocity);
-    float rotat_ratio = line_trace.DeterminePidGain(target_velocity);
-    motor.Drive(trans_ratio, rotat_ratio);
+    float trans_ratio = velocity_control_->DeterminePidGain(target_velocity);
+    float rotat_ratio = line_trace_->DeterminePidGain(target_velocity);
+    motor_->Drive(trans_ratio, rotat_ratio);
 }
 
 void Run::ModeFirstGoal()
 {
-    motor.Drive(0, 0);
-    if(store_log_failed_) led.ColorOrder('R');
-    else led.ColorOrder('B');
+    motor_->Drive(0, 0);
+    if(store_log_failed_) led_->ColorOrder('R');
+    else led_->ColorOrder('B');
 }
 
 void Run::ModeSecondRun()
 {
     /* Sensor update */
-    line_sensor.Update();
-    encoder.Update();
-    iim_42652.Update();
-    side_sensor.IgnoreJudgment();
+    line_sensor_->Update();
+    encoder_->Update();
+    iim_42652_->Update();
+    side_sensor_->IgnoreJudgment();
     /* Emergency stop */
     if(EmergencyStop()) return;
     /* Loading */
-    uint8_t goal_count = side_sensor.GetGoalMarkerCount();
-    if(goal_count == 1) logger.Loading();
+    uint8_t goal_count = side_sensor_->GetGoalMarkerCount();
+    if(goal_count == 1) logger_->Loading();
     /* Motor control */
     float target_velocity = SecondTargetVelocity(goal_count);
-    float trans_ratio = velocity_control.DeterminePidGain(target_velocity);
-    float rotat_ratio = line_trace.DeterminePidGain(target_velocity);
-    motor.Drive(trans_ratio, rotat_ratio);
+    float trans_ratio = velocity_control_->DeterminePidGain(target_velocity);
+    float rotat_ratio = line_trace_->DeterminePidGain(target_velocity);
+    motor_->Drive(trans_ratio, rotat_ratio);
 }
 
 void Run::ModeSecondGoal()
 {
-    motor.Drive(0, 0);
-    led.ColorOrder('M');
+    motor_->Drive(0, 0);
+    led_->ColorOrder('M');
 }
 
 void Run::ModeVelocityControl()
 {
     /* Sensor update */
-    line_sensor.Update();
-    encoder.Update();
-    side_sensor.IgnoreJudgment();
+    line_sensor_->Update();
+    encoder_->Update();
+    side_sensor_->IgnoreJudgment();
     /* Emergency stop */
     if(EmergencyStop()) return;
     /* Motor control */
-    uint8_t goal_count = side_sensor.GetGoalMarkerCount();
+    uint8_t goal_count = side_sensor_->GetGoalMarkerCount();
     float target_velocity = VelocityControlTarget(goal_count);
-    float trans_ratio = velocity_control.DeterminePidGain(target_velocity);
-    float rotat_ratio = line_trace.DeterminePidGain(target_velocity);
-    motor.Drive(trans_ratio, rotat_ratio);
+    float trans_ratio = velocity_control_->DeterminePidGain(target_velocity);
+    float rotat_ratio = line_trace_->DeterminePidGain(target_velocity);
+    motor_->Drive(trans_ratio, rotat_ratio);
 }
 
 void Run::ModeLineTrace()
 {
     /* Sensor update */
-    line_sensor.Update();
-    side_sensor.IgnoreJudgment();
+    line_sensor_->Update();
+    side_sensor_->IgnoreJudgment();
     /* Emergency stop */
     if(EmergencyStop()) return;
     /* Motor control */
-    uint8_t goal_count = side_sensor.GetGoalMarkerCount();
+    uint8_t goal_count = side_sensor_->GetGoalMarkerCount();
     float trans_ratio = CommonDuty(goal_count);
-    float rotat_ratio = line_trace.LineTraceOnly();
-    motor.Drive(trans_ratio, rotat_ratio);
+    float rotat_ratio = line_trace_->LineTraceOnly();
+    motor_->Drive(trans_ratio, rotat_ratio);
 }
 
 #ifdef DEBUG_MODE
 void Run::ModeVelocityControlDebug()
 {
     /* Sensor update */
-    line_sensor.Update();
-    encoder.Update();
+    line_sensor_->Update();
+    encoder_->Update();
     /* Motor control */
     float target_velocity = VELOCITY_CONTROL_TARGET;
-    float trans_ratio = velocity_control.DeterminePidGain(target_velocity);
-    motor.Drive(trans_ratio, 0);
+    float trans_ratio = velocity_control_->DeterminePidGain(target_velocity);
+    motor_->Drive(trans_ratio, 0);
 }
 
 void Run::ModeLineTraceDebug()
 {
     /* Sensor update */
-    line_sensor.Update();
+    line_sensor_->Update();
     /* Motor control */
-    float rotat_ratio = line_trace.LineTraceOnly();
-    motor.Drive(0, rotat_ratio);
+    float rotat_ratio = line_trace_->LineTraceOnly();
+    motor_->Drive(0, rotat_ratio);
 }
 
 void Run::ModeInitialDebug()
@@ -371,7 +371,7 @@ float Run::SecondTargetVelocity(uint8_t goal_count)
 
     if(goal_count == 1)
     {
-        return logger.GetTargetVelocity();
+        return logger_->GetTargetVelocity();
     }
     else if(goal_count >= 2)
     {
@@ -457,12 +457,12 @@ float Run::CommonDuty(uint8_t goal_count)
 #ifdef DEBUG_FLASH
 void Run::DubugFlash()
 {
-    if(rotary_switch.State() == 0x0A)
+    if(rotary_switch_->State() == 0x0A)
     {
-        led.Blink(5, 'R', 'X');
+        led_->Blink(5, 'R', 'X');
         g_flash_test = TestFlash();
-        if(g_flash_test != 0x0E) led.ColorOrder('R');
-        else led.ColorOrder('B');
+        if(g_flash_test != 0x0E) led_->ColorOrder('R');
+        else led_->ColorOrder('B');
     }
 }
 
@@ -482,26 +482,26 @@ uint8_t Run::TestFlash()
     int16_t buff_c[num_of_data] = {0};
     float buff_d[num_of_data] = {0};
 
-    if(!flash.Clear()) return 0x01;
+    if(!flash_->Clear()) return 0x01;
 
-    if(!flash.CheckBlankByte(address_1, num_of_data)) return 0x02;
-    if(!flash.StoreUint8(address_1, a, num_of_data)) return 0x03;
-    flash.Load(buff_a, address_1, num_of_data);
+    if(!flash_->CheckBlankByte(address_1, num_of_data)) return 0x02;
+    if(!flash_->StoreUint8(address_1, a, num_of_data)) return 0x03;
+    flash_->Load(buff_a, address_1, num_of_data);
     for(i = 0; i < num_of_data; i++) if(a[i] != buff_a[i]) return 0x04;
 
-    if(!flash.CheckBlankHalfword(address_2, num_of_data)) return 0x05;
-    if(!flash.StoreUint16(address_2, b, num_of_data)) return 0x06;
-    flash.Load(buff_b, address_2, num_of_data*2);
+    if(!flash_->CheckBlankHalfword(address_2, num_of_data)) return 0x05;
+    if(!flash_->StoreUint16(address_2, b, num_of_data)) return 0x06;
+    flash_->Load(buff_b, address_2, num_of_data*2);
     for(i = 0; i < num_of_data; i++) if(b[i] != buff_b[i]) return 0x07;
 
-    if(!flash.CheckBlankHalfword(address_3, num_of_data)) return 0x08;
-    if(!flash.StoreInt16(address_3, c, num_of_data)) return 0x09;
-    flash.Load(buff_c, address_3, num_of_data*2);
+    if(!flash_->CheckBlankHalfword(address_3, num_of_data)) return 0x08;
+    if(!flash_->StoreInt16(address_3, c, num_of_data)) return 0x09;
+    flash_->Load(buff_c, address_3, num_of_data*2);
     for(i = 0; i < num_of_data; i++) if(c[i] != buff_c[i]) return 0x0A;
 
-    if(!flash.CheckBlankWord(address_4, num_of_data)) return 0x0B;
-    if(!flash.StoreFloat(address_4, d, num_of_data)) return 0x0C;
-    flash.Load(buff_d, address_4, num_of_data*4);
+    if(!flash_->CheckBlankWord(address_4, num_of_data)) return 0x0B;
+    if(!flash_->StoreFloat(address_4, d, num_of_data)) return 0x0C;
+    flash_->Load(buff_d, address_4, num_of_data*4);
     for(i = 0; i < num_of_data; i++) if(d[i] != buff_d[i]) return 0x0D;
 
     return 0x0E;
@@ -512,41 +512,41 @@ uint8_t Run::TestFlash()
 void Run::InitialTest()
 {
     /* Line sensor */
-    line_sensor.Update();
-    line_sensor.MonitorArrays();
-    g_line_diff = line_sensor.LeftRightDifference();
-    g_line_emer = line_sensor.GetEmergencyStopFlag();
-    g_line_calib = line_sensor.CheckCalibration();
+    line_sensor_->Update();
+    line_sensor_->MonitorArrays();
+    g_line_diff = line_sensor_->LeftRightDifference();
+    g_line_emer = line_sensor_->GetEmergencyStopFlag();
+    g_line_calib = line_sensor_->CheckCalibration();
 
     /* Side seneor */
-    side_sensor.IgnoreJudgment();
-    g_goal_cnt = side_sensor.GetGoalMarkerCount();
-    g_corner_cnt = side_sensor.GetCornerMarkerCount();
-    g_cross_cnt = side_sensor.GetCrossLineCount();
+    side_sensor_->IgnoreJudgment();
+    g_goal_cnt = side_sensor_->GetGoalMarkerCount();
+    g_corner_cnt = side_sensor_->GetCornerMarkerCount();
+    g_cross_cnt = side_sensor_->GetCrossLineCount();
 
     /* IMU */
-    iim_42652.Update();
-    g_deg_stack_z = iim_42652.GetDegreeStackZ();
-    g_gyro_x_l = iim_42652.GyroXLeft();
-    g_gyro_x_r = iim_42652.GyroXRight();
-    g_gyro_y_l = iim_42652.GyroYLeft();
-    g_gyro_y_r = iim_42652.GyroYRight();
-    g_gyro_z_l = iim_42652.GyroZLeft();
-    g_gyro_z_r = iim_42652.GyroZRight();
-    g_accel_x_l = iim_42652.AccelXLeft();
-    g_accel_x_r = iim_42652.AccelXRight();
-    g_accel_y_l = iim_42652.AccelYLeft();
-    g_accel_y_r = iim_42652.AccelYRight();
-    g_accel_z_l = iim_42652.AccelZLeft();
-    g_accel_z_r = iim_42652.AccelZRight();
+    iim_42652_->Update();
+    g_deg_stack_z = iim_42652_->GetDegreeStackZ();
+    g_gyro_x_l = iim_42652_->GyroXLeft();
+    g_gyro_x_r = iim_42652_->GyroXRight();
+    g_gyro_y_l = iim_42652_->GyroYLeft();
+    g_gyro_y_r = iim_42652_->GyroYRight();
+    g_gyro_z_l = iim_42652_->GyroZLeft();
+    g_gyro_z_r = iim_42652_->GyroZRight();
+    g_accel_x_l = iim_42652_->AccelXLeft();
+    g_accel_x_r = iim_42652_->AccelXRight();
+    g_accel_y_l = iim_42652_->AccelYLeft();
+    g_accel_y_r = iim_42652_->AccelYRight();
+    g_accel_z_l = iim_42652_->AccelZLeft();
+    g_accel_z_r = iim_42652_->AccelZRight();
 
     /* Encoder */
-    encoder.Update();
-    g_distance = encoder.GetDistance();
-    g_distance_stack = encoder.GetDistanceStack();
-    g_distance_diff = encoder.AngularVelocity();
+    encoder_->Update();
+    g_distance = encoder_->GetDistance();
+    g_distance_stack = encoder_->GetDistanceStack();
+    g_distance_diff = encoder_->AngularVelocity();
 
     /* Motor */
-    motor.Drive(INIT_DEBUG_MOTOR_DUTY, 0);
+    motor_->Drive(INIT_DEBUG_MOTOR_DUTY, 0);
 }
 #endif // DEBUG_MODE

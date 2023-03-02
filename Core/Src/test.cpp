@@ -1,7 +1,6 @@
 #include "test.hpp"
 
-Test::Test(LineSensor *line_sensor,
-           Led *led)
+Test::Test(LineSensor *line_sensor, Led *led)
 {
     line_sensor_ = line_sensor;
     led_ = led;
@@ -23,10 +22,10 @@ void Test::Timer7()
 
 void Test::Timer6()
 {
-    LineSensor();
+    Line();
 }
 
-void Test::LineSensor()
+void Test::Line()
 {
     line_sensor_->Update();
     line_sensor_->MonitorArrays();

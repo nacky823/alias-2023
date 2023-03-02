@@ -1,5 +1,6 @@
 #include "test.hpp"
 
+#ifdef TEST_MODE
 Test::Test(LineSensor *line_sensor, Led *led)
 {
     line_sensor_ = line_sensor;
@@ -33,3 +34,4 @@ void Test::Line()
     g_line_emer = line_sensor_->GetEmergencyStopFlag();
     g_line_calib = line_sensor_->CheckCalibration();
 }
+#endif // TEST_MODE

@@ -5,6 +5,15 @@ LineTrace::LineTrace(LineSensor *line_sensor) : integral_error_(0)
     line_sensor_ = line_sensor;
 }
 
+float LineTrace::LineTraceOnly()
+{
+    float p_gain = LINE_ONLY_P_GAIN;
+    float i_gain = LINE_ONLY_I_GAIN;
+    float d_gain = LINE_ONLY_D_GAIN;
+
+    return PidControl(p_gain, i_gain, d_gain);
+}
+
 float LineTrace::DeterminePidGain(float target_velocity)
 {
     float p_gain, i_gain, d_gain;

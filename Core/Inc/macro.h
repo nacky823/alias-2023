@@ -16,6 +16,9 @@
 #define MIN_VELOCITY 1.3
 #define COMMON_DUTY 0.2
 
+#define EMERGENCY_STOP_TIME 5
+#define EXPLORE_VELOCITY 1.2
+
 /* ----- Velocity control ----- */
 #define VELOCITY_LPF_RATIO     0.70
 #define VELOCITY_P_GAIN  0.0

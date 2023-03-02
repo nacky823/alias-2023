@@ -1,14 +1,18 @@
 #include "wrapper.hpp"
 #include "run.hpp"
 
+#ifdef TEST_MODE
+Test test;
+#else // TEST_MODE
 Run run;
+#endif // TEST_MODE
 
 void Init()
 {
-#ifndef DEBUG_FLASH
-    run.Init();
-#else // DEBUG_FLASH
+#ifdef DEBUG_FLASH
     run.DubugFlash();
+#else // DEBUG_FLASH
+    run.Init();
 #endif // DEBUG_FLASH
 }
 

@@ -37,13 +37,13 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING
  16 .debug_macro  00023c32  00000000  00000000  00054a30  2**0
                   CONTENTS, READONLY, DEBUGGING
- 17 .debug_line   00011175  00000000  00000000  00078662  2**0
+ 17 .debug_line   00011146  00000000  00000000  00078662  2**0
                   CONTENTS, READONLY, DEBUGGING
- 18 .debug_str    000ca7ce  00000000  00000000  000897d7  2**0
+ 18 .debug_str    000ca7ce  00000000  00000000  000897a8  2**0
                   CONTENTS, READONLY, DEBUGGING
- 19 .comment      0000007b  00000000  00000000  00153fa5  2**0
+ 19 .comment      0000007b  00000000  00000000  00153f76  2**0
                   CONTENTS, READONLY
- 20 .debug_frame  000050f8  00000000  00000000  00154020  2**2
+ 20 .debug_frame  000050f8  00000000  00000000  00153ff4  2**2
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -648,9 +648,9 @@ LineSensor::LineSensor() : line_sensors_buff_{0}
  80205ca:	af00      	add	r7, sp, #0
  80205cc:	6078      	str	r0, [r7, #4]
                          , consecutive_line_sensors_buff_{{0}}
-                         , max_line_sensors_valu_()
-                         , min_line_sensors_valu_()
-                         , line_sensors_valu_()
+                         , max_line_sensors_valu_{0}
+                         , min_line_sensors_valu_{0}
+                         , line_sensors_valu_{0}
                          , emergency_stop_flag_(false) {}
  80205ce:	687b      	ldr	r3, [r7, #4]
  80205d0:	461a      	mov	r2, r3
@@ -669,35 +669,35 @@ LineSensor::LineSensor() : line_sensors_buff_{0}
  80205ec:	4618      	mov	r0, r3
  80205ee:	f004 ff07 	bl	8025400 <memset>
  80205f2:	687b      	ldr	r3, [r7, #4]
- 80205f4:	f503 729a 	add.w	r2, r3, #308	; 0x134
- 80205f8:	230d      	movs	r3, #13
- 80205fa:	2b00      	cmp	r3, #0
- 80205fc:	db04      	blt.n	8020608 <_ZN10LineSensorC1Ev+0x42>
- 80205fe:	2100      	movs	r1, #0
- 8020600:	8011      	strh	r1, [r2, #0]
- 8020602:	3202      	adds	r2, #2
- 8020604:	3b01      	subs	r3, #1
- 8020606:	e7f8      	b.n	80205fa <_ZN10LineSensorC1Ev+0x34>
+ 80205f4:	f503 739a 	add.w	r3, r3, #308	; 0x134
+ 80205f8:	2200      	movs	r2, #0
+ 80205fa:	601a      	str	r2, [r3, #0]
+ 80205fc:	605a      	str	r2, [r3, #4]
+ 80205fe:	609a      	str	r2, [r3, #8]
+ 8020600:	60da      	str	r2, [r3, #12]
+ 8020602:	611a      	str	r2, [r3, #16]
+ 8020604:	615a      	str	r2, [r3, #20]
+ 8020606:	619a      	str	r2, [r3, #24]
  8020608:	687b      	ldr	r3, [r7, #4]
- 802060a:	f503 72a8 	add.w	r2, r3, #336	; 0x150
- 802060e:	230d      	movs	r3, #13
- 8020610:	2b00      	cmp	r3, #0
- 8020612:	db04      	blt.n	802061e <_ZN10LineSensorC1Ev+0x58>
- 8020614:	2100      	movs	r1, #0
- 8020616:	8011      	strh	r1, [r2, #0]
- 8020618:	3202      	adds	r2, #2
- 802061a:	3b01      	subs	r3, #1
- 802061c:	e7f8      	b.n	8020610 <_ZN10LineSensorC1Ev+0x4a>
+ 802060a:	f503 73a8 	add.w	r3, r3, #336	; 0x150
+ 802060e:	2200      	movs	r2, #0
+ 8020610:	601a      	str	r2, [r3, #0]
+ 8020612:	605a      	str	r2, [r3, #4]
+ 8020614:	609a      	str	r2, [r3, #8]
+ 8020616:	60da      	str	r2, [r3, #12]
+ 8020618:	611a      	str	r2, [r3, #16]
+ 802061a:	615a      	str	r2, [r3, #20]
+ 802061c:	619a      	str	r2, [r3, #24]
  802061e:	687b      	ldr	r3, [r7, #4]
- 8020620:	f503 72b6 	add.w	r2, r3, #364	; 0x16c
- 8020624:	230d      	movs	r3, #13
- 8020626:	2b00      	cmp	r3, #0
- 8020628:	db04      	blt.n	8020634 <_ZN10LineSensorC1Ev+0x6e>
- 802062a:	2100      	movs	r1, #0
- 802062c:	8011      	strh	r1, [r2, #0]
- 802062e:	3202      	adds	r2, #2
- 8020630:	3b01      	subs	r3, #1
- 8020632:	e7f8      	b.n	8020626 <_ZN10LineSensorC1Ev+0x60>
+ 8020620:	f503 73b6 	add.w	r3, r3, #364	; 0x16c
+ 8020624:	2200      	movs	r2, #0
+ 8020626:	601a      	str	r2, [r3, #0]
+ 8020628:	605a      	str	r2, [r3, #4]
+ 802062a:	609a      	str	r2, [r3, #8]
+ 802062c:	60da      	str	r2, [r3, #12]
+ 802062e:	611a      	str	r2, [r3, #16]
+ 8020630:	615a      	str	r2, [r3, #20]
+ 8020632:	619a      	str	r2, [r3, #24]
  8020634:	687b      	ldr	r3, [r7, #4]
  8020636:	2200      	movs	r2, #0
  8020638:	f883 2188 	strb.w	r2, [r3, #392]	; 0x188

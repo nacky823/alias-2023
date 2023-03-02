@@ -73,6 +73,30 @@ void LineSensor::MergeSort(uint16_t array[], uint8_t first_index, uint8_t last_i
     }
 }
 
+void LineSensor::New()
+{
+    uint8_t i, j;
+    uint16_t temp_array[CONSECUTIVE_TIMES];
+    uint16_t sorted_array[NUM_OF_LINE_SENSORS][CONSECUTIVE_TIMES];
+    
+    for(i = 0; i < NUM_OF_LINE_SENSORS; i++)
+    {
+        for(j = 0; j < CONSECUTIVE_TIMES; j++)
+        {
+            temp_array[j] = consecutive_line_sensors_buff_[j][i];
+        }
+
+        MergeSort(temp_array, 0, CONSECUTIVE_TIMES-1);
+
+        for(j = 0; j < CONSECUTIVE_TIMES; j++)
+        {
+            sorted_array[i][j] = temp_array[j];
+            g_consecutive_line_buff[i][j] = sorted_array[i][j];
+        }
+    }
+
+}
+
 void LineSensor::Update()
 {
     uint8_t i, j;

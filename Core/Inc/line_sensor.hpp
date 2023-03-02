@@ -39,6 +39,7 @@ public:
     LineSensor();
     void Init();
     void StoreConsecutiveBuff();
+    void New();
     void Update();
     bool GetEmergencyStopFlag();
     float LeftRightDifference();

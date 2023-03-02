@@ -3,14 +3,17 @@
 #define TEST_HPP_
 
 #include "line_senser.hpp"
+#include "led.hpp"
 
 class Test
 {
 private:
     LineSensor *line_sensor_;
+    Led *led_;
 
 public:
-    Test(LineSensor *);
+    Test(LineSensor *,
+         Led *);
     void Init();
     void Timer7();
     void Timer6();

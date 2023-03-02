@@ -1,19 +1,24 @@
 #include "test.hpp"
 
-Test::Test(LineSensor *line_sensor)
+Test::Test(LineSensor *line_sensor,
+           Led *led)
 {
     line_sensor_ = line_sensor;
+    led_ = led;
 }
 
 void Test::Init()
 {
     line_sensor_->Init();
-    encoder_->Init();
-    motor_->Init();
 
     led_->Rainbow(2);
-    HAL_TIM_Base_Start_IT(&htim6);
     HAL_TIM_Base_Start_IT(&htim7);
+    HAL_TIM_Base_Start_IT(&htim6);
+}
+
+void Test::Timer7()
+{
+    line_sensor_->StoreConsecutiveBuff();
 }
 
 void Test::Timer6()

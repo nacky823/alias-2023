@@ -12,7 +12,8 @@ void Test::Init()
 {
     line_sensor_->Init();
 
-    led_->Rainbow(2);
+    led_->Blink(5, 'Y', 'M');
+    led_->ColorOrder('X');
     HAL_TIM_Base_Start_IT(&htim7);
     HAL_TIM_Base_Start_IT(&htim6);
 }

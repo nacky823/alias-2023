@@ -2,7 +2,8 @@
 #define MACRO_H_
 
 /* ----- Debug mode ----- */
-//#define DEBUG_MODE
+#define DEBUG_MODE
+#define TEST_MODE
 
 /* ----- Parameter adjustment ----- */
 #define INIT_DEBUG_MOTOR_DUTY 0.0

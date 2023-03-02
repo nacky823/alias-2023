@@ -86,7 +86,7 @@ void LineSensor::New()
             temp_array[j] = consecutive_line_sensors_buff_[j][i];
         }
 
-        //MergeSort(temp_array, 0, CONSECUTIVE_TIMES-1);
+        MergeSort(temp_array, 0, CONSECUTIVE_TIMES-1);
 
         for(j = 0; j < CONSECUTIVE_TIMES; j++)
         {
@@ -95,28 +95,30 @@ void LineSensor::New()
         }
     }
 
+    uint16_t max, min, median;
+
     for(i = 0; i < NUM_OF_LINE_SENSORS; i++)
     {
-        
-        g_max_line_valu[i] = max_line_sensors_valu_[i];
-        g_min_line_valu[i] = min_line_sensors_valu_[i];
-        g_line_valu[i] = line_sensors_valu_[i];
-        
-        /*
-        if(min_line_sensors_valu_[i] > sorted_array[i][HALF_CONSECUTIVE_TIMES])
+        max = max_line_sensors_valu_[i];
+        min = min_line_sensors_valu_[i];
+        median = sorted_array[i][HALF_CONSECUTIVE_TIMES];
+
+        if(max < median || max == 0)
         {
-            min_line_sensors_valu_[i] = sorted_array[i][HALF_CONSECUTIVE_TIMES];
-            g_min_line_valu[i] = min_line_sensors_valu_[i];
+            max = median;
         }
-        else if(min_line_sensors_valu_[i] == 0)
+        if(min > median || min == 0)
         {
-            min_line_sensors_valu_[i] = sorted_array[i][HALF_CONSECUTIVE_TIMES];
-            g_min_line_valu[i] = min_line_sensors_valu_[i];
+            min = median;
         }
-        */
+
+        if(max < min)
+        {
+            normalized = MAX_NORMALIZED_VALU * (median - min) / (max - min);
+        }
     }
 }
-/*
+
 void LineSensor::Update()
 {
     uint8_t i, j;
@@ -130,55 +132,36 @@ void LineSensor::Update()
         {
             temp_array[j] = consecutive_line_sensors_buff_[j][i];
         }
-
         MergeSort(temp_array, 0, CONSECUTIVE_TIMES-1);
         median = temp_array[HALF_CONSECUTIVE_TIMES];
-
 #ifdef DEBUG_MODE
         for(j = 0; j < CONSECUTIVE_TIMES; j++)
         {
             g_consecutive_line_buff[i][j] = temp_array[j];
         }
 #endif // DEBUG_MODE
-
-        /*
         max = max_line_sensors_valu_[i];
         min = min_line_sensors_valu_[i];
-        if(max < median)      max = median;
-        else if(min > median) min = median;
-        else if(min == 0)     min = median;
+        if(max < median || max == 0) max = median;
+        if(min > median || min == 0) min = median;
         max_line_sensors_valu_[i] = max;
         min_line_sensors_valu_[i] = min;
-
-        max = max_line_sensors_valu_[i];
-        min = min_line_sensors_valu_[i];
-        if(max < median)
-        {
-            max = median;
-            max_line_sensors_valu_[i] = median;
-            g_max_line_valu[i] = max_line_sensors_valu_[i];
-        }
-        if(min > median || min == 0)
-        {
-            min = median;
-            min_line_sensors_valu_[i] = median;
-            g_min_line_valu[i] = min_line_sensors_valu_[i];
-        }
-
-
+#ifdef DEBUG_MODE
+        g_max_line_valu[i] = max_line_sensors_valu_[i];
+        g_min_line_valu[i] = min_line_sensors_valu_[i];
+#endif // DEBUG_MODE
         if(max > min)
         {
             normalized = MAX_NORMALIZED_VALU * (median - min) / (max - min);
             line_sensors_valu_[i] = normalized;
+#ifdef DEBUG_MODE
             g_line_valu[i] = line_sensors_valu_[i];
-
+#endif // DEBUG_MODE
             if(normalized < EMERGENCY_STOP_BORDER) emergency = false;
         }
     }
-
     emergency_stop_flag_ = emergency;
 }
-*/
 
 bool LineSensor::GetEmergencyStopFlag()
 {

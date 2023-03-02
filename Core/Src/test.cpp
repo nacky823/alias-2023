@@ -30,7 +30,7 @@ void Test::Timer6()
 
 void Test::Line()
 {
-    line_sensor_->New();
+    line_sensor_->Update();
     line_sensor_->MonitorArrays();
     //g_line_diff = line_sensor_->LeftRightDifference();
     //g_line_emer = line_sensor_->GetEmergencyStopFlag();

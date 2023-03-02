@@ -17,10 +17,7 @@ public:
     VelocityControl(Encoder *);
     float DeterminePidGain(float);
     void ResetIntegralError();
-
-#ifdef DEBUG_MODE
     float GetIntegralError();
-#endif // DEBUG_MODE
 
 };
 

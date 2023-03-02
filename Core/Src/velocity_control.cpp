@@ -8,7 +8,7 @@ VelocityControl::VelocityControl(Encoder *encoder) : integral_error_(0)
 
 float VelocityControl::DeterminePidGain(float target_velocity)
 {
-    float p_gain, i_gain, d_gain;
+    float p_gain = 0, i_gain = 0, d_gain = 0;
 
     if(target_velocity < MAX_VELOCITY)
     {
@@ -68,9 +68,7 @@ void VelocityControl::ResetIntegralError()
     integral_error_ = 0.0;
 }
 
-#ifdef DEBUG_MODE
 float VelocityControl::GetIntegralError()
 {
     return integral_error_;
 }
-#endif // DEBUG_MODE

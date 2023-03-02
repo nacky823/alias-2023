@@ -1,7 +1,7 @@
 #ifndef TEST_HPP_
 #define TEST_HPP_
 
-#include "line_senser.hpp"
+#include "line_sensor.hpp"
 #include "led.hpp"
 
 #ifdef TEST_MODE

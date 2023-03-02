@@ -37,13 +37,13 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING
  16 .debug_macro  00023c32  00000000  00000000  00054a30  2**0
                   CONTENTS, READONLY, DEBUGGING
- 17 .debug_line   00011145  00000000  00000000  00078662  2**0
+ 17 .debug_line   00011140  00000000  00000000  00078662  2**0
                   CONTENTS, READONLY, DEBUGGING
- 18 .debug_str    000ca7ce  00000000  00000000  000897a7  2**0
+ 18 .debug_str    000ca7ce  00000000  00000000  000897a2  2**0
                   CONTENTS, READONLY, DEBUGGING
- 19 .comment      0000007b  00000000  00000000  00153f75  2**0
+ 19 .comment      0000007b  00000000  00000000  00153f70  2**0
                   CONTENTS, READONLY
- 20 .debug_frame  000050fc  00000000  00000000  00153ff0  2**2
+ 20 .debug_frame  000050fc  00000000  00000000  00153fec  2**2
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -825,30 +825,28 @@ void LineSensor::StoreConsecutiveBuff()
  80206fa:	e7e5      	b.n	80206c8 <_ZN10LineSensor20StoreConsecutiveBuffEv+0xc>
     }
 
-    if(times < CONSECUTIVE_TIMES) times++;
+    times++;
  80206fc:	4b09      	ldr	r3, [pc, #36]	; (8020724 <_ZN10LineSensor20StoreConsecutiveBuffEv+0x68>)
  80206fe:	781b      	ldrb	r3, [r3, #0]
- 8020700:	2b09      	cmp	r3, #9
- 8020702:	d806      	bhi.n	8020712 <_ZN10LineSensor20StoreConsecutiveBuffEv+0x56>
+ 8020700:	3301      	adds	r3, #1
+ 8020702:	b2da      	uxtb	r2, r3
  8020704:	4b07      	ldr	r3, [pc, #28]	; (8020724 <_ZN10LineSensor20StoreConsecutiveBuffEv+0x68>)
- 8020706:	781b      	ldrb	r3, [r3, #0]
- 8020708:	3301      	adds	r3, #1
- 802070a:	b2da      	uxtb	r2, r3
- 802070c:	4b05      	ldr	r3, [pc, #20]	; (8020724 <_ZN10LineSensor20StoreConsecutiveBuffEv+0x68>)
- 802070e:	701a      	strb	r2, [r3, #0]
-    else times = 0;
+ 8020706:	701a      	strb	r2, [r3, #0]
+    if(times >= CONSECUTIVE_TIMES) times = 0;
+ 8020708:	4b06      	ldr	r3, [pc, #24]	; (8020724 <_ZN10LineSensor20StoreConsecutiveBuffEv+0x68>)
+ 802070a:	781b      	ldrb	r3, [r3, #0]
+ 802070c:	2b09      	cmp	r3, #9
+ 802070e:	d902      	bls.n	8020716 <_ZN10LineSensor20StoreConsecutiveBuffEv+0x5a>
+ 8020710:	4b04      	ldr	r3, [pc, #16]	; (8020724 <_ZN10LineSensor20StoreConsecutiveBuffEv+0x68>)
+ 8020712:	2200      	movs	r2, #0
+ 8020714:	701a      	strb	r2, [r3, #0]
 }
- 8020710:	e002      	b.n	8020718 <_ZN10LineSensor20StoreConsecutiveBuffEv+0x5c>
-    else times = 0;
- 8020712:	4b04      	ldr	r3, [pc, #16]	; (8020724 <_ZN10LineSensor20StoreConsecutiveBuffEv+0x68>)
- 8020714:	2200      	movs	r2, #0
- 8020716:	701a      	strb	r2, [r3, #0]
-}
- 8020718:	bf00      	nop
- 802071a:	3714      	adds	r7, #20
- 802071c:	46bd      	mov	sp, r7
- 802071e:	f85d 7b04 	ldr.w	r7, [sp], #4
- 8020722:	4770      	bx	lr
+ 8020716:	bf00      	nop
+ 8020718:	3714      	adds	r7, #20
+ 802071a:	46bd      	mov	sp, r7
+ 802071c:	f85d 7b04 	ldr.w	r7, [sp], #4
+ 8020720:	4770      	bx	lr
+ 8020722:	bf00      	nop
  8020724:	2000002c 	.word	0x2000002c
 
 08020728 <_ZN10LineSensor3NewEv>:

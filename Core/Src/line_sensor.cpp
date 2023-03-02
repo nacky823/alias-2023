@@ -39,8 +39,8 @@ void LineSensor::StoreConsecutiveBuff()
         consecutive_line_sensors_buff_[times][i] = line_sensors_buff_[i];
     }
 
-    if(times < CONSECUTIVE_TIMES) times++;
-    else times = 0;
+    times++;
+    if(times >= CONSECUTIVE_TIMES) times = 0;
 }
 
 void LineSensor::MergeSort(uint16_t array[], uint8_t first_index, uint8_t last_index)

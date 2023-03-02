@@ -61,6 +61,8 @@ TIM_HandleTypeDef htim12;
 
 /* USER CODE BEGIN PV */
 #ifdef DEBUG_MODE
+uint16_t g_monitor_u16 = 0;
+
 /* Line sensor */
 float g_line_diff = 0;
 uint8_t g_line_emer = 0;

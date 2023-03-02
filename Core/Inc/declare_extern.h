@@ -25,6 +25,7 @@ extern TIM_HandleTypeDef htim12;
 #ifdef DEBUG_MODE
 /* Anywhere */
 extern uint16_t monitor_count;
+extern uint16_t g_monitor_u16;
 
 /*
 #ifdef DEBUG_MODE

@@ -73,6 +73,7 @@ void LineSensor::MergeSort(uint16_t array[], uint8_t first_index, uint8_t last_i
     }
 }
 
+/*
 void LineSensor::New()
 {
     uint8_t i, j;
@@ -118,6 +119,7 @@ void LineSensor::New()
         }
     }
 }
+*/
 
 void LineSensor::Update()
 {

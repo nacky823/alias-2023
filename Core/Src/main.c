@@ -65,7 +65,8 @@ uint16_t g_monitor_u16 = 0;
 
 /* Line sensor */
 float g_line_diff = 0;
-uint8_t g_line_emer = 0;
+bool g_line_emer = false;
+bool g_line_calib = false;
 
 bool g_error_handler_adc1 = false;
 bool g_error_handler_tim11 = false;
@@ -174,7 +175,6 @@ uint8_t g_run_end = 0;
 /* Timer */
 uint8_t g_tim6_complete = 0, g_tim5_complete = 0, g_tim2_complete = 0;
 uint8_t g_tim6_yet = 0, g_tim5_yet = 0, g_tim2_yet = 0;
-uint8_t g_line_calib = 0;
 uint8_t g_goal_cnt = 0;
 float g_trans = 0;
 float g_rotat = 0;

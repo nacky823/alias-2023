@@ -40,7 +40,8 @@ extern bool g_interval_enable;
 
 /* Line sensor */
 extern float g_line_diff;
-extern uint8_t g_line_emer;
+extern bool g_line_emer;
+extern bool g_line_calib;
 
 /* Side seneor */
 extern uint8_t g_ignore_flag;
@@ -135,7 +136,6 @@ extern uint8_t g_run_end;
 /* Timer */
 extern uint8_t g_tim6_complete, g_tim5_complete, g_tim2_complete;
 extern uint8_t g_tim6_yet, g_tim5_yet, g_tim2_yet;
-extern uint8_t g_line_calib;
 extern uint8_t g_goal_cnt;
 extern float g_trans;
 extern float g_rotat;

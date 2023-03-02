@@ -1,0 +1,5 @@
+test.cpp:4:1:Test::Test(LineSensor*, Led*)	24	static
+test.cpp:10:6:void Test::Init()	16	static
+test.cpp:19:6:void Test::Timer7()	16	static
+test.cpp:24:6:void Test::Timer6()	16	static
+test.cpp:29:6:void Test::Line()	16	static

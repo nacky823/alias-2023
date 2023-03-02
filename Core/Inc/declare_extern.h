@@ -2,6 +2,7 @@
 #define DECLARE_EXTERN_H_
 
 #include "macro.h"
+#include <stdbool.h>
 
 extern ADC_HandleTypeDef hadc1;
 extern DMA_HandleTypeDef hdma_adc1;

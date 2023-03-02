@@ -97,17 +97,10 @@ void LineSensor::New()
 
     for(i = 0; i < NUM_OF_LINE_SENSORS; i++)
     {
-        if(max_line_sensors_valu_[i] < sorted_array[i][HALF_CONSECUTIVE_TIMES])
-        {
-            max_line_sensors_valu_[i] = sorted_array[i][HALF_CONSECUTIVE_TIMES];
-            g_max_line_valu[i] = max_line_sensors_valu_[i];
-        }
-        else if(max_line_sensors_valu_[i] == 0)
-        {
-            max_line_sensors_valu_[i] = sorted_array[i][HALF_CONSECUTIVE_TIMES];
-            g_max_line_valu[i] = max_line_sensors_valu_[i];
-        }
         
+        g_max_line_valu[i] = max_line_sensors_valu_[i];
+        
+        /*
         if(min_line_sensors_valu_[i] > sorted_array[i][HALF_CONSECUTIVE_TIMES])
         {
             min_line_sensors_valu_[i] = sorted_array[i][HALF_CONSECUTIVE_TIMES];
@@ -118,9 +111,10 @@ void LineSensor::New()
             min_line_sensors_valu_[i] = sorted_array[i][HALF_CONSECUTIVE_TIMES];
             g_min_line_valu[i] = min_line_sensors_valu_[i];
         }
+        */
     }
 }
-
+/*
 void LineSensor::Update()
 {
     uint8_t i, j;
@@ -153,7 +147,6 @@ void LineSensor::Update()
         else if(min == 0)     min = median;
         max_line_sensors_valu_[i] = max;
         min_line_sensors_valu_[i] = min;
-        */
 
         max = max_line_sensors_valu_[i];
         min = min_line_sensors_valu_[i];
@@ -183,6 +176,7 @@ void LineSensor::Update()
 
     emergency_stop_flag_ = emergency;
 }
+*/
 
 bool LineSensor::GetEmergencyStopFlag()
 {

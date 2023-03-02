@@ -32,8 +32,8 @@ void Test::Line()
 {
     line_sensor_->New();
     line_sensor_->MonitorArrays();
-    g_line_diff = line_sensor_->LeftRightDifference();
-    g_line_emer = line_sensor_->GetEmergencyStopFlag();
-    g_line_calib = line_sensor_->CheckCalibration();
+    //g_line_diff = line_sensor_->LeftRightDifference();
+    //g_line_emer = line_sensor_->GetEmergencyStopFlag();
+    //g_line_calib = line_sensor_->CheckCalibration();
 }
 #endif // TEST_MODE

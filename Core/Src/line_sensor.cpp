@@ -100,18 +100,25 @@ void LineSensor::New()
         if(max_line_sensors_valu_[i] < sorted_array[i][HALF_CONSECUTIVE_TIMES])
         {
             max_line_sensors_valu_[i] = sorted_array[i][HALF_CONSECUTIVE_TIMES];
+            g_max_line_valu[i] = max_line_sensors_valu_[i];
+        }
+        else if(max_line_sensors_valu_[i] == 0)
+        {
+            max_line_sensors_valu_[i] = sorted_array[i][HALF_CONSECUTIVE_TIMES];
+            g_max_line_valu[i] = max_line_sensors_valu_[i];
         }
         
         if(min_line_sensors_valu_[i] > sorted_array[i][HALF_CONSECUTIVE_TIMES])
         {
             min_line_sensors_valu_[i] = sorted_array[i][HALF_CONSECUTIVE_TIMES];
+            g_min_line_valu[i] = min_line_sensors_valu_[i];
         }
         else if(min_line_sensors_valu_[i] == 0)
         {
             min_line_sensors_valu_[i] = sorted_array[i][HALF_CONSECUTIVE_TIMES];
+            g_min_line_valu[i] = min_line_sensors_valu_[i];
         }
     }
-
 }
 
 void LineSensor::Update()

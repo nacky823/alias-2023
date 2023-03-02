@@ -2,10 +2,31 @@
 #include "test.hpp"
 #include "run.hpp"
 
-LineSensor line_sensor;
+Encoder encoder;
+Flash flash;
+Iim42652 iim_42652;
 Led led;
+LineSensor line_sensor;
+LineTrace line_trace;
+Logger logger;
+Motor motor;
+RotarySwitch rotary_switch;
+SideSensor side_sensor;
+VelocityControl velocity_control;
 #ifndef TEST_MODE
-Run run;
+Run run(
+    &encoder,
+    &flash,
+    &iim_42652,
+    &led,
+    &line_sensor,
+    &line_trace,
+    &logger,
+    &motor,
+    &rotary_switch,
+    &side_sensor,
+    &velocity_control
+);
 #else // TEST_MODE
 Test test(&line_sensor, &led);
 #endif // TEST_MODE

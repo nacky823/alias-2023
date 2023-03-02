@@ -19,6 +19,11 @@
 #define EMERGENCY_STOP_TIME 5
 #define EXPLORE_VELOCITY 1.2
 
+#define SLOW_DRIVE_DUTY 0.2
+#define SLOW_DRIVE_TIME 500
+#define SLOW_DRIVE_VELOCITY 1.0
+#define STOP_TIME 2000
+
 /* ----- Velocity control ----- */
 #define VELOCITY_LPF_RATIO     0.70
 #define VELOCITY_P_GAIN  0.0
@@ -26,6 +31,8 @@
 #define VELOCITY_D_GAIN  0.0
 #define LIMIT_TRANS_DUTY 0.90
 #define MAX_VELOCITY     4.0
+
+#define VELOCITY_CONTROL_TARGET 1.2
 
 /* ----- Line sensor ----- */
 #define LINE_SENSOR_CORRECTION 0.950

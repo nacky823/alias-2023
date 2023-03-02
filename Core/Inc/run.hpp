@@ -28,6 +28,8 @@
 #define LINE_TRACE_DEBUG       0x0C
 #define INITIAL_DEBUG          0x0D
 
+#define SWITCH_INTERVAL_WAIT_TIME 200
+
 class Run
 {
 private:

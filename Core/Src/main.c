@@ -67,6 +67,11 @@ uint8_t g_line_emer = 0;
 
 bool g_error_handler_adc1 = false;
 bool g_error_handler_tim11 = false;
+bool g_error_handler_tim1_ch2 = false;
+bool g_error_handler_tim1_ch4 = false;
+bool g_error_handler_tim4 = false;
+bool g_error_handler_tim8 = false;
+bool g_interval_enable = true;
 uint16_t g_line_buff[NUM_OF_LINE_SENSORS] = {0};
 uint16_t g_consecutive_line_buff[NUM_OF_LINE_SENSORS][CONSECUTIVE_TIMES] = {{0}};
 uint16_t g_max_line_valu[NUM_OF_LINE_SENSORS] = {0};

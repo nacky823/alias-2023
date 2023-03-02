@@ -8,7 +8,7 @@ Run::Run(Encoder *encoder,
          LineSensor *line_sensor,
          LineTrace *line_trace,
          Logger *logger,
-         Moter *motor,
+         Motor *motor,
          RotarySwitch *rotary_switch,
          SideSensor *side_sensor,
          VelocityControl *velocity_control

@@ -73,54 +73,6 @@ void LineSensor::MergeSort(uint16_t array[], uint8_t first_index, uint8_t last_i
     }
 }
 
-/*
-void LineSensor::New()
-{
-    uint8_t i, j;
-    uint16_t temp_array[CONSECUTIVE_TIMES];
-    uint16_t sorted_array[NUM_OF_LINE_SENSORS][CONSECUTIVE_TIMES];
-    
-    for(i = 0; i < NUM_OF_LINE_SENSORS; i++)
-    {
-        for(j = 0; j < CONSECUTIVE_TIMES; j++)
-        {
-            temp_array[j] = consecutive_line_sensors_buff_[j][i];
-        }
-
-        MergeSort(temp_array, 0, CONSECUTIVE_TIMES-1);
-
-        for(j = 0; j < CONSECUTIVE_TIMES; j++)
-        {
-            sorted_array[i][j] = temp_array[j];
-            g_consecutive_line_buff[i][j] = sorted_array[i][j];
-        }
-    }
-
-    uint16_t max, min, median;
-
-    for(i = 0; i < NUM_OF_LINE_SENSORS; i++)
-    {
-        max = max_line_sensors_valu_[i];
-        min = min_line_sensors_valu_[i];
-        median = sorted_array[i][HALF_CONSECUTIVE_TIMES];
-
-        if(max < median || max == 0)
-        {
-            max = median;
-        }
-        if(min > median || min == 0)
-        {
-            min = median;
-        }
-
-        if(max < min)
-        {
-            normalized = MAX_NORMALIZED_VALU * (median - min) / (max - min);
-        }
-    }
-}
-*/
-
 void LineSensor::Update()
 {
     uint8_t i, j;

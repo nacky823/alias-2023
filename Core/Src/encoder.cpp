@@ -2,8 +2,8 @@
 #include "declare_extern.h"
 
 Encoder::Encoder() : distance_(0)
-				   , distance_stack_(0)
-				   , distance_difference_(0) {}
+                   , distance_stack_(0)
+                   , distance_difference_(0) {}
 
 void Encoder::Init()
 {

@@ -2,12 +2,10 @@
 #include "test.hpp"
 #include "run.hpp"
 
-LineSensor line_sensor;
-Led led;
 #ifndef TEST_MODE
 Run run;
 #else // TEST_MODE
-Test test(&line_sensor, &led);
+Test test;
 #endif // TEST_MODE
 
 void Init()

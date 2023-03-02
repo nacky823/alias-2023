@@ -23,7 +23,7 @@ float VelocityControl::DeterminePidGain(float target_velocity)
         d_gain = 0;
     }
 
-    return PidControl(p_gain, i_gain, d_gain);
+    return PidControl(target_velocity, p_gain, i_gain, d_gain);
 }
 
 float VelocityControl::PidControl(float target, float p_gain, float i_gain, float d_gain)

@@ -1,0 +1,7 @@
+line_trace.cpp:3:1:LineTrace::LineTrace(LineSensor*)	16	static
+line_trace.cpp:8:7:float LineTrace::LineTraceOnly()	32	static
+line_trace.cpp:17:7:float LineTrace::DeterminePidGain(float)	32	static
+line_trace.cpp:43:7:float LineTrace::PidControl(float, float, float)	56	static
+line_trace.cpp:69:6:void LineTrace::SetIntegralError(float)	16	static
+line_trace.cpp:74:6:void LineTrace::ResetIntegralError()	16	static
+line_trace.cpp:80:7:float LineTrace::GetIntegralError()	16	static

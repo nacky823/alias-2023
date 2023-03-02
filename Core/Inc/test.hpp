@@ -8,12 +8,12 @@
 class Test
 {
 private:
-    LineSensor *line_sensor_;
     Led *led_;
+    LineSensor *line_sensor_;
 
 public:
-    Test(LineSensor *,
-         Led *);
+    Test(Led *,
+         LineSensor *);
     void Init();
     void Timer7();
     void Timer6();

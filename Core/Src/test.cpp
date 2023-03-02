@@ -1,10 +1,11 @@
 #include "test.hpp"
 
 #ifdef TEST_MODE
-Test::Test(LineSensor *line_sensor, Led *led)
+Test::Test(Led *led,
+           LineSensor *line_sensor)
 {
-    line_sensor_ = line_sensor;
     led_ = led;
+    line_sensor_ = line_sensor;
 }
 
 void Test::Init()

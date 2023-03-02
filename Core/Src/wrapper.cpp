@@ -13,6 +13,7 @@ Motor motor;
 RotarySwitch rotary_switch;
 SideSensor side_sensor;
 VelocityControl velocity_control(&encoder);
+
 #ifndef TEST_MODE
 Run run(
     &encoder,
@@ -28,7 +29,10 @@ Run run(
     &velocity_control
 );
 #else // TEST_MODE
-Test test(&line_sensor, &led);
+Test test(
+    &led,
+    &line_sensor
+);
 #endif // TEST_MODE
 
 void Init()

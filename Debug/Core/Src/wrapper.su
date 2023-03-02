@@ -1,6 +1,0 @@
-wrapper.cpp:13:6:void Init()	8	static
-wrapper.cpp:22:6:void InterruptTim7()	8	static
-wrapper.cpp:35:6:void InterruptTim6()	8	static
-wrapper.cpp:48:6:void InterruptTim2()	4	static
-wrapper.cpp:57:1:void __static_initialization_and_destruction_0(int, int)	16	static
-wrapper.cpp:57:1:cpp)	8	static

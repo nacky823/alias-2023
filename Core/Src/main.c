@@ -210,10 +210,6 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
   {
     InterruptTim2();
   }
-  if(htim->Instance == TIM5)
-  {
-    InterruptTim5();
-  }
   if(htim->Instance == TIM6)
   {
     InterruptTim6();
@@ -222,11 +218,6 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
   {
     InterruptTim7();
   }
-}
-
-void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
-{
-  ExternalInterrupt(GPIO_Pin);
 }
 
 /* USER CODE END 0 */
@@ -238,7 +229,6 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-  Init();
 
   /* USER CODE END 1 */
 
@@ -275,6 +265,7 @@ int main(void)
   MX_TIM2_Init();
   MX_TIM5_Init();
   /* USER CODE BEGIN 2 */
+  Init();
 
   /* USER CODE END 2 */
 
@@ -285,7 +276,6 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-    Loop();
   }
   /* USER CODE END 3 */
 }

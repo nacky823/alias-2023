@@ -95,6 +95,23 @@ void LineSensor::New()
         }
     }
 
+    for(i = 0; i < NUM_OF_LINE_SENSORS; i++)
+    {
+        if(max_line_sensors_valu_[i] < sorted_array[i][HALF_CONSECUTIVE_TIMES])
+        {
+            max_line_sensors_valu_[i] = sorted_array[i][HALF_CONSECUTIVE_TIMES];
+        }
+        
+        if(min_line_sensors_valu_[i] > sorted_array[i][HALF_CONSECUTIVE_TIMES])
+        {
+            min_line_sensors_valu_[i] = sorted_array[i][HALF_CONSECUTIVE_TIMES];
+        }
+        else if(min_line_sensors_valu_[i] == 0)
+        {
+            min_line_sensors_valu_[i] = sorted_array[i][HALF_CONSECUTIVE_TIMES];
+        }
+    }
+
 }
 
 void LineSensor::Update()

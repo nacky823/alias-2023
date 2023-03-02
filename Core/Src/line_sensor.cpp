@@ -1,10 +1,10 @@
 #include "line_sensor.hpp"
 
-LineSensor::LineSensor() : line_sensors_buff_()
-                         , consecutive_line_sensors_buff_()
-                         , max_line_sensors_valu_()
-                         , min_line_sensors_valu_()
-                         , line_sensors_valu_()
+LineSensor::LineSensor() : line_sensors_buff_{0}
+                         , consecutive_line_sensors_buff_{{0}}
+                         , max_line_sensors_valu_{0}
+                         , min_line_sensors_valu_{0}
+                         , line_sensors_valu_{0}
                          , emergency_stop_flag_(false) {}
 
 void LineSensor::Init()

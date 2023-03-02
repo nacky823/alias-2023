@@ -86,7 +86,7 @@ void LineSensor::New()
             temp_array[j] = consecutive_line_sensors_buff_[j][i];
         }
 
-        MergeSort(temp_array, 0, CONSECUTIVE_TIMES-1);
+        //MergeSort(temp_array, 0, CONSECUTIVE_TIMES-1);
 
         for(j = 0; j < CONSECUTIVE_TIMES; j++)
         {

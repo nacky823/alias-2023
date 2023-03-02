@@ -1,0 +1,6 @@
+velocity_control.cpp:4:1:VelocityControl::VelocityControl(Encoder*)	16	static
+velocity_control.cpp:9:7:float VelocityControl::DeterminePidGain(float)	32	static
+velocity_control.cpp:29:7:float VelocityControl::PidControl(float, float, float, float)	72	static
+velocity_control.cpp:61:6:void VelocityControl::SetIntegralError(float)	16	static
+velocity_control.cpp:66:6:void VelocityControl::ResetIntegralError()	16	static
+velocity_control.cpp:71:7:float VelocityControl::GetIntegralError()	16	static

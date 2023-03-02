@@ -1,7 +1,6 @@
 Core/Src/velocity_control.o: ../Core/Src/velocity_control.cpp \
- ../Core/Inc/velocity_control.hpp ../Core/Inc/macro.h \
- ../Core/Inc/encoder.hpp \
- ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h \
+ ../Core/Inc/velocity_control.hpp ../Core/Inc/encoder.hpp \
+ ../Core/Inc/main.h ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h \
  ../Core/Inc/stm32f4xx_hal_conf.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h \
@@ -33,13 +32,13 @@ Core/Src/velocity_control.o: ../Core/Src/velocity_control.cpp \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h \
- ../Core/Inc/declare_extern.h
+ ../Core/Inc/declare_extern.h ../Core/Inc/macro.h
 
 ../Core/Inc/velocity_control.hpp:
 
-../Core/Inc/macro.h:
-
 ../Core/Inc/encoder.hpp:
+
+../Core/Inc/main.h:
 
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:
 
@@ -106,3 +105,5 @@ Core/Src/velocity_control.o: ../Core/Src/velocity_control.cpp \
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h:
 
 ../Core/Inc/declare_extern.h:
+
+../Core/Inc/macro.h:

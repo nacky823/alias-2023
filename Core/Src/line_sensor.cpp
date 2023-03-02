@@ -97,6 +97,7 @@ void LineSensor::Update()
         }
 #endif // DEBUG_MODE
 
+        /*
         max = max_line_sensors_valu_[i];
         min = min_line_sensors_valu_[i];
         if(max < median)      max = median;
@@ -104,6 +105,21 @@ void LineSensor::Update()
         else if(min == 0)     min = median;
         max_line_sensors_valu_[i] = max;
         min_line_sensors_valu_[i] = min;
+        */
+
+        max = max_line_sensors_valu_[i];
+        min = min_line_sensors_valu_[i];
+        if(max < median)
+        {
+            max = median;
+            max_line_sensors_valu_[i] = median;
+        }
+        if(min > median || min == 0)
+        {
+            min = median;
+            min_line_sensors_valu_[i] = median;
+        }
+
 
         if(max > min)
         {

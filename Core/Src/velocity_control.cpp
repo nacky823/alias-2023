@@ -1,5 +1,5 @@
 #include "velocity_control.hpp"
-#include "macro.h"
+#include "declare_extern.h"
 
 VelocityControl::VelocityControl(Encoder *encoder) : integral_error_(0)
 {

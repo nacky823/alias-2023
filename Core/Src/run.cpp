@@ -64,6 +64,11 @@ void Run::Init()
     else led_->ColorOrder('R');
 }
 
+void Run::Timer7()
+{
+    line_sensor_->StoreConsecutiveBuff();
+}
+
 void Run::UpdateRunMode()
 {
     uint8_t switch_state = rotary_switch_->State();

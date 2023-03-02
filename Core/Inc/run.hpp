@@ -92,6 +92,7 @@ public:
         SideSensor *,
         VelocityControl *);
     void Init();
+    void Timer7();
     void UpdateRunMode();
     void RunMode();
 

@@ -2,23 +2,28 @@
 #include "test.hpp"
 #include "run.hpp"
 
-#ifdef TEST_MODE
+#ifndef TEST_MODE
+Run run;
+#else // TEST_MODE
 Test test;
 #endif // TEST_MODE
-Run run;
 
 void Init()
 {
-#ifdef TEST_HPP_
-    test.Init();
-#else // TEST_HPP_
+#ifndef TEST_MODE
     run.Init();
-#endif // TEST_HPP_
+#else // TEST_MODE
+    test.Init();
+#endif // TEST_MODE
 }
 
 void InterruptTim7()
 {
+#ifndef TEST_MODE
     run.Timer7();
+#else // TEST_MODE
+    test.Timer7();
+#endif // TEST_MODE
 
 #ifdef DEBUG_MODE
     g_tim7++;
@@ -27,7 +32,11 @@ void InterruptTim7()
 
 void InterruptTim6()
 {
+#ifndef TEST_MODE
     run.RunMode();
+#else // TEST_MODE
+    test.Timer6();
+#endif // TEST_MODE
 
 #ifdef DEBUG_MODE
     g_tim6++;
@@ -36,7 +45,9 @@ void InterruptTim6()
 
 void InterruptTim2()
 {
+#ifndef TEST_MODE
     run.UpdateRunMode();
+#endif // TEST_MODE
 
 #ifdef DEBUG_MODE
     g_tim2++;

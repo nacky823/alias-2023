@@ -27,6 +27,7 @@ private:
 
 public:
     LineTrace(LineSensor *);
+    float LineTraceOnly();
     float DeterminePidGain(float);
     void ResetIntegralError();
 

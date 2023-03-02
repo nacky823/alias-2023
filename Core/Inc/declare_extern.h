@@ -30,6 +30,9 @@ extern uint16_t monitor_count;
 monitor_count++;
 #endif // DEBUG_MODE
 */
+extern bool g_error_handler_tim1_ch2;
+extern bool g_error_handler_tim1_ch4;
+extern bool g_interval_enable;
 
 /* Line sensor */
 extern float g_line_diff;

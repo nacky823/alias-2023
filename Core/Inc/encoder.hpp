@@ -8,8 +8,8 @@
 #define MACHINE_TREAD      127      // temp [mm]
 
 #ifdef DEBUG_MODE
-extern bool g_error_handler_tim8;
 extern bool g_error_handler_tim4;
+extern bool g_error_handler_tim8;
 extern int16_t g_enc_cnt_l;
 extern int16_t g_enc_cnt_r;
 extern float g_distance_l;

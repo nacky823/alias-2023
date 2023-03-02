@@ -2,8 +2,8 @@
 
 LineSensor::LineSensor() : line_sensors_buff_()
                          , consecutive_line_sensors_buff_()
-                         , min_line_sensors_valu_()
                          , max_line_sensors_valu_()
+                         , min_line_sensors_valu_()
                          , line_sensors_valu_()
                          , emergency_stop_flag_(false) {}
 

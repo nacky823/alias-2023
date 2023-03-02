@@ -648,8 +648,8 @@ LineSensor::LineSensor() : line_sensors_buff_()
  80205ca:	af00      	add	r7, sp, #0
  80205cc:	6078      	str	r0, [r7, #4]
                          , consecutive_line_sensors_buff_()
-                         , min_line_sensors_valu_()
                          , max_line_sensors_valu_()
+                         , min_line_sensors_valu_()
                          , line_sensors_valu_()
                          , emergency_stop_flag_(false) {}
  80205ce:	687a      	ldr	r2, [r7, #4]
@@ -1193,25 +1193,25 @@ void LineSensor::New()
     {
         
         g_max_line_valu[i] = max_line_sensors_valu_[i];
- 80209e4:	f897 1137 	ldrb.w	r1, [r7, #311]	; 0x137
- 80209e8:	f897 3137 	ldrb.w	r3, [r7, #311]	; 0x137
- 80209ec:	1d3a      	adds	r2, r7, #4
- 80209ee:	6812      	ldr	r2, [r2, #0]
- 80209f0:	31a8      	adds	r1, #168	; 0xa8
- 80209f2:	f832 1011 	ldrh.w	r1, [r2, r1, lsl #1]
- 80209f6:	4a15      	ldr	r2, [pc, #84]	; (8020a4c <_ZN10LineSensor3NewEv+0x16c>)
- 80209f8:	f822 1013 	strh.w	r1, [r2, r3, lsl #1]
+ 80209e4:	f897 3137 	ldrb.w	r3, [r7, #311]	; 0x137
+ 80209e8:	f897 2137 	ldrb.w	r2, [r7, #311]	; 0x137
+ 80209ec:	1d39      	adds	r1, r7, #4
+ 80209ee:	6809      	ldr	r1, [r1, #0]
+ 80209f0:	3398      	adds	r3, #152	; 0x98
+ 80209f2:	005b      	lsls	r3, r3, #1
+ 80209f4:	440b      	add	r3, r1
+ 80209f6:	8899      	ldrh	r1, [r3, #4]
+ 80209f8:	4b14      	ldr	r3, [pc, #80]	; (8020a4c <_ZN10LineSensor3NewEv+0x16c>)
+ 80209fa:	f823 1012 	strh.w	r1, [r3, r2, lsl #1]
         g_min_line_valu[i] = min_line_sensors_valu_[i];
- 80209fc:	f897 3137 	ldrb.w	r3, [r7, #311]	; 0x137
- 8020a00:	f897 2137 	ldrb.w	r2, [r7, #311]	; 0x137
- 8020a04:	1d39      	adds	r1, r7, #4
- 8020a06:	6809      	ldr	r1, [r1, #0]
- 8020a08:	3398      	adds	r3, #152	; 0x98
- 8020a0a:	005b      	lsls	r3, r3, #1
- 8020a0c:	440b      	add	r3, r1
- 8020a0e:	8899      	ldrh	r1, [r3, #4]
- 8020a10:	4b0f      	ldr	r3, [pc, #60]	; (8020a50 <_ZN10LineSensor3NewEv+0x170>)
- 8020a12:	f823 1012 	strh.w	r1, [r3, r2, lsl #1]
+ 80209fe:	f897 1137 	ldrb.w	r1, [r7, #311]	; 0x137
+ 8020a02:	f897 3137 	ldrb.w	r3, [r7, #311]	; 0x137
+ 8020a06:	1d3a      	adds	r2, r7, #4
+ 8020a08:	6812      	ldr	r2, [r2, #0]
+ 8020a0a:	31a8      	adds	r1, #168	; 0xa8
+ 8020a0c:	f832 1011 	ldrh.w	r1, [r2, r1, lsl #1]
+ 8020a10:	4a0f      	ldr	r2, [pc, #60]	; (8020a50 <_ZN10LineSensor3NewEv+0x170>)
+ 8020a12:	f822 1013 	strh.w	r1, [r2, r3, lsl #1]
         g_line_valu[i] = line_sensors_valu_[i];
  8020a16:	f897 3137 	ldrb.w	r3, [r7, #311]	; 0x137
  8020a1a:	f897 2137 	ldrb.w	r2, [r7, #311]	; 0x137

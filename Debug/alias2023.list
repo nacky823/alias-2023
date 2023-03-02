@@ -6174,23 +6174,24 @@ void SystemInit(void)
  8022b02:	bf00      	nop
  8022b04:	e000ed00 	.word	0xe000ed00
 
-08022b08 <_ZN4TestC1EP10LineSensorP3Led>:
+08022b08 <_ZN4TestC1EP3LedP10LineSensor>:
 #include "test.hpp"
 
 #ifdef TEST_MODE
-Test::Test(LineSensor *line_sensor, Led *led)
+Test::Test(Led *led,
  8022b08:	b480      	push	{r7}
  8022b0a:	b085      	sub	sp, #20
  8022b0c:	af00      	add	r7, sp, #0
  8022b0e:	60f8      	str	r0, [r7, #12]
  8022b10:	60b9      	str	r1, [r7, #8]
  8022b12:	607a      	str	r2, [r7, #4]
+           LineSensor *line_sensor)
 {
-    line_sensor_ = line_sensor;
+    led_ = led;
  8022b14:	68fb      	ldr	r3, [r7, #12]
  8022b16:	68ba      	ldr	r2, [r7, #8]
  8022b18:	601a      	str	r2, [r3, #0]
-    led_ = led;
+    line_sensor_ = line_sensor;
  8022b1a:	68fb      	ldr	r3, [r7, #12]
  8022b1c:	687a      	ldr	r2, [r7, #4]
  8022b1e:	605a      	str	r2, [r3, #4]
@@ -6213,13 +6214,13 @@ void Test::Init()
  8022b36:	6078      	str	r0, [r7, #4]
     line_sensor_->Init();
  8022b38:	687b      	ldr	r3, [r7, #4]
- 8022b3a:	681b      	ldr	r3, [r3, #0]
+ 8022b3a:	685b      	ldr	r3, [r3, #4]
  8022b3c:	4618      	mov	r0, r3
  8022b3e:	f7fe f9c3 	bl	8020ec8 <_ZN10LineSensor4InitEv>
 
     led_->Rainbow(2);
  8022b42:	687b      	ldr	r3, [r7, #4]
- 8022b44:	685b      	ldr	r3, [r3, #4]
+ 8022b44:	681b      	ldr	r3, [r3, #0]
  8022b46:	2102      	movs	r1, #2
  8022b48:	4618      	mov	r0, r3
  8022b4a:	f7fe f92d 	bl	8020da8 <_ZN3Led7RainbowEh>
@@ -6248,7 +6249,7 @@ void Test::Timer7()
  8022b72:	6078      	str	r0, [r7, #4]
     line_sensor_->StoreConsecutiveBuff();
  8022b74:	687b      	ldr	r3, [r7, #4]
- 8022b76:	681b      	ldr	r3, [r3, #0]
+ 8022b76:	685b      	ldr	r3, [r3, #4]
  8022b78:	4618      	mov	r0, r3
  8022b7a:	f7fe f9df 	bl	8020f3c <_ZN10LineSensor20StoreConsecutiveBuffEv>
 }
@@ -6284,17 +6285,17 @@ void Test::Line()
  8022ba2:	6078      	str	r0, [r7, #4]
     line_sensor_->Update();
  8022ba4:	687b      	ldr	r3, [r7, #4]
- 8022ba6:	681b      	ldr	r3, [r3, #0]
+ 8022ba6:	685b      	ldr	r3, [r3, #4]
  8022ba8:	4618      	mov	r0, r3
  8022baa:	f7fe facf 	bl	802114c <_ZN10LineSensor6UpdateEv>
     line_sensor_->MonitorArrays();
  8022bae:	687b      	ldr	r3, [r7, #4]
- 8022bb0:	681b      	ldr	r3, [r3, #0]
+ 8022bb0:	685b      	ldr	r3, [r3, #4]
  8022bb2:	4618      	mov	r0, r3
  8022bb4:	f7fe fc58 	bl	8021468 <_ZN10LineSensor13MonitorArraysEv>
     g_line_diff = line_sensor_->LeftRightDifference();
  8022bb8:	687b      	ldr	r3, [r7, #4]
- 8022bba:	681b      	ldr	r3, [r3, #0]
+ 8022bba:	685b      	ldr	r3, [r3, #4]
  8022bbc:	4618      	mov	r0, r3
  8022bbe:	f7fe fb93 	bl	80212e8 <_ZN10LineSensor19LeftRightDifferenceEv>
  8022bc2:	eef0 7a40 	vmov.f32	s15, s0
@@ -6302,7 +6303,7 @@ void Test::Line()
  8022bc8:	edc3 7a00 	vstr	s15, [r3]
     g_line_emer = line_sensor_->GetEmergencyStopFlag();
  8022bcc:	687b      	ldr	r3, [r7, #4]
- 8022bce:	681b      	ldr	r3, [r3, #0]
+ 8022bce:	685b      	ldr	r3, [r3, #4]
  8022bd0:	4618      	mov	r0, r3
  8022bd2:	f7fe fb7b 	bl	80212cc <_ZN10LineSensor20GetEmergencyStopFlagEv>
  8022bd6:	4603      	mov	r3, r0
@@ -6311,7 +6312,7 @@ void Test::Line()
  8022bdc:	701a      	strb	r2, [r3, #0]
     g_line_calib = line_sensor_->CheckCalibration();
  8022bde:	687b      	ldr	r3, [r7, #4]
- 8022be0:	681b      	ldr	r3, [r3, #0]
+ 8022be0:	685b      	ldr	r3, [r3, #4]
  8022be2:	4618      	mov	r0, r3
  8022be4:	f7fe fbe4 	bl	80213b0 <_ZN10LineSensor16CheckCalibrationEv>
  8022be8:	4603      	mov	r3, r0
@@ -6355,8 +6356,8 @@ VelocityControl::VelocityControl(Encoder *encoder) : integral_error_(0)
 	...
 
 08022c2c <Init>:
-#else // TEST_MODE
-Test test(&line_sensor, &led);
+    &line_sensor
+);
 #endif // TEST_MODE
 
 void Init()
@@ -6495,11 +6496,11 @@ VelocityControl velocity_control(&encoder);
  8022ce2:	4906      	ldr	r1, [pc, #24]	; (8022cfc <_Z41__static_initialization_and_destruction_0ii+0x60>)
  8022ce4:	480c      	ldr	r0, [pc, #48]	; (8022d18 <_Z41__static_initialization_and_destruction_0ii+0x7c>)
  8022ce6:	f7ff ff8d 	bl	8022c04 <_ZN15VelocityControlC1EP7Encoder>
-Test test(&line_sensor, &led);
- 8022cea:	4a06      	ldr	r2, [pc, #24]	; (8022d04 <_Z41__static_initialization_and_destruction_0ii+0x68>)
- 8022cec:	4906      	ldr	r1, [pc, #24]	; (8022d08 <_Z41__static_initialization_and_destruction_0ii+0x6c>)
+);
+ 8022cea:	4a07      	ldr	r2, [pc, #28]	; (8022d08 <_Z41__static_initialization_and_destruction_0ii+0x6c>)
+ 8022cec:	4905      	ldr	r1, [pc, #20]	; (8022d04 <_Z41__static_initialization_and_destruction_0ii+0x68>)
  8022cee:	480b      	ldr	r0, [pc, #44]	; (8022d1c <_Z41__static_initialization_and_destruction_0ii+0x80>)
- 8022cf0:	f7ff ff0a 	bl	8022b08 <_ZN4TestC1EP10LineSensorP3Led>
+ 8022cf0:	f7ff ff0a 	bl	8022b08 <_ZN4TestC1EP3LedP10LineSensor>
  8022cf4:	bf00      	nop
  8022cf6:	3708      	adds	r7, #8
  8022cf8:	46bd      	mov	sp, r7

@@ -5774,10 +5774,10 @@ LOAD c:/users/owner/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide
  .text.SystemInit
                 0x0000000008022adc       0x2c Core/Src/system_stm32f4xx.o
                 0x0000000008022adc                SystemInit
- .text._ZN4TestC2EP10LineSensorP3Led
+ .text._ZN4TestC2EP3LedP10LineSensor
                 0x0000000008022b08       0x26 Core/Src/test.o
-                0x0000000008022b08                Test::Test(LineSensor*, Led*)
-                0x0000000008022b08                Test::Test(LineSensor*, Led*)
+                0x0000000008022b08                Test::Test(Led*, LineSensor*)
+                0x0000000008022b08                Test::Test(Led*, LineSensor*)
  *fill*         0x0000000008022b2e        0x2 
  .text._ZN4Test4InitEv
                 0x0000000008022b30       0x3c Core/Src/test.o

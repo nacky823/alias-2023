@@ -12,7 +12,6 @@ void Test::Init()
     motor_->Init();
 
     led_->Rainbow(2);
-    HAL_TIM_Base_Start_IT(&htim2);
     HAL_TIM_Base_Start_IT(&htim6);
     HAL_TIM_Base_Start_IT(&htim7);
 }

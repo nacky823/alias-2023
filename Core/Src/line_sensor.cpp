@@ -113,11 +113,13 @@ void LineSensor::Update()
         {
             max = median;
             max_line_sensors_valu_[i] = median;
+            g_max_line_valu[i] = max_line_sensors_valu_[i];
         }
         if(min > median || min == 0)
         {
             min = median;
             min_line_sensors_valu_[i] = median;
+            g_min_line_valu[i] = min_line_sensors_valu_[i];
         }
 
 
@@ -125,6 +127,7 @@ void LineSensor::Update()
         {
             normalized = MAX_NORMALIZED_VALU * (median - min) / (max - min);
             line_sensors_valu_[i] = normalized;
+            g_line_valu[i] = line_sensors_valu_[i];
 
             if(normalized < EMERGENCY_STOP_BORDER) emergency = false;
         }
@@ -201,9 +204,6 @@ void LineSensor::MonitorArrays()
     for(uint8_t i = 0; i < NUM_OF_LINE_SENSORS; i++)
     {
         g_line_buff[i] = line_sensors_buff_[i];
-        g_max_line_valu[i] = max_line_sensors_valu_[i];
-        g_min_line_valu[i] = min_line_sensors_valu_[i];
-        g_line_valu[i] = line_sensors_valu_[i];
     }
 }
 #endif // DEBUG_MODE

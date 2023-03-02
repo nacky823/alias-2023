@@ -1,10 +1,10 @@
-#ifdef TEST_MODE
 #ifndef TEST_HPP_
 #define TEST_HPP_
 
 #include "line_senser.hpp"
 #include "led.hpp"
 
+#ifdef TEST_MODE
 class Test
 {
 private:
@@ -20,6 +20,6 @@ public:
     void LineSensor();
 
 };
+#endif // TEST_MODE
 
 #endif // TEST_HPP_
-#endif // TEST_MODE

@@ -32,6 +32,8 @@ monitor_count++;
 */
 extern bool g_error_handler_tim1_ch2;
 extern bool g_error_handler_tim1_ch4;
+extern bool g_error_handler_tim4;
+extern bool g_error_handler_tim8;
 extern bool g_interval_enable;
 
 /* Line sensor */

@@ -1,19 +1,19 @@
 #include "wrapper.hpp"
+#include "test.hpp"
 #include "run.hpp"
 
 #ifdef TEST_MODE
 Test test;
-#else // TEST_MODE
-Run run;
 #endif // TEST_MODE
+Run run;
 
 void Init()
 {
-#ifdef DEBUG_FLASH
-    run.DubugFlash();
-#else // DEBUG_FLASH
+#ifdef TEST_HPP_
+    test.Init();
+#else // TEST_HPP_
     run.Init();
-#endif // DEBUG_FLASH
+#endif // TEST_HPP_
 }
 
 void InterruptTim7()

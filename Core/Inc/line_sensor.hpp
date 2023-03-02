@@ -28,8 +28,8 @@ class LineSensor
 private:
     uint16_t line_sensors_buff_[NUM_OF_LINE_SENSORS];
     uint16_t consecutive_line_sensors_buff_[CONSECUTIVE_TIMES][NUM_OF_LINE_SENSORS];
-    uint16_t max_line_sensors_valu_[NUM_OF_LINE_SENSORS];
     uint16_t min_line_sensors_valu_[NUM_OF_LINE_SENSORS];
+    uint16_t max_line_sensors_valu_[NUM_OF_LINE_SENSORS];
     uint16_t line_sensors_valu_[NUM_OF_LINE_SENSORS];
     bool emergency_stop_flag_;
 

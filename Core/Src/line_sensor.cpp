@@ -2,8 +2,8 @@
 
 LineSensor::LineSensor() : line_sensors_buff_()
                          , consecutive_line_sensors_buff_()
-                         , max_line_sensors_valu_()
                          , min_line_sensors_valu_()
+                         , max_line_sensors_valu_()
                          , line_sensors_valu_()
                          , emergency_stop_flag_(false) {}
 
@@ -99,6 +99,8 @@ void LineSensor::New()
     {
         
         g_max_line_valu[i] = max_line_sensors_valu_[i];
+        g_min_line_valu[i] = min_line_sensors_valu_[i];
+        g_line_valu[i] = line_sensors_valu_[i];
         
         /*
         if(min_line_sensors_valu_[i] > sorted_array[i][HALF_CONSECUTIVE_TIMES])

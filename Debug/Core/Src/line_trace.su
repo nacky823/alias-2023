@@ -1,5 +1,0 @@
-line_trace.cpp:3:1:LineTrace::LineTrace()	16	static
-line_trace.cpp:5:6:void LineTrace::Init()	16	static
-line_trace.cpp:10:7:float LineTrace::PidControl(float, float, float)	56	static
-line_trace.cpp:36:6:void LineTrace::SetIntegralError(float)	16	static
-line_trace.cpp:42:7:float LineTrace::GetIntegralError()	16	static

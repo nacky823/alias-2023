@@ -2114,12 +2114,12 @@ bool LineSensor::CheckCalibration()
  80213c8:	2301      	movs	r3, #1
  80213ca:	73fb      	strb	r3, [r7, #15]
 
-    for(uint8_t i = 0; i > NUM_OF_LINE_SENSORS; i++)
+    for(uint8_t i = 0; i < NUM_OF_LINE_SENSORS; i++)
  80213cc:	2300      	movs	r3, #0
  80213ce:	73bb      	strb	r3, [r7, #14]
  80213d0:	7bbb      	ldrb	r3, [r7, #14]
- 80213d2:	2b0e      	cmp	r3, #14
- 80213d4:	d92d      	bls.n	8021432 <_ZN10LineSensor16CheckCalibrationEv+0x72>
+ 80213d2:	2b0d      	cmp	r3, #13
+ 80213d4:	d82d      	bhi.n	8021432 <_ZN10LineSensor16CheckCalibrationEv+0x72>
     {
         max = max_line_sensors_valu_[i];
  80213d6:	7bbb      	ldrb	r3, [r7, #14]
@@ -2166,7 +2166,7 @@ bool LineSensor::CheckCalibration()
  8021422:	4913      	ldr	r1, [pc, #76]	; (8021470 <_ZN10LineSensor16CheckCalibrationEv+0xb0>)
  8021424:	897a      	ldrh	r2, [r7, #10]
  8021426:	f821 2013 	strh.w	r2, [r1, r3, lsl #1]
-    for(uint8_t i = 0; i > NUM_OF_LINE_SENSORS; i++)
+    for(uint8_t i = 0; i < NUM_OF_LINE_SENSORS; i++)
  802142a:	7bbb      	ldrb	r3, [r7, #14]
  802142c:	3301      	adds	r3, #1
  802142e:	73bb      	strb	r3, [r7, #14]

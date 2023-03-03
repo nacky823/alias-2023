@@ -17,7 +17,7 @@ public:
     void Init();
     void Timer7();
     void Timer6();
-    void Line();
+    void TestLineSensor();
 
 };
 #endif // TEST_MODE

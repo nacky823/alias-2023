@@ -12,7 +12,7 @@ void Test::Init()
 {
     line_sensor_->Init();
 
-    led_->Blink(5, 'Y', 'M');
+    led_->Blink(3, 'Y', 'M');
     led_->ColorOrder('X');
     HAL_TIM_Base_Start_IT(&htim7);
     HAL_TIM_Base_Start_IT(&htim6);
@@ -25,13 +25,13 @@ void Test::Timer7()
 
 void Test::Timer6()
 {
-    Line();
+    TestLineSensor();
 }
 
-void Test::Line()
+void Test::TestLineSensor()
 {
     line_sensor_->Update();
-    line_sensor_->MonitorArrays();
+    line_sensor_->MonitorLineBuff();
     g_line_diff = line_sensor_->LeftRightDifference();
     g_line_emer = line_sensor_->GetEmergencyStopFlag();
     g_line_calib = line_sensor_->CheckCalibration();

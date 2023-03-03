@@ -2181,7 +2181,7 @@ bool LineSensor::CheckCalibration()
         if(timer < CALIBRATION_SUCCESS_TIME)
  8021438:	4b0e      	ldr	r3, [pc, #56]	; (8021474 <_ZN10LineSensor16CheckCalibrationEv+0xb4>)
  802143a:	881b      	ldrh	r3, [r3, #0]
- 802143c:	f240 52db 	movw	r2, #1499	; 0x5db
+ 802143c:	f640 32b7 	movw	r2, #2999	; 0xbb7
  8021440:	4293      	cmp	r3, r2
  8021442:	d80b      	bhi.n	802145c <_ZN10LineSensor16CheckCalibrationEv+0x9c>
         {
@@ -6295,14 +6295,14 @@ void Test::Line()
  8022bc2:	461a      	mov	r2, r3
  8022bc4:	4b0d      	ldr	r3, [pc, #52]	; (8022bfc <_ZN4Test4LineEv+0x88>)
  8022bc6:	701a      	strb	r2, [r3, #0]
-    if(g_line_calib) led_->ColorOrder('X');
+    if(g_line_calib) led_->ColorOrder('B');
  8022bc8:	4b0c      	ldr	r3, [pc, #48]	; (8022bfc <_ZN4Test4LineEv+0x88>)
  8022bca:	781b      	ldrb	r3, [r3, #0]
  8022bcc:	2b00      	cmp	r3, #0
  8022bce:	d006      	beq.n	8022bde <_ZN4Test4LineEv+0x6a>
  8022bd0:	687b      	ldr	r3, [r7, #4]
  8022bd2:	681b      	ldr	r3, [r3, #0]
- 8022bd4:	2158      	movs	r1, #88	; 0x58
+ 8022bd4:	2142      	movs	r1, #66	; 0x42
  8022bd6:	4618      	mov	r0, r3
  8022bd8:	f7fe f80a 	bl	8020bf0 <_ZN3Led10ColorOrderEc>
     else led_->ColorOrder('R');

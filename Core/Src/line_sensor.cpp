@@ -161,7 +161,7 @@ bool LineSensor::CheckCalibration()
     uint16_t max, min;
     bool result = true;
 
-    for(uint8_t i = 0; i > NUM_OF_LINE_SENSORS; i++)
+    for(uint8_t i = 0; i < NUM_OF_LINE_SENSORS; i++)
     {
         max = max_line_sensors_valu_[i];
         min = min_line_sensors_valu_[i];

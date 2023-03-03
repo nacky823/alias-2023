@@ -35,7 +35,7 @@ void Test::Line()
     g_line_diff = line_sensor_->LeftRightDifference();
     g_line_emer = line_sensor_->GetEmergencyStopFlag();
     g_line_calib = line_sensor_->CheckCalibration();
-    if(g_line_calib) led_->ColorOrder('X');
+    if(g_line_calib) led_->ColorOrder('B');
     else led_->ColorOrder('R');
 }
 #endif // TEST_MODE

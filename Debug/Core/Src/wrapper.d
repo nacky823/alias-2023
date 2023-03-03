@@ -32,10 +32,10 @@ Core/Src/wrapper.o: ../Core/Src/wrapper.cpp ../Core/Inc/wrapper.hpp \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h \
  ../Core/Inc/declare_extern.h ../Core/Inc/macro.h ../Core/Inc/test.hpp \
- ../Core/Inc/line_sensor.hpp ../Core/Inc/main.h ../Core/Inc/led.hpp \
- ../Core/Inc/run.hpp ../Core/Inc/encoder.hpp ../Core/Inc/flash.hpp \
- ../Core/Inc/iim_42652.hpp ../Core/Inc/line_trace.hpp \
- ../Core/Inc/logger.hpp ../Core/Inc/side_sensor.hpp ../Core/Inc/motor.hpp \
+ ../Core/Inc/led.hpp ../Core/Inc/line_sensor.hpp ../Core/Inc/main.h \
+ ../Core/Inc/side_sensor.hpp ../Core/Inc/run.hpp ../Core/Inc/encoder.hpp \
+ ../Core/Inc/flash.hpp ../Core/Inc/iim_42652.hpp \
+ ../Core/Inc/line_trace.hpp ../Core/Inc/logger.hpp ../Core/Inc/motor.hpp \
  ../Core/Inc/rotary_switch.hpp ../Core/Inc/velocity_control.hpp
 
 ../Core/Inc/wrapper.hpp:
@@ -110,11 +110,13 @@ Core/Src/wrapper.o: ../Core/Src/wrapper.cpp ../Core/Inc/wrapper.hpp \
 
 ../Core/Inc/test.hpp:
 
+../Core/Inc/led.hpp:
+
 ../Core/Inc/line_sensor.hpp:
 
 ../Core/Inc/main.h:
 
-../Core/Inc/led.hpp:
+../Core/Inc/side_sensor.hpp:
 
 ../Core/Inc/run.hpp:
 
@@ -127,8 +129,6 @@ Core/Src/wrapper.o: ../Core/Src/wrapper.cpp ../Core/Inc/wrapper.hpp \
 ../Core/Inc/line_trace.hpp:
 
 ../Core/Inc/logger.hpp:
-
-../Core/Inc/side_sensor.hpp:
 
 ../Core/Inc/motor.hpp:
 

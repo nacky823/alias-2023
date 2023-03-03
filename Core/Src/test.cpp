@@ -42,7 +42,7 @@ void Test::TestLineSensor()
     else led_->ColorOrder('R');
 }
 
-void TestSideSensor()
+void Test::TestSideSensor()
 {
     side_sensor_->Update();
     side_sensor_->Monitor();

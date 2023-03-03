@@ -3,7 +3,7 @@ line_sensor.cpp:10:6:void LineSensor::Init()	16	static
 line_sensor.cpp:33:6:void LineSensor::StoreConsecutiveBuff()	24	static
 line_sensor.cpp:46:6:void LineSensor::MergeSort(uint16_t*, uint8_t, uint8_t)	56	dynamic
 line_sensor.cpp:76:6:void LineSensor::Update()	56	static
-line_sensor.cpp:127:6:bool LineSensor::GetEmergencyStopFlag()	16	static
-line_sensor.cpp:132:7:float LineSensor::LeftRightDifference()	40	static
+line_sensor.cpp:127:7:float LineSensor::LeftRightDifference()	40	static
+line_sensor.cpp:151:6:bool LineSensor::GetEmergencyStopFlag()	16	static
 line_sensor.cpp:156:6:bool LineSensor::CheckCalibration()	24	static
-line_sensor.cpp:190:6:void LineSensor::MonitorArrays()	24	static
+line_sensor.cpp:190:6:void LineSensor::MonitorLineBuff()	24	static

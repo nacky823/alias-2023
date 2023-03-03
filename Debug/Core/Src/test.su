@@ -2,4 +2,4 @@ test.cpp:4:1:Test::Test(Led*, LineSensor*)	24	static
 test.cpp:11:6:void Test::Init()	16	static
 test.cpp:21:6:void Test::Timer7()	16	static
 test.cpp:26:6:void Test::Timer6()	16	static
-test.cpp:31:6:void Test::Line()	16	static
+test.cpp:31:6:void Test::TestLineSensor()	16	static

@@ -518,7 +518,7 @@ void Run::InitialTest()
 {
     /* Line sensor */
     line_sensor_->Update();
-    line_sensor_->MonitorArrays();
+    line_sensor_->MonitorLineBuff();
     g_line_diff = line_sensor_->LeftRightDifference();
     g_line_emer = line_sensor_->GetEmergencyStopFlag();
     g_line_calib = line_sensor_->CheckCalibration();

@@ -191,7 +191,7 @@ void SideSensor::CountUp()
 
 uint8_t SideSensor::GetGoalMarkerCount()
 {
-    return (write_state_flags_ & 0xC0) >> 6;
+    return goal_marker_count_;
 }
 
 uint8_t SideSensor::GetCornerMarkerCount()

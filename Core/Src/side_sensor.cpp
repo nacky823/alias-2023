@@ -65,6 +65,7 @@ void SideSensor::IgnoreJudgment()
         else if(pre_state == now_state)
         {
             exception_flags_ &= 0xF3; // noise_count = 0
+            ConfirmState();
             CountUp();
         }
     }
@@ -88,105 +89,90 @@ void SideSensor::NoiseTolerance()
     {
         noise_count++;
         exception_flags_ = (exception_flags_ & 0xF3) | (noise_count << 2);
+        ConfirmState();
         CountUp();
     }
     else master_count_ = 0;
 }
 
-void SideSensor::CountUp()
+void SideSensor::ConfirmState()
 {
-    uint8_t pre_noise_state = exception_flags_ >> 4;
-    uint8_t current_state   = read_state_flags_ & 0x0F;
+    uint8_t before_noise_state = exception_flags_ >> 4;
+    uint8_t now_state = read_state_flags_ & 0x0F;
 
-    if(pre_noise_state != current_state)
+    if(before_noise_state != now_state)
     {
-        exception_flags_ = (exception_flags_ & 0x0F) | (read_state_flags_ << 4);
+        exception_flags_ = (exception_flags_ & 0x0F) | (now_state << 4);
         master_count_ = 0;
     }
-    else if(master_count_ < MAX_INTERRUPT_COUNT) master_count_++;
+    else if(master_count_ < MAX_INTERRUPT_COUNT)
+    {
+        master_count_++;
+    }
 
-#ifdef DEBUG_MODE
-    g_pre_noise_state_cntup = pre_noise_state;
-    g_current_state_cntup   = current_state;
-    g_exception_flags_cntup = exception_flags_;
-    g_master_count_cntup    = master_count_;
-#endif // DEBUG_MODE
-
-    if(current_state == 0x08 && master_count_ >= BLACK_BLACK_COUNT)
+    if(now_state == 0x08 && master_count_ >= BLACK_BLACK_COUNT)
     {
         write_state_flags_ = (write_state_flags_ & 0xF0) | 0x08;
     }
-    else if(current_state == 0x04 && master_count_ >= BLACK_WHITE_COUNT)
+    else if(now_state == 0x04 && master_count_ >= BLACK_WHITE_COUNT)
     {
         write_state_flags_ |= 0x04;
     }
-    else if(current_state == 0x02 && master_count_ >= WHITE_BLACK_COUNT)
+    else if(now_state == 0x02 && master_count_ >= WHITE_BLACK_COUNT)
     {
         write_state_flags_ |= 0x02;
     }
-    else if(current_state == 0x01 && master_count_ >= WHITE_WHITE_COUNT)
+    else if(now_state == 0x01 && master_count_ >= WHITE_WHITE_COUNT)
     {
-        write_state_flags_ = (write_state_flags_ & 0xC0) | 0x01;
+        write_state_flags_ = (write_state_flags_ & 0x28) | 0x01;
         exception_flags_ = (exception_flags_ << 8) | 0x01;
         master_count_ = 0;
     }
+}
 
-    uint8_t black_flag   = write_state_flags_ & 0x08;
-    uint8_t goal_flag    = write_state_flags_ & 0x04;
-    uint8_t goal_reach   = write_state_flags_ & 0x20;
-    uint8_t goal_count   = (write_state_flags_ & 0xC0) >> 6;
-    uint8_t corner_flag  = write_state_flags_ & 0x02;
-    uint8_t corner_reach = write_state_flags_ & 0x10;
-    uint8_t cross_flag   = write_state_flags_ & 0x01;
-
-#ifdef DEBUG_MODE
-    g_exception_flags_cross = exception_flags_;
-    g_master_count_cross    = master_count_;
-    g_write_state_cntup  = write_state_flags_;
-    g_goal_reach_cntup   = goal_reach   >> 5;
-    g_corner_reach_cntup = corner_reach >> 4;
-    g_black_flag_cntup   = black_flag   >> 3;
-    g_goal_flag_cntup    = goal_flag    >> 2;
-    g_corner_flag_cntup  = corner_flag  >> 1;
-    g_cross_flag_cntup   = cross_flag;  // LSB
-#endif // DEBUG_MODE
+void SideSensor::CountUp()
+{
+    uint8_t state = write_state_flags_;
+    uint8_t black_flag   = (state & 0x08) >> 3;
+    uint8_t goal_flag    = (state & 0x04) >> 2;
+    uint8_t corner_flag  = (state & 0x02) >> 1;
+    uint8_t cross_flag   =  state & 0x01;
+    uint8_t goal_reach   = (state & 0x80) >> 7;
+    uint8_t corner_reach = (state & 0x40) >> 6;
+    uint8_t cross_reach  = (state & 0x20) >> 5;
     
-    if(goal_flag == 0x04 && black_flag == 0x08)
+    if(goal_flag == 0x01 && black_flag == 0x01)
     {
-        write_state_flags_ &= 0xF7;
-        write_state_flags_ |= 0x20;
+        state &= 0xF7; // black_flag = false
+        state |= 0x80; // goal_reach = true
     }
-    else if(goal_reach == 0x20 && black_flag == 0x08)
+    else if(goal_reach == 0x01 && black_flag == 0x01)
     {
-        write_state_flags_ &= 0xDF;
-        goal_count++;
-        write_state_flags_ = (write_state_flags_ & 0x3F) | (goal_count << 6);
+        state &= 0x7F; // goal_reach = false
+        goal_marker_count_++;
     }
-    else if(corner_flag == 0x02 && black_flag == 0x08)
+    else if(corner_flag == 0x01 && black_flag == 0x01)
     {
-        write_state_flags_ &= 0xF7;
-        write_state_flags_ |= 0x10;
+        state &= 0xF7; // black_flag = false
+        state |= 0x40; // corner_reach = true
     }
-    else if(corner_reach == 0x10 && black_flag == 0x08)
+    else if(corner_reach == 0x01 && black_flag == 0x01)
     {
-        write_state_flags_ &= 0xEF;
+        state &= 0xBF; // corner_reach = false
         corner_marker_count_++;
     }
-    else if(cross_flag == 0x01)
+    else if(cross_flag == 0x01 && black_flag == 0x01)
     {
-        write_state_flags_ &= 0xFE;
+        state &= 0xF7; // black_flag = false
+        state |= 0x20; // cross_reach = true
+    }
+    else if(cross_reach == 0x01 && black_flag == 0x01)
+    {
+        state &= 0xDF // cross_reach = false
         cross_line_count_++;
     }
 
-#ifdef DEBUG_MODE
-    g_write_state_cntup_2  = write_state_flags_;
-    g_goal_reach_cntup_2   = goal_reach   >> 5;
-    g_corner_reach_cntup_2 = corner_reach >> 4;
-    g_black_flag_cntup_2   = black_flag   >> 3;
-    g_goal_flag_cntup_2    = goal_flag    >> 2;
-    g_corner_flag_cntup_2  = corner_flag  >> 1;
-    g_cross_flag_cntup_2   = cross_flag;  // LSB
-#endif // DEBUG_MODE
+    write_state_flags_ = state;
 }
 
 uint8_t SideSensor::GetGoalMarkerCount()

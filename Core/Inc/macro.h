@@ -35,7 +35,7 @@
 #define VELOCITY_CONTROL_TARGET 1.2
 
 /* ----- Line sensor ----- */
-#define LINE_SENSOR_CORRECTION 0.950
+#define LINE_SENSOR_CORRECTION 1.0
 #define NUM_OF_LINE_SENSORS      14
 #define CONSECUTIVE_TIMES        10
 

@@ -42,10 +42,11 @@ void SideSensor::UpdateState()
     }
 }
 
-void SideSensor::IgnoreJudgment()
+void SideSensor::Update()
 {
     uint8_t ignore_flag = exception_flags_ & 0x01;
 
+    /* Ignore judgment */
     if(ignore_flag == 0x01)
     {
         if(master_count_ < IGNORE_COUNT) master_count_++;
@@ -81,14 +82,18 @@ void SideSensor::NoiseTolerance()
 
     if(noise_count == 0x00)
     {
+        /* Update before_noise_state */
         exception_flags_ = (exception_flags_ & 0x0F) | (read_state_flags_ & 0xF0);
+        /* Count up noise_count */
         noise_count++;
         exception_flags_ = (exception_flags_ & 0xF3) | (noise_count << 2);
     }
     else if(noise_count == 0x01)
     {
+        /* Count up noise_count */
         noise_count++;
         exception_flags_ = (exception_flags_ & 0xF3) | (noise_count << 2);
+
         ConfirmState();
         CountUp();
     }
@@ -99,34 +104,33 @@ void SideSensor::ConfirmState()
 {
     uint8_t before_noise_state = exception_flags_ >> 4;
     uint8_t now_state = read_state_flags_ & 0x0F;
+    uint8_t count = master_count_;
 
     if(before_noise_state != now_state)
     {
+        /* Update before_noise_state */
         exception_flags_ = (exception_flags_ & 0x0F) | (now_state << 4);
-        master_count_ = 0;
+        count = 0;
     }
-    else if(master_count_ < MAX_INTERRUPT_COUNT)
-    {
-        master_count_++;
-    }
+    else if(count < MAX_INTERRUPT_COUNT) count++;
 
-    if(now_state == 0x08 && master_count_ >= BLACK_BLACK_COUNT)
+    master_count_ = count;
+
+    if(now_state == 0x08 && count >= BLACK_BLACK_COUNT)
     {
         write_state_flags_ = (write_state_flags_ & 0xF0) | 0x08;
     }
-    else if(now_state == 0x04 && master_count_ >= BLACK_WHITE_COUNT)
+    else if(now_state == 0x04 && count >= BLACK_WHITE_COUNT)
     {
         write_state_flags_ |= 0x04;
     }
-    else if(now_state == 0x02 && master_count_ >= WHITE_BLACK_COUNT)
+    else if(now_state == 0x02 && count >= WHITE_BLACK_COUNT)
     {
         write_state_flags_ |= 0x02;
     }
-    else if(now_state == 0x01 && master_count_ >= WHITE_WHITE_COUNT)
+    else if(now_state == 0x01 && count >= WHITE_WHITE_COUNT)
     {
         write_state_flags_ = (write_state_flags_ & 0x28) | 0x01;
-        exception_flags_ = (exception_flags_ << 8) | 0x01;
-        master_count_ = 0;
     }
 }
 
@@ -191,11 +195,13 @@ uint8_t SideSensor::GetCrossLineCount()
 }
 
 #ifdef DEBUG_MODE
-void SideSensor::MonitorFlags()
+void SideSensor::Monitor()
 {
     /* read_state_flags_ */
     g_side_pre_state = (read_state_flags_ & 0xF0) >> 4;
     g_side_now_state =  read_state_flags_ & 0x0F;
+
+    if(g_side_pre_state != g_side_now_state) g_side_change_state_count++;
 
     /* write_state_flags_ upper bit */
     g_side_goal_reach   = (write_state_flags_ & 0x80) >> 7;
@@ -212,5 +218,9 @@ void SideSensor::MonitorFlags()
     g_side_before_noise_state = (exception_flags_ & 0xF0) >> 4;
     g_side_noise_count        = (exception_flags_ & 0x0C) >> 2;
     g_side_ignore_flag        =  exception_flags_ & 0x01;
+
+    g_goal_count   = goal_marker_count_;
+    g_corner_count = corner_marker_count_;
+    g_cross_count  = cross_line_count_;
 }
 #endif // DEBUG_MODE

@@ -84,6 +84,24 @@ uint32_t g_line_left = 0;
 uint32_t g_line_right = 0;
 
 /* Side seneor */
+uint8_t g_side_pre_state = 0;
+uint8_t g_side_now_state = 0;
+uint32_t g_side_change_state_count = 0;
+uint8_t g_side_goal_reach = 0;
+uint8_t g_side_corner_reach = 0;
+uint8_t g_side_cross_reach = 0;
+uint8_t g_side_black_flag = 0;
+uint8_t g_side_goal_flag = 0;
+uint8_t g_side_corner_flag = 0;
+uint8_t g_side_cross_flag = 0;
+uint8_t g_side_before_noise_state = 0;
+uint8_t g_side_noise_count = 0;
+uint8_t g_side_ignore_flag = 0;
+uint8_t g_goal_count = 0;
+uint8_t g_corner_count = 0;
+uint8_t g_cross_count = 0;
+
+
 uint8_t g_ignore_flag = 0;
 uint8_t g_corner_cnt = 0;
 uint8_t g_cross_cnt = 0;

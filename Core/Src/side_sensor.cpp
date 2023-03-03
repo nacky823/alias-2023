@@ -5,10 +5,11 @@ SideSensor::SideSensor() : read_state_flags_(0)
                          , write_state_flags_(0)
                          , exception_flags_(0)
                          , master_count_(0)
+                         , goal_marker_count_(0)
                          , corner_marker_count_(0)
                          , cross_line_count_(0) {}
 
-void SideSensor::SensorUpdate()
+void SideSensor::UpdateState()
 {
     uint8_t io_state = 0xFF; // Lower bits represent the positions of sensors.
 
@@ -202,3 +203,28 @@ uint8_t SideSensor::GetCrossLineCount()
 {
     return cross_line_count_;
 }
+
+#ifdef DEBUG_MODE
+void SideSensor::MonitorFlags()
+{
+    /* read_state_flags_ */
+    g_side_pre_state = (read_state_flags_ & 0xF0) >> 4;
+    g_side_now_state =  read_state_flags_ & 0x0F;
+
+    /* write_state_flags_ upper bit */
+    g_side_goal_reach   = (write_state_flags_ & 0x80) >> 7;
+    g_side_corner_reach = (write_state_flags_ & 0x40) >> 6;
+    g_side_cross_reach  = (write_state_flags_ & 0x20) >> 5;
+
+    /* write_state_flags_ lower bit */
+    g_side_black_flag  = (write_state_flags_ & 0x08) >> 3;
+    g_side_goal_flag   = (write_state_flags_ & 0x04) >> 2;
+    g_side_corner_flag = (write_state_flags_ & 0x02) >> 1;
+    g_side_cross_flag  =  write_state_flags_ & 0x01;
+
+    /* exception_flags_ */
+    g_side_before_noise_state = (exception_flags_ & 0xF0) >> 4;
+    g_side_noise_count        = (exception_flags_ & 0x0C) >> 2;
+    g_side_ignore_flag        =  exception_flags_ & 0x01;
+}
+#endif // DEBUG_MODE

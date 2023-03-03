@@ -1,5 +1,4 @@
 #include "side_sensor.hpp"
-#include "declare_extern.h"
 
 SideSensor::SideSensor() : read_state_flags_(0)
                          , write_state_flags_(0)

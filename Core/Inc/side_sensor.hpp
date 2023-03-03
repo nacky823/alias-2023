@@ -19,9 +19,31 @@ class SideSensor
 {
 private:
     uint8_t read_state_flags_;
+    /*  0000 0000
+     *  |||| ||||
+     *  |||| now_marker_state
+     *  pre_marker_state
+     */
     uint8_t write_state_flags_;
+    /*  0000 0000
+     *  |||  ||||
+     *  |||  |||cross_flag
+     *  |||  ||corner_flag
+     *  |||  |goal_flag
+     *  |||  black_flag
+     *  ||cross_reach
+     *  |corner_reach
+     *  goal_reach
+     */
     uint8_t exception_flags_;
+    /*  0000 0000
+     *  |||| || |
+     *  |||| || ignore_flag
+     *  |||| noise_count
+     *  before_noise_state
+     */
     uint8_t master_count_;
+    uint8_t goal_marker_count_;
     uint8_t corner_marker_count_;
     uint8_t cross_line_count_;
 

@@ -72,7 +72,7 @@ void SideSensor::Update()
     }
 
 #ifdef DEBUG_MODE
-    MonitorFlags();
+    Monitor();
 #endif // DEBUG_MODE
 }
 
@@ -172,7 +172,7 @@ void SideSensor::CountUp()
     }
     else if(cross_reach == 0x01 && black_flag == 0x01)
     {
-        state &= 0xDF // cross_reach = false
+        state &= 0xDF; // cross_reach = false
         cross_line_count_++;
     }
 

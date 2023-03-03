@@ -233,7 +233,7 @@ void Run::ModeFirstRun()
     line_sensor_->Update();
     encoder_->Update();
     iim_42652_->Update();
-    side_sensor_->IgnoreJudgment();
+    side_sensor_->Update();
     /* Emergency stop */
     if(EmergencyStop()) return;
     /* Logging */
@@ -263,7 +263,7 @@ void Run::ModeSecondRun()
     line_sensor_->Update();
     encoder_->Update();
     iim_42652_->Update();
-    side_sensor_->IgnoreJudgment();
+    side_sensor_->Update();
     /* Emergency stop */
     if(EmergencyStop()) return;
     /* Loading */
@@ -287,7 +287,7 @@ void Run::ModeVelocityControl()
     /* Sensor update */
     line_sensor_->Update();
     encoder_->Update();
-    side_sensor_->IgnoreJudgment();
+    side_sensor_->Update();
     /* Emergency stop */
     if(EmergencyStop()) return;
     /* Motor control */
@@ -302,7 +302,7 @@ void Run::ModeLineTrace()
 {
     /* Sensor update */
     line_sensor_->Update();
-    side_sensor_->IgnoreJudgment();
+    side_sensor_->Update();
     /* Emergency stop */
     if(EmergencyStop()) return;
     /* Motor control */
@@ -524,7 +524,7 @@ void Run::InitialTest()
     g_line_calib = line_sensor_->CheckCalibration();
 
     /* Side seneor */
-    side_sensor_->IgnoreJudgment();
+    side_sensor_->Update();
     g_goal_cnt = side_sensor_->GetGoalMarkerCount();
     g_corner_cnt = side_sensor_->GetCornerMarkerCount();
     g_cross_cnt = side_sensor_->GetCrossLineCount();

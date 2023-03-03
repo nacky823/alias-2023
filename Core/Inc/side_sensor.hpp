@@ -59,6 +59,10 @@ public:
     uint8_t GetCornerMarkerCount();
     uint8_t GetCrossLineCount();
 
+#ifdef DEBUG_MODE
+    void Monitor();
+#endif // DEBUG_MODE
+
 };
 
 #endif // SIDE_SENSOR_HPP_

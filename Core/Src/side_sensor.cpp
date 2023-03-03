@@ -46,10 +46,6 @@ void SideSensor::IgnoreJudgment()
 {
     uint8_t ignore_flag = exception_flags_ & 0x01;
 
-#ifdef DEBUG_MODE
-    g_ignore_flag = ignore_flag;
-#endif // DEBUG_MODE
-
     if(ignore_flag == 0x01)
     {
         if(master_count_ < IGNORE_COUNT) master_count_++;
@@ -57,7 +53,7 @@ void SideSensor::IgnoreJudgment()
     }
     else if(ignore_flag == 0x00)
     {
-        SensorUpdate();
+        UpdateState();
 
         uint8_t now_state = read_state_flags_;
         uint8_t pre_state = (now_state << 4) | (now_state >> 4);
@@ -68,10 +64,14 @@ void SideSensor::IgnoreJudgment()
         }
         else if(pre_state == now_state)
         {
-            exception_flags_ &= 0xF3;
+            exception_flags_ &= 0xF3; // noise_count = 0
             CountUp();
         }
     }
+
+#ifdef DEBUG_MODE
+    MonitorFlags();
+#endif // DEBUG_MODE
 }
 
 void SideSensor::NoiseTolerance()

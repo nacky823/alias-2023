@@ -47,13 +47,14 @@ private:
     uint8_t corner_marker_count_;
     uint8_t cross_line_count_;
 
-    void SensorUpdate();
+    void UpdateState();
     void NoiseTolerance();
+    void ConfirmState();
     void CountUp();
 
 public:
     SideSensor();
-    void IgnoreJudgment();
+    void Update();
     uint8_t GetGoalMarkerCount();
     uint8_t GetCornerMarkerCount();
     uint8_t GetCrossLineCount();

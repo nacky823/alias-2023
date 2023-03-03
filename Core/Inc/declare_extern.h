@@ -44,6 +44,26 @@ extern bool g_line_emer;
 extern bool g_line_calib;
 
 /* Side seneor */
+extern uint8_t g_side_pre_state;
+extern uint8_t g_side_now_state;
+extern uint32_t g_side_change_state_count;
+extern uint8_t g_side_goal_reach;
+extern uint8_t g_side_corner_reach;
+extern uint8_t g_side_cross_reach;
+extern uint8_t g_side_black_flag;
+extern uint8_t g_side_goal_flag;
+extern uint8_t g_side_corner_flag;
+extern uint8_t g_side_cross_flag;
+extern uint8_t g_side_before_noise_state;
+extern uint8_t g_side_noise_count;
+extern uint8_t g_side_ignore_flag;
+extern uint8_t g_goal_count;
+extern uint8_t g_corner_count;
+extern uint8_t g_cross_count;
+
+
+
+
 extern uint8_t g_ignore_flag;
 extern uint8_t g_corner_cnt;
 extern uint8_t g_cross_cnt;

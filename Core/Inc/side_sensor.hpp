@@ -3,12 +3,12 @@
 
 #include "stm32f4xx_hal.h"
 
-#define MAX_INTERRUPT_COUNT 250
-#define BLACK_BLACK_COUNT 2
-#define BLACK_WHITE_COUNT 1
-#define WHITE_BLACK_COUNT 1
-#define WHITE_WHITE_COUNT 0
-#define IGNORE_COUNT      5
+#define MAX_INTERRUPT_COUNT 250 // tim6[ms]
+#define BLACK_BLACK_COUNT   2   // tim6[ms]
+#define BLACK_WHITE_COUNT   1   // tim6[ms]
+#define WHITE_BLACK_COUNT   1   // tim6[ms]
+#define WHITE_WHITE_COUNT   0   // tim6[ms]
+#define IGNORE_COUNT        5   // tim6[ms]
 /* Digital side sensor : Black=1, White=0 */
 #define IO_OUTSIDE_L HAL_GPIO_ReadPin(GPIOB,GPIO_PIN_13)
 #define IO_INSIDE_L  HAL_GPIO_ReadPin(GPIOB,GPIO_PIN_14)

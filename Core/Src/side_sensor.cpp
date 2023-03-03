@@ -129,7 +129,7 @@ void SideSensor::ConfirmState()
     }
     else if(now_state == 0x01 && count >= WHITE_WHITE_COUNT)
     {
-        write_state_flags_ = (write_state_flags_ & 0x28) | 0x01;
+        write_state_flags_ = (write_state_flags_ & 0xF8) | 0x01;
     }
 }
 
@@ -143,6 +143,31 @@ void SideSensor::CountUp()
     uint8_t goal_reach   = (state & 0x80) >> 7;
     uint8_t corner_reach = (state & 0x40) >> 6;
     uint8_t cross_reach  = (state & 0x20) >> 5;
+
+    if(cross_flag == 0x01 && black_flag == 0x01)
+    {
+        state &= 0xF7; // black_flag = false
+        state |= 0x20; // cross_reach = true
+    }
+    else if(cross_flag == 0x01 && goal_reach == 0x01)
+    {
+        state &= 0x7F; // goal_reach = false
+        state |= 0x20; // cross_reach = true
+    }
+    else if(cross_flag == 0x01 && corner_reach == 0x01)
+    {
+        state &= 0xBF; // corner_reach = false
+        state |= 0x20; // cross_reach = true
+    }
+    else if(cross_reach == 0x01 && black_flag == 0x01)
+    {
+        state &= 0xDF; // cross_reach = false
+        cross_line_count_++;
+    }
+
+    black_flag   = (state & 0x08) >> 3;
+    goal_reach   = (state & 0x80) >> 7;
+    corner_reach = (state & 0x40) >> 6;
     
     if(goal_flag == 0x01 && black_flag == 0x01)
     {
@@ -163,16 +188,6 @@ void SideSensor::CountUp()
     {
         state &= 0xBF; // corner_reach = false
         corner_marker_count_++;
-    }
-    else if(cross_flag == 0x01 && black_flag == 0x01)
-    {
-        state &= 0xF7; // black_flag = false
-        state |= 0x20; // cross_reach = true
-    }
-    else if(cross_reach == 0x01 && black_flag == 0x01)
-    {
-        state &= 0xDF; // cross_reach = false
-        cross_line_count_++;
     }
 
     write_state_flags_ = state;

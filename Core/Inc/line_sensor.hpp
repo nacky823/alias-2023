@@ -9,7 +9,7 @@
 #define HALF_CONSECUTIVE_TIMES   5    // Use sorted median.
 #define MAX_NORMALIZED_VALU      2000 // Normalization
 #define EMERGENCY_STOP_BORDER    1700 // Normalization
-#define CALIBRATION_SUCCESS_TIME 3000 // tim6[ms]
+#define CALIBRATION_SUCCESS_TIME 1500 // tim6[ms]
 
 #ifdef DEBUG_MODE
 extern bool g_error_handler_adc1;
@@ -39,14 +39,13 @@ public:
     LineSensor();
     void Init();
     void StoreConsecutiveBuff();
-    void New();
     void Update();
-    bool GetEmergencyStopFlag();
     float LeftRightDifference();
+    bool GetEmergencyStopFlag();
     bool CheckCalibration();
 
 #ifdef DEBUG_MODE
-    void MonitorArrays();
+    void MonitorLineBuff();
 #endif // DEBUG_MODE
 
 };

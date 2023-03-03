@@ -124,11 +124,6 @@ void LineSensor::Update()
     emergency_stop_flag_ = emergency;
 }
 
-bool LineSensor::GetEmergencyStopFlag()
-{
-    return emergency_stop_flag_;
-}
-
 float LineSensor::LeftRightDifference()
 {
     uint8_t i;
@@ -151,6 +146,11 @@ float LineSensor::LeftRightDifference()
     float difference = right * LINE_SENSOR_CORRECTION - left;
 
     return difference;
+}
+
+bool LineSensor::GetEmergencyStopFlag()
+{
+    return emergency_stop_flag_;
 }
 
 bool LineSensor::CheckCalibration()
@@ -187,7 +187,7 @@ bool LineSensor::CheckCalibration()
 }
 
 #ifdef DEBUG_MODE
-void LineSensor::MonitorArrays()
+void LineSensor::MonitorLineBuff()
 {
     for(uint8_t i = 0; i < NUM_OF_LINE_SENSORS; i++)
     {

@@ -33,7 +33,7 @@ Core/Src/logger.o: ../Core/Src/logger.cpp ../Core/Inc/logger.hpp \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h \
  ../Core/Inc/flash.hpp ../Core/Inc/iim_42652.hpp \
- ../Core/Inc/side_sensor.hpp
+ ../Core/Inc/side_sensor.hpp ../Core/Inc/declare_extern.h
 
 ../Core/Inc/logger.hpp:
 
@@ -112,3 +112,5 @@ Core/Src/logger.o: ../Core/Src/logger.cpp ../Core/Inc/logger.hpp \
 ../Core/Inc/iim_42652.hpp:
 
 ../Core/Inc/side_sensor.hpp:
+
+../Core/Inc/declare_extern.h:

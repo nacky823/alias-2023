@@ -21,9 +21,9 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, ALLOC, LOAD, DATA
   8 .data         0000000c  20000000  08025ef8  00030000  2**2
                   CONTENTS, ALLOC, LOAD, DATA
-  9 .bss          000008a8  20000010  08025f04  00030010  2**3
+  9 .bss          000008a0  20000010  08025f04  00030010  2**3
                   ALLOC
- 10 ._user_heap_stack 00000600  200008b8  08025f04  000308b8  2**0
+ 10 ._user_heap_stack 00000600  200008b0  08025f04  000308b0  2**0
                   ALLOC
  11 .ARM.attributes 00000030  00000000  00000000  0003000c  2**0
                   CONTENTS, READONLY
@@ -1452,10 +1452,10 @@ void LineSensor::Init()
  8020ee2:	46bd      	mov	sp, r7
  8020ee4:	bd80      	pop	{r7, pc}
  8020ee6:	bf00      	nop
- 8020ee8:	2000068c 	.word	0x2000068c
- 8020eec:	2000006d 	.word	0x2000006d
- 8020ef0:	200006d4 	.word	0x200006d4
- 8020ef4:	2000006e 	.word	0x2000006e
+ 8020ee8:	20000684 	.word	0x20000684
+ 8020eec:	2000006e 	.word	0x2000006e
+ 8020ef0:	200006cc 	.word	0x200006cc
+ 8020ef4:	2000006f 	.word	0x2000006f
 
 08020ef8 <_ZN10LineSensor20StoreConsecutiveBuffEv>:
 
@@ -3027,7 +3027,7 @@ static void MX_ADC1_Init(void)
  802194e:	3710      	adds	r7, #16
  8021950:	46bd      	mov	sp, r7
  8021952:	bd80      	pop	{r7, pc}
- 8021954:	2000068c 	.word	0x2000068c
+ 8021954:	20000684 	.word	0x20000684
  8021958:	40012000 	.word	0x40012000
  802195c:	0f000001 	.word	0x0f000001
 
@@ -3098,7 +3098,7 @@ static void MX_I2C2_Init(void)
 }
  80219ac:	bf00      	nop
  80219ae:	bd80      	pop	{r7, pc}
- 80219b0:	20000560 	.word	0x20000560
+ 80219b0:	20000558 	.word	0x20000558
  80219b4:	40005800 	.word	0x40005800
  80219b8:	000186a0 	.word	0x000186a0
 
@@ -3181,7 +3181,7 @@ static void MX_SPI3_Init(void)
 }
  8021a1c:	bf00      	nop
  8021a1e:	bd80      	pop	{r7, pc}
- 8021a20:	20000634 	.word	0x20000634
+ 8021a20:	2000062c 	.word	0x2000062c
  8021a24:	40003c00 	.word	0x40003c00
 
 08021a28 <MX_TIM1_Init>:
@@ -3373,7 +3373,7 @@ static void MX_TIM1_Init(void)
  8021b3a:	46bd      	mov	sp, r7
  8021b3c:	bd80      	pop	{r7, pc}
  8021b3e:	bf00      	nop
- 8021b40:	200007b4 	.word	0x200007b4
+ 8021b40:	200007ac 	.word	0x200007ac
  8021b44:	40010000 	.word	0x40010000
 
 08021b48 <MX_TIM2_Init>:
@@ -3484,7 +3484,7 @@ static void MX_TIM2_Init(void)
  8021bd6:	46bd      	mov	sp, r7
  8021bd8:	bd80      	pop	{r7, pc}
  8021bda:	bf00      	nop
- 8021bdc:	200007f4 	.word	0x200007f4
+ 8021bdc:	200007ec 	.word	0x200007ec
  8021be0:	00019a27 	.word	0x00019a27
 
 08021be4 <MX_TIM3_Init>:
@@ -3649,7 +3649,7 @@ static void MX_TIM3_Init(void)
  8021cca:	3728      	adds	r7, #40	; 0x28
  8021ccc:	46bd      	mov	sp, r7
  8021cce:	bd80      	pop	{r7, pc}
- 8021cd0:	200005f4 	.word	0x200005f4
+ 8021cd0:	200005ec 	.word	0x200005ec
  8021cd4:	40000400 	.word	0x40000400
 
 08021cd8 <MX_TIM4_Init>:
@@ -3772,7 +3772,7 @@ static void MX_TIM4_Init(void)
  8021d72:	3730      	adds	r7, #48	; 0x30
  8021d74:	46bd      	mov	sp, r7
  8021d76:	bd80      	pop	{r7, pc}
- 8021d78:	20000520 	.word	0x20000520
+ 8021d78:	20000518 	.word	0x20000518
  8021d7c:	40000800 	.word	0x40000800
 
 08021d80 <MX_TIM5_Init>:
@@ -3883,7 +3883,7 @@ static void MX_TIM5_Init(void)
  8021e0e:	46bd      	mov	sp, r7
  8021e10:	bd80      	pop	{r7, pc}
  8021e12:	bf00      	nop
- 8021e14:	200005b4 	.word	0x200005b4
+ 8021e14:	200005ac 	.word	0x200005ac
  8021e18:	40000c00 	.word	0x40000c00
 
 08021e1c <MX_TIM6_Init>:
@@ -3968,7 +3968,7 @@ static void MX_TIM6_Init(void)
  8021e7a:	46bd      	mov	sp, r7
  8021e7c:	bd80      	pop	{r7, pc}
  8021e7e:	bf00      	nop
- 8021e80:	20000774 	.word	0x20000774
+ 8021e80:	2000076c 	.word	0x2000076c
  8021e84:	40001000 	.word	0x40001000
 
 08021e88 <MX_TIM7_Init>:
@@ -4053,7 +4053,7 @@ static void MX_TIM7_Init(void)
  8021ee6:	46bd      	mov	sp, r7
  8021ee8:	bd80      	pop	{r7, pc}
  8021eea:	bf00      	nop
- 8021eec:	20000874 	.word	0x20000874
+ 8021eec:	2000086c 	.word	0x2000086c
  8021ef0:	40001400 	.word	0x40001400
 
 08021ef4 <MX_TIM8_Init>:
@@ -4181,7 +4181,7 @@ static void MX_TIM8_Init(void)
  8021f96:	46bd      	mov	sp, r7
  8021f98:	bd80      	pop	{r7, pc}
  8021f9a:	bf00      	nop
- 8021f9c:	200004e0 	.word	0x200004e0
+ 8021f9c:	200004d8 	.word	0x200004d8
  8021fa0:	40010400 	.word	0x40010400
 
 08021fa4 <MX_TIM11_Init>:
@@ -4295,7 +4295,7 @@ static void MX_TIM11_Init(void)
  8022032:	46bd      	mov	sp, r7
  8022034:	bd80      	pop	{r7, pc}
  8022036:	bf00      	nop
- 8022038:	200006d4 	.word	0x200006d4
+ 8022038:	200006cc 	.word	0x200006cc
  802203c:	40014800 	.word	0x40014800
 
 08022040 <MX_TIM12_Init>:
@@ -4399,7 +4399,7 @@ static void MX_TIM12_Init(void)
  80220be:	46bd      	mov	sp, r7
  80220c0:	bd80      	pop	{r7, pc}
  80220c2:	bf00      	nop
- 80220c4:	20000834 	.word	0x20000834
+ 80220c4:	2000082c 	.word	0x2000082c
  80220c8:	40001800 	.word	0x40001800
 
 080220cc <MX_DMA_Init>:
@@ -4984,7 +4984,7 @@ void HAL_ADC_MspInit(ADC_HandleTypeDef* hadc)
  8022454:	40023800 	.word	0x40023800
  8022458:	40020800 	.word	0x40020800
  802245c:	40020000 	.word	0x40020000
- 8022460:	20000714 	.word	0x20000714
+ 8022460:	2000070c 	.word	0x2000070c
  8022464:	40026410 	.word	0x40026410
 
 08022468 <HAL_I2C_MspInit>:
@@ -6011,7 +6011,7 @@ void TIM2_IRQHandler(void)
  8022a4e:	bf00      	nop
  8022a50:	bd80      	pop	{r7, pc}
  8022a52:	bf00      	nop
- 8022a54:	200007f4 	.word	0x200007f4
+ 8022a54:	200007ec 	.word	0x200007ec
 
 08022a58 <TIM5_IRQHandler>:
 
@@ -6035,7 +6035,7 @@ void TIM5_IRQHandler(void)
  8022a62:	bf00      	nop
  8022a64:	bd80      	pop	{r7, pc}
  8022a66:	bf00      	nop
- 8022a68:	200005b4 	.word	0x200005b4
+ 8022a68:	200005ac 	.word	0x200005ac
 
 08022a6c <TIM6_DAC_IRQHandler>:
 
@@ -6059,7 +6059,7 @@ void TIM6_DAC_IRQHandler(void)
  8022a76:	bf00      	nop
  8022a78:	bd80      	pop	{r7, pc}
  8022a7a:	bf00      	nop
- 8022a7c:	20000774 	.word	0x20000774
+ 8022a7c:	2000076c 	.word	0x2000076c
 
 08022a80 <TIM7_IRQHandler>:
 
@@ -6083,7 +6083,7 @@ void TIM7_IRQHandler(void)
  8022a8a:	bf00      	nop
  8022a8c:	bd80      	pop	{r7, pc}
  8022a8e:	bf00      	nop
- 8022a90:	20000874 	.word	0x20000874
+ 8022a90:	2000086c 	.word	0x2000086c
 
 08022a94 <DMA2_Stream0_IRQHandler>:
 
@@ -6107,7 +6107,7 @@ void DMA2_Stream0_IRQHandler(void)
  8022a9e:	bf00      	nop
  8022aa0:	bd80      	pop	{r7, pc}
  8022aa2:	bf00      	nop
- 8022aa4:	20000714 	.word	0x20000714
+ 8022aa4:	2000070c 	.word	0x2000070c
 
 08022aa8 <SystemInit>:
   *         configuration.
@@ -6212,8 +6212,8 @@ void Test::Init()
  8022b36:	3708      	adds	r7, #8
  8022b38:	46bd      	mov	sp, r7
  8022b3a:	bd80      	pop	{r7, pc}
- 8022b3c:	20000874 	.word	0x20000874
- 8022b40:	20000774 	.word	0x20000774
+ 8022b3c:	2000086c 	.word	0x2000086c
+ 8022b40:	2000076c 	.word	0x2000076c
 
 08022b44 <_ZN4Test6Timer7Ev>:
 
@@ -6322,7 +6322,7 @@ void Test::Line()
  8022bf2:	bf00      	nop
  8022bf4:	20000068 	.word	0x20000068
  8022bf8:	2000006c 	.word	0x2000006c
- 8022bfc:	2000020c 	.word	0x2000020c
+ 8022bfc:	2000006d 	.word	0x2000006d
 
 08022c00 <_ZN15VelocityControlC1EP7Encoder>:
 #include "velocity_control.hpp"
@@ -6371,7 +6371,7 @@ void Init()
  8022c32:	bf00      	nop
  8022c34:	bd80      	pop	{r7, pc}
  8022c36:	bf00      	nop
- 8022c38:	200004d8 	.word	0x200004d8
+ 8022c38:	200004d0 	.word	0x200004d0
 
 08022c3c <InterruptTim7>:
 
@@ -6398,7 +6398,7 @@ void InterruptTim7()
 }
  8022c50:	bf00      	nop
  8022c52:	bd80      	pop	{r7, pc}
- 8022c54:	200004d8 	.word	0x200004d8
+ 8022c54:	200004d0 	.word	0x200004d0
  8022c58:	20000200 	.word	0x20000200
 
 08022c5c <InterruptTim6>:
@@ -6426,7 +6426,7 @@ void InterruptTim6()
 }
  8022c70:	bf00      	nop
  8022c72:	bd80      	pop	{r7, pc}
- 8022c74:	200004d8 	.word	0x200004d8
+ 8022c74:	200004d0 	.word	0x200004d0
  8022c78:	20000204 	.word	0x20000204
 
 08022c7c <InterruptTim2>:
@@ -6501,15 +6501,15 @@ VelocityControl velocity_control(&encoder);
  8022cf2:	3708      	adds	r7, #8
  8022cf4:	46bd      	mov	sp, r7
  8022cf6:	bd80      	pop	{r7, pc}
- 8022cf8:	20000210 	.word	0x20000210
- 8022cfc:	20000220 	.word	0x20000220
- 8022d00:	20000228 	.word	0x20000228
- 8022d04:	2000022c 	.word	0x2000022c
- 8022d08:	200003b8 	.word	0x200003b8
- 8022d0c:	200003c0 	.word	0x200003c0
- 8022d10:	200004c8 	.word	0x200004c8
- 8022d14:	200004d0 	.word	0x200004d0
- 8022d18:	200004d8 	.word	0x200004d8
+ 8022cf8:	2000020c 	.word	0x2000020c
+ 8022cfc:	20000218 	.word	0x20000218
+ 8022d00:	20000220 	.word	0x20000220
+ 8022d04:	20000224 	.word	0x20000224
+ 8022d08:	200003b0 	.word	0x200003b0
+ 8022d0c:	200003b8 	.word	0x200003b8
+ 8022d10:	200004c0 	.word	0x200004c0
+ 8022d14:	200004c8 	.word	0x200004c8
+ 8022d18:	200004d0 	.word	0x200004d0
 
 08022d1c <_GLOBAL__sub_I_encoder>:
  8022d1c:	b580      	push	{r7, lr}
@@ -6604,7 +6604,7 @@ LoopFillZerobss:
   ldr  r2, =_sbss
  8022d74:	20000010 	.word	0x20000010
   ldr  r3, = _ebss
- 8022d78:	200008b8 	.word	0x200008b8
+ 8022d78:	200008b0 	.word	0x200008b0
 
 08022d7c <ADC_IRQHandler>:
  * @retval None       
@@ -6767,7 +6767,7 @@ __weak void HAL_IncTick(void)
  8022e40:	4770      	bx	lr
  8022e42:	bf00      	nop
  8022e44:	20000008 	.word	0x20000008
- 8022e48:	200008b4 	.word	0x200008b4
+ 8022e48:	200008ac 	.word	0x200008ac
 
 08022e4c <HAL_GetTick>:
   * @note This function is declared as __weak to be overwritten in case of other 
@@ -6787,7 +6787,7 @@ __weak uint32_t HAL_GetTick(void)
  8022e58:	f85d 7b04 	ldr.w	r7, [sp], #4
  8022e5c:	4770      	bx	lr
  8022e5e:	bf00      	nop
- 8022e60:	200008b4 	.word	0x200008b4
+ 8022e60:	200008ac 	.word	0x200008ac
 
 08022e64 <HAL_Delay>:
   *       implementations in user file.

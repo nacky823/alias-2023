@@ -6190,7 +6190,7 @@ LOAD c:/users/owner/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide
  .igot.plt      0x000000002000000c        0x0 c:/users/owner/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.5.0.202011040924/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv4-sp/hard/crtbegin.o
                 0x000000002000000c                . = ALIGN (0x4)
 
-.bss            0x0000000020000010      0x8a8 load address 0x0000000008025f04
+.bss            0x0000000020000010      0x8a0 load address 0x0000000008025f04
                 0x0000000020000010                _sbss = .
                 0x0000000020000010                __bss_start__ = _sbss
  *(.bss)
@@ -6211,13 +6211,15 @@ LOAD c:/users/owner/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide
  .bss.g_line_emer
                 0x000000002000006c        0x1 Core/Src/main.o
                 0x000000002000006c                g_line_emer
- .bss.g_error_handler_adc1
+ .bss.g_line_calib
                 0x000000002000006d        0x1 Core/Src/main.o
-                0x000000002000006d                g_error_handler_adc1
- .bss.g_error_handler_tim11
+                0x000000002000006d                g_line_calib
+ .bss.g_error_handler_adc1
                 0x000000002000006e        0x1 Core/Src/main.o
-                0x000000002000006e                g_error_handler_tim11
- *fill*         0x000000002000006f        0x1 
+                0x000000002000006e                g_error_handler_adc1
+ .bss.g_error_handler_tim11
+                0x000000002000006f        0x1 Core/Src/main.o
+                0x000000002000006f                g_error_handler_tim11
  .bss.g_line_buff
                 0x0000000020000070       0x1c Core/Src/main.o
                 0x0000000020000070                g_line_buff
@@ -6245,69 +6247,64 @@ LOAD c:/users/owner/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide
                 0x0000000020000204                g_tim6
  .bss.g_tim2    0x0000000020000208        0x4 Core/Src/main.o
                 0x0000000020000208                g_tim2
- .bss.g_line_calib
-                0x000000002000020c        0x1 Core/Src/main.o
-                0x000000002000020c                g_line_calib
- *fill*         0x000000002000020d        0x3 
- .bss.encoder   0x0000000020000210        0xc Core/Src/wrapper.o
-                0x0000000020000210                encoder
- *fill*         0x000000002000021c        0x4 
+ .bss.encoder   0x000000002000020c        0xc Core/Src/wrapper.o
+                0x000000002000020c                encoder
  .bss.iim_42652
-                0x0000000020000220        0x8 Core/Src/wrapper.o
-                0x0000000020000220                iim_42652
- .bss.led       0x0000000020000228        0x2 Core/Src/wrapper.o
-                0x0000000020000228                led
- *fill*         0x000000002000022a        0x2 
+                0x0000000020000218        0x8 Core/Src/wrapper.o
+                0x0000000020000218                iim_42652
+ .bss.led       0x0000000020000220        0x2 Core/Src/wrapper.o
+                0x0000000020000220                led
+ *fill*         0x0000000020000222        0x2 
  .bss.line_sensor
-                0x000000002000022c      0x18a Core/Src/wrapper.o
-                0x000000002000022c                line_sensor
- *fill*         0x00000000200003b6        0x2 
+                0x0000000020000224      0x18a Core/Src/wrapper.o
+                0x0000000020000224                line_sensor
+ *fill*         0x00000000200003ae        0x2 
  .bss.line_trace
-                0x00000000200003b8        0x8 Core/Src/wrapper.o
-                0x00000000200003b8                line_trace
- .bss.logger    0x00000000200003c0      0x108 Core/Src/wrapper.o
-                0x00000000200003c0                logger
+                0x00000000200003b0        0x8 Core/Src/wrapper.o
+                0x00000000200003b0                line_trace
+ .bss.logger    0x00000000200003b8      0x108 Core/Src/wrapper.o
+                0x00000000200003b8                logger
  .bss.side_sensor
-                0x00000000200004c8        0x6 Core/Src/wrapper.o
-                0x00000000200004c8                side_sensor
- *fill*         0x00000000200004ce        0x2 
+                0x00000000200004c0        0x6 Core/Src/wrapper.o
+                0x00000000200004c0                side_sensor
+ *fill*         0x00000000200004c6        0x2 
  .bss.velocity_control
-                0x00000000200004d0        0x8 Core/Src/wrapper.o
-                0x00000000200004d0                velocity_control
- .bss.test      0x00000000200004d8        0x8 Core/Src/wrapper.o
-                0x00000000200004d8                test
+                0x00000000200004c8        0x8 Core/Src/wrapper.o
+                0x00000000200004c8                velocity_control
+ .bss.test      0x00000000200004d0        0x8 Core/Src/wrapper.o
+                0x00000000200004d0                test
  *(COMMON)
- COMMON         0x00000000200004e0      0x3d4 Core/Src/main.o
-                0x00000000200004e0                htim8
-                0x0000000020000520                htim4
-                0x0000000020000560                hi2c2
-                0x00000000200005b4                htim5
-                0x00000000200005f4                htim3
-                0x0000000020000634                hspi3
-                0x000000002000068c                hadc1
-                0x00000000200006d4                htim11
-                0x0000000020000714                hdma_adc1
-                0x0000000020000774                htim6
-                0x00000000200007b4                htim1
-                0x00000000200007f4                htim2
-                0x0000000020000834                htim12
-                0x0000000020000874                htim7
- COMMON         0x00000000200008b4        0x4 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.o
-                0x00000000200008b4                uwTick
-                0x00000000200008b8                . = ALIGN (0x4)
-                0x00000000200008b8                _ebss = .
-                0x00000000200008b8                __bss_end__ = _ebss
+ COMMON         0x00000000200004d8      0x3d4 Core/Src/main.o
+                0x00000000200004d8                htim8
+                0x0000000020000518                htim4
+                0x0000000020000558                hi2c2
+                0x00000000200005ac                htim5
+                0x00000000200005ec                htim3
+                0x000000002000062c                hspi3
+                0x0000000020000684                hadc1
+                0x00000000200006cc                htim11
+                0x000000002000070c                hdma_adc1
+                0x000000002000076c                htim6
+                0x00000000200007ac                htim1
+                0x00000000200007ec                htim2
+                0x000000002000082c                htim12
+                0x000000002000086c                htim7
+ COMMON         0x00000000200008ac        0x4 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.o
+                0x00000000200008ac                uwTick
+                0x00000000200008b0                . = ALIGN (0x4)
+                0x00000000200008b0                _ebss = .
+                0x00000000200008b0                __bss_end__ = _ebss
 
 ._user_heap_stack
-                0x00000000200008b8      0x600 load address 0x0000000008025f04
-                0x00000000200008b8                . = ALIGN (0x8)
+                0x00000000200008b0      0x600 load address 0x0000000008025f04
+                0x00000000200008b0                . = ALIGN (0x8)
                 [!provide]                        PROVIDE (end = .)
-                0x00000000200008b8                PROVIDE (_end = .)
-                0x0000000020000ab8                . = (. + _Min_Heap_Size)
- *fill*         0x00000000200008b8      0x200 
-                0x0000000020000eb8                . = (. + _Min_Stack_Size)
- *fill*         0x0000000020000ab8      0x400 
-                0x0000000020000eb8                . = ALIGN (0x8)
+                0x00000000200008b0                PROVIDE (_end = .)
+                0x0000000020000ab0                . = (. + _Min_Heap_Size)
+ *fill*         0x00000000200008b0      0x200 
+                0x0000000020000eb0                . = (. + _Min_Stack_Size)
+ *fill*         0x0000000020000ab0      0x400 
+                0x0000000020000eb0                . = ALIGN (0x8)
 
 /DISCARD/
  libc.a(*)

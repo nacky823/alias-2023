@@ -31,7 +31,8 @@ Run run(
 #else // TEST_MODE
 Test test(
     &led,
-    &line_sensor
+    &line_sensor,
+    &side_sensor
 );
 #endif // TEST_MODE
 

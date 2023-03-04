@@ -3,16 +3,21 @@
 #ifdef TEST_MODE
 Test::Test(Led *led,
            LineSensor *line_sensor,
+           Motor *motor,
+           RotarySwitch *rotary_switch,
            SideSensor *side_sensor)
 {
     led_ = led;
     line_sensor_ = line_sensor;
+    motor_ = motor;
+    rotary_switch_ = rotary_switch;
     side_sensor_ = side_sensor;
 }
 
 void Test::Init()
 {
     line_sensor_->Init();
+    motor_->Init();
 
     led_->Blink(3, 'Y', 'M');
     led_->ColorOrder('X');
@@ -29,6 +34,7 @@ void Test::Timer6()
 {
     TestLineSensor();
     TestSideSensor();
+    TestMotor();
 }
 
 void Test::TestLineSensor()
@@ -46,5 +52,16 @@ void Test::TestSideSensor()
 {
     side_sensor_->Update();
     side_sensor_->Monitor();
+}
+
+void Test::TestMotor()
+{
+    g_switch_state = rotary_switch_->State();
+
+    switch(g_switch_state)
+    {
+        case 0x00: motor_->Drive(0.2, 0); break;
+        case 0x01: motor_->Drive(-0.2, 0); break;
+    }
 }
 #endif // TEST_MODE

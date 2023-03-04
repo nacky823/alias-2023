@@ -1,6 +1,7 @@
-test.cpp:4:1:Test::Test(Led*, LineSensor*, SideSensor*)	24	static
-test.cpp:13:6:void Test::Init()	16	static
-test.cpp:23:6:void Test::Timer7()	16	static
-test.cpp:28:6:void Test::Timer6()	16	static
-test.cpp:34:6:void Test::TestLineSensor()	16	static
-test.cpp:45:6:void Test::TestSideSensor()	16	static
+test.cpp:4:1:Test::Test(Led*, LineSensor*, Motor*, RotarySwitch*, SideSensor*)	24	static
+test.cpp:17:6:void Test::Init()	16	static
+test.cpp:28:6:void Test::Timer7()	16	static
+test.cpp:33:6:void Test::Timer6()	16	static
+test.cpp:40:6:void Test::TestLineSensor()	16	static
+test.cpp:51:6:void Test::TestSideSensor()	16	static
+test.cpp:57:6:void Test::TestMotor()	16	static

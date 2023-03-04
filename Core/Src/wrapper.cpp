@@ -32,6 +32,8 @@ Run run(
 Test test(
     &led,
     &line_sensor,
+    &motor,
+    &rotary_switch,
     &side_sensor
 );
 #endif // TEST_MODE

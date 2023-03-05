@@ -60,9 +60,11 @@ void Test::TestMotor()
 
     switch(g_switch_state)
     {
-        case 0x00: motor_->Drive(0.2, 0);  break;
-        case 0x01: motor_->Drive(-0.2, 0); break;
-        default:   motor_->Drive(0, 0);    break;
+        case 0x00: motor_->Drive(0.2, 0);   break;
+        case 0x01: motor_->Drive(-0.2, 0);  break;
+        case 0x03: motor_->Drive(1.0, 0);   break;
+        case 0x04: motor_->Drive(0.5, 0.6); break;
+        default:   motor_->Drive(0, 0);     break;
     }
 }
 #endif // TEST_MODE

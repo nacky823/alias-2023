@@ -67,4 +67,11 @@ void Test::TestMotor()
         default:   motor_->Drive(0, 0);     break;
     }
 }
+
+void Test::TestLineTrace()
+{
+    float rotat = line_trace_->LineTraceOnly();
+
+    motor_->Drive(0, rotat);
+}
 #endif // TEST_MODE

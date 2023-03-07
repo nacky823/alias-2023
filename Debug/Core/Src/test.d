@@ -32,7 +32,8 @@ Core/Src/test.o: ../Core/Src/test.cpp ../Core/Inc/test.hpp \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h \
  ../Core/Inc/line_sensor.hpp ../Core/Inc/main.h \
- ../Core/Inc/declare_extern.h ../Core/Inc/macro.h ../Core/Inc/motor.hpp \
+ ../Core/Inc/declare_extern.h ../Core/Inc/macro.h \
+ ../Core/Inc/line_trace.hpp ../Core/Inc/motor.hpp \
  ../Core/Inc/rotary_switch.hpp ../Core/Inc/side_sensor.hpp
 
 ../Core/Inc/test.hpp:
@@ -110,6 +111,8 @@ Core/Src/test.o: ../Core/Src/test.cpp ../Core/Inc/test.hpp \
 ../Core/Inc/declare_extern.h:
 
 ../Core/Inc/macro.h:
+
+../Core/Inc/line_trace.hpp:
 
 ../Core/Inc/motor.hpp:
 

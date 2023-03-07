@@ -32,6 +32,7 @@ Run run(
 Test test(
     &led,
     &line_sensor,
+    &line_trace,
     &motor,
     &rotary_switch,
     &side_sensor

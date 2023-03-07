@@ -3,12 +3,14 @@
 #ifdef TEST_MODE
 Test::Test(Led *led,
            LineSensor *line_sensor,
+           LineTrace *line_trace,
            Motor *motor,
            RotarySwitch *rotary_switch,
            SideSensor *side_sensor)
 {
     led_ = led;
     line_sensor_ = line_sensor;
+    line_trace_ = line_trace;
     motor_ = motor;
     rotary_switch_ = rotary_switch;
     side_sensor_ = side_sensor;
@@ -60,6 +62,7 @@ void Test::TestMotor()
 
     switch(g_switch_state)
     {
+        case 0x0F: TestLineTrace(); break;
         case 0x00: motor_->Drive(0.2, 0);   break;
         case 0x01: motor_->Drive(-0.2, 0);  break;
         case 0x03: motor_->Drive(1.0, 0);   break;

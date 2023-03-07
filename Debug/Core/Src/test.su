@@ -1,8 +1,9 @@
-test.cpp:4:1:Test::Test(Led*, LineSensor*, LineTrace*, Motor*, RotarySwitch*, SideSensor*)	24	static
-test.cpp:19:6:void Test::Init()	16	static
-test.cpp:30:6:void Test::Timer7()	16	static
-test.cpp:35:6:void Test::Timer6()	16	static
-test.cpp:42:6:void Test::TestLineSensor()	16	static
-test.cpp:53:6:void Test::TestSideSensor()	16	static
-test.cpp:59:6:void Test::TestMotor()	16	static
-test.cpp:74:6:void Test::TestLineTrace()	24	static
+test.cpp:4:1:Test::Test(Encoder*, Led*, LineSensor*, LineTrace*, Motor*, RotarySwitch*, SideSensor*, VelocityControl*)	24	static
+test.cpp:23:6:void Test::Init()	16	static
+test.cpp:35:6:void Test::Timer7()	16	static
+test.cpp:40:6:void Test::Timer6()	16	static
+test.cpp:47:6:void Test::TestLineSensor()	16	static
+test.cpp:58:6:void Test::TestSideSensor()	16	static
+test.cpp:64:6:void Test::TestMotor()	16	static
+test.cpp:79:6:void Test::TestLineTrace()	24	static
+test.cpp:86:6:void Test::TestEncoder()	16	static

@@ -30,12 +30,14 @@ Run run(
 );
 #else // TEST_MODE
 Test test(
+    &encoder,
     &led,
     &line_sensor,
     &line_trace,
     &motor,
     &rotary_switch,
-    &side_sensor
+    &side_sensor,
+    &velocity_control
 );
 #endif // TEST_MODE
 

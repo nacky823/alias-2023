@@ -1,23 +1,28 @@
 #include "test.hpp"
 
 #ifdef TEST_MODE
-Test::Test(Led *led,
+Test::Test(Encoder *encoder,
+           Led *led,
            LineSensor *line_sensor,
            LineTrace *line_trace,
            Motor *motor,
            RotarySwitch *rotary_switch,
-           SideSensor *side_sensor)
+           SideSensor *side_sensor,
+           VelocityControl *velocity_control)
 {
+    encoder_ = encoder;
     led_ = led;
     line_sensor_ = line_sensor;
     line_trace_ = line_trace;
     motor_ = motor;
     rotary_switch_ = rotary_switch;
     side_sensor_ = side_sensor;
+    velocity_control_ = velocity_control;
 }
 
 void Test::Init()
 {
+    encoder_->Init();
     line_sensor_->Init();
     motor_->Init();
 
@@ -76,5 +81,10 @@ void Test::TestLineTrace()
     float rotat = line_trace_->LineTraceOnly();
 
     motor_->Drive(0, rotat);
+}
+
+void Test::TestEncoder()
+{
+    encoder_->Update();
 }
 #endif // TEST_MODE

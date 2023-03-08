@@ -6,6 +6,10 @@
 #define TEST_MODE
 
 /* ----- Parameter adjustment ----- */
+#define LINE_ONLY_P_GAIN 0.001
+#define LINE_ONLY_I_GAIN 0
+#define LINE_ONLY_D_GAIN 0
+
 #define INIT_DEBUG_MOTOR_DUTY 0.0
 #define V_P_1 0.0
 #define V_I_1 0.0

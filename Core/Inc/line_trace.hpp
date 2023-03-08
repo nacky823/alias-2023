@@ -5,9 +5,6 @@
 
 #define TARGET_VELOCITY_0 1.0
 #define TARGET_VELOCITY_1 2.0
-#define LINE_ONLY_P_GAIN 0
-#define LINE_ONLY_I_GAIN 0
-#define LINE_ONLY_D_GAIN 0
 #define LINE_P_GAIN_0 0
 #define LINE_I_GAIN_0 0
 #define LINE_D_GAIN_0 0

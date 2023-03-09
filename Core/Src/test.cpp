@@ -42,6 +42,7 @@ void Test::Timer6()
     TestLineSensor();
     TestSideSensor();
     TestMotor();
+    TestEncoder();
 }
 
 void Test::TestLineSensor()
@@ -86,5 +87,11 @@ void Test::TestLineTrace()
 void Test::TestEncoder()
 {
     encoder_->Update();
+}
+
+void Test::TestVelocityControl()
+{
+
+
 }
 #endif // TEST_MODE

@@ -40,6 +40,7 @@ public:
     void TestMotor();
     void TestLineTrace();
     void TestEncoder();
+    void TestVelocityControl();
 
 };
 #endif // TEST_MODE

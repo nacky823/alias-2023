@@ -91,7 +91,7 @@ void Test::TestEncoder()
 
 void Test::TestVelocityControl()
 {
-    float trans = 
+    float trans = velocity_control_->
 
 
 }

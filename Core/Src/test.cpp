@@ -93,6 +93,8 @@ void Test::TestVelocityControl()
 {
     float trans = velocity_control_->
 
+    velocity_control_->
+
 
 }
 #endif // TEST_MODE

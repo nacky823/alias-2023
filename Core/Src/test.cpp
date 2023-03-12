@@ -93,5 +93,6 @@ void Test::TestVelocityControl()
 {
     float trans = velocity_control_->DeterminePidGain();
 
+    motor_->Drive(trans, 0);
 }
 #endif // TEST_MODE

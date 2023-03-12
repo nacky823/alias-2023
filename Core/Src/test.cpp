@@ -91,10 +91,7 @@ void Test::TestEncoder()
 
 void Test::TestVelocityControl()
 {
-    float trans = velocity_control_->
-
-    velocity_control_->
-
+    float trans = velocity_control_->DeterminePidGain();
 
 }
 #endif // TEST_MODE

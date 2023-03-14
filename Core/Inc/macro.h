@@ -1,11 +1,14 @@
 #ifndef MACRO_H_
 #define MACRO_H_
 
-/* ----- Debug mode ----- */
+/* ----- Mode selection ----- */
 #define DEBUG_MODE
 #define TEST_MODE
 
-/* ----- Parameter adjustment ----- */
+/* ----- Parameter setting ----- */
+/* PID gain velocity control */
+/* PID gain line trace */
+
 #define LINE_ONLY_P_GAIN 0.001
 #define LINE_ONLY_I_GAIN 0
 #define LINE_ONLY_D_GAIN 0
@@ -40,14 +43,14 @@
 
 /* ----- Line sensor ----- */
 #define LINE_SENSOR_CORRECTION 1.0
-#define NUM_OF_LINE_SENSORS      14
-#define CONSECUTIVE_TIMES        10
+#define NUM_OF_LINE_SENSORS    14
+#define CONSECUTIVE_TIMES      10
 
 /* ----- IMU ----- */
 #define NORMAL_FUCOR_DPS 0.061037
 
 /* ----- Internal timer ----- */
-#define TIM6_PERIOD 1.25 // [ms]
+#define TIM6_PERIOD   1.25    // [ms]
 #define TIM6_PERIOD_S 0.00125 // [s]
 
 /* ----- Flash memory address ----- */

@@ -41,6 +41,7 @@ public:
     void TestLineTrace();
     void TestEncoder();
     void TestVelocityControl();
+    void RunLineTrace();
 
 };
 #endif // TEST_MODE

@@ -91,7 +91,7 @@ void Test::TestEncoder()
 
 void Test::TestVelocityControl()
 {
-    float trans = velocity_control_->DeterminePidGain();
+    float trans = velocity_control_->DeterminePidGain(1.0);
 
     motor_->Drive(trans, 0);
 }

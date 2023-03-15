@@ -63,8 +63,8 @@ TIM_HandleTypeDef htim12;
 #ifdef DEBUG_MODE
 uint16_t g_monitor_u16 = 0;
 float g_angular_velocity = 0;
-float g_distance_log[MAX_LOG_INDEX] = {0};
-float g_angular_log[MAX_LOG_INDEX] = {0};
+float g_distance_log[80] = {0};
+float g_angular_log[80] = {0};
 
 /* Line sensor */
 float g_line_diff = 0;

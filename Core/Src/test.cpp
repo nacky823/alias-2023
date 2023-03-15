@@ -89,6 +89,7 @@ void Test::TestLineTrace()
 void Test::TestEncoder()
 {
     encoder_->Update();
+    g_velocity = (encoder_->GetDistance()) / TIM6_PERIOD;
     g_angular_velocity = encoder_->AngularVelocity();
 }
 

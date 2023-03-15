@@ -33,7 +33,7 @@
 
 /* ----- Velocity control ----- */
 #define VELOCITY_LPF_RATIO     0.70
-#define VELOCITY_P_GAIN  0.0001
+#define VELOCITY_P_GAIN  1.0
 #define VELOCITY_I_GAIN  0.0
 #define VELOCITY_D_GAIN  0.0
 #define LIMIT_TRANS_DUTY 0.90

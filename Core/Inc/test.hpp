@@ -14,6 +14,7 @@
 #define MAX_LOG_INDEX 80
 
 #ifdef DEBUG_MODE
+extern float g_velocity;
 extern float g_angular_velocity;
 extern float g_distance_log[MAX_LOG_INDEX];
 extern float g_angular_log[MAX_LOG_INDEX];

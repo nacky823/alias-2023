@@ -42,6 +42,7 @@ public:
     void TestEncoder();
     void TestVelocityControl();
     void RunLineTrace();
+    void MonitorLog();
 
 };
 #endif // TEST_MODE

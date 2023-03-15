@@ -87,6 +87,7 @@ void Test::TestLineTrace()
 void Test::TestEncoder()
 {
     encoder_->Update();
+    g_angular_velocity = encoder_->AngularVelocity();
 }
 
 void Test::TestVelocityControl()
@@ -94,5 +95,21 @@ void Test::TestVelocityControl()
     float trans = velocity_control_->DeterminePidGain(1.0);
 
     motor_->Drive(trans, 0);
+}
+
+void Test::MonitorLog()
+{
+    float distance = encoder.GetDistanceStack();
+
+    if(distance < LOGGING_CONST_DISTANCE) return;
+    encoder.ResetDistanceStack();
+
+    static uint16_t log_index = 0;   // Count up when interrupt.
+
+    g_distance_log[log_index] = distance;
+    g_angular_log[log_index] = encoder_->AngularVelocity();
+
+    log_index++;
+    if(log_index >= MAX_LOG_INDEX) log_index = 0;
 }
 #endif // TEST_MODE

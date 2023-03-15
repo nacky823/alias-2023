@@ -10,6 +10,15 @@
 #include "side_sensor.hpp"
 #include "velocity_control.hpp"
 
+#define LOGGING_CONST_DISTANCE 20.0
+#define MAX_LOG_INDEX 80
+
+#ifdef DEBUG_MODE
+extern float g_angular_velocity;
+extern float g_distance_log[MAX_LOG_INDEX];
+extern float g_angular_log[MAX_LOG_INDEX];
+#endif // DEBUG_MODE
+
 #ifdef TEST_MODE
 class Test
 {

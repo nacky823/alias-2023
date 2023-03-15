@@ -99,10 +99,10 @@ void Test::TestVelocityControl()
 
 void Test::MonitorLog()
 {
-    float distance = encoder.GetDistanceStack();
+    float distance = encoder_->GetDistanceStack();
 
     if(distance < LOGGING_CONST_DISTANCE) return;
-    encoder.ResetDistanceStack();
+    encoder_->ResetDistanceStack();
 
     static uint16_t log_index = 0;   // Count up when interrupt.
 

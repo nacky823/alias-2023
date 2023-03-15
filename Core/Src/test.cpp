@@ -43,6 +43,7 @@ void Test::Timer6()
     TestSideSensor();
     TestMotor();
     TestEncoder();
+    MonitorLog();
 }
 
 void Test::TestLineSensor()
@@ -68,7 +69,8 @@ void Test::TestMotor()
 
     switch(g_switch_state)
     {
-        case 0x0F: TestLineTrace(); break;
+        case 0x0E: TestVelocityControl(); break;
+        case 0x0F: TestLineTrace();       break;
         case 0x00: motor_->Drive(0.2, 0);   break;
         case 0x01: motor_->Drive(-0.2, 0);  break;
         case 0x03: motor_->Drive(1.0, 0);   break;

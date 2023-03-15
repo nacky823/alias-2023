@@ -7,9 +7,9 @@
 
 /* ----- Parameter setting ----- */
 /* PID gain velocity control */
-/* PID gain line trace */
+/* PID gain line trace "test" */
 
-#define LINE_ONLY_P_GAIN 0.001
+#define LINE_ONLY_P_GAIN 0.0001
 #define LINE_ONLY_I_GAIN 0
 #define LINE_ONLY_D_GAIN 0
 
@@ -33,7 +33,7 @@
 
 /* ----- Velocity control ----- */
 #define VELOCITY_LPF_RATIO     0.70
-#define VELOCITY_P_GAIN  0.0
+#define VELOCITY_P_GAIN  0.0001
 #define VELOCITY_I_GAIN  0.0
 #define VELOCITY_D_GAIN  0.0
 #define LIMIT_TRANS_DUTY 0.90

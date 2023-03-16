@@ -48,11 +48,12 @@ public:
     void TestLineSensor();
     void TestSideSensor();
     void TestMotor();
-    void TestLineTrace();
     void TestEncoder();
+    void TestLineTrace();
     void TestVelocityControl();
-    void RunLineTrace();
     void MonitorLog();
+    void RunLineTrace();
+    void RunVelocityControl();
 
 };
 #endif // TEST_MODE

@@ -146,6 +146,8 @@ void Test::RunVelocityControl()
 
         led_->ColorOrder('C');
 
+        g_goal_count = 2;
+
         return;
     }
 

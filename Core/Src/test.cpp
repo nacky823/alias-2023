@@ -69,6 +69,11 @@ void Test::TestMotor()
 
     switch(g_switch_state)
     {
+        case 0x0C: RunVelocityControl();  break;
+        case 0x0D: 
+            g_goal_count = 0;
+            motor_->Drive(0, 0);
+            break;
         case 0x0E: TestVelocityControl(); break;
         case 0x0F: TestLineTrace();       break;
         case 0x00: motor_->Drive(0.2, 0);   break;
@@ -122,5 +127,42 @@ void Test::MonitorLog()
 
     log_index++;
     if(log_index >= MAX_LOG_INDEX) log_index = 0;
+}
+
+void Test::RunVelocityControl()
+{
+    static uint8_t stop_count = 0;
+    bool emergency = line_sensor_->GetEmergencyStopFlag();
+
+    if(emergency)
+    {
+        stop_count++;
+    }
+    else stop_count = 0;
+
+    if(stop_count >= 5)
+    {
+        motor_->Drive(0, 0);
+
+        led_->ColorOrder('C');
+
+        return;
+    }
+
+    if(g_goal_count < 2)
+    {
+        float trans = velocity_control_->DeterminePidGain(1.0);
+        float rotat = line_trace_->LineTraceOnly();
+
+        motor_->Drive(trans, rotat);
+    }
+    else
+    {
+        float trans = velocity_control_->DeterminePidGain(0.0);
+
+        motor_->Drive(trans, 0);
+
+        led_->ColorOrder('M');
+    }
 }
 #endif // TEST_MODE

@@ -37,11 +37,11 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING
  16 .debug_macro  0002415a  00000000  00000000  00058b80  2**0
                   CONTENTS, READONLY, DEBUGGING
- 17 .debug_line   00012250  00000000  00000000  0007ccda  2**0
+ 17 .debug_line   00012251  00000000  00000000  0007ccda  2**0
                   CONTENTS, READONLY, DEBUGGING
- 18 .debug_str    000cab2e  00000000  00000000  0008ef2a  2**0
+ 18 .debug_str    000cab2e  00000000  00000000  0008ef2b  2**0
                   CONTENTS, READONLY, DEBUGGING
- 19 .comment      0000007b  00000000  00000000  00159a58  2**0
+ 19 .comment      0000007b  00000000  00000000  00159a59  2**0
                   CONTENTS, READONLY
  20 .debug_frame  000054f8  00000000  00000000  00159ad4  2**2
                   CONTENTS, READONLY, DEBUGGING
@@ -8646,120 +8646,121 @@ void Test::RunVelocityControl()
  8023d7a:	b086      	sub	sp, #24
  8023d7c:	af00      	add	r7, sp, #0
  8023d7e:	6078      	str	r0, [r7, #4]
+    static uint8_t stop_count = 0;
+    bool emergency = line_sensor_->GetEmergencyStopFlag();
+ 8023d80:	687b      	ldr	r3, [r7, #4]
+ 8023d82:	689b      	ldr	r3, [r3, #8]
+ 8023d84:	4618      	mov	r0, r3
+ 8023d86:	f7fd fc87 	bl	8021698 <_ZN10LineSensor20GetEmergencyStopFlagEv>
+ 8023d8a:	4603      	mov	r3, r0
+ 8023d8c:	75fb      	strb	r3, [r7, #23]
+
+    if(emergency)
+ 8023d8e:	7dfb      	ldrb	r3, [r7, #23]
+ 8023d90:	2b00      	cmp	r3, #0
+ 8023d92:	d006      	beq.n	8023da2 <_ZN4Test18RunVelocityControlEv+0x2a>
+    {
+        stop_count++;
+ 8023d94:	4b2b      	ldr	r3, [pc, #172]	; (8023e44 <_ZN4Test18RunVelocityControlEv+0xcc>)
+ 8023d96:	781b      	ldrb	r3, [r3, #0]
+ 8023d98:	3301      	adds	r3, #1
+ 8023d9a:	b2da      	uxtb	r2, r3
+ 8023d9c:	4b29      	ldr	r3, [pc, #164]	; (8023e44 <_ZN4Test18RunVelocityControlEv+0xcc>)
+ 8023d9e:	701a      	strb	r2, [r3, #0]
+ 8023da0:	e002      	b.n	8023da8 <_ZN4Test18RunVelocityControlEv+0x30>
+    }
+    else stop_count = 0;
+ 8023da2:	4b28      	ldr	r3, [pc, #160]	; (8023e44 <_ZN4Test18RunVelocityControlEv+0xcc>)
+ 8023da4:	2200      	movs	r2, #0
+ 8023da6:	701a      	strb	r2, [r3, #0]
+
+    if(stop_count >= 5)
+ 8023da8:	4b26      	ldr	r3, [pc, #152]	; (8023e44 <_ZN4Test18RunVelocityControlEv+0xcc>)
+ 8023daa:	781b      	ldrb	r3, [r3, #0]
+ 8023dac:	2b04      	cmp	r3, #4
+ 8023dae:	d90f      	bls.n	8023dd0 <_ZN4Test18RunVelocityControlEv+0x58>
+    {
+        motor_->Drive(0, 0);
+ 8023db0:	687b      	ldr	r3, [r7, #4]
+ 8023db2:	691b      	ldr	r3, [r3, #16]
+ 8023db4:	eddf 0a24 	vldr	s1, [pc, #144]	; 8023e48 <_ZN4Test18RunVelocityControlEv+0xd0>
+ 8023db8:	ed9f 0a23 	vldr	s0, [pc, #140]	; 8023e48 <_ZN4Test18RunVelocityControlEv+0xd0>
+ 8023dbc:	4618      	mov	r0, r3
+ 8023dbe:	f7fe fd13 	bl	80227e8 <_ZN5Motor5DriveEff>
+
+        led_->ColorOrder('C');
+ 8023dc2:	687b      	ldr	r3, [r7, #4]
+ 8023dc4:	685b      	ldr	r3, [r3, #4]
+ 8023dc6:	2143      	movs	r1, #67	; 0x43
+ 8023dc8:	4618      	mov	r0, r3
+ 8023dca:	f7fd f89b 	bl	8020f04 <_ZN3Led10ColorOrderEc>
+
+        return;
+ 8023dce:	e035      	b.n	8023e3c <_ZN4Test18RunVelocityControlEv+0xc4>
+    }
+
     if(g_goal_count < 2)
- 8023d80:	4b30      	ldr	r3, [pc, #192]	; (8023e44 <_ZN4Test18RunVelocityControlEv+0xcc>)
- 8023d82:	781b      	ldrb	r3, [r3, #0]
- 8023d84:	2b01      	cmp	r3, #1
- 8023d86:	d819      	bhi.n	8023dbc <_ZN4Test18RunVelocityControlEv+0x44>
+ 8023dd0:	4b1e      	ldr	r3, [pc, #120]	; (8023e4c <_ZN4Test18RunVelocityControlEv+0xd4>)
+ 8023dd2:	781b      	ldrb	r3, [r3, #0]
+ 8023dd4:	2b01      	cmp	r3, #1
+ 8023dd6:	d819      	bhi.n	8023e0c <_ZN4Test18RunVelocityControlEv+0x94>
     {
         float trans = velocity_control_->DeterminePidGain(1.0);
- 8023d88:	687b      	ldr	r3, [r7, #4]
- 8023d8a:	69db      	ldr	r3, [r3, #28]
- 8023d8c:	eeb7 0a00 	vmov.f32	s0, #112	; 0x3f800000  1.0
- 8023d90:	4618      	mov	r0, r3
- 8023d92:	f000 f870 	bl	8023e76 <_ZN15VelocityControl16DeterminePidGainEf>
- 8023d96:	ed87 0a04 	vstr	s0, [r7, #16]
+ 8023dd8:	687b      	ldr	r3, [r7, #4]
+ 8023dda:	69db      	ldr	r3, [r3, #28]
+ 8023ddc:	eeb7 0a00 	vmov.f32	s0, #112	; 0x3f800000  1.0
+ 8023de0:	4618      	mov	r0, r3
+ 8023de2:	f000 f848 	bl	8023e76 <_ZN15VelocityControl16DeterminePidGainEf>
+ 8023de6:	ed87 0a03 	vstr	s0, [r7, #12]
         float rotat = line_trace_->LineTraceOnly();
- 8023d9a:	687b      	ldr	r3, [r7, #4]
- 8023d9c:	68db      	ldr	r3, [r3, #12]
- 8023d9e:	4618      	mov	r0, r3
- 8023da0:	f7fd fd16 	bl	80217d0 <_ZN9LineTrace13LineTraceOnlyEv>
- 8023da4:	ed87 0a03 	vstr	s0, [r7, #12]
+ 8023dea:	687b      	ldr	r3, [r7, #4]
+ 8023dec:	68db      	ldr	r3, [r3, #12]
+ 8023dee:	4618      	mov	r0, r3
+ 8023df0:	f7fd fcee 	bl	80217d0 <_ZN9LineTrace13LineTraceOnlyEv>
+ 8023df4:	ed87 0a02 	vstr	s0, [r7, #8]
 
         motor_->Drive(trans, rotat);
- 8023da8:	687b      	ldr	r3, [r7, #4]
- 8023daa:	691b      	ldr	r3, [r3, #16]
- 8023dac:	edd7 0a03 	vldr	s1, [r7, #12]
- 8023db0:	ed97 0a04 	vldr	s0, [r7, #16]
- 8023db4:	4618      	mov	r0, r3
- 8023db6:	f7fe fd17 	bl	80227e8 <_ZN5Motor5DriveEff>
- 8023dba:	e017      	b.n	8023dec <_ZN4Test18RunVelocityControlEv+0x74>
+ 8023df8:	687b      	ldr	r3, [r7, #4]
+ 8023dfa:	691b      	ldr	r3, [r3, #16]
+ 8023dfc:	edd7 0a02 	vldr	s1, [r7, #8]
+ 8023e00:	ed97 0a03 	vldr	s0, [r7, #12]
+ 8023e04:	4618      	mov	r0, r3
+ 8023e06:	f7fe fcef 	bl	80227e8 <_ZN5Motor5DriveEff>
+ 8023e0a:	e017      	b.n	8023e3c <_ZN4Test18RunVelocityControlEv+0xc4>
     }
     else
     {
         float trans = velocity_control_->DeterminePidGain(0.0);
- 8023dbc:	687b      	ldr	r3, [r7, #4]
- 8023dbe:	69db      	ldr	r3, [r3, #28]
- 8023dc0:	ed9f 0a21 	vldr	s0, [pc, #132]	; 8023e48 <_ZN4Test18RunVelocityControlEv+0xd0>
- 8023dc4:	4618      	mov	r0, r3
- 8023dc6:	f000 f856 	bl	8023e76 <_ZN15VelocityControl16DeterminePidGainEf>
- 8023dca:	ed87 0a05 	vstr	s0, [r7, #20]
+ 8023e0c:	687b      	ldr	r3, [r7, #4]
+ 8023e0e:	69db      	ldr	r3, [r3, #28]
+ 8023e10:	ed9f 0a0d 	vldr	s0, [pc, #52]	; 8023e48 <_ZN4Test18RunVelocityControlEv+0xd0>
+ 8023e14:	4618      	mov	r0, r3
+ 8023e16:	f000 f82e 	bl	8023e76 <_ZN15VelocityControl16DeterminePidGainEf>
+ 8023e1a:	ed87 0a04 	vstr	s0, [r7, #16]
 
         motor_->Drive(trans, 0);
- 8023dce:	687b      	ldr	r3, [r7, #4]
- 8023dd0:	691b      	ldr	r3, [r3, #16]
- 8023dd2:	eddf 0a1d 	vldr	s1, [pc, #116]	; 8023e48 <_ZN4Test18RunVelocityControlEv+0xd0>
- 8023dd6:	ed97 0a05 	vldr	s0, [r7, #20]
- 8023dda:	4618      	mov	r0, r3
- 8023ddc:	f7fe fd04 	bl	80227e8 <_ZN5Motor5DriveEff>
+ 8023e1e:	687b      	ldr	r3, [r7, #4]
+ 8023e20:	691b      	ldr	r3, [r3, #16]
+ 8023e22:	eddf 0a09 	vldr	s1, [pc, #36]	; 8023e48 <_ZN4Test18RunVelocityControlEv+0xd0>
+ 8023e26:	ed97 0a04 	vldr	s0, [r7, #16]
+ 8023e2a:	4618      	mov	r0, r3
+ 8023e2c:	f7fe fcdc 	bl	80227e8 <_ZN5Motor5DriveEff>
 
         led_->ColorOrder('M');
- 8023de0:	687b      	ldr	r3, [r7, #4]
- 8023de2:	685b      	ldr	r3, [r3, #4]
- 8023de4:	214d      	movs	r1, #77	; 0x4d
- 8023de6:	4618      	mov	r0, r3
- 8023de8:	f7fd f88c 	bl	8020f04 <_ZN3Led10ColorOrderEc>
+ 8023e30:	687b      	ldr	r3, [r7, #4]
+ 8023e32:	685b      	ldr	r3, [r3, #4]
+ 8023e34:	214d      	movs	r1, #77	; 0x4d
+ 8023e36:	4618      	mov	r0, r3
+ 8023e38:	f7fd f864 	bl	8020f04 <_ZN3Led10ColorOrderEc>
     }
-
-    static uint8_t stop_count = 0;
-    bool emergency = line_sensor_->GetEmergencyStopFlag();
- 8023dec:	687b      	ldr	r3, [r7, #4]
- 8023dee:	689b      	ldr	r3, [r3, #8]
- 8023df0:	4618      	mov	r0, r3
- 8023df2:	f7fd fc51 	bl	8021698 <_ZN10LineSensor20GetEmergencyStopFlagEv>
- 8023df6:	4603      	mov	r3, r0
- 8023df8:	72fb      	strb	r3, [r7, #11]
-
-    if(emergency)
- 8023dfa:	7afb      	ldrb	r3, [r7, #11]
- 8023dfc:	2b00      	cmp	r3, #0
- 8023dfe:	d006      	beq.n	8023e0e <_ZN4Test18RunVelocityControlEv+0x96>
-    {
-        stop_count++;
- 8023e00:	4b12      	ldr	r3, [pc, #72]	; (8023e4c <_ZN4Test18RunVelocityControlEv+0xd4>)
- 8023e02:	781b      	ldrb	r3, [r3, #0]
- 8023e04:	3301      	adds	r3, #1
- 8023e06:	b2da      	uxtb	r2, r3
- 8023e08:	4b10      	ldr	r3, [pc, #64]	; (8023e4c <_ZN4Test18RunVelocityControlEv+0xd4>)
- 8023e0a:	701a      	strb	r2, [r3, #0]
- 8023e0c:	e002      	b.n	8023e14 <_ZN4Test18RunVelocityControlEv+0x9c>
-    }
-    else stop_count = 0;
- 8023e0e:	4b0f      	ldr	r3, [pc, #60]	; (8023e4c <_ZN4Test18RunVelocityControlEv+0xd4>)
- 8023e10:	2200      	movs	r2, #0
- 8023e12:	701a      	strb	r2, [r3, #0]
-
-    if(stop_count >= 5)
- 8023e14:	4b0d      	ldr	r3, [pc, #52]	; (8023e4c <_ZN4Test18RunVelocityControlEv+0xd4>)
- 8023e16:	781b      	ldrb	r3, [r3, #0]
- 8023e18:	2b04      	cmp	r3, #4
- 8023e1a:	d90e      	bls.n	8023e3a <_ZN4Test18RunVelocityControlEv+0xc2>
-    {
-        motor_->Drive(0, 0);
- 8023e1c:	687b      	ldr	r3, [r7, #4]
- 8023e1e:	691b      	ldr	r3, [r3, #16]
- 8023e20:	eddf 0a09 	vldr	s1, [pc, #36]	; 8023e48 <_ZN4Test18RunVelocityControlEv+0xd0>
- 8023e24:	ed9f 0a08 	vldr	s0, [pc, #32]	; 8023e48 <_ZN4Test18RunVelocityControlEv+0xd0>
- 8023e28:	4618      	mov	r0, r3
- 8023e2a:	f7fe fcdd 	bl	80227e8 <_ZN5Motor5DriveEff>
-
-        led_->ColorOrder('C');
- 8023e2e:	687b      	ldr	r3, [r7, #4]
- 8023e30:	685b      	ldr	r3, [r3, #4]
- 8023e32:	2143      	movs	r1, #67	; 0x43
- 8023e34:	4618      	mov	r0, r3
- 8023e36:	f7fd f865 	bl	8020f04 <_ZN3Led10ColorOrderEc>
-    }
-
 }
- 8023e3a:	bf00      	nop
  8023e3c:	3718      	adds	r7, #24
  8023e3e:	46bd      	mov	sp, r7
  8023e40:	bd80      	pop	{r7, pc}
  8023e42:	bf00      	nop
- 8023e44:	200004a6 	.word	0x200004a6
+ 8023e44:	2000051c 	.word	0x2000051c
  8023e48:	00000000 	.word	0x00000000
- 8023e4c:	2000051c 	.word	0x2000051c
+ 8023e4c:	200004a6 	.word	0x200004a6
 
 08023e50 <_ZN15VelocityControlC1EP7Encoder>:
 #include "velocity_control.hpp"

@@ -41,9 +41,9 @@ void Test::Timer6()
 {
     TestLineSensor();
     TestSideSensor();
-    TestMotor();
     TestEncoder();
     MonitorLog();
+    TestMotor();
 }
 
 void Test::TestLineSensor()
@@ -81,9 +81,17 @@ void Test::TestMotor()
 
 void Test::TestLineTrace()
 {
-    float rotat = line_trace_->LineTraceOnly();
+    if(g_goal_count < 2)
+    {
+        float rotat = line_trace_->LineTraceOnly();
 
-    motor_->Drive(0, rotat);
+        motor_->Drive(0, rotat);
+    }
+    else
+    {
+        led_->ColorOrder('Y');
+        motor_->Drive(0 ,0);
+    }
 }
 
 void Test::TestEncoder()

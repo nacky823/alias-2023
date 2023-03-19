@@ -5,9 +5,15 @@ Iim42652::Iim42652() : degree_stack_z_(0) {}
 
 uint8_t Iim42652::Init()
 {
+    /* bank_select */
     Write(REG_BANK_SEL_ADD, REG_BANK_SEL_RES, 'L');
     HAL_Delay(100); // wait 100ms
     Write(REG_BANK_SEL_ADD, REG_BANK_SEL_RES, 'R');
+    HAL_Delay(100); // wait 100ms
+    /* power_off */
+    Write(PWR_MGMT0_ADD, PWR_MGMT0_RES, 'L');
+    HAL_Delay(100); // wait 100ms
+    Write(PWR_MGMT0_ADD, PWR_MGMT0_RES, 'R');
     HAL_Delay(100); // wait 100ms
 
     uint8_t who_l  = Read(WHO_AM_I_ADD, 'L');
@@ -30,6 +36,7 @@ uint8_t Iim42652::Init()
     if(pwr_l != PWR_MGMT0_RES)     return 0x05;
     if(pwr_r != PWR_MGMT0_RES)     return 0x06;
 
+    /* power_on */
     Write(PWR_MGMT0_ADD, PWR_MGMT0_ON, 'L');
     HAL_Delay(100); // wait 100ms
     Write(PWR_MGMT0_ADD, PWR_MGMT0_ON, 'R');

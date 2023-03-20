@@ -13,6 +13,7 @@ Run::Run(Encoder *encoder,
          SideSensor *side_sensor,
          VelocityControl *velocity_control
          ) : run_mode_(0)
+           , run_mode_changed_internal_(false)
            , switch_interval_wait_timer_(0)
            , switch_interval_wait_enable_(true)
            , switch_interval_led_enable_(true)

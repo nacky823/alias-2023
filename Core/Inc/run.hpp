@@ -43,6 +43,7 @@ private:
     void ModeReady();
     void ModeStandby();
     void ModeDevelopment();
+    void ModeDevGoal();
     void ModeFirstRun();
     void ModeFirstGoal();
     void ModeSecondRun();
@@ -57,6 +58,7 @@ private:
     float SecondTargetVelocity(uint8_t);
     float VelocityControlTarget(uint8_t);
     float CommonDuty(uint8_t);
+    void UpdateRunMode(uint8_t);
 
 #ifdef DEBUG_MODE
     void ModeVelocityControlDebug();
@@ -66,6 +68,7 @@ private:
 #endif // DEBUG_MODE
 
     uint8_t run_mode_;
+    bool run_mode_changed_internal_;
     uint8_t switch_interval_wait_timer_;
     bool switch_interval_wait_enable_;
     bool switch_interval_led_enable_;
@@ -98,8 +101,8 @@ public:
         VelocityControl *);
     void Init();
     void Timer7();
-    void UpdateRunMode();
     void RunMode();
+    void Timer2();
 
 #ifdef DEBUG_FLASH
     void DubugFlash();

@@ -285,8 +285,8 @@ void Run::ModeSecondGoal()
 void Run::ModeVelocityControl()
 {
     /* Sensor update */
-    line_sensor_->Update();
     encoder_->Update();
+    line_sensor_->Update();
     side_sensor_->Update();
     /* Emergency stop */
     if(EmergencyStop()) return;

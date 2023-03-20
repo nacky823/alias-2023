@@ -79,7 +79,7 @@ void InterruptTim6()
 void InterruptTim2()
 {
 #ifndef TEST_MODE
-    run.UpdateRunMode();
+    run.Timer2();
 #endif // TEST_MODE
 
 #ifdef DEBUG_MODE

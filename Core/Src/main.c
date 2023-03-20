@@ -67,6 +67,8 @@ float g_angular_velocity = 0;
 float g_distance_log[80] = {0};
 float g_angular_log[80] = {0};
 
+uint8_t g_run_mode_changed_internal_cnt = 0;
+
 /* Line sensor */
 float g_line_diff = 0;
 bool g_line_emer = false;

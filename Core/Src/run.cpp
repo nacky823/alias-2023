@@ -69,7 +69,7 @@ void Run::Timer7()
     line_sensor_->StoreConsecutiveBuff();
 }
 
-void Run::UpdateRunMode()
+void Run::Timer2()
 {
     uint8_t switch_state = rotary_switch_->State();
     static uint8_t pre_switch_state = switch_state;
@@ -92,26 +92,30 @@ void Run::UpdateRunMode()
         SetRunMode(STANDBY);
         interval_enable = SwitchChangeInterval(switch_state);
     }
-    else
-    {
-        switch(switch_state)
-        {
-#ifdef DEBUG_MODE
-            case 0x0B: SetRunMode(VELOCITY_CONTROL_DEBUG); break;
-            case 0x0C: SetRunMode(LINE_TRACE_DEBUG); break;
-            case 0x0D: SetRunMode(INITIAL_DEBUG); break;
-#endif // DEBUG_MODE
-
-            case 0x0F: SetRunMode(READY); break;
-            case 0x01: SetRunMode(FIRST_RUN); break;
-            case 0x02: SetRunMode(SECOND_RUN); break;
-            case 0x07: SetRunMode(VELOCITY_CONTROL); break;
-            case 0x08: SetRunMode(LINE_TRACE); break;
-            default:   SetRunMode(STANDBY); break;
-        }
-    }
+    else UpdateRunMode(switch_state);
 
     pre_switch_state = switch_state;
+}
+
+void Run::UpdateRunMode(uint8_t switch_state)
+{
+    if(run_mode_changed_internal_) return;
+
+    switch(switch_state)
+    {
+#ifdef DEBUG_MODE
+        case 0x0B: SetRunMode(VELOCITY_CONTROL_DEBUG); break;
+        case 0x0C: SetRunMode(LINE_TRACE_DEBUG); break;
+#endif // DEBUG_MODE
+
+        case 0x0D: SetRunMode(DEV); break;
+        case 0x0F: SetRunMode(READY); break;
+        case 0x01: SetRunMode(FIRST_RUN); break;
+        case 0x02: SetRunMode(SECOND_RUN); break;
+        case 0x07: SetRunMode(VELOCITY_CONTROL); break;
+        case 0x08: SetRunMode(LINE_TRACE); break;
+        default:   SetRunMode(STANDBY); break;
+    }
 }
 
 void Run::SetRunMode(uint8_t mode)
@@ -119,8 +123,18 @@ void Run::SetRunMode(uint8_t mode)
     run_mode_ = mode;
 }
 
+void Run::SetRunModeChangedInternal(bool boolean)
+{
+    run_mode_changed_internal_ = boolean;
+
+#ifdef DEBUG_MODE
+    g_run_mode_changed_internal_cnt++;
+#endif // DEBUG_MODE
+}
+
 void Run::WhenSwitchChange()
 {
+    SetRunModeChangedInternal(false);
     switch_interval_led_enable_ = true;
     switch_interval_wait_enable_ = true;
     switch_interval_wait_timer_ = 0;
@@ -140,9 +154,9 @@ bool Run::SwitchChangeInterval(uint8_t switch_state)
 #ifdef DEBUG_MODE
             case 0x0B: led_enable = led_->BlinkInterrupt(3, 'G', 'B'); break;
             case 0x0C: led_enable = led_->BlinkInterrupt(3, 'G', 'Y'); break;
-            case 0x0D: led_enable = led_->BlinkInterrupt(3, 'G', 'X'); break;
 #endif // DEBUG_MODE
 
+            case 0x0D: led_enable = led_->BlinkInterrupt(3, 'G', 'X'); break;
             case 0x0F: led_enable = led_->BlinkInterrupt(3, 'Y', 'X'); break;
             case 0x01: led_enable = led_->BlinkInterrupt(3, 'B', 'X'); break;
             case 0x02: led_enable = led_->BlinkInterrupt(3, 'M', 'X'); break;
@@ -192,12 +206,13 @@ void Run::RunMode()
 #ifdef DEBUG_MODE
         case VELOCITY_CONTROL_DEBUG: ModeVelocityControlDebug(); break;
         case LINE_TRACE_DEBUG: ModeLineTraceDebug(); break;
-        case INITIAL_DEBUG: ModeInitialDebug(); break;
 #endif // DEBUG_MODE
 
         case EMERGENCY: ModeEmergency(); break;
         case READY: ModeReady(); break;
         case STANDBY: ModeStandby(); break;
+        case DEV: ModeDevelopment(); break;
+        case DEV_GOAL: ModeDevGoal(); break;
         case FIRST_RUN: ModeFirstRun(); break;
         case FIRST_GOAL: ModeFirstGoal(); break;
         case SECOND_RUN: ModeSecondRun(); break;
@@ -213,6 +228,7 @@ void Run::RunMode()
 void Run::ModeEmergency()
 {
     motor_->Drive(0, 0);
+    led_->ColorOrder('G');
 }
 
 void Run::ModeReady()
@@ -225,6 +241,85 @@ void Run::ModeReady()
 void Run::ModeStandby()
 {
     motor_->Drive(0, 0);
+}
+
+void Run::ModeDevelopment()
+{
+    /* Sensor update */
+    encoder_->Update();
+    line_sensor_->Update();
+    side_sensor_->Update();
+    /* Emergency stop */
+    if(DevEmergencyStop()) return;
+    /* Motor control */
+    uint8_t goal_count = side_sensor_->GetGoalMarkerCount();
+    float target_velocity = DevTargetVelocity(goal_count);
+    float trans_ratio = velocity_control_->DeterminePidGain(target_velocity);
+    float rotat_ratio = line_trace_->DeterminePidGain(target_velocity);
+    motor_->Drive(trans_ratio, rotat_ratio);
+}
+
+bool Run::DevEmergencyStop()
+{
+    static uint8_t emergency_timer = 0;
+    bool line_emergency = line_sensor_->GetEmergencyStopFlag();
+
+    if(line_emergency)
+    {
+        if(emergency_timer >= EMERGENCY_STOP_TIME)
+        {
+            SetRunMode(EMERGENCY);
+            SetRunModeChangedInternal(true);
+            return true;
+        }
+        else emergency_timer++;
+    }
+    else emergency_timer = 0;
+
+    return false;
+}
+
+float Run::DevTargetVelocity(uint8_t goal_count)
+{
+    static uint16_t slow_timer = 0;
+    static uint16_t stop_timer = 0;
+    float target_velocity;
+
+    switch(goal_count)
+    {
+        case 0:
+        case 1: target_velocity = EXPLORE_VELOCITY; break;
+        default:
+
+            if(slow_timer < SLOW_DRIVE_TIME)
+            {
+                slow_timer++;
+                target_velocity = SLOW_DRIVE_VELOCITY;
+            }
+            else
+            {
+                if(stop_timer < STOP_TIME)
+                {
+                    stop_timer++;
+                    target_velocity = 0;
+                }
+                else
+                {
+                    SetRunMode(DEV_GOAL);
+                    SetRunModeChangedInternal(true);
+                    target_velocity = 0;
+                }
+            }
+            break;
+    }
+
+    return target_velocity;
+}
+
+void Run::ModeDevGoal()
+{
+    motor_->Drive(0, 0);
+    led_->ColorOrder('M');
 }
 
 void Run::ModeFirstRun()

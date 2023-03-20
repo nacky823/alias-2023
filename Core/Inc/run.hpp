@@ -15,6 +15,8 @@
 #include "velocity_control.hpp"
 
 /* run_mode_ */
+#define DEV              0x0D
+#define DEV_GOAL         0xD0
 #define EMERGENCY        0x0E
 #define READY            0x0F
 #define STANDBY          0x00
@@ -26,7 +28,6 @@
 #define LINE_TRACE       0x08
 #define VELOCITY_CONTROL_DEBUG 0x0B
 #define LINE_TRACE_DEBUG       0x0C
-#define INITIAL_DEBUG          0x0D
 
 #define SWITCH_INTERVAL_WAIT_TIME 200
 
@@ -34,12 +35,14 @@ class Run
 {
 private:
     void SetRunMode(uint8_t);
+    void SetRunModeChangedInternal(bool);
     void WhenSwitchChange();
     bool SwitchChangeInterval(uint8_t);
     /* run_mode_ */
     void ModeEmergency();
     void ModeReady();
     void ModeStandby();
+    void ModeDevelopment();
     void ModeFirstRun();
     void ModeFirstGoal();
     void ModeSecondRun();
@@ -48,6 +51,8 @@ private:
     void ModeLineTrace();
     /* Motor control */
     bool EmergencyStop();
+    bool DevEmergencyStop();
+    float DevTargetVelocity(uint8_t);
     float FirstTargetVelocity(uint8_t);
     float SecondTargetVelocity(uint8_t);
     float VelocityControlTarget(uint8_t);

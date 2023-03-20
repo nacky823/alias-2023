@@ -3,9 +3,9 @@
 
 #include "line_sensor.hpp"
 
-#define TARGET_VELOCITY_0 1.0
-#define TARGET_VELOCITY_1 2.0
-#define LINE_P_GAIN_0 0
+#define TARGET_VELOCITY_0 3.0
+#define TARGET_VELOCITY_1 4.0
+#define LINE_P_GAIN_0 0.0005
 #define LINE_I_GAIN_0 0
 #define LINE_D_GAIN_0 0
 #define LINE_P_GAIN_1 0

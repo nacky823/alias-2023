@@ -2,7 +2,28 @@
 #include <math.h>
 #include <string.h>
 
-Logger::Logger() : const_distance_log_(), radian_log_(), various_log_(), const_distance_copy_(), radian_copy_(), various_copy_(), accel_address_(), decel_address_(), periodic_write_enable_(0), accel_position_write_enable_(0), excess_stack_(0), target_velocity_(MIN_VELOCITY) {}
+Logger::Logger(Encoder *encoder,
+               Flash *flash,
+               Iim42652 *iim_42652,
+               SideSensor *side_sensor
+               ) : const_distance_log_()
+                 , radian_log_()
+                 , various_log_()
+                 , const_distance_copy_()
+                 , radian_copy_()
+                 , various_copy_()
+                 , accel_address_()
+                 , decel_address_()
+                 , periodic_write_enable_(0)
+                 , accel_position_write_enable_(0)
+                 , excess_stack_(0)
+                 , target_velocity_(MIN_VELOCITY)
+{
+    encoder_     = encoder;
+    flash_       = flash;
+    iim_42652_   = iim_42652;
+    side_sensor_ = side_sensor;
+}
 
 void Logger::Logging(uint8_t process_complete)
 {

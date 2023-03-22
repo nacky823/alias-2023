@@ -8,13 +8,6 @@
 #include "side_sensor.hpp"
 #include "led.hpp"
 
-/* Address to store error code when flash write fails. */
-#define ERROR_CODE_STORE_DISTANCE 0x00
-#define ERROR_CODE_STORE_RADIAN   0x00
-#define ERROR_CODE_STORE_VARIOUS  0x00
-#define ERROR_CODE_STORE_ACCEL    0x00
-#define ERROR_CODE_STORE_DECEL    0x00
-
 #define LOGGING_CONST_DISTANCE 20.0 // [mm]
 #define NUM_OF_LOG     10
 #define LAST_LOG_INDEX 9

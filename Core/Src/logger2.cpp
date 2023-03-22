@@ -1,4 +1,7 @@
 #include "logger2.hpp"
+#include <math.h>
+
+Logger2::Logger2()
 
 void Logger2::Logging()
 {
@@ -189,7 +192,62 @@ uint8_t Logger2::StoreAccelPosition(uint32_t address, uint8_t data)
     return 0;
 }
 
+void Logger2::Loading()
+{
+    float distance = encoder_->GetDistanceStack();
+    if(distance < LOGGING_CONST_DISTANCE) return;
+    encoder_->ResetDistanceStack();
 
+    void AccelStraight();
 
+    loading_now_address_++;
+}
 
+void Logger2::AccelStraight()
+{
+    static uint16_t now_address = 0;
+    now_address = loading_now_address_ + HEAD_ADDRESS_BLOCK_D;
 
+    uint8_t accel_step = *(reinterpret_cast<uint8_t*>(now_address));
+
+    static float pre_target = MIN_VELOCITY;
+    float target;
+
+    switch(accel_step)
+    {
+        case 0x10: target = MIN_VELOCITY; break;
+        case 0x01:
+        case 0x20: target = MIN_VELOCITY + (ACCEL_VELOCITY * 1); break;
+        case 0x02:
+        case 0x30: target = MIN_VELOCITY + (ACCEL_VELOCITY * 2); break;
+        case 0x03:
+        case 0x40: target = MIN_VELOCITY + (ACCEL_VELOCITY * 3); break;
+        case 0x04:
+        case 0x50: target = MIN_VELOCITY + (ACCEL_VELOCITY * 4); break;
+        case 0x05: target = MIN_VELOCITY + (ACCEL_VELOCITY * 5); break;
+        default:   target = pre_target; break;
+    }
+
+    if(fabs(encoder_->AngularVelocity()) > STRAIGHT_BORDER_ENCODER)
+    {
+        target = MIN_VELOCITY;
+    }
+
+    target_velocity_ = target;
+    pre_target = target;
+}
+
+float Logger2::GetTargetVelocity()
+{
+    return target_velocity_;
+}
+
+void Logger2::ResetLoadingNowAddress()
+{
+    loading_now_address_ = 0;
+}
+
+void Logger2::ResetLoggingNowAddress()
+{
+    logging_now_address_ = 0;
+}

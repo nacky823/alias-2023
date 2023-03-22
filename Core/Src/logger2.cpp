@@ -3,6 +3,7 @@
 
 Logger2::Logger2(Encoder *encoder,
                  Flash *flash,
+                 Led *led,
                  Iim42652 *iim_42652,
                  SideSensor *side_sensor
                  ) : emergency_stop_flag_(false)
@@ -15,6 +16,7 @@ Logger2::Logger2(Encoder *encoder,
 {
     encoder_ = encoder;
     flash_ = flash;
+    led_ = led;
     iim_42652_ = iim_42652;
     side_sensor_ = side_sensor;
 }
@@ -231,9 +233,15 @@ void Logger2::AccelStraight()
 
     switch(accel_step)
     {
-        case 0x10: target = MIN_VELOCITY; break;
+        case 0x10:
+            target = MIN_VELOCITY;
+            led_->ColorOrder('B');
+            break;
         case 0x01:
-        case 0x20: target = MIN_VELOCITY + (ACCEL_VELOCITY * 1); break;
+        case 0x20:
+            target = MIN_VELOCITY + (ACCEL_VELOCITY * 1);
+            led_->ColorOrder('Y');
+            break;
         case 0x02:
         case 0x30: target = MIN_VELOCITY + (ACCEL_VELOCITY * 2); break;
         case 0x03:

@@ -6,6 +6,7 @@
 #include "flash.hpp"
 #include "iim_42652.hpp"
 #include "side_sensor.hpp"
+#include "led.hpp"
 
 /* Address to store error code when flash write fails. */
 #define ERROR_CODE_STORE_DISTANCE 0x00
@@ -45,12 +46,14 @@ private:
 
     Encoder *encoder_;
     Flash *flash_;
+    Led *led_;
     Iim42652 *iim_42652_;
     SideSensor *side_sensor_;
 
 public:
     Logger2(Encoder *,
             Flash *,
+            Led *,
             Iim42652 *,
             SideSensor *);
     void Logging();

@@ -166,8 +166,16 @@ void Logger2::LoggingAccelPosition()
 {
     static uint16_t accel_straight_count = 0;
     static uint8_t accel_step = 0;
+    bool straight = false;
 
     if(fabs(encoder_->AngularVelocity()) < STRAIGHT_BORDER_ENCODER)
+    {
+        led_->ColorOrder('X');
+        straight = true;
+    }
+    else led_->ColorOrder('M');
+
+    if(straight)
     {
         accel_straight_count++;
         if(accel_straight_count >= CNT_OF_ACCEL_STEP_UP && accel_step < NUM_OF_ACCEL_STEP)

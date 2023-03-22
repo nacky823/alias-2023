@@ -12,9 +12,9 @@ logger2.cpp:150:6:bool Logger2::GetEmergencyStopFlag()	16	static
 logger2.cpp:155:6:void Logger2::SetSuccessEmergencyCodeStore(bool)	16	static
 logger2.cpp:160:6:bool Logger2::GetSuccessEmergencyCodeStore()	16	static
 logger2.cpp:165:6:void Logger2::LoggingAccelPosition()	40	static
-logger2.cpp:203:9:uint8_t Logger2::StoreAccelPosition(uint32_t, uint8_t)	24	static
-logger2.cpp:213:6:void Logger2::Loading()	24	static
-logger2.cpp:224:6:void Logger2::AccelStraight()	24	static
-logger2.cpp:264:7:float Logger2::GetTargetVelocity()	16	static
-logger2.cpp:269:6:void Logger2::ResetLoadingNowAddress()	16	static
-logger2.cpp:274:6:void Logger2::ResetLoggingNowAddress()	16	static
+logger2.cpp:211:9:uint8_t Logger2::StoreAccelPosition(uint32_t, uint8_t)	24	static
+logger2.cpp:221:6:void Logger2::Loading()	24	static
+logger2.cpp:232:6:void Logger2::AccelStraight()	24	static
+logger2.cpp:272:7:float Logger2::GetTargetVelocity()	16	static
+logger2.cpp:277:6:void Logger2::ResetLoadingNowAddress()	16	static
+logger2.cpp:282:6:void Logger2::ResetLoggingNowAddress()	16	static

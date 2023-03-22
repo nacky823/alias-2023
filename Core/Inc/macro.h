@@ -20,11 +20,11 @@
 #define LINE_P_1 0.0
 #define LINE_I_1 0.0
 #define LINE_D_1 0.0
-#define MIN_VELOCITY 1.3
+#define MIN_VELOCITY 0.8
 #define COMMON_DUTY 0.2
 
 #define EMERGENCY_STOP_TIME 5
-#define EXPLORE_VELOCITY 1.2
+#define EXPLORE_VELOCITY 1.0
 
 #define SLOW_DRIVE_DUTY 0.2
 #define SLOW_DRIVE_TIME 500

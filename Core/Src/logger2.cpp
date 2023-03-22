@@ -130,6 +130,8 @@ void Logger2::DistanceCorrection(float distance)
 
     if(excess_stack > LOGGING_CONST_DISTANCE)
     {
+        logging_now_address_++;
+
         uint8_t result = StoreDistanceLog(distance);
 #ifdef DEBUG_MODE
         g_store_correct = result;
@@ -137,8 +139,6 @@ void Logger2::DistanceCorrection(float distance)
         CheckLoggingSuccess(ERROR_CODE_STORE_DISTANCE, result);
 
         excess_stack -= LOGGING_CONST_DISTANCE;
-
-        logging_now_address_++;
     }
 }
 

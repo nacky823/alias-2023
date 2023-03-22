@@ -45,6 +45,7 @@ private:
     void ModeReady();
     void ModeStandby();
     void ModeDevelopment();
+    void ModeDevAccel();
     void ModeDevGoal();
     void ModeFirstRun();
     void ModeFirstGoal();
@@ -56,6 +57,7 @@ private:
     bool EmergencyStop();
     bool DevEmergencyStop();
     float DevTargetVelocity(uint8_t);
+    float DevAccelTarget(uint8_t);
     float FirstTargetVelocity(uint8_t);
     float SecondTargetVelocity(uint8_t);
     float VelocityControlTarget(uint8_t);

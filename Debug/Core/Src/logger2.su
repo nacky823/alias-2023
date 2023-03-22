@@ -1,0 +1,20 @@
+cmath:241:3:constexpr float std::fabs(float)	16	static
+logger2.cpp:4:1:Logger2::Logger2(Encoder*, Flash*, Iim42652*, SideSensor*)	24	static
+logger2.cpp:22:6:void Logger2::Logging()	24	static
+logger2.cpp:44:6:bool Logger2::AssertNowaddress(uint16_t)	16	static
+logger2.cpp:50:9:uint8_t Logger2::StoreDistanceLog(float)	24	static
+logger2.cpp:65:9:uint8_t Logger2::StoreRadianLog()	48	static
+logger2.cpp:85:9:uint8_t Logger2::StoreVariousLog()	32	static
+logger2.cpp:112:6:void Logger2::DistanceCorrection(float)	32	static
+logger2.cpp:130:6:void Logger2::CheckLoggingSuccess(uint32_t, uint8_t)	24	static
+logger2.cpp:143:6:void Logger2::SetEmergencyStopFlag(bool)	16	static
+logger2.cpp:148:6:bool Logger2::GetEmergencyStopFlag()	16	static
+logger2.cpp:153:6:void Logger2::SetSuccessEmergencyCodeStore(bool)	16	static
+logger2.cpp:158:6:bool Logger2::GetSuccessEmergencyCodeStore()	16	static
+logger2.cpp:163:6:void Logger2::LoggingAccelPosition()	40	static
+logger2.cpp:201:9:uint8_t Logger2::StoreAccelPosition(uint32_t, uint8_t)	24	static
+logger2.cpp:211:6:void Logger2::Loading()	24	static
+logger2.cpp:222:6:void Logger2::AccelStraight()	24	static
+logger2.cpp:256:7:float Logger2::GetTargetVelocity()	16	static
+logger2.cpp:261:6:void Logger2::ResetLoadingNowAddress()	16	static
+logger2.cpp:266:6:void Logger2::ResetLoggingNowAddress()	16	static

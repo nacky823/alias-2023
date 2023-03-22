@@ -2,6 +2,9 @@
 #include <math.h>
 #include <string.h>
 
+Logger::Logger() {}
+
+/*
 Logger::Logger(Encoder *encoder,
                Flash *flash,
                Iim42652 *iim_42652,
@@ -24,6 +27,7 @@ Logger::Logger(Encoder *encoder,
     iim_42652_   = iim_42652;
     side_sensor_ = side_sensor;
 }
+*/
 
 void Logger::Logging(uint8_t process_complete)
 {

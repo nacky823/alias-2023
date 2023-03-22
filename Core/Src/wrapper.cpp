@@ -9,10 +9,14 @@ Led led;
 LineSensor line_sensor;
 LineTrace line_trace(&line_sensor);
 Logger logger;
-Logger2 logger2;
 Motor motor;
 RotarySwitch rotary_switch;
 SideSensor side_sensor;
+Logger2 logger2(&Encoder,
+                &Flash,
+                &Led,
+                &Iim42652,
+                &SideSensor);
 VelocityControl velocity_control(&encoder);
 
 #ifndef TEST_MODE

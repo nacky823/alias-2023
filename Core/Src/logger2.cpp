@@ -61,23 +61,18 @@ bool Logger2::AssertNowaddress(uint16_t now_address)
 
 uint8_t Logger2::StoreDistanceLog(float distance)
 {
-    static uint16_t now_address = 0;
-    uint32_t address = now_address * 4 + HEAD_ADDRESS_BLOCK_A;
+    uint32_t address = logging_now_address_ * 4 + HEAD_ADDRESS_BLOCK_A;
     uint8_t result = 0;
 
-    if(!AssertNowaddress(now_address)) result = 0x01;
-    else if(!flash_->CheckBlankWord(address, 1)) result = 0x02;
+    if(!flash_->CheckBlankWord(address, 1)) result = 0x02;
     else if(!flash_->StoreFloat(address, &distance, 1)) result = 0x03;
-
-    now_address++;
 
     return result;
 }
 
 uint8_t Logger2::StoreRadianLog()
 {
-    static uint16_t now_address = 0;
-    uint32_t address = now_address * 4 + HEAD_ADDRESS_BLOCK_B;
+    uint32_t address = logging_now_address_ * 4 + HEAD_ADDRESS_BLOCK_B;
     uint8_t result = 0;
 
     double degree = iim_42652_->GetDegreeStackZ();
@@ -85,19 +80,15 @@ uint8_t Logger2::StoreRadianLog()
     iim_42652_->ResetDegreeStackZ();
     logging_radian_buff_ = radian;
 
-    if(!AssertNowaddress(now_address)) result = 0x01;
-    else if(!flash_->CheckBlankWord(address, 1)) result = 0x02;
+    if(!flash_->CheckBlankWord(address, 1)) result = 0x02;
     else if(!flash_->StoreFloat(address, &radian, 1)) result = 0x03;
-
-    now_address++;
 
     return result;
 }
 
 uint8_t Logger2::StoreVariousLog()
 {
-    static uint16_t now_address = 0;
-    uint32_t address = now_address * 2 + HEAD_ADDRESS_BLOCK_C;
+    uint32_t address = logging_now_address_ * 2 + HEAD_ADDRESS_BLOCK_C;
     uint8_t result = 0;
 
     uint8_t corner_count = side_sensor_->GetCornerMarkerCount();
@@ -112,11 +103,8 @@ uint8_t Logger2::StoreVariousLog()
     pre_corner_count = corner_count;
     pre_cross_count  = cross_count;
 
-    if(!AssertNowaddress(now_address)) result = 0x01;
-    else if(!flash_->CheckBlankHalfword(address, 1)) result = 0x02;
+    if(!flash_->CheckBlankHalfword(address, 1)) result = 0x02;
     else if(!flash_->StoreUint16(address, &various, 1)) result = 0x03;
-
-    now_address++;
 
     return result;
 }

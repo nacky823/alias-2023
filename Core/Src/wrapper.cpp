@@ -9,6 +9,7 @@ Led led;
 LineSensor line_sensor;
 LineTrace line_trace(&line_sensor);
 Logger logger;
+Logger2 logger2;
 Motor motor;
 RotarySwitch rotary_switch;
 SideSensor side_sensor;
@@ -23,6 +24,7 @@ Run run(
     &line_sensor,
     &line_trace,
     &logger,
+    &logger2,
     &motor,
     &rotary_switch,
     &side_sensor,

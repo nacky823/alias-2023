@@ -12,11 +12,7 @@ Logger logger;
 Motor motor;
 RotarySwitch rotary_switch;
 SideSensor side_sensor;
-Logger2 logger2(&Encoder,
-                &Flash,
-                &Led,
-                &Iim42652,
-                &SideSensor);
+Logger2 logger2(&encoder, &flash, &led, &iim_42652, &side_sensor);
 VelocityControl velocity_control(&encoder);
 
 #ifndef TEST_MODE

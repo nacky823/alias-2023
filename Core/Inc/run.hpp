@@ -17,6 +17,7 @@
 
 /* run_mode_ */
 #define DEV              0x0D
+#define DEV_ACCEL        0xDD
 #define DEV_GOAL         0xD0
 #define EMERGENCY        0x0E
 #define READY            0x0F

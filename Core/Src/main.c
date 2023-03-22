@@ -69,6 +69,13 @@ float g_angular_log[80] = {0};
 
 uint8_t g_run_mode_changed_internal_cnt = 0;
 
+uint8_t g_store_distance = 0;
+uint8_t g_store_radian = 0;
+uint8_t g_store_various = 0;
+uint8_t g_store_correct = 0;
+uint8_t g_store_accel = 0;
+uint8_t g_store_decel = 0;
+
 /* Line sensor */
 float g_line_diff = 0;
 bool g_line_emer = false;

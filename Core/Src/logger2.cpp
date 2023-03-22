@@ -1,4 +1,5 @@
 #include "logger2.hpp"
+#include "declare_extern.h"
 #include <math.h>
 
 Logger2::Logger2(Encoder *encoder,
@@ -28,12 +29,21 @@ void Logger2::Logging()
     encoder_->ResetDistanceStack();
 
     uint8_t result = StoreDistanceLog(distance);
+#ifdef DEBUG_MODE
+    g_store_distance = result;
+#endif // DEBUG_MODE
     CheckLoggingSuccess(ERROR_CODE_STORE_DISTANCE, result);
 
     result = StoreRadianLog();
+#ifdef DEBUG_MODE
+    g_store_radian = result;
+#endif // DEBUG_MODE
     CheckLoggingSuccess(ERROR_CODE_STORE_RADIAN, result);
 
     result = StoreVariousLog();
+#ifdef DEBUG_MODE
+    g_store_various = result;
+#endif // DEBUG_MODE
     CheckLoggingSuccess(ERROR_CODE_STORE_VARIOUS, result);
 
     DistanceCorrection(distance);
@@ -121,6 +131,9 @@ void Logger2::DistanceCorrection(float distance)
     if(excess_stack > LOGGING_CONST_DISTANCE)
     {
         uint8_t result = StoreDistanceLog(distance);
+#ifdef DEBUG_MODE
+        g_store_correct = result;
+#endif // DEBUG_MODE
         CheckLoggingSuccess(ERROR_CODE_STORE_DISTANCE, result);
 
         excess_stack -= LOGGING_CONST_DISTANCE;
@@ -185,7 +198,9 @@ void Logger2::LoggingAccelPosition()
             uint32_t accel_address = uncorrected_address_buff_ - CNT_OF_ACCEL_STEP_UP;
 
             uint8_t result = StoreAccelPosition(accel_address, accel_step);
-
+#ifdef DEBUG_MODE
+    g_store_accel = result;
+#endif // DEBUG_MODE
             CheckLoggingSuccess(ERROR_CODE_STORE_ACCEL, result);
 
             accel_straight_count = 0;
@@ -199,7 +214,9 @@ void Logger2::LoggingAccelPosition()
             uint8_t decel_step = i << 4;
 
             uint8_t result = StoreAccelPosition(decel_address, decel_step);
-
+#ifdef DEBUG_MODE
+    g_store_decel = result;
+#endif // DEBUG_MODE
             CheckLoggingSuccess(ERROR_CODE_STORE_DECEL, result);
         }
         accel_step = 0;

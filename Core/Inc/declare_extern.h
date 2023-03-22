@@ -29,6 +29,13 @@ extern uint16_t g_monitor_u16;
 
 extern uint8_t g_run_mode_changed_internal_cnt;
 
+extern uint8_t g_store_distance;
+extern uint8_t g_store_radian;
+extern uint8_t g_store_various;
+extern uint8_t g_store_correct;
+extern uint8_t g_store_accel;
+extern uint8_t g_store_decel;
+
 /*
 #ifdef DEBUG_MODE
 monitor_count++;

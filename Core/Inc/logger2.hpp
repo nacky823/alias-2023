@@ -1,7 +1,7 @@
 #ifndef LOGGER2_HPP_
 #define LOGGER2_HPP_
 
-#include "declare_extern.h"
+#include "macro.h"
 #include "encoder.hpp"
 #include "flash.hpp"
 #include "iim_42652.hpp"
@@ -18,6 +18,7 @@
 #define NUM_OF_LOG     10
 #define LAST_LOG_INDEX 9
 #define STRAIGHT_BORDER_OMEGA 404 //temp
+#define STRAIGHT_BORDER_ENCODER 1.0
 #define NUM_OF_ACCEL_STEP 5
 #define DIFF_NEXT_ACCEL_STEP 4
 #define CNT_OF_ACCEL_STEP_UP 8
@@ -34,7 +35,11 @@
 class Logger2
 {
 private:
+    bool emergency_stop_flag_;
+    bool success_emergency_code_store_;
+    float logging_radian_buff_;
     uint16_t loading_now_address_;
+    uint16_t uncorrected_address_buff_;
     uint16_t logging_now_address_;
     float target_velocity_;
 

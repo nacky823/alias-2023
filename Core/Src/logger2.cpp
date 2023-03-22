@@ -1,7 +1,23 @@
 #include "logger2.hpp"
 #include <math.h>
 
-Logger2::Logger2()
+Logger2::Logger2(Encoder *encoder,
+                 Flash *flash,
+                 Iim42652 *iim_42652,
+                 SideSensor *side_sensor
+                 ) : emergency_stop_flag_(false)
+                   , success_emergency_code_store_(false)
+                   , logging_radian_buff_(0)
+                   , loading_now_address_(0)
+                   , uncorrected_address_buff_(0)
+                   , logging_now_address_(0)
+                   , target_velocity_(0)
+{
+    encoder_ = encoder;
+    flash_ = flash;
+    iim_42652_ = iim_42652;
+    side_sensor_ = side_sensor;
+}
 
 void Logger2::Logging()
 {

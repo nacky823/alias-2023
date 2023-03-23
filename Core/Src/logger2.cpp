@@ -13,7 +13,7 @@ Logger2::Logger2(Encoder *encoder,
                    , loading_now_address_(0)
                    , uncorrected_address_buff_(0)
                    , logging_now_address_(0)
-                   , target_velocity_(0)
+                   , target_velocity_(MIN_VELOCITY)
 {
     encoder_ = encoder;
     flash_ = flash;

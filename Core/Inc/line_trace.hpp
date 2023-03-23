@@ -5,9 +5,9 @@
 
 #define TARGET_VELOCITY_0 3.0
 #define TARGET_VELOCITY_1 4.0
-#define LINE_P_GAIN_0 0.0005
+#define LINE_P_GAIN_0 0.00008
 #define LINE_I_GAIN_0 0
-#define LINE_D_GAIN_0 0
+#define LINE_D_GAIN_0 0.000004
 #define LINE_P_GAIN_1 0
 #define LINE_I_GAIN_1 0
 #define LINE_D_GAIN_1 0

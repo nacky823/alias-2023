@@ -86,6 +86,19 @@ uint8_t Logger2::StoreRadianLog()
     return result;
 }
 
+uint8_t Logger2::StoreRadianCorrect()
+{
+    uint32_t address = logging_now_address_ * 4 + HEAD_ADDRESS_BLOCK_B;
+    uint8_t result = 0;
+
+    float radian = logging_radian_buff_;
+
+    if(!flash_->CheckBlankWord(address, 1)) result = 0x02;
+    else if(!flash_->StoreFloat(address, &radian, 1)) result = 0x03;
+
+    return result;
+}
+
 uint8_t Logger2::StoreVariousLog()
 {
     uint32_t address = logging_now_address_ * 2 + HEAD_ADDRESS_BLOCK_C;
@@ -102,6 +115,12 @@ uint8_t Logger2::StoreVariousLog()
 
     pre_corner_count = corner_count;
     pre_cross_count  = cross_count;
+
+    if(fabs(logging_radian_buff_) < 2)
+    {
+        various = 1;
+    }
+    else various = 0;
 
     if(!flash_->CheckBlankHalfword(address, 1)) result = 0x02;
     else if(!flash_->StoreUint16(address, &various, 1)) result = 0x03;
@@ -125,6 +144,10 @@ void Logger2::DistanceCorrection(float distance)
         g_store_correct = result;
 #endif // DEBUG_MODE
         CheckLoggingSuccess(ERROR_CODE_STORE_DISTANCE, result);
+        result = StoreRadianCorrect();
+        CheckLoggingSuccess(ERROR_CODE_STORE_RADIAN, result);
+        result = StoreVariousLog();
+        CheckLoggingSuccess(ERROR_CODE_STORE_VARIOUS, result);
 
         excess_stack -= LOGGING_CONST_DISTANCE;
     }
@@ -225,11 +248,62 @@ uint8_t Logger2::StoreAccelPosition(uint32_t address, uint8_t data)
 
 void Logger2::Loading()
 {
-    float distance = encoder_->GetDistanceStack();
-    if(distance < LOGGING_CONST_DISTANCE) return;
-    encoder_->ResetDistanceStack();
+    //float distance = encoder_->GetDistanceStack();
+    //if(distance < LOGGING_CONST_DISTANCE) return;
+    //encoder_->ResetDistanceStack();
 
-    void AccelStraight();
+    //void AccelStraight();
+    /*
+    if(fabs(encoder_->AngularVelocity()) > STRAIGHT_BORDER_ENCODER)
+    {
+        target_velocity_ = MIN_VELOCITY;
+        led_->ColorOrder('B');
+    }
+    else
+    {
+        target_velocity_ = 1.0;
+        led_->ColorOrder('Y');
+    }
+    */
+
+    //led_->ColorOrder('R');
+
+    /*
+    uint16_t now_address = loading_now_address_ + HEAD_ADDRESS_BLOCK_D;
+
+    float radian = *(reinterpret_cast<float*>(now_address));
+
+    */
+    /*
+    uint32_t address = loading_now_address_ + HEAD_ADDRESS_BLOCK_C;
+
+    uint16_t enc = *(reinterpret_cast<uint16_t*>(address));
+
+    if(enc != 1)
+    {
+        target_velocity_ = MIN_VELOCITY;
+        led_->ColorOrder('B');
+    }
+    else
+    {
+        target_velocity_ = 0.80;
+        led_->ColorOrder('Y');
+    }
+    */
+    uint8_t count = side_sensor_->GetCornerMarkerCount();
+
+    switch(count)
+    {
+        case 0: target_velocity_ = 0.9; break;
+        case 2: target_velocity_ = 0.9; break;
+        case 3: target_velocity_ = MIN_VELOCITY; break;
+        case 6: target_velocity_ = 0.9; break;
+        default:  target_velocity_ = MIN_VELOCITY; break;
+    }
+
+
+
+
 
     loading_now_address_++;
 }
@@ -265,10 +339,18 @@ void Logger2::AccelStraight()
         default:   target = pre_target; break;
     }
 
+/*
     if(fabs(encoder_->AngularVelocity()) > STRAIGHT_BORDER_ENCODER)
     {
         target = MIN_VELOCITY;
+        led_->ColorOrder('B');
     }
+    else
+    {
+        target = 1.0;
+        led_->ColorOrder('Y');
+    }
+    */
 
     target_velocity_ = target;
     pre_target = target;

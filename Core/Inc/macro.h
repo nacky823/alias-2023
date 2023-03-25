@@ -26,10 +26,10 @@
 #define EMERGENCY_STOP_TIME 5
 #define EXPLORE_VELOCITY 0.60
 
-#define SLOW_DRIVE_DUTY 0.2
+#define SLOW_DRIVE_DUTY 0.1
 #define SLOW_DRIVE_TIME 500
 #define SLOW_DRIVE_VELOCITY 0.10
-#define STOP_TIME 2000
+#define STOP_TIME 200
 
 /* ----- Velocity control ----- */
 #define VELOCITY_LPF_RATIO     0.70

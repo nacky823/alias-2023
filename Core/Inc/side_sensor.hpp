@@ -5,7 +5,7 @@
 #include "declare_extern.h"
 
 #define MAX_INTERRUPT_COUNT 250 // tim6[ms]
-#define BLACK_BLACK_COUNT   2   // tim6[ms]
+#define BLACK_BLACK_COUNT   20   // tim6[ms] 2 wo 20 ni
 #define BLACK_WHITE_COUNT   1   // tim6[ms]
 #define WHITE_BLACK_COUNT   1   // tim6[ms]
 #define WHITE_WHITE_COUNT   0   // tim6[ms]

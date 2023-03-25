@@ -4,17 +4,18 @@ logger2.cpp:25:6:void Logger2::Logging()	24	static
 logger2.cpp:56:6:bool Logger2::AssertNowaddress(uint16_t)	16	static
 logger2.cpp:62:9:uint8_t Logger2::StoreDistanceLog(float)	24	static
 logger2.cpp:73:9:uint8_t Logger2::StoreRadianLog()	48	static
-logger2.cpp:89:9:uint8_t Logger2::StoreVariousLog()	32	static
-logger2.cpp:112:6:void Logger2::DistanceCorrection(float)	32	static
-logger2.cpp:133:6:void Logger2::CheckLoggingSuccess(uint32_t, uint8_t)	24	static
-logger2.cpp:146:6:void Logger2::SetEmergencyStopFlag(bool)	16	static
-logger2.cpp:151:6:bool Logger2::GetEmergencyStopFlag()	16	static
-logger2.cpp:156:6:void Logger2::SetSuccessEmergencyCodeStore(bool)	16	static
-logger2.cpp:161:6:bool Logger2::GetSuccessEmergencyCodeStore()	16	static
-logger2.cpp:166:6:void Logger2::LoggingAccelPosition()	40	static
-logger2.cpp:216:9:uint8_t Logger2::StoreAccelPosition(uint32_t, uint8_t)	24	static
-logger2.cpp:226:6:void Logger2::Loading()	24	static
-logger2.cpp:237:6:void Logger2::AccelStraight()	24	static
-logger2.cpp:277:7:float Logger2::GetTargetVelocity()	16	static
-logger2.cpp:282:6:void Logger2::ResetLoadingNowAddress()	16	static
-logger2.cpp:287:6:void Logger2::ResetLoggingNowAddress()	16	static
+logger2.cpp:89:9:uint8_t Logger2::StoreRadianCorrect()	32	static
+logger2.cpp:102:9:uint8_t Logger2::StoreVariousLog()	32	static
+logger2.cpp:131:6:void Logger2::DistanceCorrection(float)	32	static
+logger2.cpp:156:6:void Logger2::CheckLoggingSuccess(uint32_t, uint8_t)	24	static
+logger2.cpp:169:6:void Logger2::SetEmergencyStopFlag(bool)	16	static
+logger2.cpp:174:6:bool Logger2::GetEmergencyStopFlag()	16	static
+logger2.cpp:179:6:void Logger2::SetSuccessEmergencyCodeStore(bool)	16	static
+logger2.cpp:184:6:bool Logger2::GetSuccessEmergencyCodeStore()	16	static
+logger2.cpp:189:6:void Logger2::LoggingAccelPosition()	40	static
+logger2.cpp:239:9:uint8_t Logger2::StoreAccelPosition(uint32_t, uint8_t)	24	static
+logger2.cpp:249:6:void Logger2::Loading()	24	static
+logger2.cpp:311:6:void Logger2::AccelStraight()	24	static
+logger2.cpp:359:7:float Logger2::GetTargetVelocity()	16	static
+logger2.cpp:364:6:void Logger2::ResetLoadingNowAddress()	16	static
+logger2.cpp:369:6:void Logger2::ResetLoggingNowAddress()	16	static

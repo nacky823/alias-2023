@@ -12,7 +12,7 @@
 #define NUM_OF_LOG     10
 #define LAST_LOG_INDEX 9
 #define STRAIGHT_BORDER_OMEGA 404 //temp
-#define STRAIGHT_BORDER_ENCODER 1.0
+#define STRAIGHT_BORDER_ENCODER 0.50
 #define NUM_OF_ACCEL_STEP 5
 #define DIFF_NEXT_ACCEL_STEP 2
 #define CNT_OF_ACCEL_STEP_UP 4
@@ -53,6 +53,7 @@ public:
     bool AssertNowaddress(uint16_t);
     uint8_t StoreDistanceLog(float);
     uint8_t StoreRadianLog();
+    uint8_t StoreRadianCorrect();
     uint8_t StoreVariousLog();
     void DistanceCorrection(float);
     void CheckLoggingSuccess(uint32_t, uint8_t);

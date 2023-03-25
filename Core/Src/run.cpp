@@ -376,7 +376,7 @@ float Run::DevAccelTarget(uint8_t goal_count)
 
     switch(goal_count)
     {
-        case 0:
+        case 0: target_velocity = MIN_VELOCITY; break;
         case 1:
             target_velocity = logger2_->GetTargetVelocity();
             break;

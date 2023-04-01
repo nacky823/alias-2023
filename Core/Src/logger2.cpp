@@ -248,6 +248,8 @@ uint8_t Logger2::StoreAccelPosition(uint32_t address, uint8_t data)
 
 void Logger2::Loading()
 {
+    // serial printf sekiruyouni
+
     //float distance = encoder_->GetDistanceStack();
     //if(distance < LOGGING_CONST_DISTANCE) return;
     //encoder_->ResetDistanceStack();

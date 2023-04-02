@@ -1401,84 +1401,6 @@ Discarded input sections
  .debug_frame   0x0000000000000000       0x34 Core/Src/printf.o
  .ARM.attributes
                 0x0000000000000000       0x39 Core/Src/printf.o
- .group         0x0000000000000000        0xc Core/Src/printf.o
- .group         0x0000000000000000        0xc Core/Src/printf.o
- .group         0x0000000000000000        0xc Core/Src/printf.o
- .group         0x0000000000000000        0xc Core/Src/printf.o
- .group         0x0000000000000000        0xc Core/Src/printf.o
- .group         0x0000000000000000        0xc Core/Src/printf.o
- .group         0x0000000000000000        0xc Core/Src/printf.o
- .group         0x0000000000000000        0xc Core/Src/printf.o
- .group         0x0000000000000000        0xc Core/Src/printf.o
- .group         0x0000000000000000        0xc Core/Src/printf.o
- .group         0x0000000000000000        0xc Core/Src/printf.o
- .group         0x0000000000000000        0xc Core/Src/printf.o
- .group         0x0000000000000000        0xc Core/Src/printf.o
- .group         0x0000000000000000        0xc Core/Src/printf.o
- .group         0x0000000000000000        0xc Core/Src/printf.o
- .group         0x0000000000000000        0xc Core/Src/printf.o
- .group         0x0000000000000000        0xc Core/Src/printf.o
- .group         0x0000000000000000        0xc Core/Src/printf.o
- .group         0x0000000000000000        0xc Core/Src/printf.o
- .group         0x0000000000000000        0xc Core/Src/printf.o
- .group         0x0000000000000000        0xc Core/Src/printf.o
- .group         0x0000000000000000        0xc Core/Src/printf.o
- .group         0x0000000000000000        0xc Core/Src/printf.o
- .group         0x0000000000000000        0xc Core/Src/printf.o
- .group         0x0000000000000000        0xc Core/Src/printf.o
- .group         0x0000000000000000        0xc Core/Src/printf.o
- .group         0x0000000000000000        0xc Core/Src/printf.o
- .group         0x0000000000000000        0xc Core/Src/printf.o
- .group         0x0000000000000000        0xc Core/Src/printf.o
- .group         0x0000000000000000        0xc Core/Src/printf.o
- .text          0x0000000000000000        0x0 Core/Src/printf.o
- .data          0x0000000000000000        0x0 Core/Src/printf.o
- .bss           0x0000000000000000        0x0 Core/Src/printf.o
- .rodata        0x0000000000000000       0x10 Core/Src/printf.o
- .text._ZN6Printf10HelloWorldEv
-                0x0000000000000000       0x1c Core/Src/printf.o
- .debug_info    0x0000000000000000      0x8e6 Core/Src/printf.o
- .debug_abbrev  0x0000000000000000      0x1a0 Core/Src/printf.o
- .debug_aranges
-                0x0000000000000000       0x20 Core/Src/printf.o
- .debug_ranges  0x0000000000000000       0x10 Core/Src/printf.o
- .debug_macro   0x0000000000000000      0x1a0 Core/Src/printf.o
- .debug_macro   0x0000000000000000      0xb32 Core/Src/printf.o
- .debug_macro   0x0000000000000000       0x22 Core/Src/printf.o
- .debug_macro   0x0000000000000000       0x40 Core/Src/printf.o
- .debug_macro   0x0000000000000000       0x18 Core/Src/printf.o
- .debug_macro   0x0000000000000000       0x94 Core/Src/printf.o
- .debug_macro   0x0000000000000000       0x3c Core/Src/printf.o
- .debug_macro   0x0000000000000000       0x34 Core/Src/printf.o
- .debug_macro   0x0000000000000000       0x16 Core/Src/printf.o
- .debug_macro   0x0000000000000000       0x57 Core/Src/printf.o
- .debug_macro   0x0000000000000000       0x97 Core/Src/printf.o
- .debug_macro   0x0000000000000000      0x353 Core/Src/printf.o
- .debug_macro   0x0000000000000000      0x104 Core/Src/printf.o
- .debug_macro   0x0000000000000000       0x10 Core/Src/printf.o
- .debug_macro   0x0000000000000000       0x52 Core/Src/printf.o
- .debug_macro   0x0000000000000000       0x1f Core/Src/printf.o
- .debug_macro   0x0000000000000000       0x43 Core/Src/printf.o
- .debug_macro   0x0000000000000000       0x20 Core/Src/printf.o
- .debug_macro   0x0000000000000000      0x1a3 Core/Src/printf.o
- .debug_macro   0x0000000000000000       0x10 Core/Src/printf.o
- .debug_macro   0x0000000000000000       0x6a Core/Src/printf.o
- .debug_macro   0x0000000000000000       0x1c Core/Src/printf.o
- .debug_macro   0x0000000000000000       0x52 Core/Src/printf.o
- .debug_macro   0x0000000000000000       0x40 Core/Src/printf.o
- .debug_macro   0x0000000000000000       0x10 Core/Src/printf.o
- .debug_macro   0x0000000000000000       0x40 Core/Src/printf.o
- .debug_macro   0x0000000000000000       0xd7 Core/Src/printf.o
- .debug_macro   0x0000000000000000       0x1c Core/Src/printf.o
- .debug_macro   0x0000000000000000       0x3d Core/Src/printf.o
- .debug_macro   0x0000000000000000       0x16 Core/Src/printf.o
- .debug_macro   0x0000000000000000      0x137 Core/Src/printf.o
- .debug_line    0x0000000000000000      0x588 Core/Src/printf.o
- .debug_str     0x0000000000000000     0x7ae5 Core/Src/printf.o
- .comment       0x0000000000000000       0x7c Core/Src/printf.o
- .debug_frame   0x0000000000000000       0x34 Core/Src/printf.o
- .ARM.attributes
-                0x0000000000000000       0x39 Core/Src/printf.o
  .group         0x0000000000000000        0xc Core/Src/rotary_switch.o
  .group         0x0000000000000000        0xc Core/Src/rotary_switch.o
  .group         0x0000000000000000        0xc Core/Src/rotary_switch.o
@@ -1991,6 +1913,24 @@ Discarded input sections
  .debug_macro   0x0000000000000000      0x8a0 Core/Src/stm32f4xx_it.o
  .debug_macro   0x0000000000000000       0x47 Core/Src/stm32f4xx_it.o
  .debug_macro   0x0000000000000000      0x12d Core/Src/stm32f4xx_it.o
+ .group         0x0000000000000000        0xc Core/Src/swo_setting.o
+ .text          0x0000000000000000        0x0 Core/Src/swo_setting.o
+ .data          0x0000000000000000        0x0 Core/Src/swo_setting.o
+ .bss           0x0000000000000000        0x0 Core/Src/swo_setting.o
+ .text._write   0x0000000000000000       0x38 Core/Src/swo_setting.o
+ .debug_info    0x0000000000000000       0xa7 Core/Src/swo_setting.o
+ .debug_abbrev  0x0000000000000000       0x9e Core/Src/swo_setting.o
+ .debug_aranges
+                0x0000000000000000       0x20 Core/Src/swo_setting.o
+ .debug_ranges  0x0000000000000000       0x10 Core/Src/swo_setting.o
+ .debug_macro   0x0000000000000000       0x1b Core/Src/swo_setting.o
+ .debug_macro   0x0000000000000000      0xa5a Core/Src/swo_setting.o
+ .debug_line    0x0000000000000000       0x78 Core/Src/swo_setting.o
+ .debug_str     0x0000000000000000     0x2d3b Core/Src/swo_setting.o
+ .comment       0x0000000000000000       0x7c Core/Src/swo_setting.o
+ .debug_frame   0x0000000000000000       0x34 Core/Src/swo_setting.o
+ .ARM.attributes
+                0x0000000000000000       0x39 Core/Src/swo_setting.o
  .group         0x0000000000000000        0xc Core/Src/syscalls.o
  .group         0x0000000000000000        0xc Core/Src/syscalls.o
  .group         0x0000000000000000        0xc Core/Src/syscalls.o
@@ -5646,12 +5586,12 @@ LOAD Core/Src/logger2.o
 LOAD Core/Src/main.o
 LOAD Core/Src/motor.o
 LOAD Core/Src/printf.o
-LOAD Core/Src/printf.o
 LOAD Core/Src/rotary_switch.o
 LOAD Core/Src/run.o
 LOAD Core/Src/side_sensor.o
 LOAD Core/Src/stm32f4xx_hal_msp.o
 LOAD Core/Src/stm32f4xx_it.o
+LOAD Core/Src/swo_setting.o
 LOAD Core/Src/syscalls.o
 LOAD Core/Src/sysmem.o
 LOAD Core/Src/system_stm32f4xx.o

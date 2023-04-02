@@ -31,7 +31,8 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h \
- ../Core/Inc/wrapper.hpp ../Core/Inc/declare_extern.h ../Core/Inc/macro.h
+ ../Core/Inc/wrapper.hpp ../Core/Inc/declare_extern.h ../Core/Inc/macro.h \
+ ../Core/Inc/swo_setting.h ../Core/Inc/main.h
 
 ../Core/Inc/main.h:
 
@@ -104,3 +105,7 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
 ../Core/Inc/declare_extern.h:
 
 ../Core/Inc/macro.h:
+
+../Core/Inc/swo_setting.h:
+
+../Core/Inc/main.h:

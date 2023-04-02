@@ -1,4 +1,4 @@
-#include "printf.h"
+#include "swo_setting.h"
 
 int _write(int file, char *ptr, int len)
 {

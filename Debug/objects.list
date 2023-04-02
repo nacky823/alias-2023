@@ -8,6 +8,8 @@
 "Core/Src/logger2.o"
 "Core/Src/main.o"
 "Core/Src/motor.o"
+"Core/Src/printf.o"
+"Core/Src/printf.o"
 "Core/Src/rotary_switch.o"
 "Core/Src/run.o"
 "Core/Src/side_sensor.o"

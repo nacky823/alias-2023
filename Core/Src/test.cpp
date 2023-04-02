@@ -1,4 +1,5 @@
 #include "test.hpp"
+#include <stdio.h>
 
 #ifdef TEST_MODE
 Test::Test(Encoder *encoder,
@@ -29,7 +30,7 @@ void Test::Init()
     led_->Blink(3, 'Y', 'M');
     led_->ColorOrder('X');
 
-    if(rotary_switch_->State() != 0x0C)
+    if(rotary_switch_->State() != 0x00)
     {
         HAL_TIM_Base_Start_IT(&htim7);
         HAL_TIM_Base_Start_IT(&htim6);
@@ -86,7 +87,7 @@ void Test::TestMotor()
             break;
         case 0x0E: TestVelocityControl(); break;
         case 0x0F: TestLineTrace();       break;
-        case 0x00: motor_->Drive(0.2, 0);   break;
+        case 0x00: motor_->Drive(0, 0);   break;
         case 0x01: motor_->Drive(-0.2, 0);  break;
         case 0x03: motor_->Drive(1.0, 0);   break;
         case 0x04: motor_->Drive(0.5, 0.6); break;

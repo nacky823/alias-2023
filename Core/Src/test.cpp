@@ -28,8 +28,18 @@ void Test::Init()
 
     led_->Blink(3, 'Y', 'M');
     led_->ColorOrder('X');
-    HAL_TIM_Base_Start_IT(&htim7);
-    HAL_TIM_Base_Start_IT(&htim6);
+
+    if(rotary_switch_->State() != 0x0C)
+    {
+        HAL_TIM_Base_Start_IT(&htim7);
+        HAL_TIM_Base_Start_IT(&htim6);
+    }
+    else led_->Blink(3, 'B', 'X');
+}
+
+void Test::Loop()
+{
+    printf("Hello,World!!\r\n");
 }
 
 void Test::Timer7()

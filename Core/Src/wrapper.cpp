@@ -88,3 +88,10 @@ void InterruptTim2()
     g_tim2++;
 #endif // DEBUG_MODE
 }
+
+#ifdef TEST_MODE
+void Loop()
+{
+    test.Loop();
+}
+#endif // TEST_MODE

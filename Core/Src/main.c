@@ -313,6 +313,9 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
+#ifdef TEST_MODE
+    Loop();
+#endif // TEST_MODE
 
     /* USER CODE BEGIN 3 */
   }

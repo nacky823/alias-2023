@@ -14877,6 +14877,7 @@ void InterruptTim2()
  8026954:	4a02      	ldr	r2, [pc, #8]	; (8026960 <InterruptTim2+0x1c>)
  8026956:	6013      	str	r3, [r2, #0]
 #endif // DEBUG_MODE
+}
  8026958:	bf00      	nop
  802695a:	bd80      	pop	{r7, pc}
  802695c:	20000600 	.word	0x20000600
@@ -14955,6 +14956,7 @@ VelocityControl velocity_control(&encoder);
  80269ee:	4904      	ldr	r1, [pc, #16]	; (8026a00 <_Z41__static_initialization_and_destruction_0ii+0x9c>)
  80269f0:	480f      	ldr	r0, [pc, #60]	; (8026a30 <_Z41__static_initialization_and_destruction_0ii+0xcc>)
  80269f2:	f7fd ff33 	bl	802485c <_ZN3RunC1EP7EncoderP5FlashP8Iim42652P3LedP10LineSensorP9LineTraceP6LoggerP7Logger2P5MotorP12RotarySwitchP10SideSensorP15VelocityControl>
+}
  80269f6:	bf00      	nop
  80269f8:	3708      	adds	r7, #8
  80269fa:	46bd      	mov	sp, r7

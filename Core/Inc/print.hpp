@@ -2,6 +2,7 @@
 #define PRINT_HPP_
 
 #include "stm32f4xx_hal.h"
+#include "flash.hpp"
 
 #define LOG_LENGTH 6200
 #define NUM_OF_BLANK 5
@@ -14,7 +15,10 @@ private:
     uint16_t various_log_[LOG_LENGTH];
     uint8_t accel_point_log[LOG_LENGTH];
 
+    Flash *flash_;
+
 public:
+    Print(Flash *);
     void HelloWorld();
     void Log();
     void DistanceLog();

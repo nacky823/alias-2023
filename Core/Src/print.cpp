@@ -1,6 +1,11 @@
 #include "print.hpp"
 #include <stdio.h>
 
+Print::Print(Flash *flash)
+{
+
+}
+
 void Print::HelloWorld()
 {
     printf("Hello, world!\r\n");

@@ -3,7 +3,7 @@
 
 /* ----- Mode selection ----- */
 #define DEBUG_MODE
-//#define TEST_MODE
+#define TEST_MODE
 
 /* ----- Parameter setting ----- */
 /* PID gain velocity control */

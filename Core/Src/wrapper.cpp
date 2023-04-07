@@ -35,6 +35,7 @@ Run run(
 #else // TEST_MODE
 Test test(
     &encoder,
+    &iim_42652,
     &led,
     &line_sensor,
     &line_trace,

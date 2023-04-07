@@ -2,6 +2,7 @@
 #define TEST_HPP_
 
 #include "encoder.hpp"
+#include "iim_42652.hpp"
 #include "led.hpp"
 #include "line_sensor.hpp"
 #include "line_trace.hpp"
@@ -25,6 +26,7 @@ class Test
 {
 private:
     Encoder *encoder_;
+    Iim42652 *iim_42652_;
     Led *led_;
     LineSensor *line_sensor_;
     LineTrace *line_trace_;
@@ -35,6 +37,7 @@ private:
 
 public:
     Test(Encoder *,
+         Iim42652 *,
          Led *,
          LineSensor *,
          LineTrace *,
@@ -46,6 +49,7 @@ public:
     void Loop();
     void Timer7();
     void Timer6();
+    void TestImu();
     void TestLineSensor();
     void TestSideSensor();
     void TestMotor();

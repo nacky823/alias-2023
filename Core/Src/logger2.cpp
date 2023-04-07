@@ -80,14 +80,15 @@ uint8_t Logger2::StoreRadianLog()
     double degree = iim_42652_->GetDegreeStackZ();
     float radian = static_cast<float>(degree * M_PI / 180.0);
     iim_42652_->ResetDegreeStackZ();
-    logging_radian_buff_ = radian;
+    //logging_radian_buff_ = radian;
+
 
 #ifdef DEBUG_MODE
     g_radian = radian;
 #endif // DEBUG_MODE
 
-    //int32_t int_radian = radian * 100000;
-    int32_t int_radian = 33 * 100000;
+    int32_t int_radian = logging_radian_buff_ * 100000;
+    //int32_t int_radian = 33 * 100000;
 
     if(!flash_->CheckBlankWord(address, 1)) result = 0x02;
     else if(!flash_->StoreInt32(address, &int_radian, 1)) result = 0x03;

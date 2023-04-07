@@ -1,8 +1,10 @@
 #include "test.hpp"
 #include <stdio.h>
+#include <math.h>
 
 #ifdef TEST_MODE
 Test::Test(Encoder *encoder,
+           Iim42652 *iim_42652,
            Led *led,
            LineSensor *line_sensor,
            LineTrace *line_trace,
@@ -12,6 +14,7 @@ Test::Test(Encoder *encoder,
            VelocityControl *velocity_control)
 {
     encoder_ = encoder;
+    iim_42652_ = iim_42652;
     led_ = led;
     line_sensor_ = line_sensor;
     line_trace_ = line_trace;
@@ -55,6 +58,16 @@ void Test::Timer6()
     TestEncoder();
     MonitorLog();
     TestMotor();
+    TestImu();
+}
+
+void Test::TestImu()
+{
+    double degree = iim_42652_->GetDegreeStackZ();
+    float radian = static_cast<float>(degree * M_PI / 180.0);
+    iim_42652_->ResetDegreeStackZ();
+    //logging_radian_buff_ = radian;
+    g_radian = radian;
 }
 
 void Test::TestLineSensor()

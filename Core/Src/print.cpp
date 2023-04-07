@@ -25,12 +25,13 @@ void Print::Log()
     //printf("test%fhoge\n", g_swo_test);
     //printf("<<< Distance Log 2 >>>\n");
     //Blank();
-    if(TestFlashWrite()) printf("write_success\n");
-    else printf("write_false\n");
-    RadianLog();
-    //DistanceLog();
+    //if(TestFlashWrite()) printf("write_success\n");
+    //else printf("write_false\n");
+
+    DistanceLog();
     //Blank();
     printf("<<< Radian Log >>>\n");
+    RadianLog();
     //Blank();
 }
 
@@ -93,11 +94,14 @@ bool Print::TestIntFlash()
 void Print::DistanceLog()
 {
     uint32_t address = SECTOR_2_ADDRESS_HEAD;
+    int32_t int_data = 666666;
     float data = 66.6666;
 
     for(uint16_t index = 0; index < LOG_LENGTH; index++)
     {
-        flash_->Load(&data, address, 4); // suspicious
+        flash_->Load(&int_data, address, 4); // suspicious
+
+        data = int_data * 0.00001;
 
         printf("%f\r\n", data);
 
@@ -108,12 +112,16 @@ void Print::DistanceLog()
 void Print::RadianLog()
 {
     uint32_t address = SECTOR_3_ADDRESS_HEAD;
+    int32_t int_data = 666666;
     float data = 66.6666;
 
     for(uint16_t index = 0; index < LOG_LENGTH; index++)
     {
-        flash_->Load(&data, address, 4); // suspicious
+        flash_->Load(&int_data, address, 4); // suspicious
 
+        data = int_data * 0.00001;
+
+        //printf("%d\r\n", int_data);
         printf("%f\r\n", data);
 
         address += 4;

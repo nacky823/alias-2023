@@ -63,6 +63,7 @@ TIM_HandleTypeDef htim12;
 /* USER CODE BEGIN PV */
 #ifdef DEBUG_MODE
 float g_swo_test = 0;
+float g_radian = 0;
 
 uint16_t g_monitor_u16 = 0;
 float g_velocity = 0;

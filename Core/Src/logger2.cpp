@@ -64,8 +64,10 @@ uint8_t Logger2::StoreDistanceLog(float distance)
     uint32_t address = logging_now_address_ * 4 + HEAD_ADDRESS_BLOCK_A;
     uint8_t result = 0;
 
+    int32_t int_distance = distance * 100000;
+
     if(!flash_->CheckBlankWord(address, 1)) result = 0x02;
-    else if(!flash_->StoreFloat(address, &distance, 1)) result = 0x03;
+    else if(!flash_->StoreInt32(address, &int_distance, 1)) result = 0x03;
 
     return result;
 }
@@ -80,8 +82,14 @@ uint8_t Logger2::StoreRadianLog()
     iim_42652_->ResetDegreeStackZ();
     logging_radian_buff_ = radian;
 
+#ifdef DEBUG_MODE
+    g_radian = radian;
+#endif // DEBUG_MODE
+
+    int32_t int_radian = radian * 100000;
+
     if(!flash_->CheckBlankWord(address, 1)) result = 0x02;
-    else if(!flash_->StoreFloat(address, &radian, 1)) result = 0x03;
+    else if(!flash_->StoreInt32(address, &int_radian, 1)) result = 0x03;
 
     return result;
 }
@@ -91,10 +99,14 @@ uint8_t Logger2::StoreRadianCorrect()
     uint32_t address = logging_now_address_ * 4 + HEAD_ADDRESS_BLOCK_B;
     uint8_t result = 0;
 
-    float radian = logging_radian_buff_;
+    int32_t int_radian = logging_radian_buff_ * 100000;
+
+#ifdef DEBUG_MODE
+    g_radian = logging_radian_buff_;
+#endif // DEBUG_MODE
 
     if(!flash_->CheckBlankWord(address, 1)) result = 0x02;
-    else if(!flash_->StoreFloat(address, &radian, 1)) result = 0x03;
+    else if(!flash_->StoreInt32(address, &int_radian, 1)) result = 0x03;
 
     return result;
 }

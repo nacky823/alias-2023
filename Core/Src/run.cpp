@@ -10,6 +10,7 @@ Run::Run(Encoder *encoder,
          Logger *logger,
          Logger2 *logger2,
          Motor *motor,
+         Print *print,
          RotarySwitch *rotary_switch,
          SideSensor *side_sensor,
          VelocityControl *velocity_control
@@ -30,6 +31,7 @@ Run::Run(Encoder *encoder,
     logger_           = logger;
     logger2_          = logger2;
     motor_            = motor;
+    print_            = print;
     rotary_switch_    = rotary_switch;
     side_sensor_      = side_sensor;
     velocity_control_ = velocity_control;
@@ -44,10 +46,16 @@ void Run::Init()
 
     bool flash_erase = true;
     uint8_t switch_state = rotary_switch_->State();
+
     if(switch_state == 0x0E)
     {
         led_->Blink(3, 'R', 'X');
         if(!flash_->Clear()) flash_erase = false;
+    }
+    else if(switch_state == 0x0B)
+    {
+        print_->Log();
+        return;
     }
 
 #ifdef DEBUG_MODE
@@ -108,7 +116,7 @@ void Run::UpdateRunMode(uint8_t switch_state)
     {
 #ifdef DEBUG_MODE
         case 0x0A: SetRunMode(VELOCITY_CONTROL_DEBUG); break;
-        case 0x0B: SetRunMode(LINE_TRACE_DEBUG); break;
+        case 0x0B: SetRunMode(LOG); break;
 #endif // DEBUG_MODE
 
         case 0x0C: SetRunMode(DEV_ACCEL); break;
@@ -210,7 +218,8 @@ void Run::RunMode()
     {
 #ifdef DEBUG_MODE
         case VELOCITY_CONTROL_DEBUG: ModeVelocityControlDebug(); break;
-        case LINE_TRACE_DEBUG: ModeLineTraceDebug(); break;
+        //case LINE_TRACE_DEBUG: ModeLineTraceDebug(); break;
+        case LOG: ModeLog(); break;
 #endif // DEBUG_MODE
 
         case EMERGENCY: ModeEmergency(); break;

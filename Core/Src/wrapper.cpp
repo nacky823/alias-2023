@@ -10,6 +10,7 @@ LineSensor line_sensor;
 LineTrace line_trace(&line_sensor);
 Logger logger;
 Motor motor;
+Print print(&flash);
 RotarySwitch rotary_switch;
 SideSensor side_sensor;
 Logger2 logger2(&encoder, &flash, &led, &iim_42652, &side_sensor);
@@ -26,6 +27,7 @@ Run run(
     &logger,
     &logger2,
     &motor,
+    &print,
     &rotary_switch,
     &side_sensor,
     &velocity_control

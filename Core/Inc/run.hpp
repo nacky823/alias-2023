@@ -11,11 +11,13 @@
 #include "logger.hpp"
 #include "logger2.hpp"
 #include "motor.hpp"
+#include "print.hpp"
 #include "rotary_switch.hpp"
 #include "side_sensor.hpp"
 #include "velocity_control.hpp"
 
 /* run_mode_ */
+#define LOG              0x0C
 #define DEV              0x0D
 #define DEV_ACCEL        0xDD
 #define DEV_GOAL         0xD0
@@ -29,7 +31,7 @@
 #define VELOCITY_CONTROL 0x07
 #define LINE_TRACE       0x08
 #define VELOCITY_CONTROL_DEBUG 0x0B
-#define LINE_TRACE_DEBUG       0x0C
+//#define LINE_TRACE_DEBUG       0x0C
 
 #define SWITCH_INTERVAL_WAIT_TIME 200
 
@@ -88,6 +90,7 @@ private:
     Logger *logger_;
     Logger2 *logger2_;
     Motor *motor_;
+    Print *print_;
     RotarySwitch *rotary_switch_;
     SideSensor *side_sensor_;
     VelocityControl *velocity_control_;
@@ -102,6 +105,7 @@ public:
         Logger *,
         Logger2 *,
         Motor *,
+        Print *,
         RotarySwitch *,
         SideSensor *,
         VelocityControl *);

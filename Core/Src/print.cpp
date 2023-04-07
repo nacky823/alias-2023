@@ -24,7 +24,7 @@ void Print::Log()
 
 void Print::Blank()
 {
-    for(uint8_t i = 0, i < NUM_OF_BLANK, i++)
+    for(uint8_t i = 0; i < NUM_OF_BLANK; i++)
     {
         printf("\r\n");
     }

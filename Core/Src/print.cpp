@@ -1,6 +1,7 @@
 #include "print.hpp"
 #include "macro.h"
 #include <stdio.h>
+#include <string.h>
 
 extern float g_swo_test;
 
@@ -44,21 +45,27 @@ bool Print::TestFlashWrite()
 {
     uint32_t address = SECTOR_2_ADDRESS_HEAD;
     float data = 333.555;
+    int16_t inty = 55;
 
     //printf("pre_data = %f\n", data);
     printf("pre_address = %u\n", address);
 
-    bool result = flash_->StoreFloat(address, &data, 1);
+    bool result = flash_->StoreInt16(address, &inty, 1);
+    //bool result = flash_->StoreFloat(address, &data, 1);
     //printf("data = %f\n", data);
     printf("address = %u\n", address);
 
-    float answer = 22;
-    printf("pre_answer = %f\n", answer);
+    //float answer = 22;
+    int16_t int_answer = 11;
+    //printf("pre_answer = %f\n", answer);
+    printf("pre_int_ans = %d\n", int_answer);
 
-    flash_->Load(&answer, address, 4);
+    //flash_->Load(&answer, address, 4);
+    //flash_->Load(&int_answer, address, 4);
+    memcpy(&int_answer, reinterpret_cast<uint32_t*>(address), 2);
     printf("load_address = %u\n", address);
 
-    printf("answer = %f\n", answer);
+    printf("int_ans = %d\n", int_answer);
 
     return result;
 }

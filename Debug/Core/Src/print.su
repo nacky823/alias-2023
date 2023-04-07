@@ -1,9 +1,9 @@
-print.cpp:7:1:Print::Print(Flash*)	16	static
-print.cpp:12:6:void Print::HelloWorld()	16	static
-print.cpp:17:6:void Print::Log()	24	static
-print.cpp:35:6:void Print::Blank()	24	static
-print.cpp:43:6:bool Print::TestFlashWrite()	40	static
-print.cpp:66:6:void Print::DistanceLog()	40	static
-print.cpp:81:6:void Print::RadianLog()	16	static
-print.cpp:86:6:void Print::VariousLog()	16	static
-print.cpp:91:6:void Print::AccelPointLog()	16	static
+print.cpp:8:1:Print::Print(Flash*)	16	static
+print.cpp:13:6:void Print::HelloWorld()	16	static
+print.cpp:18:6:void Print::Log()	24	static
+print.cpp:36:6:void Print::Blank()	24	static
+print.cpp:44:6:bool Print::TestFlashWrite()	32	static
+print.cpp:73:6:void Print::DistanceLog()	40	static
+print.cpp:88:6:void Print::RadianLog()	16	static
+print.cpp:93:6:void Print::VariousLog()	16	static
+print.cpp:98:6:void Print::AccelPointLog()	16	static

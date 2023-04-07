@@ -25,6 +25,7 @@ public:
     void RadianLog();
     void VariousLog();
     void AccelPointLog();
+    void Blank();
 
 };
 

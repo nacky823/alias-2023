@@ -1,4 +1,5 @@
 #include "print.hpp"
+#include "macro.h"
 #include <stdio.h>
 
 Print::Print(Flash *flash)
@@ -33,7 +34,7 @@ void Print::DistanceLog()
 {
     uint32_t address = SECTOR_2_ADDRESS_HEAD;
 
-    for(uint16_t index = 0, index < LOG_LENGTH, index++)
+    for(uint16_t index = 0; index < LOG_LENGTH; index++)
     {
         flash_->Load(distance_log_[address], address, 4); // suspicious
 

@@ -17,8 +17,8 @@ void Print::HelloWorld()
 
 void Print::Log()
 {
-    int aaa = 33;
-    g_swo_test = 55;
+    //int aaa = 33;
+    //g_swo_test = 55;
 
     printf("<<< Distance Log >>>\n");
     //printf("test%dhoge\n", aaa);
@@ -27,7 +27,8 @@ void Print::Log()
     //Blank();
     if(TestFlashWrite()) printf("write_success\n");
     else printf("write_false\n");
-    DistanceLog();
+    RadianLog();
+    //DistanceLog();
     //Blank();
     printf("<<< Radian Log >>>\n");
     //Blank();
@@ -44,28 +45,47 @@ void Print::Blank()
 bool Print::TestFlashWrite()
 {
     uint32_t address = SECTOR_2_ADDRESS_HEAD;
-    float data = 333.555;
-    int16_t inty = 55;
+    float floaty = 333.555;
+    int32_t data = floaty * 100000;
 
-    //printf("pre_data = %f\n", data);
+    printf("floaty = %f\n", floaty);
+    printf("pre_data = %d\n", data);
     printf("pre_address = %u\n", address);
 
-    bool result = flash_->StoreInt16(address, &inty, 1);
-    //bool result = flash_->StoreFloat(address, &data, 1);
-    //printf("data = %f\n", data);
-    printf("address = %u\n", address);
+    bool result = flash_->StoreInt32(address, &data, 1);
 
-    //float answer = 22;
-    int16_t int_answer = 666;
-    //printf("pre_answer = %f\n", answer);
-    printf("pre_int_ans = %d\n", int_answer);
+    int32_t answer = 2222;
+    printf("pre_answer = %d\n", answer);
 
-    //flash_->Load(&answer, address, 4);
-    //flash_->Load(&int_answer, address, 4);
-    memcpy(&int_answer, reinterpret_cast<uint32_t*>(address), 2);
+    flash_->Load(&answer, address, 4);
+
+    printf("answer = %d\n", answer);
     printf("load_address = %u\n", address);
 
-    printf("int_ans = %d\n", int_answer);
+    float ans_floaty = answer * 0.00001;
+    printf("ans_floaty = %f\n", ans_floaty);
+
+    return result;
+}
+
+bool Print::TestIntFlash()
+{
+    uint32_t address = SECTOR_2_ADDRESS_HEAD;
+    int16_t data = 4321;
+
+    printf("data = %d\n", data);
+    printf("pre_address = %u\n", address);
+
+    bool result = flash_->StoreInt16(address, &data, 1);
+
+    int16_t answer = 55;
+
+    printf("pre_answer = %d\n", answer);
+
+    flash_->Load(&answer, address, 2);
+
+    printf("answer = %d\n", answer);
+    printf("load_address = %u\n", address);
 
     return result;
 }
@@ -73,7 +93,7 @@ bool Print::TestFlashWrite()
 void Print::DistanceLog()
 {
     uint32_t address = SECTOR_2_ADDRESS_HEAD;
-    float data;
+    float data = 66.6666;
 
     for(uint16_t index = 0; index < LOG_LENGTH; index++)
     {
@@ -87,7 +107,17 @@ void Print::DistanceLog()
 
 void Print::RadianLog()
 {
+    uint32_t address = SECTOR_3_ADDRESS_HEAD;
+    float data = 66.6666;
 
+    for(uint16_t index = 0; index < LOG_LENGTH; index++)
+    {
+        flash_->Load(&data, address, 4); // suspicious
+
+        printf("%f\r\n", data);
+
+        address += 4;
+    }
 }
 
 void Print::VariousLog()

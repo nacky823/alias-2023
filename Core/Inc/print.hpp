@@ -22,6 +22,7 @@ public:
     void HelloWorld();
     void Log();
     bool TestFlashWrite();
+    bool TestIntFlash();
     void DistanceLog();
     void RadianLog();
     void VariousLog();

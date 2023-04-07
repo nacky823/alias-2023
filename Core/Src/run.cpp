@@ -54,6 +54,7 @@ void Run::Init()
     }
     else if(switch_state == 0x0B)
     {
+        led_->Blink(3, 'M', 'X');
         print_->Log();
         return;
     }
@@ -219,7 +220,7 @@ void Run::RunMode()
 #ifdef DEBUG_MODE
         case VELOCITY_CONTROL_DEBUG: ModeVelocityControlDebug(); break;
         //case LINE_TRACE_DEBUG: ModeLineTraceDebug(); break;
-        case LOG: ModeLog(); break;
+        //case LOG: ModeLog(); break;
 #endif // DEBUG_MODE
 
         case EMERGENCY: ModeEmergency(); break;

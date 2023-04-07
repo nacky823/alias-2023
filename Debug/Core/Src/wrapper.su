@@ -1,7 +1,6 @@
 wrapper.cpp:48:6:void Init()	8	static
 wrapper.cpp:57:6:void InterruptTim7()	8	static
 wrapper.cpp:70:6:void InterruptTim6()	8	static
-wrapper.cpp:83:6:void InterruptTim2()	4	static
-wrapper.cpp:95:6:void Loop()	8	static
-wrapper.cpp:98:1:void __static_initialization_and_destruction_0(int, int)	40	static
-wrapper.cpp:98:1:cpp)	8	static
+wrapper.cpp:83:6:void InterruptTim2()	8	static
+wrapper.cpp:92:1:void __static_initialization_and_destruction_0(int, int)	56	static
+wrapper.cpp:92:1:cpp)	8	static

@@ -46,7 +46,7 @@ private:
     void ModeEmergency();
     void ModeReady();
     void ModeStandby();
-    void ModeLog();
+    //void ModeLog();
     void ModeDevelopment();
     void ModeDevAccel();
     void ModeDevGoal();

@@ -3,7 +3,7 @@
 
 Print::Print(Flash *flash)
 {
-
+    flash_ = flash;
 }
 
 void Print::HelloWorld()

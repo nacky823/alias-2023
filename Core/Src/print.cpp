@@ -56,7 +56,7 @@ bool Print::TestFlashWrite()
     printf("address = %u\n", address);
 
     //float answer = 22;
-    int16_t int_answer = 11;
+    int16_t int_answer = 666;
     //printf("pre_answer = %f\n", answer);
     printf("pre_int_ans = %d\n", int_answer);
 

@@ -1,8 +1,8 @@
-print.cpp:5:1:Print::Print(Flash*)	16	static
-print.cpp:10:6:void Print::HelloWorld()	16	static
-print.cpp:15:6:void Print::Log()	16	static
-print.cpp:25:6:void Print::Blank()	24	static
-print.cpp:33:6:void Print::DistanceLog()	40	static
-print.cpp:48:6:void Print::RadianLog()	16	static
-print.cpp:53:6:void Print::VariousLog()	16	static
-print.cpp:58:6:void Print::AccelPointLog()	16	static
+print.cpp:7:1:Print::Print(Flash*)	16	static
+print.cpp:12:6:void Print::HelloWorld()	16	static
+print.cpp:17:6:void Print::Log()	32	static
+print.cpp:33:6:void Print::Blank()	24	static
+print.cpp:41:6:void Print::DistanceLog()	40	static
+print.cpp:56:6:void Print::RadianLog()	16	static
+print.cpp:61:6:void Print::VariousLog()	16	static
+print.cpp:66:6:void Print::AccelPointLog()	16	static

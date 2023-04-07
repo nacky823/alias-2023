@@ -2,6 +2,8 @@
 #include "macro.h"
 #include <stdio.h>
 
+extern float g_swo_test;
+
 Print::Print(Flash *flash)
 {
     flash_ = flash;
@@ -14,12 +16,18 @@ void Print::HelloWorld()
 
 void Print::Log()
 {
-    printf("<<< Distance Log >>>\r\n");
-    Blank();
+    int aaa = 33;
+    g_swo_test = 55;
+
+    printf("<<< Distance Log 1 >>>\n");
+    printf("test%dhoge\n", aaa);
+    printf("test%fhoge\n", g_swo_test);
+    printf("<<< Distance Log 2 >>>\n");
+    //Blank();
     DistanceLog();
-    Blank();
-    printf("<<< Radian Log >>>\r\n");
-    Blank();
+    //Blank();
+    printf("<<< Radian Log >>>\n");
+    //Blank();
 }
 
 void Print::Blank()

@@ -19,11 +19,13 @@ void Print::Log()
     int aaa = 33;
     g_swo_test = 55;
 
-    printf("<<< Distance Log 1 >>>\n");
-    printf("test%dhoge\n", aaa);
-    printf("test%fhoge\n", g_swo_test);
-    printf("<<< Distance Log 2 >>>\n");
+    printf("<<< Distance Log >>>\n");
+    //printf("test%dhoge\n", aaa);
+    //printf("test%fhoge\n", g_swo_test);
+    //printf("<<< Distance Log 2 >>>\n");
     //Blank();
+    if(TestFlashWrite()) printf("write_success\n");
+    else printf("write_false\n");
     DistanceLog();
     //Blank();
     printf("<<< Radian Log >>>\n");
@@ -36,6 +38,29 @@ void Print::Blank()
     {
         printf("\r\n");
     }
+}
+
+bool Print::TestFlashWrite()
+{
+    uint32_t address = SECTOR_2_ADDRESS_HEAD;
+    float data = 333.555;
+
+    //printf("pre_data = %f\n", data);
+    printf("pre_address = %u\n", address);
+
+    bool result = flash_->StoreFloat(address, &data, 1);
+    //printf("data = %f\n", data);
+    printf("address = %u\n", address);
+
+    float answer = 22;
+    printf("pre_answer = %f\n", answer);
+
+    flash_->Load(&answer, address, 4);
+    printf("load_address = %u\n", address);
+
+    printf("answer = %f\n", answer);
+
+    return result;
 }
 
 void Print::DistanceLog()

@@ -21,6 +21,7 @@ public:
     Print(Flash *);
     void HelloWorld();
     void Log();
+    bool TestFlashWrite();
     void DistanceLog();
     void RadianLog();
     void VariousLog();

@@ -33,14 +33,15 @@ void Print::Blank()
 void Print::DistanceLog()
 {
     uint32_t address = SECTOR_2_ADDRESS_HEAD;
+    float data;
 
     for(uint16_t index = 0; index < LOG_LENGTH; index++)
     {
-        flash_->Load(distance_log_[address], address, 4); // suspicious
+        flash_->Load(&data, address, 4); // suspicious
 
-        printf("%f\r\n", distance_log_[index]);
+        printf("%f\r\n", data);
 
-        address++;
+        address += 4;
     }
 }
 

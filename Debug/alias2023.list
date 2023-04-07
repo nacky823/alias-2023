@@ -14057,9 +14057,9 @@ void HAL_TIM_Base_MspInit(TIM_HandleTypeDef* htim_base)
  80264de:	f003 0310 	and.w	r3, r3, #16
  80264e2:	617b      	str	r3, [r7, #20]
  80264e4:	697b      	ldr	r3, [r7, #20]
-    HAL_NVIC_SetPriority(TIM6_DAC_IRQn, 0, 0);
+    HAL_NVIC_SetPriority(TIM6_DAC_IRQn, 1, 0);
  80264e6:	2200      	movs	r2, #0
- 80264e8:	2100      	movs	r1, #0
+ 80264e8:	2101      	movs	r1, #1
  80264ea:	2036      	movs	r0, #54	; 0x36
  80264ec:	f001 fa8b 	bl	8027a06 <HAL_NVIC_SetPriority>
     HAL_NVIC_EnableIRQ(TIM6_DAC_IRQn);

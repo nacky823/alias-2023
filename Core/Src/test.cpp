@@ -1,4 +1,5 @@
 #include "test.hpp"
+#include "declare_extern.h"
 #include <stdio.h>
 #include <math.h>
 
@@ -30,11 +31,11 @@ void Test::Init()
     line_sensor_->Init();
     motor_->Init();
 
-    led_->Blink(3, 'Y', 'M');
-    led_->ColorOrder('X');
-
     if(rotary_switch_->State() != 0x00)
     {
+        led_->Blink(3, 'Y', 'M');
+        led_->ColorOrder('X');
+
         HAL_TIM_Base_Start_IT(&htim7);
         HAL_TIM_Base_Start_IT(&htim6);
     }
@@ -43,7 +44,7 @@ void Test::Init()
 
 void Test::Loop()
 {
-    printf("Hello,World!!\r\n");
+    //printf("Hello,World!!\r\n");
 }
 
 void Test::Timer7()
@@ -53,12 +54,12 @@ void Test::Timer7()
 
 void Test::Timer6()
 {
-    TestLineSensor();
-    TestSideSensor();
-    TestEncoder();
-    MonitorLog();
-    TestMotor();
     TestImu();
+    //TestLineSensor();
+    //TestSideSensor();
+    //TestEncoder();
+    //MonitorLog();
+    //TestMotor();
 }
 
 void Test::TestImu()
@@ -68,6 +69,7 @@ void Test::TestImu()
     iim_42652_->ResetDegreeStackZ();
     //logging_radian_buff_ = radian;
     g_radian = radian;
+    monitor_count++;
 }
 
 void Test::TestLineSensor()

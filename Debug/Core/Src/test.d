@@ -36,7 +36,7 @@ Core/Src/test.o: ../Core/Src/test.cpp ../Core/Inc/test.hpp \
  ../Core/Inc/line_sensor.hpp ../Core/Inc/declare_extern.h \
  ../Core/Inc/macro.h ../Core/Inc/line_trace.hpp ../Core/Inc/motor.hpp \
  ../Core/Inc/rotary_switch.hpp ../Core/Inc/side_sensor.hpp \
- ../Core/Inc/velocity_control.hpp
+ ../Core/Inc/velocity_control.hpp ../Core/Inc/declare_extern.h
 
 ../Core/Inc/test.hpp:
 
@@ -127,3 +127,5 @@ Core/Src/test.o: ../Core/Src/test.cpp ../Core/Inc/test.hpp \
 ../Core/Inc/side_sensor.hpp:
 
 ../Core/Inc/velocity_control.hpp:
+
+../Core/Inc/declare_extern.h:

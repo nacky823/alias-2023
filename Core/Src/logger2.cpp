@@ -86,7 +86,8 @@ uint8_t Logger2::StoreRadianLog()
     g_radian = radian;
 #endif // DEBUG_MODE
 
-    int32_t int_radian = radian * 100000;
+    //int32_t int_radian = radian * 100000;
+    int32_t int_radian = 33 * 100000;
 
     if(!flash_->CheckBlankWord(address, 1)) result = 0x02;
     else if(!flash_->StoreInt32(address, &int_radian, 1)) result = 0x03;

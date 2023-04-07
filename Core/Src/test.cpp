@@ -30,8 +30,9 @@ void Test::Init()
     encoder_->Init();
     line_sensor_->Init();
     motor_->Init();
+    uint8_t imu = iim_42652_->Init();
 
-    if(rotary_switch_->State() != 0x00)
+    if(rotary_switch_->State() != 0x00 && imu == 0x09)
     {
         led_->Blink(3, 'Y', 'M');
         led_->ColorOrder('X');
@@ -69,6 +70,7 @@ void Test::TestImu()
     iim_42652_->ResetDegreeStackZ();
     //logging_radian_buff_ = radian;
     g_radian = radian;
+    g_int_radian = iim_42652_->GyroZRight();
     monitor_count++;
 }
 

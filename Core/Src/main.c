@@ -154,7 +154,7 @@ uint8_t g_imu_bank_l = 0, g_imu_bank_r = 0;
 uint8_t g_imu_pwr_l = 0, g_imu_pwr_r = 0;
 uint8_t g_imu_init = 0;
 double g_deg_stack_z = 0;
-double g_deg_z = 0;
+float g_deg_z = 0;
 int16_t g_gyro_x_l = 0, g_gyro_x_r = 0;
 int16_t g_gyro_y_l = 0, g_gyro_y_r = 0;
 int16_t g_gyro_z_l = 0, g_gyro_z_r = 0;

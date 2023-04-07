@@ -285,6 +285,7 @@ void Run::ModeDevelopment()
     encoder_->Update();
     line_sensor_->Update();
     side_sensor_->Update();
+    iim_42652_->Update();
     logger2_->Logging();
     /* Emergency stop */
     if(DevEmergencyStop()) return;
@@ -294,6 +295,7 @@ void Run::ModeDevelopment()
     float trans_ratio = velocity_control_->DeterminePidGain(target_velocity);
     float rotat_ratio = line_trace_->DeterminePidGain(target_velocity);
     motor_->Drive(trans_ratio, rotat_ratio);
+    monitor_count++;
 }
 
 void Run::ModeDevAccel()

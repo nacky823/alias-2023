@@ -65,6 +65,8 @@ void Test::Timer6()
 
 void Test::TestImu()
 {
+    iim_42652_->Update();
+
     double degree = iim_42652_->GetDegreeStackZ();
     float radian = static_cast<float>(degree * M_PI / 180.0);
     iim_42652_->ResetDegreeStackZ();

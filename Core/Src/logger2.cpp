@@ -80,7 +80,7 @@ uint8_t Logger2::StoreRadianLog()
     double degree = iim_42652_->GetDegreeStackZ();
     float radian = static_cast<float>(degree * M_PI / 180.0);
     iim_42652_->ResetDegreeStackZ();
-    //logging_radian_buff_ = radian;
+    logging_radian_buff_ = radian;
 
 
 #ifdef DEBUG_MODE

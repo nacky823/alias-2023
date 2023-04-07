@@ -109,7 +109,7 @@ extern uint8_t g_imu_bank_l, g_imu_bank_r;
 extern uint8_t g_imu_pwr_l, g_imu_pwr_r;
 extern uint8_t g_imu_init;
 extern double g_deg_stack_z;
-extern double g_deg_z;
+extern float g_deg_z;
 extern int16_t g_gyro_x_l, g_gyro_x_r;
 extern int16_t g_gyro_y_l, g_gyro_y_r;
 extern int16_t g_gyro_z_l, g_gyro_z_r;

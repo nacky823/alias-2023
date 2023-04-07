@@ -126,7 +126,7 @@ void Iim42652::Update()
     degree_stack_z_ += degree_z;
 
 #ifdef DEBUG_MODE
-    g_deg_z = degree_z;
+    g_deg_z = static_cast<float>(degree_stack_z_);
 #endif // DEBUG_MODE
 }
 

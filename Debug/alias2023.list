@@ -37,11 +37,11 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING
  16 .debug_macro  00027113  00000000  00000000  000660d8  2**0
                   CONTENTS, READONLY, DEBUGGING
- 17 .debug_line   000170c7  00000000  00000000  0008d1eb  2**0
+ 17 .debug_line   000170c5  00000000  00000000  0008d1eb  2**0
                   CONTENTS, READONLY, DEBUGGING
- 18 .debug_str    000ce21f  00000000  00000000  000a42b2  2**0
+ 18 .debug_str    000ce21f  00000000  00000000  000a42b0  2**0
                   CONTENTS, READONLY, DEBUGGING
- 19 .comment      0000007b  00000000  00000000  001724d1  2**0
+ 19 .comment      0000007b  00000000  00000000  001724cf  2**0
                   CONTENTS, READONLY
  20 .debug_frame  00007324  00000000  00000000  0017254c  2**2
                   CONTENTS, READONLY, DEBUGGING
@@ -9970,17 +9970,23 @@ void Print::Log()
  8024a0a:	b082      	sub	sp, #8
  8024a0c:	af00      	add	r7, sp, #0
  8024a0e:	6078      	str	r0, [r7, #4]
+    //int aaa = 33;
+    //g_swo_test = 55;
+
+    printf("<<< Distance Log >>>\n");
+ 8024a10:	4804      	ldr	r0, [pc, #16]	; (8024a24 <_ZN5Print3LogEv+0x1c>)
+ 8024a12:	f007 f833 	bl	802ba7c <puts>
+    //printf("<<< Distance Log 2 >>>\n");
+    //Blank();
     //if(TestFlashWrite()) printf("write_success\n");
     //else printf("write_false\n");
 
-    //DistanceLog();
-    //Blank();
-    printf("<<< Radian Log >>>\n");
- 8024a10:	4804      	ldr	r0, [pc, #16]	; (8024a24 <_ZN5Print3LogEv+0x1c>)
- 8024a12:	f007 f833 	bl	802ba7c <puts>
-    RadianLog();
+    DistanceLog();
  8024a16:	6878      	ldr	r0, [r7, #4]
- 8024a18:	f000 f806 	bl	8024a28 <_ZN5Print9RadianLogEv>
+ 8024a18:	f000 f806 	bl	8024a28 <_ZN5Print11DistanceLogEv>
+    //Blank();
+    //printf("<<< Radian Log >>>\n");
+    //RadianLog();
     //Blank();
 }
  8024a1c:	bf00      	nop
@@ -9989,25 +9995,25 @@ void Print::Log()
  8024a22:	bd80      	pop	{r7, pc}
  8024a24:	0802d808 	.word	0x0802d808
 
-08024a28 <_ZN5Print9RadianLogEv>:
-        address += 4;
-    }
+08024a28 <_ZN5Print11DistanceLogEv>:
+
+    return result;
 }
 
-void Print::RadianLog()
+void Print::DistanceLog()
 {
  8024a28:	b590      	push	{r4, r7, lr}
  8024a2a:	b087      	sub	sp, #28
  8024a2c:	af00      	add	r7, sp, #0
  8024a2e:	6078      	str	r0, [r7, #4]
-    uint32_t address = SECTOR_3_ADDRESS_HEAD;
- 8024a30:	4b21      	ldr	r3, [pc, #132]	; (8024ab8 <_ZN5Print9RadianLogEv+0x90>)
+    uint32_t address = SECTOR_2_ADDRESS_HEAD;
+ 8024a30:	4b21      	ldr	r3, [pc, #132]	; (8024ab8 <_ZN5Print11DistanceLogEv+0x90>)
  8024a32:	617b      	str	r3, [r7, #20]
     int32_t int_data = 666666;
- 8024a34:	4b21      	ldr	r3, [pc, #132]	; (8024abc <_ZN5Print9RadianLogEv+0x94>)
+ 8024a34:	4b21      	ldr	r3, [pc, #132]	; (8024abc <_ZN5Print11DistanceLogEv+0x94>)
  8024a36:	60bb      	str	r3, [r7, #8]
     float data = 66.6666;
- 8024a38:	4b21      	ldr	r3, [pc, #132]	; (8024ac0 <_ZN5Print9RadianLogEv+0x98>)
+ 8024a38:	4b21      	ldr	r3, [pc, #132]	; (8024ac0 <_ZN5Print11DistanceLogEv+0x98>)
  8024a3a:	60fb      	str	r3, [r7, #12]
 
     for(uint16_t index = 0; index < LOG_LENGTH; index++)
@@ -10016,7 +10022,7 @@ void Print::RadianLog()
  8024a40:	8a7b      	ldrh	r3, [r7, #18]
  8024a42:	f641 0237 	movw	r2, #6199	; 0x1837
  8024a46:	4293      	cmp	r3, r2
- 8024a48:	d82c      	bhi.n	8024aa4 <_ZN5Print9RadianLogEv+0x7c>
+ 8024a48:	d82c      	bhi.n	8024aa4 <_ZN5Print11DistanceLogEv+0x7c>
     {
         flash_->Load(&int_data, address, 4); // suspicious
  8024a4a:	687b      	ldr	r3, [r7, #4]
@@ -10032,7 +10038,7 @@ void Print::RadianLog()
  8024a60:	68bb      	ldr	r3, [r7, #8]
  8024a62:	4618      	mov	r0, r3
  8024a64:	f7fb fc96 	bl	8020394 <__aeabi_i2d>
- 8024a68:	a311      	add	r3, pc, #68	; (adr r3, 8024ab0 <_ZN5Print9RadianLogEv+0x88>)
+ 8024a68:	a311      	add	r3, pc, #68	; (adr r3, 8024ab0 <_ZN5Print11DistanceLogEv+0x88>)
  8024a6a:	e9d3 2300 	ldrd	r2, r3, [r3]
  8024a6e:	f7fb fcfb 	bl	8020468 <__aeabi_dmul>
  8024a72:	4603      	mov	r3, r0
@@ -10043,7 +10049,6 @@ void Print::RadianLog()
  8024a7e:	4603      	mov	r3, r0
  8024a80:	60fb      	str	r3, [r7, #12]
 
-        //printf("%d\r\n", int_data);
         printf("%f\r\n", data);
  8024a82:	68f8      	ldr	r0, [r7, #12]
  8024a84:	f7fb fc98 	bl	80203b8 <__aeabi_f2d>
@@ -10051,7 +10056,7 @@ void Print::RadianLog()
  8024a8a:	460c      	mov	r4, r1
  8024a8c:	461a      	mov	r2, r3
  8024a8e:	4623      	mov	r3, r4
- 8024a90:	480c      	ldr	r0, [pc, #48]	; (8024ac4 <_ZN5Print9RadianLogEv+0x9c>)
+ 8024a90:	480c      	ldr	r0, [pc, #48]	; (8024ac4 <_ZN5Print11DistanceLogEv+0x9c>)
  8024a92:	f006 ff7f 	bl	802b994 <iprintf>
 
         address += 4;
@@ -10062,7 +10067,7 @@ void Print::RadianLog()
  8024a9c:	8a7b      	ldrh	r3, [r7, #18]
  8024a9e:	3301      	adds	r3, #1
  8024aa0:	827b      	strh	r3, [r7, #18]
- 8024aa2:	e7cd      	b.n	8024a40 <_ZN5Print9RadianLogEv+0x18>
+ 8024aa2:	e7cd      	b.n	8024a40 <_ZN5Print11DistanceLogEv+0x18>
     }
 }
  8024aa4:	bf00      	nop
@@ -10072,10 +10077,10 @@ void Print::RadianLog()
  8024aac:	f3af 8000 	nop.w
  8024ab0:	88e368f1 	.word	0x88e368f1
  8024ab4:	3ee4f8b5 	.word	0x3ee4f8b5
- 8024ab8:	0800c000 	.word	0x0800c000
+ 8024ab8:	08008000 	.word	0x08008000
  8024abc:	000a2c2a 	.word	0x000a2c2a
  8024ac0:	4285554d 	.word	0x4285554d
- 8024ac4:	0802d8ac 	.word	0x0802d8ac
+ 8024ac4:	0802d8b0 	.word	0x0802d8b0
 
 08024ac8 <_ZN12RotarySwitch5StateEv>:
 #include "rotary_switch.hpp"
@@ -18911,7 +18916,7 @@ static uint32_t DMA_CalcBaseAndBitshift(DMA_HandleTypeDef *hdma)
  8028050:	4770      	bx	lr
  8028052:	bf00      	nop
  8028054:	aaaaaaab 	.word	0xaaaaaaab
- 8028058:	0802d8cc 	.word	0x0802d8cc
+ 8028058:	0802d8d0 	.word	0x0802d8d0
 
 0802805c <DMA_CheckFifoParam>:
   * @param  hdma       pointer to a DMA_HandleTypeDef structure that contains
@@ -22316,7 +22321,7 @@ HAL_StatusTypeDef HAL_RCC_ClockConfig(RCC_ClkInitTypeDef  *RCC_ClkInitStruct, ui
  802939a:	bf00      	nop
  802939c:	40023c00 	.word	0x40023c00
  80293a0:	40023800 	.word	0x40023800
- 80293a4:	0802d8b4 	.word	0x0802d8b4
+ 80293a4:	0802d8b8 	.word	0x0802d8b8
  80293a8:	20000014 	.word	0x20000014
  80293ac:	20000018 	.word	0x20000018
 
@@ -22553,7 +22558,7 @@ uint32_t HAL_RCC_GetPCLK1Freq(void)
  8029548:	4618      	mov	r0, r3
  802954a:	bd80      	pop	{r7, pc}
  802954c:	40023800 	.word	0x40023800
- 8029550:	0802d8c4 	.word	0x0802d8c4
+ 8029550:	0802d8c8 	.word	0x0802d8c8
 
 08029554 <HAL_SPI_Init>:
   * @param  hspi pointer to a SPI_HandleTypeDef structure that contains
@@ -27971,11 +27976,11 @@ __weak void HAL_TIMEx_BreakCallback(TIM_HandleTypeDef *htim)
  802b4f8:	9306      	str	r3, [sp, #24]
  802b4fa:	e015      	b.n	802b528 <_printf_float+0x324>
  802b4fc:	7fefffff 	.word	0x7fefffff
- 802b500:	0802d8dc 	.word	0x0802d8dc
- 802b504:	0802d8d8 	.word	0x0802d8d8
- 802b508:	0802d8e4 	.word	0x0802d8e4
- 802b50c:	0802d8e0 	.word	0x0802d8e0
- 802b510:	0802d8e8 	.word	0x0802d8e8
+ 802b500:	0802d8e0 	.word	0x0802d8e0
+ 802b504:	0802d8dc 	.word	0x0802d8dc
+ 802b508:	0802d8e8 	.word	0x0802d8e8
+ 802b50c:	0802d8e4 	.word	0x0802d8e4
+ 802b510:	0802d8ec 	.word	0x0802d8ec
  802b514:	2301      	movs	r3, #1
  802b516:	9a06      	ldr	r2, [sp, #24]
  802b518:	4631      	mov	r1, r6
@@ -28455,8 +28460,8 @@ __weak void HAL_TIMEx_BreakCallback(TIM_HandleTypeDef *htim)
  802b982:	f884 3042 	strb.w	r3, [r4, #66]	; 0x42
  802b986:	f104 0542 	add.w	r5, r4, #66	; 0x42
  802b98a:	e76c      	b.n	802b866 <_printf_i+0xf6>
- 802b98c:	0802d8ea 	.word	0x0802d8ea
- 802b990:	0802d8fb 	.word	0x0802d8fb
+ 802b98c:	0802d8ee 	.word	0x0802d8ee
+ 802b990:	0802d8ff 	.word	0x0802d8ff
 
 0802b994 <iprintf>:
  802b994:	b40f      	push	{r0, r1, r2, r3}
@@ -28560,9 +28565,9 @@ __weak void HAL_TIMEx_BreakCallback(TIM_HandleTypeDef *htim)
  802ba6a:	7018      	strb	r0, [r3, #0]
  802ba6c:	e7e5      	b.n	802ba3a <_puts_r+0x76>
  802ba6e:	bf00      	nop
- 802ba70:	0802d93c 	.word	0x0802d93c
- 802ba74:	0802d95c 	.word	0x0802d95c
- 802ba78:	0802d91c 	.word	0x0802d91c
+ 802ba70:	0802d940 	.word	0x0802d940
+ 802ba74:	0802d960 	.word	0x0802d960
+ 802ba78:	0802d920 	.word	0x0802d920
 
 0802ba7c <puts>:
  802ba7c:	4b02      	ldr	r3, [pc, #8]	; (802ba88 <puts+0xc>)
@@ -28644,9 +28649,9 @@ __weak void HAL_TIMEx_BreakCallback(TIM_HandleTypeDef *htim)
  802bb1e:	4638      	mov	r0, r7
  802bb20:	bdf8      	pop	{r3, r4, r5, r6, r7, pc}
  802bb22:	bf00      	nop
- 802bb24:	0802d93c 	.word	0x0802d93c
- 802bb28:	0802d95c 	.word	0x0802d95c
- 802bb2c:	0802d91c 	.word	0x0802d91c
+ 802bb24:	0802d940 	.word	0x0802d940
+ 802bb28:	0802d960 	.word	0x0802d960
+ 802bb2c:	0802d920 	.word	0x0802d920
 
 0802bb30 <__swsetup_r>:
  802bb30:	4b32      	ldr	r3, [pc, #200]	; (802bbfc <__swsetup_r+0xcc>)
@@ -28738,9 +28743,9 @@ __weak void HAL_TIMEx_BreakCallback(TIM_HandleTypeDef *htim)
  802bbf8:	e7f7      	b.n	802bbea <__swsetup_r+0xba>
  802bbfa:	bf00      	nop
  802bbfc:	20000020 	.word	0x20000020
- 802bc00:	0802d93c 	.word	0x0802d93c
- 802bc04:	0802d95c 	.word	0x0802d95c
- 802bc08:	0802d91c 	.word	0x0802d91c
+ 802bc00:	0802d940 	.word	0x0802d940
+ 802bc04:	0802d960 	.word	0x0802d960
+ 802bc08:	0802d920 	.word	0x0802d920
 
 0802bc0c <quorem>:
  802bc0c:	e92d 4ff7 	stmdb	sp!, {r0, r1, r2, r4, r5, r6, r7, r8, r9, sl, fp, lr}
@@ -29144,11 +29149,11 @@ __weak void HAL_TIMEx_BreakCallback(TIM_HandleTypeDef *htim)
  802c040:	509f79fb 	.word	0x509f79fb
  802c044:	3fd34413 	.word	0x3fd34413
  802c048:	7ff00000 	.word	0x7ff00000
- 802c04c:	0802d8e9 	.word	0x0802d8e9
+ 802c04c:	0802d8ed 	.word	0x0802d8ed
  802c050:	3ff80000 	.word	0x3ff80000
  802c054:	0802d9a8 	.word	0x0802d9a8
  802c058:	0802d980 	.word	0x0802d980
- 802c05c:	0802d915 	.word	0x0802d915
+ 802c05c:	0802d919 	.word	0x0802d919
  802c060:	07f1      	lsls	r1, r6, #31
  802c062:	d508      	bpl.n	802c076 <_dtoa_r+0x34e>
  802c064:	e9dd 0108 	ldrd	r0, r1, [sp, #32]
@@ -29950,8 +29955,8 @@ __weak void HAL_TIMEx_BreakCallback(TIM_HandleTypeDef *htim)
  802c888:	f000 fa45 	bl	802cd16 <__multadd>
  802c88c:	9004      	str	r0, [sp, #16]
  802c88e:	e7ea      	b.n	802c866 <_dtoa_r+0xb3e>
- 802c890:	0802d8e8 	.word	0x0802d8e8
- 802c894:	0802d90c 	.word	0x0802d90c
+ 802c890:	0802d8ec 	.word	0x0802d8ec
+ 802c894:	0802d910 	.word	0x0802d910
 
 0802c898 <__sflush_r>:
  802c898:	898a      	ldrh	r2, [r1, #12]
@@ -30110,9 +30115,9 @@ __weak void HAL_TIMEx_BreakCallback(TIM_HandleTypeDef *htim)
  802c9e6:	2000      	movs	r0, #0
  802c9e8:	bd38      	pop	{r3, r4, r5, pc}
  802c9ea:	bf00      	nop
- 802c9ec:	0802d93c 	.word	0x0802d93c
- 802c9f0:	0802d95c 	.word	0x0802d95c
- 802c9f4:	0802d91c 	.word	0x0802d91c
+ 802c9ec:	0802d940 	.word	0x0802d940
+ 802c9f0:	0802d960 	.word	0x0802d960
+ 802c9f4:	0802d920 	.word	0x0802d920
 
 0802c9f8 <std>:
  802c9f8:	2300      	movs	r3, #0
@@ -30208,7 +30213,7 @@ __weak void HAL_TIMEx_BreakCallback(TIM_HandleTypeDef *htim)
  802caca:	2301      	movs	r3, #1
  802cacc:	61a3      	str	r3, [r4, #24]
  802cace:	bd10      	pop	{r4, pc}
- 802cad0:	0802d8d4 	.word	0x0802d8d4
+ 802cad0:	0802d8d8 	.word	0x0802d8d8
  802cad4:	0802ca41 	.word	0x0802ca41
 
 0802cad8 <__sfp>:
@@ -30257,7 +30262,7 @@ __weak void HAL_TIMEx_BreakCallback(TIM_HandleTypeDef *htim)
  802cb40:	e9c4 5512 	strd	r5, r5, [r4, #72]	; 0x48
  802cb44:	e7e9      	b.n	802cb1a <__sfp+0x42>
  802cb46:	bf00      	nop
- 802cb48:	0802d8d4 	.word	0x0802d8d4
+ 802cb48:	0802d8d8 	.word	0x0802d8d8
  802cb4c:	ffff0001 	.word	0xffff0001
 
 0802cb50 <_fwalk_reent>:
@@ -31411,10 +31416,10 @@ __weak void HAL_TIMEx_BreakCallback(TIM_HandleTypeDef *htim)
  802d5fc:	f7fe f8b8 	bl	802b770 <_printf_i>
  802d600:	e7ec      	b.n	802d5dc <_vfiprintf_r+0x1e4>
  802d602:	bf00      	nop
- 802d604:	0802d93c 	.word	0x0802d93c
+ 802d604:	0802d940 	.word	0x0802d940
  802d608:	0802da7c 	.word	0x0802da7c
- 802d60c:	0802d95c 	.word	0x0802d95c
- 802d610:	0802d91c 	.word	0x0802d91c
+ 802d60c:	0802d960 	.word	0x0802d960
+ 802d610:	0802d920 	.word	0x0802d920
  802d614:	0802da82 	.word	0x0802da82
  802d618:	0802da86 	.word	0x0802da86
  802d61c:	0802b205 	.word	0x0802b205

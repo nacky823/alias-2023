@@ -20,7 +20,7 @@ void Print::Log()
     //int aaa = 33;
     //g_swo_test = 55;
 
-    //printf("<<< Distance Log >>>\n");
+    printf("<<< Distance Log >>>\n");
     //printf("test%dhoge\n", aaa);
     //printf("test%fhoge\n", g_swo_test);
     //printf("<<< Distance Log 2 >>>\n");
@@ -28,10 +28,10 @@ void Print::Log()
     //if(TestFlashWrite()) printf("write_success\n");
     //else printf("write_false\n");
 
-    //DistanceLog();
+    DistanceLog();
     //Blank();
-    printf("<<< Radian Log >>>\n");
-    RadianLog();
+    //printf("<<< Radian Log >>>\n");
+    //RadianLog();
     //Blank();
 }
 

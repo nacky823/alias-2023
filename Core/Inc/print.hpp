@@ -17,10 +17,7 @@ private:
 
     Flash *flash_;
 
-public:
-    Print(Flash *);
     void HelloWorld();
-    void Log();
     bool TestFlashWrite();
     bool TestIntFlash();
     void DistanceLog();
@@ -28,6 +25,10 @@ public:
     void VariousLog();
     void AccelPointLog();
     void Blank();
+
+public:
+    Print(Flash *);
+    void Log();
 
 };
 

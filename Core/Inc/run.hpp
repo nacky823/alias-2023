@@ -9,7 +9,6 @@
 #include "line_sensor.hpp"
 #include "line_trace.hpp"
 #include "logger.hpp"
-#include "logger2.hpp"
 #include "motor.hpp"
 #include "print.hpp"
 #include "rotary_switch.hpp"
@@ -89,7 +88,6 @@ private:
     LineSensor *line_sensor_;
     LineTrace *line_trace_;
     Logger *logger_;
-    Logger2 *logger2_;
     Motor *motor_;
     Print *print_;
     RotarySwitch *rotary_switch_;
@@ -104,7 +102,6 @@ public:
         LineSensor *,
         LineTrace *,
         Logger *,
-        Logger2 *,
         Motor *,
         Print *,
         RotarySwitch *,

@@ -26,7 +26,7 @@
 #define HEAD_ADDRESS_BLOCK_C SECTOR_4_ADDRESS_HEAD
 #define HEAD_ADDRESS_BLOCK_D SECTOR_1_ADDRESS_HEAD
 
-class Logger2
+class Logger
 {
 private:
     bool emergency_stop_flag_;

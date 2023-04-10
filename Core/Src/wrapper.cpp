@@ -23,7 +23,7 @@ Run run(
     &led,
     &line_sensor,
     &line_trace,
-    &logger2,
+    &logger,
     &motor,
     &print,
     &rotary_switch,

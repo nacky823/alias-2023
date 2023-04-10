@@ -2,7 +2,7 @@
 #include "declare_extern.h"
 #include <math.h>
 
-Logger2::Logger2(Encoder *encoder,
+Logger::Logger(Encoder *encoder,
                  Flash *flash,
                  Led *led,
                  Iim42652 *iim_42652,
@@ -22,7 +22,7 @@ Logger2::Logger2(Encoder *encoder,
     side_sensor_ = side_sensor;
 }
 
-void Logger2::Logging()
+void Logger::Logging()
 {
     float distance = encoder_->GetDistanceStack();
     if(distance < LOGGING_CONST_DISTANCE) return;
@@ -53,13 +53,13 @@ void Logger2::Logging()
     logging_now_address_++;
 }
 
-bool Logger2::AssertNowaddress(uint16_t now_address)
+bool Logger::AssertNowaddress(uint16_t now_address)
 {
     if(now_address == logging_now_address_) return true;
     else return false;
 }
 
-uint8_t Logger2::StoreDistanceLog(float distance)
+uint8_t Logger::StoreDistanceLog(float distance)
 {
     uint32_t address = logging_now_address_ * 4 + HEAD_ADDRESS_BLOCK_A;
     uint8_t result = 0;
@@ -72,7 +72,7 @@ uint8_t Logger2::StoreDistanceLog(float distance)
     return result;
 }
 
-uint8_t Logger2::StoreRadianLog()
+uint8_t Logger::StoreRadianLog()
 {
     uint32_t address = logging_now_address_ * 4 + HEAD_ADDRESS_BLOCK_B;
     uint8_t result = 0;
@@ -96,7 +96,7 @@ uint8_t Logger2::StoreRadianLog()
     return result;
 }
 
-uint8_t Logger2::StoreRadianCorrect()
+uint8_t Logger::StoreRadianCorrect()
 {
     uint32_t address = logging_now_address_ * 4 + HEAD_ADDRESS_BLOCK_B;
     uint8_t result = 0;
@@ -113,7 +113,7 @@ uint8_t Logger2::StoreRadianCorrect()
     return result;
 }
 
-uint8_t Logger2::StoreVariousLog()
+uint8_t Logger::StoreVariousLog()
 {
     uint32_t address = logging_now_address_ * 2 + HEAD_ADDRESS_BLOCK_C;
     uint8_t result = 0;
@@ -142,7 +142,7 @@ uint8_t Logger2::StoreVariousLog()
     return result;
 }
 
-void Logger2::DistanceCorrection(float distance)
+void Logger::DistanceCorrection(float distance)
 {
     uncorrected_address_buff_ = logging_now_address_;
 
@@ -167,7 +167,7 @@ void Logger2::DistanceCorrection(float distance)
     }
 }
 
-void Logger2::CheckLoggingSuccess(uint32_t address, uint8_t data)
+void Logger::CheckLoggingSuccess(uint32_t address, uint8_t data)
 {
     if(data != 0)
     {
@@ -180,27 +180,27 @@ void Logger2::CheckLoggingSuccess(uint32_t address, uint8_t data)
     }
 }
 
-void Logger2::SetEmergencyStopFlag(bool boolean)
+void Logger::SetEmergencyStopFlag(bool boolean)
 {
     emergency_stop_flag_ = boolean;
 }
 
-bool Logger2::GetEmergencyStopFlag()
+bool Logger::GetEmergencyStopFlag()
 {
     return emergency_stop_flag_;
 }
 
-void Logger2::SetSuccessEmergencyCodeStore(bool boolean)
+void Logger::SetSuccessEmergencyCodeStore(bool boolean)
 {
     success_emergency_code_store_ = boolean;
 }
 
-bool Logger2::GetSuccessEmergencyCodeStore()
+bool Logger::GetSuccessEmergencyCodeStore()
 {
     return success_emergency_code_store_;
 }
 
-void Logger2::LoggingAccelPosition()
+void Logger::LoggingAccelPosition()
 {
     static uint16_t accel_straight_count = 0;
     static uint8_t accel_step = 0;
@@ -250,7 +250,7 @@ void Logger2::LoggingAccelPosition()
     else accel_straight_count = 0;
 }
 
-uint8_t Logger2::StoreAccelPosition(uint32_t address, uint8_t data)
+uint8_t Logger::StoreAccelPosition(uint32_t address, uint8_t data)
 {
     address += HEAD_ADDRESS_BLOCK_D;
 
@@ -260,7 +260,7 @@ uint8_t Logger2::StoreAccelPosition(uint32_t address, uint8_t data)
     return 0;
 }
 
-void Logger2::Loading()
+void Logger::Loading()
 {
     // serial printf sekiruyouni
 
@@ -324,7 +324,7 @@ void Logger2::Loading()
     loading_now_address_++;
 }
 
-void Logger2::AccelStraight()
+void Logger::AccelStraight()
 {
     static uint16_t now_address = 0;
     now_address = loading_now_address_ + HEAD_ADDRESS_BLOCK_D;
@@ -372,17 +372,17 @@ void Logger2::AccelStraight()
     pre_target = target;
 }
 
-float Logger2::GetTargetVelocity()
+float Logger::GetTargetVelocity()
 {
     return target_velocity_;
 }
 
-void Logger2::ResetLoadingNowAddress()
+void Logger::ResetLoadingNowAddress()
 {
     loading_now_address_ = 0;
 }
 
-void Logger2::ResetLoggingNowAddress()
+void Logger::ResetLoggingNowAddress()
 {
     logging_now_address_ = 0;
 }

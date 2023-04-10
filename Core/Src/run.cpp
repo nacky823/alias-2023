@@ -434,8 +434,8 @@ void Run::ModeFirstRun()
     if(EmergencyStop()) return;
     /* Logging */
     uint8_t goal_count = side_sensor_->GetGoalMarkerCount();
-    if(goal_count == 1) logger_->Logging(mode_complete_);
-    mode_complete_ = false;
+    //if(goal_count == 1) logger_->Logging(mode_complete_);
+    //mode_complete_ = false;
     //uint8_t period_success = logger_->StorePeriodicLog();
     //uint8_t accel_success = logger_->StoreAccelPositionLog();
     //if(period_success != 0 || !accel_success != 0) store_log_failed_ = true;

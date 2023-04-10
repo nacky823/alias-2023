@@ -8,12 +8,11 @@ Iim42652 iim_42652;
 Led led;
 LineSensor line_sensor;
 LineTrace line_trace(&line_sensor);
-Logger logger;
 Motor motor;
 Print print(&flash);
 RotarySwitch rotary_switch;
 SideSensor side_sensor;
-Logger2 logger2(&encoder, &flash, &led, &iim_42652, &side_sensor);
+Logger logger(&encoder, &flash, &led, &iim_42652, &side_sensor);
 VelocityControl velocity_control(&encoder);
 
 #ifndef TEST_MODE
@@ -24,7 +23,6 @@ Run run(
     &led,
     &line_sensor,
     &line_trace,
-    &logger,
     &logger2,
     &motor,
     &print,

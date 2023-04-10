@@ -8,7 +8,6 @@ Run::Run(Encoder *encoder,
          LineSensor *line_sensor,
          LineTrace *line_trace,
          Logger *logger,
-         Logger2 *logger2,
          Motor *motor,
          Print *print,
          RotarySwitch *rotary_switch,
@@ -29,7 +28,6 @@ Run::Run(Encoder *encoder,
     line_sensor_      = line_sensor;
     line_trace_       = line_trace;
     logger_           = logger;
-    logger2_          = logger2;
     motor_            = motor;
     print_            = print;
     rotary_switch_    = rotary_switch;
@@ -245,7 +243,7 @@ void Run::ModeEmergency()
 {
     motor_->Drive(0, 0);
 
-    bool result = logger2_->GetSuccessEmergencyCodeStore();
+    bool result = logger_->GetSuccessEmergencyCodeStore();
     if(result) led_->ColorOrder('R');
     else led_->ColorOrder('G');
 }
@@ -286,7 +284,7 @@ void Run::ModeDevelopment()
     line_sensor_->Update();
     side_sensor_->Update();
     iim_42652_->Update();
-    logger2_->Logging();
+    logger_->Logging();
     /* Emergency stop */
     if(DevEmergencyStop()) return;
     /* Motor control */
@@ -304,7 +302,7 @@ void Run::ModeDevAccel()
     encoder_->Update();
     line_sensor_->Update();
     side_sensor_->Update();
-    logger2_->Loading();
+    logger_->Loading();
     /* Motor control */
     uint8_t goal_count = side_sensor_->GetGoalMarkerCount();
     float target_velocity = DevAccelTarget(goal_count);
@@ -319,7 +317,7 @@ bool Run::DevEmergencyStop()
 {
     static uint8_t emergency_timer = 0;
     bool line_emergency = line_sensor_->GetEmergencyStopFlag();
-    bool logging_emergency = logger2_->GetEmergencyStopFlag();
+    bool logging_emergency = logger_->GetEmergencyStopFlag();
 
     if(logging_emergency)
     {
@@ -390,7 +388,7 @@ float Run::DevAccelTarget(uint8_t goal_count)
     {
         case 0: target_velocity = MIN_VELOCITY; break;
         case 1:
-            target_velocity = logger2_->GetTargetVelocity();
+            target_velocity = logger_->GetTargetVelocity();
             break;
         default:
 

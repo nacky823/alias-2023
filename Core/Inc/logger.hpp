@@ -44,7 +44,7 @@ private:
     SideSensor *side_sensor_;
 
 public:
-    Logger2(Encoder *,
+    Logger(Encoder *,
             Flash *,
             Led *,
             Iim42652 *,

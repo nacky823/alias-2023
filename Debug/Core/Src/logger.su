@@ -1,0 +1,21 @@
+cmath:241:3:constexpr float std::fabs(float)	16	static
+logger.cpp:5:1:Logger::Logger(Encoder*, Flash*, Led*, Iim42652*, SideSensor*)	24	static
+logger.cpp:25:6:void Logger::Logging()	24	static
+logger.cpp:56:6:bool Logger::AssertNowaddress(uint16_t)	16	static
+logger.cpp:62:9:uint8_t Logger::StoreDistanceLog(float)	32	static
+logger.cpp:75:9:uint8_t Logger::StoreRadianLog()	48	static
+logger.cpp:99:9:uint8_t Logger::StoreRadianCorrect()	32	static
+logger.cpp:116:9:uint8_t Logger::StoreVariousLog()	32	static
+logger.cpp:145:6:void Logger::DistanceCorrection(float)	32	static
+logger.cpp:170:6:void Logger::CheckLoggingSuccess(uint32_t, uint8_t)	24	static
+logger.cpp:183:6:void Logger::SetEmergencyStopFlag(bool)	16	static
+logger.cpp:188:6:bool Logger::GetEmergencyStopFlag()	16	static
+logger.cpp:193:6:void Logger::SetSuccessEmergencyCodeStore(bool)	16	static
+logger.cpp:198:6:bool Logger::GetSuccessEmergencyCodeStore()	16	static
+logger.cpp:203:6:void Logger::LoggingAccelPosition()	40	static
+logger.cpp:253:9:uint8_t Logger::StoreAccelPosition(uint32_t, uint8_t)	24	static
+logger.cpp:263:6:void Logger::Loading()	24	static
+logger.cpp:327:6:void Logger::AccelStraight()	24	static
+logger.cpp:375:7:float Logger::GetTargetVelocity()	16	static
+logger.cpp:380:6:void Logger::ResetLoadingNowAddress()	16	static
+logger.cpp:385:6:void Logger::ResetLoggingNowAddress()	16	static

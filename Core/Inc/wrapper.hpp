@@ -7,6 +7,7 @@ extern "C" {
 
 #include "stm32f4xx_hal.h"
 #include "declare_extern.h"
+#include "swo_setting.h"
 
 void Init();
 void InterruptTim7();

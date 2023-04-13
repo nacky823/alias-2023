@@ -23,7 +23,6 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "wrapper.hpp"
-#include "swo_setting.h"
 
 /* USER CODE END Includes */
 

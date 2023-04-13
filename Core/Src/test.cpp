@@ -43,11 +43,6 @@ void Test::Init()
     else led_->Blink(3, 'B', 'X');
 }
 
-void Test::Loop()
-{
-    //printf("Hello,World!!\r\n");
-}
-
 void Test::Timer7()
 {
     line_sensor_->StoreConsecutiveBuff();

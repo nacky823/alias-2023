@@ -14,10 +14,6 @@ void InterruptTim7();
 void InterruptTim6();
 void InterruptTim2();
 
-#ifdef TEST_MODE
-void Loop();
-#endif // TEST_MODE
-
 #ifdef __cplusplus
 }
 #endif // __cplusplus

@@ -46,7 +46,6 @@ public:
          SideSensor *,
          VelocityControl *);
     void Init();
-    void Loop();
     void Timer7();
     void Timer6();
     void TestImu();

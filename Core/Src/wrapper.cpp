@@ -12,8 +12,8 @@ Motor motor;
 Print print(&flash);
 RotarySwitch rotary_switch;
 SideSensor side_sensor;
-Logger logger(&encoder, &flash, &led, &iim_42652, &side_sensor);
 VelocityControl velocity_control(&encoder);
+Logger logger(&encoder, &flash, &led, &iim_42652, &side_sensor);
 
 #ifndef TEST_MODE
 Run run(
@@ -89,10 +89,3 @@ void InterruptTim2()
     g_tim2++;
 #endif // DEBUG_MODE
 }
-
-#ifdef TEST_MODE
-void Loop()
-{
-    test.Loop();
-}
-#endif // TEST_MODE

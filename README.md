@@ -1,5 +1,24 @@
 # Alias-2023
 
+## 走行モード
+
++ 0x02 : LINE_TRACE
++ 0x01 : VELOCITY_CONTROL
++ 0x00 : ---
++ 0x0F : --- (clear_sector)
++ 0x0E : READY
++ 0x0D : --- (clear_sector & write_sector)
++ 0x0C : FIRST_RUN
++ 0x0B : --- (monitor_flash)
++ 0x0A : SECOND_RUN
++ 0x09 : ---
++ 0x08 : THIRD_RUN
++ 0x07 : ---
++ 0x06 : FOURTH_RUN
++ 0x05 : ---
++ 0x04 : FIFTH_RUN
++ 0x03 :
+
 ## 走行マニュアル
 
 ### 探索走行

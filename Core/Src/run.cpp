@@ -118,13 +118,15 @@ void Run::UpdateRunMode(uint8_t switch_state)
         case 0x0B: SetRunMode(LOG); break;
 #endif // DEBUG_MODE
 
-        case 0x0C: SetRunMode(DEV_ACCEL); break;
+        case 0x02: SetRunMode(LINE_TRACE); break;
+        case 0x01: SetRunMode(VELOCITY_CONTROL); break;
+        case 0x00: SetRunMode(STANDBY); break;
+        case 0x0E: SetRunMode(READY); break;
         case 0x0D: SetRunMode(DEV); break;
-        case 0x0F: SetRunMode(READY); break;
-        case 0x01: SetRunMode(FIRST_RUN); break;
-        case 0x02: SetRunMode(SECOND_RUN); break;
-        case 0x07: SetRunMode(VELOCITY_CONTROL); break;
-        case 0x08: SetRunMode(LINE_TRACE); break;
+        case 0x0B: SetRunMode(DEV_ACCEL); break;
+        case 0x09: SetRunMode(); break;
+        case 0x07: SetRunMode(); break;
+        case 0x05: SetRunMode(); break;
         default:   SetRunMode(STANDBY); break;
     }
 }

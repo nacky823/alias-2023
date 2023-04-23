@@ -1,8 +1,6 @@
 #include "iim_42652.hpp"
 #include "declare_extern.h"
 
-Iim42652::Iim42652() : degree_stack_z_(0) {}
-
 uint8_t Iim42652::Init()
 {
     /* bank_select */
@@ -114,30 +112,6 @@ int16_t Iim42652::Read2Byte(uint8_t upper_address, uint8_t lower_address, char i
     lower_receive = static_cast<int16_t>(Read(lower_address, imu_ic_lr));
 
     return (upper_receive << 8) | lower_receive;
-}
-
-void Iim42652::Update()
-{
-    int16_t raw_z_l = Read2Byte(GYRO_DATA_Z1_ADD, GYRO_DATA_Z0_ADD, 'L');
-    int16_t raw_z_r = Read2Byte(GYRO_DATA_Z1_ADD, GYRO_DATA_Z0_ADD, 'R');
-    double avg_raw_z = static_cast<double>(raw_z_l + raw_z_r) / 2.0;
-    double degree_z = avg_raw_z * NORMAL_FUCOR_DPS * TIM6_PERIOD;
-
-    degree_stack_z_ += degree_z;
-
-#ifdef DEBUG_MODE
-    g_deg_z = static_cast<float>(degree_stack_z_);
-#endif // DEBUG_MODE
-}
-
-void Iim42652::ResetDegreeStackZ()
-{
-    degree_stack_z_ = 0.0;
-}
-
-double Iim42652::GetDegreeStackZ()
-{
-    return degree_stack_z_;
 }
 
 int16_t Iim42652::GyroXLeft()

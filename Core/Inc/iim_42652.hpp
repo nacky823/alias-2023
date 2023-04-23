@@ -179,20 +179,13 @@
 
 class Iim42652
 {
-private:
-    double degree_stack_z_;
-
 public:
-    Iim42652();
     uint8_t Init();
     uint8_t Read(uint8_t, char);
     void Write(uint8_t, uint8_t, char);
     bool CheckRead(uint8_t, uint8_t, char);
     bool CheckWrite(uint8_t, uint8_t, char);
     int16_t Read2Byte(uint8_t, uint8_t, char);
-    void Update();
-    void ResetDegreeStackZ();
-    double GetDegreeStackZ();
     int16_t GyroXLeft();
     int16_t GyroXRight();
     int16_t GyroYLeft();

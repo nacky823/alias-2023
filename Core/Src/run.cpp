@@ -4,6 +4,7 @@
 Run::Run(Encoder *encoder,
          Flash *flash,
          Iim42652 *iim_42652,
+         Imu *imu,
          Led *led,
          LineSensor *line_sensor,
          LineTrace *line_trace,
@@ -24,6 +25,7 @@ Run::Run(Encoder *encoder,
     encoder_          = encoder;
     flash_            = flash;
     iim_42652_        = iim_42652;
+    imu_              = imu;
     led_              = led;
     line_sensor_      = line_sensor;
     line_trace_       = line_trace;
@@ -285,7 +287,7 @@ void Run::ModeDevelopment()
     encoder_->Update();
     line_sensor_->Update();
     side_sensor_->Update();
-    iim_42652_->Update();
+    imu_->Update();
     logger_->Logging();
     /* Emergency stop */
     if(DevEmergencyStop()) return;
@@ -430,7 +432,7 @@ void Run::ModeFirstRun()
     /* Sensor update */
     line_sensor_->Update();
     encoder_->Update();
-    iim_42652_->Update();
+    imu_->Update();
     side_sensor_->Update();
     /* Emergency stop */
     if(EmergencyStop()) return;
@@ -460,7 +462,7 @@ void Run::ModeSecondRun()
     /* Sensor update */
     line_sensor_->Update();
     encoder_->Update();
-    iim_42652_->Update();
+    imu_->Update();
     side_sensor_->Update();
     /* Emergency stop */
     if(EmergencyStop()) return;
@@ -728,7 +730,7 @@ void Run::InitialTest()
     g_cross_cnt = side_sensor_->GetCrossLineCount();
 
     /* IMU */
-    iim_42652_->Update();
+    imu_->Update();
     g_deg_stack_z = iim_42652_->GetDegreeStackZ();
     g_gyro_x_l = iim_42652_->GyroXLeft();
     g_gyro_x_r = iim_42652_->GyroXRight();

@@ -17,21 +17,27 @@
 #include "velocity_control.hpp"
 
 /* run_mode_ */
-#define LOG              0x0C
-#define DEV              0x0D
-#define DEV_ACCEL        0xDD
-#define DEV_GOAL         0xD0
-#define EMERGENCY        0x0E
-#define READY            0x0F
+#define LINE_TRACE_DEBUG       0x02
+#define VELOCITY_CONTROL_DEBUG 0x01
+#define LINE_TRACE       0x02
+#define VELOCITY_CONTROL 0x01
+
 #define STANDBY          0x00
-#define FIRST_RUN        0x01
-#define FIRST_GOAL       0x10
-#define SECOND_RUN       0x02
-#define SECOND_GOAL      0x20
-#define VELOCITY_CONTROL 0x07
-#define LINE_TRACE       0x08
-#define VELOCITY_CONTROL_DEBUG 0x0B
-//#define LINE_TRACE_DEBUG       0x0C
+#define READY            0x0E
+#define DEV              0x0C
+#define DEV_ACCEL        0x0A
+#define THIRD_RUN        0x08
+#define FORTH_RUN        0x06
+#define FIFTH_RUN        0x04
+
+#define DEV_GOAL         0xCA
+#define EMERGENCY        0xEE
+
+#define FIRST_RUN        0x1F
+#define FIRST_GOAL       0xF1
+#define SECOND_RUN       0x2F
+#define SECOND_GOAL      0xF2
+
 
 #define SWITCH_INTERVAL_WAIT_TIME 200
 

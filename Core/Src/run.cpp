@@ -220,14 +220,16 @@ void Run::RunMode()
     switch(run_mode_)
     {
 #ifdef DEBUG_MODE
+        case LINE_TRACE_DEBUG: ModeLineTraceDebug(); break;
         case VELOCITY_CONTROL_DEBUG: ModeVelocityControlDebug(); break;
-        //case LINE_TRACE_DEBUG: ModeLineTraceDebug(); break;
-        //case LOG: ModeLog(); break;
+#else // DEBUG_MODE
+        case LINE_TRACE: ModeLineTrace(); break;
+        case VELOCITY_CONTROL: ModeVelocityControl(); break;
 #endif // DEBUG_MODE
 
         case EMERGENCY: ModeEmergency(); break;
-        case READY: ModeReady(); break;
         case STANDBY: ModeStandby(); break;
+        case READY: ModeReady(); break;
         case DEV: ModeDevelopment(); break;
         case DEV_ACCEL: ModeDevAccel(); break;
         case DEV_GOAL: ModeDevGoal(); break;
@@ -235,8 +237,6 @@ void Run::RunMode()
         case FIRST_GOAL: ModeFirstGoal(); break;
         case SECOND_RUN: ModeSecondRun(); break;
         case SECOND_GOAL: ModeSecondGoal(); break;
-        case VELOCITY_CONTROL: ModeVelocityControl(); break;
-        case LINE_TRACE: ModeLineTrace(); break;
         default: ModeStandby(); break;
     }
 

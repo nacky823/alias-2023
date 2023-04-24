@@ -5,6 +5,7 @@
 #include "encoder.hpp"
 #include "flash.hpp"
 #include "iim_42652.hpp"
+#include "imu.hpp"
 #include "led.hpp"
 #include "line_sensor.hpp"
 #include "line_trace.hpp"
@@ -84,6 +85,7 @@ private:
     Encoder *encoder_;
     Flash *flash_;
     Iim42652 *iim_42652_;
+    Imu *imu_;
     Led *led_;
     LineSensor *line_sensor_;
     LineTrace *line_trace_;
@@ -98,6 +100,7 @@ public:
     Run(Encoder *,
         Flash *,
         Iim42652 *,
+        Imu *,
         Led *,
         LineSensor *,
         LineTrace *,

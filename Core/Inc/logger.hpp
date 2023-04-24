@@ -4,7 +4,7 @@
 #include "macro.h"
 #include "encoder.hpp"
 #include "flash.hpp"
-#include "iim_42652.hpp"
+#include "imu.hpp"
 #include "side_sensor.hpp"
 #include "led.hpp"
 
@@ -40,14 +40,14 @@ private:
     Encoder *encoder_;
     Flash *flash_;
     Led *led_;
-    Iim42652 *iim_42652_;
+    Imu *imu_;
     SideSensor *side_sensor_;
 
 public:
     Logger(Encoder *,
             Flash *,
             Led *,
-            Iim42652 *,
+            Imu *,
             SideSensor *);
     void Logging();
     bool AssertNowaddress(uint16_t);

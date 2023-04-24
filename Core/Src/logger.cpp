@@ -5,7 +5,7 @@
 Logger::Logger(Encoder *encoder,
                  Flash *flash,
                  Led *led,
-                 Iim42652 *iim_42652,
+                 Imu *imu_,
                  SideSensor *side_sensor
                  ) : emergency_stop_flag_(false)
                    , success_emergency_code_store_(false)
@@ -18,7 +18,7 @@ Logger::Logger(Encoder *encoder,
     encoder_ = encoder;
     flash_ = flash;
     led_ = led;
-    iim_42652_ = iim_42652;
+    imu_ = imu;
     side_sensor_ = side_sensor;
 }
 
@@ -77,18 +77,15 @@ uint8_t Logger::StoreRadianLog()
     uint32_t address = logging_now_address_ * 4 + HEAD_ADDRESS_BLOCK_B;
     uint8_t result = 0;
 
-    double degree = iim_42652_->GetDegreeStackZ();
-    float radian = static_cast<float>(degree * M_PI / 180.0);
-    iim_42652_->ResetDegreeStackZ();
+    float radian = imu_->GetRadStackZ();
+    imu_->ClearRadStackZ();
     logging_radian_buff_ = radian;
-
 
 #ifdef DEBUG_MODE
     g_radian = radian;
 #endif // DEBUG_MODE
 
     int32_t int_radian = logging_radian_buff_ * 100000;
-    //int32_t int_radian = 33 * 100000;
 
     if(!flash_->CheckBlankWord(address, 1)) result = 0x02;
     else if(!flash_->StoreInt32(address, &int_radian, 1)) result = 0x03;

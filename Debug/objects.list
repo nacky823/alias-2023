@@ -1,6 +1,7 @@
 "Core/Src/encoder.o"
 "Core/Src/flash.o"
 "Core/Src/iim_42652.o"
+"Core/Src/imu.o"
 "Core/Src/led.o"
 "Core/Src/line_sensor.o"
 "Core/Src/line_trace.o"

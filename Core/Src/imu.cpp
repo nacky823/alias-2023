@@ -1,6 +1,8 @@
 #include "imu.hpp"
 
-Imu::Imu(Iim42652 *iim_42652) : rad_z_(0), rad_stack_z_(0)
+Imu::Imu(Iim42652 *iim_42652) : rad_z_(0)
+                              , rad_stack_z_(0)
+                              , clear_integral_error_(0)
 {
     iim_42652_ = iim_42652;
 }

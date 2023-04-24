@@ -116,6 +116,7 @@ void Run::UpdateRunMode(uint8_t switch_state)
     switch(switch_state)
     {
 #ifdef DEBUG_MODE
+        case 0x03: SetRunMode(GYRO_TEST); break;
         case 0x02: SetRunMode(LINE_TRACE_DEBUG); break;
         case 0x01: SetRunMode(VELOCITY_CONTROL_DEBUG); break;
 #else // DEBUG_MODE
@@ -178,6 +179,7 @@ bool Run::SwitchChangeInterval(uint8_t switch_state)
             case 0x02: led_enable = led_->BlinkInterrupt(3, 'M', 'X'); break;
             case 0x07: led_enable = led_->BlinkInterrupt(3, 'G', 'B'); break;
             case 0x08: led_enable = led_->BlinkInterrupt(3, 'G', 'Y'); break;
+            case 0x03: led_enable = led_->BlinkInterrupt(3, 'G', 'B'); break;
             default:   led_enable = led_->BlinkInterrupt(3, 'X', 'W'); break;
         }
     }
@@ -237,6 +239,7 @@ void Run::RunMode()
         case FIRST_GOAL: ModeFirstGoal(); break;
         case SECOND_RUN: ModeSecondRun(); break;
         case SECOND_GOAL: ModeSecondGoal(); break;
+        case GYRO_TEST: ModeGyroTest(); break;
         default: ModeStandby(); break;
     }
 
@@ -280,6 +283,14 @@ void Run::ModeDevelopment()
     motor_->Drive(trans_ratio, rotat_ratio);
 }
 */
+
+void Run::ModeGyroTest()
+{
+    imu_->Update();
+    float imu_rad_z = imu_->GetRadZ();
+    float imu_ratio = imu_->PidControl(imu_rad_z);
+    motor_->Drive(0, imu_ratio);
+}
 
 void Run::ModeDevelopment()
 {

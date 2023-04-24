@@ -39,6 +39,11 @@ float Imu::GetRadStackZ()
     return rad_stack_z_;
 }
 
+float Imu::GetRadZ()
+{
+    return rad_z_;
+}
+
 float Imu::PidControl(float error)
 {
     static float pre_error = error;

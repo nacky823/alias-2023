@@ -119,6 +119,7 @@ extern int16_t g_accel_z_l, g_accel_z_r;
 
 extern float g_rad_z;
 extern float g_rad_stack_z;
+extern float g_run_pid_ratio;
 
 /* Encoder */
 extern int16_t g_enc_cnt_l, g_enc_cnt_r;

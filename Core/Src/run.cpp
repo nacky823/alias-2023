@@ -289,6 +289,7 @@ void Run::ModeGyroTest()
     imu_->Update();
     float imu_rad_z = imu_->GetRadZ();
     float imu_ratio = imu_->PidControl(imu_rad_z);
+    g_run_pid_ratio = imu_ratio;
     motor_->Drive(0, imu_ratio);
 }
 

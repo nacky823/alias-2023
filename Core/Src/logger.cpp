@@ -53,6 +53,25 @@ void Logger::Logging()
     logging_now_address_++;
 }
 
+#ifdef DEBUG_MODE
+void Logger::Ramming()
+{
+    float distance = encoder_->GetDistanceStack();
+    if(distance < LOGGING_CONST_DISTANCE) return;
+    encoder_->ResetDistanceStack();
+
+    static uint16_t index = 0;
+    
+    g_ram_distance[index] = distance;
+
+    float radian = imu_->GetRadStackZ();
+    imu_->ClearRadStackZ();
+    g_ram_radian[index] = radian;
+
+    index++;
+}
+#endif // DEBUG_MODE
+
 bool Logger::AssertNowaddress(uint16_t now_address)
 {
     if(now_address == logging_now_address_) return true;

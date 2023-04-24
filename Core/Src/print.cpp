@@ -124,3 +124,11 @@ void Print::AccelPointLog()
 {
 
 }
+
+#ifdef DEBUG_MODE
+void Print::RamLog()
+{
+    for()
+
+}
+#endif // DEBUG_MODE

@@ -293,6 +293,38 @@ void Run::ModeGyroTest()
     motor_->Drive(0, imu_ratio);
 }
 
+/* ram test */
+
+void Run::ModeRamDev()
+{
+    /* Sensor update */
+    encoder_->Update();
+    line_sensor_->Update();
+    side_sensor_->Update();
+    imu_->Update();
+    logger_->Ramming();
+    /* Emergency stop */
+    if(EmergencyStop()) return;
+    /* Motor control */
+    uint8_t goal_count = side_sensor_->GetGoalMarkerCount();
+    float target_velocity = DevTargetVelocity(goal_count);
+    float trans_ratio = velocity_control_->DeterminePidGain(target_velocity);
+    float rotat_ratio = line_trace_->DeterminePidGain(target_velocity);
+    motor_->Drive(trans_ratio, rotat_ratio);
+}
+
+void Run::ModeStopIntrrupt()
+{
+    HAL_TIM_Base_Stop_IT(&htim2);
+    HAL_TIM_Base_Stop_IT(&htim6);
+    HAL_TIM_Base_Stop_IT(&htim7);
+
+
+    
+}
+
+/* ram test end */
+
 void Run::ModeDevelopment()
 {
     /* Sensor update */

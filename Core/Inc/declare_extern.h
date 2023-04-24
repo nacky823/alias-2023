@@ -39,6 +39,9 @@ extern uint8_t g_store_correct;
 extern uint8_t g_store_accel;
 extern uint8_t g_store_decel;
 
+extern float g_ram_distance[3100];
+extern float g_ram_radian[3100];
+
 /*
 #ifdef DEBUG_MODE
 monitor_count++;

@@ -69,6 +69,10 @@ public:
     void ResetLoadingNowAddress();
     void ResetLoggingNowAddress();
 
+#ifdef DEBUG_MODE
+    void Ramming();
+#endif // DEBUG_MODE
+
 };
 
 #endif // LOGGER2_HPP_

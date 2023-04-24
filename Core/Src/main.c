@@ -76,6 +76,9 @@ float g_angular_velocity = 0;
 float g_distance_log[80] = {0};
 float g_angular_log[80] = {0};
 
+float g_ram_distance[3100];
+float g_ram_radian[3100];
+
 uint8_t g_run_mode_changed_internal_cnt = 0;
 
 uint8_t g_store_distance = 0;

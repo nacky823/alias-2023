@@ -3,6 +3,9 @@
 
 #include "iim_42652.hpp"
 
+#define GYRO_P_GAIN 0.0001
+#define GYRO_I_GAIN 0
+#define GYRO_D_GAIN 0
 #define RAD_LPF_RATIO  0.7
 #define CONST_RAD_CALC 0.001065 // float
 

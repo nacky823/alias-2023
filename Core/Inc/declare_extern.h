@@ -117,6 +117,9 @@ extern int16_t g_accel_x_l, g_accel_x_r;
 extern int16_t g_accel_y_l, g_accel_y_r;
 extern int16_t g_accel_z_l, g_accel_z_r;
 
+extern float g_rad_z;
+extern float g_rad_stack_z;
+
 /* Encoder */
 extern int16_t g_enc_cnt_l, g_enc_cnt_r;
 extern float g_distance_l, g_distance_r;

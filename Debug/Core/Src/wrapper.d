@@ -37,8 +37,8 @@ Core/Src/wrapper.o: ../Core/Src/wrapper.cpp ../Core/Inc/wrapper.hpp \
  ../Core/Inc/line_sensor.hpp ../Core/Inc/line_trace.hpp \
  ../Core/Inc/motor.hpp ../Core/Inc/rotary_switch.hpp \
  ../Core/Inc/side_sensor.hpp ../Core/Inc/velocity_control.hpp \
- ../Core/Inc/run.hpp ../Core/Inc/flash.hpp ../Core/Inc/logger.hpp \
- ../Core/Inc/print.hpp
+ ../Core/Inc/run.hpp ../Core/Inc/flash.hpp ../Core/Inc/imu.hpp \
+ ../Core/Inc/logger.hpp ../Core/Inc/print.hpp
 
 ../Core/Inc/wrapper.hpp:
 
@@ -137,6 +137,8 @@ Core/Src/wrapper.o: ../Core/Src/wrapper.cpp ../Core/Inc/wrapper.hpp \
 ../Core/Inc/run.hpp:
 
 ../Core/Inc/flash.hpp:
+
+../Core/Inc/imu.hpp:
 
 ../Core/Inc/logger.hpp:
 

@@ -66,6 +66,9 @@ uint16_t monitor_count;
 float g_swo_test = 0;
 float g_radian = 0;
 
+float g_rad_stack_z = 0;
+float g_rad_z = 0;
+
 uint16_t g_monitor_u16 = 0;
 float g_velocity = 0;
 float g_angular_velocity = 0;

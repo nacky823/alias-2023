@@ -5,6 +5,7 @@
 Encoder encoder;
 Flash flash;
 Iim42652 iim_42652;
+Imu imu(&iim_42652);
 Led led;
 LineSensor line_sensor;
 LineTrace line_trace(&line_sensor);
@@ -13,13 +14,14 @@ Print print(&flash);
 RotarySwitch rotary_switch;
 SideSensor side_sensor;
 VelocityControl velocity_control(&encoder);
-Logger logger(&encoder, &flash, &led, &iim_42652, &side_sensor);
+Logger logger(&encoder, &flash, &led, &imu, &side_sensor);
 
 #ifndef TEST_MODE
 Run run(
     &encoder,
     &flash,
     &iim_42652,
+    &imu,
     &led,
     &line_sensor,
     &line_trace,

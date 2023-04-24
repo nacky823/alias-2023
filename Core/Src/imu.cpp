@@ -1,4 +1,5 @@
 #include "imu.hpp"
+#include "declare_extern.h"
 
 Imu::Imu(Iim42652 *iim_42652) : rad_z_(0)
                               , rad_stack_z_(0)
@@ -42,7 +43,7 @@ float Imu::PidControl(float error)
 {
     static float pre_error = error;
     static float integral_error = 0;
-    float differential_error
+    float differential_error;
     float p, i, d;
     
     integral_error += (error + pre_error) / 2.0 * TIM6_PERIOD_S;

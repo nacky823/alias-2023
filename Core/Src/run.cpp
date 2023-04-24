@@ -731,7 +731,6 @@ void Run::InitialTest()
 
     /* IMU */
     imu_->Update();
-    g_deg_stack_z = iim_42652_->GetDegreeStackZ();
     g_gyro_x_l = iim_42652_->GyroXLeft();
     g_gyro_x_r = iim_42652_->GyroXRight();
     g_gyro_y_l = iim_42652_->GyroYLeft();

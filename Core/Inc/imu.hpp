@@ -32,7 +32,7 @@ public:
     void Update();
     void ClearRadStackZ();
     float GetRadStackZ();
-    float PidControl();
+    float PidControl(float);
 
 };
 

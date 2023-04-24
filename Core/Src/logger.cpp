@@ -5,7 +5,7 @@
 Logger::Logger(Encoder *encoder,
                  Flash *flash,
                  Led *led,
-                 Imu *imu_,
+                 Imu *imu,
                  SideSensor *side_sensor
                  ) : emergency_stop_flag_(false)
                    , success_emergency_code_store_(false)

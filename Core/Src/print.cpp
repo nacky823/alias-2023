@@ -19,6 +19,8 @@ void Print::Log()
 {
     printf("<<< Distance Log >>>\n");
     DistanceLog();
+    printf("\n\n\n\n\n\n\n\n");
+    RadianLog();
 }
 
 void Print::Blank()

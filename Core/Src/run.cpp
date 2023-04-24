@@ -47,7 +47,7 @@ void Run::Init()
     bool flash_erase = true;
     uint8_t switch_state = rotary_switch_->State();
 
-    if(switch_state == 0x0E)
+    if(switch_state == 0x0F)
     {
         led_->Blink(3, 'R', 'X');
         if(!flash_->Clear()) flash_erase = false;

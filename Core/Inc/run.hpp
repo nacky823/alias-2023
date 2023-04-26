@@ -17,7 +17,8 @@
 #include "velocity_control.hpp"
 
 /* run_mode_ */
-#define GYRO_TEST   0x03
+#define RAM_LOG 0x0B
+//#define GYRO_TEST   0x03
 #define LINE_TRACE_DEBUG       0x02
 #define VELOCITY_CONTROL_DEBUG 0x01
 #define LINE_TRACE       0x02

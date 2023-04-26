@@ -29,6 +29,7 @@ private:
 public:
     Print(Flash *);
     void Log();
+    void RamLog();
 
 };
 

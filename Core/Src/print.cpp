@@ -128,7 +128,20 @@ void Print::AccelPointLog()
 #ifdef DEBUG_MODE
 void Print::RamLog()
 {
-    for()
+    printf("<<< print ram distance >>>\n");
 
+    for(uint16_t i = 0; i < 3100; i++)
+    {
+        printf("%f\r\n", g_ram_distance[i]);
+    }
+
+    printf("<<< print ram distance >>>\n");
+
+    for(uint16_t i = 0; i < 3100; i++)
+    {
+        printf("%f\r\n", g_ram_radian[i]);
+    }
+
+    printf("<<< print end >>>\n");
 }
 #endif // DEBUG_MODE

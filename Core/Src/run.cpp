@@ -116,7 +116,8 @@ void Run::UpdateRunMode(uint8_t switch_state)
     switch(switch_state)
     {
 #ifdef DEBUG_MODE
-        case 0x03: SetRunMode(GYRO_TEST); break;
+        case 0x0B: SetRunMode(RAM_LOG); break;
+        //case 0x03: SetRunMode(GYRO_TEST); break;
         case 0x02: SetRunMode(LINE_TRACE_DEBUG); break;
         case 0x01: SetRunMode(VELOCITY_CONTROL_DEBUG); break;
 #else // DEBUG_MODE
@@ -239,7 +240,8 @@ void Run::RunMode()
         case FIRST_GOAL: ModeFirstGoal(); break;
         case SECOND_RUN: ModeSecondRun(); break;
         case SECOND_GOAL: ModeSecondGoal(); break;
-        case GYRO_TEST: ModeGyroTest(); break;
+        //case GYRO_TEST: ModeGyroTest(); break;
+        case RAM_LOG: ModeStopIntrrupt(); break;
         default: ModeStandby(); break;
     }
 
@@ -318,9 +320,8 @@ void Run::ModeStopIntrrupt()
     HAL_TIM_Base_Stop_IT(&htim2);
     HAL_TIM_Base_Stop_IT(&htim6);
     HAL_TIM_Base_Stop_IT(&htim7);
-
-
     
+    print_->RamLog();
 }
 
 /* ram test end */

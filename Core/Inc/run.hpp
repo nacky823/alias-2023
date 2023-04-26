@@ -64,6 +64,8 @@ private:
     void ModeSecondGoal();
     void ModeVelocityControl();
     void ModeLineTrace();
+
+    void ModeStopIntrrupt();
     /* Motor control */
     bool EmergencyStop();
     bool DevEmergencyStop();

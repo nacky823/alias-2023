@@ -1,5 +1,5 @@
 #include "print.hpp"
-#include "macro.h"
+#include "declare_extern.h"
 #include <stdio.h>
 #include <string.h>
 

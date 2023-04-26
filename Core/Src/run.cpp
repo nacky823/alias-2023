@@ -116,7 +116,8 @@ void Run::UpdateRunMode(uint8_t switch_state)
     switch(switch_state)
     {
 #ifdef DEBUG_MODE
-        case 0x0B: SetRunMode(RAM_LOG); break;
+        case 0x03: SetRunMode(RAM_LOG); break;
+        case 0x04: SetRunMode(RAM_DEV); break;
         //case 0x03: SetRunMode(GYRO_TEST); break;
         case 0x02: SetRunMode(LINE_TRACE_DEBUG); break;
         case 0x01: SetRunMode(VELOCITY_CONTROL_DEBUG); break;
@@ -130,7 +131,7 @@ void Run::UpdateRunMode(uint8_t switch_state)
         case 0x0A: SetRunMode(DEV_ACCEL); break;
         case 0x08: SetRunMode(THIRD_RUN); break;
         case 0x06: SetRunMode(FORTH_RUN); break;
-        case 0x04: SetRunMode(FIFTH_RUN); break;
+        //case 0x04: SetRunMode(FIFTH_RUN); break;
         default:   SetRunMode(STANDBY); break;
     }
 }
@@ -242,6 +243,7 @@ void Run::RunMode()
         case SECOND_GOAL: ModeSecondGoal(); break;
         //case GYRO_TEST: ModeGyroTest(); break;
         case RAM_LOG: ModeStopIntrrupt(); break;
+        case RAM_DEV: ModeRamDev(); break;
         default: ModeStandby(); break;
     }
 

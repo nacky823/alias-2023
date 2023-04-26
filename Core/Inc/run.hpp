@@ -17,7 +17,8 @@
 #include "velocity_control.hpp"
 
 /* run_mode_ */
-#define RAM_LOG 0x0B
+#define RAM_LOG 0x03
+#define RAM_DEV 0x04
 //#define GYRO_TEST   0x03
 #define LINE_TRACE_DEBUG       0x02
 #define VELOCITY_CONTROL_DEBUG 0x01
@@ -30,7 +31,7 @@
 #define DEV_ACCEL        0x0A
 #define THIRD_RUN        0x08
 #define FORTH_RUN        0x06
-#define FIFTH_RUN        0x04
+//#define FIFTH_RUN        0x04
 
 #define DEV_GOAL         0xCA
 #define EMERGENCY        0xEE
@@ -66,6 +67,7 @@ private:
     void ModeVelocityControl();
     void ModeLineTrace();
 
+    void ModeRamDev();
     void ModeStopIntrrupt();
     /* Motor control */
     bool EmergencyStop();

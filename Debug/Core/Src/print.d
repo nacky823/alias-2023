@@ -31,7 +31,7 @@ Core/Src/print.o: ../Core/Src/print.cpp ../Core/Inc/print.hpp \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h \
- ../Core/Inc/flash.hpp ../Core/Inc/macro.h
+ ../Core/Inc/flash.hpp ../Core/Inc/declare_extern.h ../Core/Inc/macro.h
 
 ../Core/Inc/print.hpp:
 
@@ -100,5 +100,7 @@ Core/Src/print.o: ../Core/Src/print.cpp ../Core/Inc/print.hpp \
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h:
 
 ../Core/Inc/flash.hpp:
+
+../Core/Inc/declare_extern.h:
 
 ../Core/Inc/macro.h:

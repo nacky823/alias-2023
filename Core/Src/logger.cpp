@@ -68,7 +68,7 @@ void Logger::Ramming()
     imu_->ClearRadStackZ();
     g_ram_radian[index] = radian;
 
-    index++;
+    if(index < 3100) index++;
 }
 #endif // DEBUG_MODE
 

@@ -323,7 +323,7 @@ void Run::ModeStopIntrrupt()
     HAL_TIM_Base_Stop_IT(&htim6);
     HAL_TIM_Base_Stop_IT(&htim7);
     
-    print_->RamLog();
+    // print_->RamLog();
 }
 
 /* ram test end */

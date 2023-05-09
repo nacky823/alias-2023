@@ -91,3 +91,10 @@ void InterruptTim2()
     g_tim2++;
 #endif // DEBUG_MODE
 }
+
+#ifdef DEBUG_MODE
+void RamLog()
+{
+    print_->RamLog();
+}
+#endif // DEBUG_MODE

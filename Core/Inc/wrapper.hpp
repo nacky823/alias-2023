@@ -14,6 +14,10 @@ void InterruptTim7();
 void InterruptTim6();
 void InterruptTim2();
 
+#ifdef DEBUG_MODE
+void RamLog();
+#endif // DEBUG_MODE
+
 #ifdef __cplusplus
 }
 #endif // __cplusplus

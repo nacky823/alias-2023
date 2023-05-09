@@ -18,8 +18,9 @@ void Print::HelloWorld()
 void Print::Log()
 {
     printf("<<< Distance Log >>>\n");
-    //DistanceLog();
-    RadianLog();
+    //printf("<<< Radian Log >>>\n");
+    DistanceLog();
+    //RadianLog();
 }
 
 void Print::Blank()
@@ -109,6 +110,7 @@ void Print::RadianLog()
         data = int_data * 0.00001;
 
         //printf("%d\r\n", int_data);
+        //printf("%f, indexc = %d\r\n", data, index);
         printf("%f\r\n", data);
 
         address += 4;

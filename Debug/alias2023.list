@@ -8453,10 +8453,11 @@ void Print::Log()
     printf("<<< Distance Log >>>\n");
  8023db8:	4804      	ldr	r0, [pc, #16]	; (8023dcc <_ZN5Print3LogEv+0x1c>)
  8023dba:	f007 f805 	bl	802adc8 <puts>
-    //DistanceLog();
-    RadianLog();
+    //printf("<<< Radian Log >>>\n");
+    DistanceLog();
  8023dbe:	6878      	ldr	r0, [r7, #4]
- 8023dc0:	f000 f806 	bl	8023dd0 <_ZN5Print9RadianLogEv>
+ 8023dc0:	f000 f806 	bl	8023dd0 <_ZN5Print11DistanceLogEv>
+    //RadianLog();
 }
  8023dc4:	bf00      	nop
  8023dc6:	3708      	adds	r7, #8
@@ -8464,25 +8465,25 @@ void Print::Log()
  8023dca:	bd80      	pop	{r7, pc}
  8023dcc:	0802cb50 	.word	0x0802cb50
 
-08023dd0 <_ZN5Print9RadianLogEv>:
-        address += 4;
-    }
+08023dd0 <_ZN5Print11DistanceLogEv>:
+
+    return result;
 }
 
-void Print::RadianLog()
+void Print::DistanceLog()
 {
  8023dd0:	b590      	push	{r4, r7, lr}
  8023dd2:	b087      	sub	sp, #28
  8023dd4:	af00      	add	r7, sp, #0
  8023dd6:	6078      	str	r0, [r7, #4]
-    uint32_t address = SECTOR_3_ADDRESS_HEAD;
- 8023dd8:	4b21      	ldr	r3, [pc, #132]	; (8023e60 <_ZN5Print9RadianLogEv+0x90>)
+    uint32_t address = SECTOR_2_ADDRESS_HEAD;
+ 8023dd8:	4b21      	ldr	r3, [pc, #132]	; (8023e60 <_ZN5Print11DistanceLogEv+0x90>)
  8023dda:	617b      	str	r3, [r7, #20]
     int32_t int_data = 666666;
- 8023ddc:	4b21      	ldr	r3, [pc, #132]	; (8023e64 <_ZN5Print9RadianLogEv+0x94>)
+ 8023ddc:	4b21      	ldr	r3, [pc, #132]	; (8023e64 <_ZN5Print11DistanceLogEv+0x94>)
  8023dde:	60bb      	str	r3, [r7, #8]
     float data = 66.6666;
- 8023de0:	4b21      	ldr	r3, [pc, #132]	; (8023e68 <_ZN5Print9RadianLogEv+0x98>)
+ 8023de0:	4b21      	ldr	r3, [pc, #132]	; (8023e68 <_ZN5Print11DistanceLogEv+0x98>)
  8023de2:	60fb      	str	r3, [r7, #12]
 
     for(uint16_t index = 0; index < LOG_LENGTH; index++)
@@ -8491,7 +8492,7 @@ void Print::RadianLog()
  8023de8:	8a7b      	ldrh	r3, [r7, #18]
  8023dea:	f641 0237 	movw	r2, #6199	; 0x1837
  8023dee:	4293      	cmp	r3, r2
- 8023df0:	d82c      	bhi.n	8023e4c <_ZN5Print9RadianLogEv+0x7c>
+ 8023df0:	d82c      	bhi.n	8023e4c <_ZN5Print11DistanceLogEv+0x7c>
     {
         flash_->Load(&int_data, address, 4); // suspicious
  8023df2:	687b      	ldr	r3, [r7, #4]
@@ -8507,7 +8508,7 @@ void Print::RadianLog()
  8023e08:	68bb      	ldr	r3, [r7, #8]
  8023e0a:	4618      	mov	r0, r3
  8023e0c:	f7fc fac2 	bl	8020394 <__aeabi_i2d>
- 8023e10:	a311      	add	r3, pc, #68	; (adr r3, 8023e58 <_ZN5Print9RadianLogEv+0x88>)
+ 8023e10:	a311      	add	r3, pc, #68	; (adr r3, 8023e58 <_ZN5Print11DistanceLogEv+0x88>)
  8023e12:	e9d3 2300 	ldrd	r2, r3, [r3]
  8023e16:	f7fc fb27 	bl	8020468 <__aeabi_dmul>
  8023e1a:	4603      	mov	r3, r0
@@ -8518,7 +8519,6 @@ void Print::RadianLog()
  8023e26:	4603      	mov	r3, r0
  8023e28:	60fb      	str	r3, [r7, #12]
 
-        //printf("%d\r\n", int_data);
         printf("%f\r\n", data);
  8023e2a:	68f8      	ldr	r0, [r7, #12]
  8023e2c:	f7fc fac4 	bl	80203b8 <__aeabi_f2d>
@@ -8526,7 +8526,7 @@ void Print::RadianLog()
  8023e32:	460c      	mov	r4, r1
  8023e34:	461a      	mov	r2, r3
  8023e36:	4623      	mov	r3, r4
- 8023e38:	480c      	ldr	r0, [pc, #48]	; (8023e6c <_ZN5Print9RadianLogEv+0x9c>)
+ 8023e38:	480c      	ldr	r0, [pc, #48]	; (8023e6c <_ZN5Print11DistanceLogEv+0x9c>)
  8023e3a:	f006 ff51 	bl	802ace0 <iprintf>
 
         address += 4;
@@ -8537,7 +8537,7 @@ void Print::RadianLog()
  8023e44:	8a7b      	ldrh	r3, [r7, #18]
  8023e46:	3301      	adds	r3, #1
  8023e48:	827b      	strh	r3, [r7, #18]
- 8023e4a:	e7cd      	b.n	8023de8 <_ZN5Print9RadianLogEv+0x18>
+ 8023e4a:	e7cd      	b.n	8023de8 <_ZN5Print11DistanceLogEv+0x18>
     }
 }
  8023e4c:	bf00      	nop
@@ -8547,7 +8547,7 @@ void Print::RadianLog()
  8023e54:	f3af 8000 	nop.w
  8023e58:	88e368f1 	.word	0x88e368f1
  8023e5c:	3ee4f8b5 	.word	0x3ee4f8b5
- 8023e60:	0800c000 	.word	0x0800c000
+ 8023e60:	08008000 	.word	0x08008000
  8023e64:	000a2c2a 	.word	0x000a2c2a
  8023e68:	4285554d 	.word	0x4285554d
  8023e6c:	0802cbf8 	.word	0x0802cbf8

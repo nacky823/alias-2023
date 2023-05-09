@@ -324,14 +324,15 @@ int main(void)
   while (1)
   {
 
-#ifdef DEBUG_MODE
-    RamLog();
-#endif // DEBUG_MODE
-
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
   }
+
+#ifdef DEBUG_MODE
+  RamLog();
+#endif // DEBUG_MODE
+
   /* USER CODE END 3 */
 }
 

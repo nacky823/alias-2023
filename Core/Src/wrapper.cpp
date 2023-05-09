@@ -95,6 +95,6 @@ void InterruptTim2()
 #ifdef DEBUG_MODE
 void RamLog()
 {
-    print_->RamLog();
+    print.RamLog();
 }
 #endif // DEBUG_MODE

@@ -54,13 +54,13 @@
 #define TIM6_PERIOD_S 0.00125 // [s]
 
 /* ----- Flash memory address ----- */
-#define SECTOR_1_ADDRESS_HEAD 0x08004000 // 16 [KB]
+#define SECTOR_1_ADDRESS_HEAD 0x08004000 // 16 [KB], 16,384 [Byte]
 #define SECTOR_1_ADDRESS_TAIL 0x08007FFF
 #define SECTOR_2_ADDRESS_HEAD 0x08008000 // 16 [KB]
 #define SECTOR_2_ADDRESS_TAIL 0x0800BFFF
 #define SECTOR_3_ADDRESS_HEAD 0x0800C000 // 16 [KB]
 #define SECTOR_3_ADDRESS_TAIL 0x0800FFFF
-#define SECTOR_4_ADDRESS_HEAD 0x08010000 // 64 [KB]
+#define SECTOR_4_ADDRESS_HEAD 0x08010000 // 64 [KB], 65,536 [Byte]
 #define SECTOR_4_ADDRESS_TAIL 0x0801FFFF
 
 /* Address to store error code when flash write fails. */

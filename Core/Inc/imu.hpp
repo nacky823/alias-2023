@@ -2,6 +2,7 @@
 #define IMU_HPP_
 
 #include "iim_42652.hpp"
+#include "macro.h"
 
 #define GYRO_P_GAIN 100
 #define GYRO_I_GAIN 0
@@ -46,7 +47,7 @@ public:
     float PidControl(float);
 
 #ifdef DEBUG_MODE
-    bool Calibration();
+    void Calibration();
 #endif // DEBUG_MODE
 
 };

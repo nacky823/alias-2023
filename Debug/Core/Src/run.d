@@ -32,12 +32,12 @@ Core/Src/run.o: ../Core/Src/run.cpp ../Core/Inc/run.hpp \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h \
  ../Core/Inc/encoder.hpp ../Core/Inc/main.h ../Core/Inc/flash.hpp \
- ../Core/Inc/iim_42652.hpp ../Core/Inc/imu.hpp ../Core/Inc/led.hpp \
- ../Core/Inc/line_sensor.hpp ../Core/Inc/declare_extern.h \
- ../Core/Inc/macro.h ../Core/Inc/line_trace.hpp ../Core/Inc/logger.hpp \
- ../Core/Inc/side_sensor.hpp ../Core/Inc/motor.hpp ../Core/Inc/print.hpp \
- ../Core/Inc/rotary_switch.hpp ../Core/Inc/velocity_control.hpp \
- ../Core/Inc/declare_extern.h
+ ../Core/Inc/iim_42652.hpp ../Core/Inc/imu.hpp ../Core/Inc/macro.h \
+ ../Core/Inc/led.hpp ../Core/Inc/line_sensor.hpp \
+ ../Core/Inc/declare_extern.h ../Core/Inc/line_trace.hpp \
+ ../Core/Inc/logger.hpp ../Core/Inc/side_sensor.hpp ../Core/Inc/motor.hpp \
+ ../Core/Inc/print.hpp ../Core/Inc/rotary_switch.hpp \
+ ../Core/Inc/velocity_control.hpp ../Core/Inc/declare_extern.h
 
 ../Core/Inc/run.hpp:
 
@@ -115,13 +115,13 @@ Core/Src/run.o: ../Core/Src/run.cpp ../Core/Inc/run.hpp \
 
 ../Core/Inc/imu.hpp:
 
+../Core/Inc/macro.h:
+
 ../Core/Inc/led.hpp:
 
 ../Core/Inc/line_sensor.hpp:
 
 ../Core/Inc/declare_extern.h:
-
-../Core/Inc/macro.h:
 
 ../Core/Inc/line_trace.hpp:
 

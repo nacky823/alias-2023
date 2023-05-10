@@ -67,9 +67,7 @@ void Run::Init()
         led_->ColorOrder('G');
         return;
     }
-#endif // DEBUG_MODE
 
-#ifdef DEBUG_MODE
     g_imu_init = imu_init;
     g_flash_erase = flash_erase;
     g_switch_state = switch_state;

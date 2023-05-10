@@ -4,3 +4,5 @@ imu.cpp:32:6:void Imu::ClearRadStackZ()	16	static
 imu.cpp:37:7:float Imu::GetRadStackZ()	16	static
 imu.cpp:42:7:float Imu::GetRadZ()	16	static
 imu.cpp:47:7:float Imu::PidControl(float)	40	static
+imu.cpp:69:6:void Imu::CalibrationStackRadian()	40	static
+imu.cpp:80:6:void Imu::Calibration()	24	static

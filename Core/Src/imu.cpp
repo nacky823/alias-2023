@@ -81,7 +81,7 @@ void Imu::Calibration()
 {
     for(uint32_t i = 0; i < NUM_OF_SAMPLE_CALIB; i++)
     {
-        StackCalibrationRadiank();
+        CalibrationStackRadian();
         HAL_Delay(1);
     }
 }

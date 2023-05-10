@@ -64,3 +64,34 @@ float Imu::PidControl(float error)
 
     return p + i + d;
 }
+
+#ifdef DEBUG_MODE
+void Imu::CalibrationStackRadian()
+{
+    int16_t yaw_l = iim_42652_->GyroZLeft();
+    int16_t yaw_r = iim_42652_->GyroZRight();
+    float yaw_avg = (yaw_l + yaw_r) / 2.0;
+    float radian = yaw_avg * CONST_RAD_CALC * TIM6_PERIOD_S;
+
+    rad_stack_z_ += radian;
+    g_cali_rad_stack = rad_stack_z_;
+}
+
+bool Imu::Calibration()
+{
+    static count = 0;
+    bool result = false;
+
+    if(count < NUM_OF_SAMPLE_CALIB)
+    {
+        StackCalibrationRadian();
+        count++;
+    }
+    else
+    {
+        result = true;
+    }
+
+    return result;
+}
+#endif // DEBUG_MODE

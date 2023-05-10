@@ -107,6 +107,7 @@ extern uint8_t g_corner_flag_cntup_2;
 extern uint8_t g_cross_flag_cntup_2;
 
 /* IMU */
+extern float g_calib_rad_stack;
 extern uint8_t g_imu_who_l, g_imu_who_r;
 extern uint8_t g_imu_bank_l, g_imu_bank_r;
 extern uint8_t g_imu_pwr_l, g_imu_pwr_r;

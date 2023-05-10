@@ -60,6 +60,16 @@ void Run::Init()
     }
 
 #ifdef DEBUG_MODE
+    if(switch_state == 0x09 && imu_init == 0x09)
+    {
+        led_->Blink(3, 'B', 'X');
+        imu_->Calibration();
+        led_->ColorOrder('G');
+        return;
+    }
+#endif // DEBUG_MODE
+
+#ifdef DEBUG_MODE
     g_imu_init = imu_init;
     g_flash_erase = flash_erase;
     g_switch_state = switch_state;

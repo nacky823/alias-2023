@@ -74,24 +74,15 @@ void Imu::CalibrationStackRadian()
     float radian = yaw_avg * CONST_RAD_CALC * TIM6_PERIOD_S;
 
     rad_stack_z_ += radian;
-    g_cali_rad_stack = rad_stack_z_;
+    g_calib_rad_stack = rad_stack_z_;
 }
 
-bool Imu::Calibration()
+void Imu::Calibration()
 {
-    static count = 0;
-    bool result = false;
-
-    if(count < NUM_OF_SAMPLE_CALIB)
+    for(uint32_t i = 0; i < NUM_OF_SAMPLE_CALIB; i++)
     {
-        StackCalibrationRadian();
-        count++;
+        StackCalibrationRadiank();
+        HAL_Delay(1);
     }
-    else
-    {
-        result = true;
-    }
-
-    return result;
 }
 #endif // DEBUG_MODE

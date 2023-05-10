@@ -155,6 +155,7 @@ uint8_t g_corner_flag_cntup_2 = 0;
 uint8_t g_cross_flag_cntup_2 = 0;
 
 /* IMU */
+float g_calib_rad_stack = 0;
 uint8_t g_imu_who_l = 0, g_imu_who_r = 0;
 uint8_t g_imu_bank_l = 0, g_imu_bank_r = 0;
 uint8_t g_imu_pwr_l = 0, g_imu_pwr_r = 0;

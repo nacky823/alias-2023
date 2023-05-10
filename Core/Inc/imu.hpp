@@ -8,7 +8,7 @@
 #define GYRO_D_GAIN 0
 #define RAD_LPF_RATIO  0.7
 #define CONST_RAD_CALC 0.001065 // float
-#define NUM_OF_SAMPLE_CALIB 180000 // tim6[ms]
+#define NUM_OF_SAMPLE_CALIB 180000 // [ms]
 #define CALIB_OFFSET_R 0.0
 #define CALIB_OFFSET_L 0.0
 

@@ -17,10 +17,11 @@ void Print::HelloWorld()
 
 void Print::Log()
 {
-    printf("<<< Distance Log >>>\n");
-    //printf("<<< Radian Log >>>\n");
+    //printf("<<< Distance Log >>>\n");
+    printf("<<< Radian Log >>>\n");
     DistanceLog();
     //RadianLog();
+    printf("<<< End Log >>>\n");
 }
 
 void Print::Blank()

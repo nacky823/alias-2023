@@ -13,7 +13,7 @@ void Imu::Update()
     int16_t raw_gyro_z_l = iim_42652_->GyroZLeft();
     int16_t raw_gyro_z_r = iim_42652_->GyroZRight();
     float avg_raw_gyro_z = (raw_gyro_z_l + raw_gyro_z_r) / 2.0;
-    float rad_z = avg_raw_gyro_z * CONST_RAD_CALC * TIM6_PERIOD_S;
+    float rad_z = (avg_raw_gyro_z + CALIB_OFFSET) * CONST_RAD_CALC * TIM6_PERIOD_S;
 
     /* low pass filter */
     static float pre_filter = 0;

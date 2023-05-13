@@ -7,11 +7,10 @@
 #define GYRO_P_GAIN 100
 #define GYRO_I_GAIN 0
 #define GYRO_D_GAIN 0
-#define RAD_LPF_RATIO  0.7
+#define RAD_LPF_RATIO  0.9
 #define CONST_RAD_CALC 0.001065 // float
 #define NUM_OF_SAMPLE_CALIB 180000 // [ms]
-#define CALIB_OFFSET_R 0.0
-#define CALIB_OFFSET_L 0.0
+#define CALIB_OFFSET 0.0000028
 
 /* raw_imu_value (int16_t) : raw (-32768 <= raw <= 32767) [-]
  * normalization           : norm = 32768 [-]

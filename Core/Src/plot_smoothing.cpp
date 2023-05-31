@@ -1,5 +1,14 @@
 #include "plot_smoothing.hpp"
 
+void PlotSmoothing::StackRadian()
+{
+    uint32_t address = SECTOR_3_ADDRESS_HEAD;
+    uint32_t int_data = 555555;
+    float radian = flash_->Load(&int_data, address, 4);
+    // now koko
+
+}
+
 void PlotSmoothing::Smoothing(float *data_addr, uint16_t data_size, uint16_t num_of_adjacent)
 {
     float cp_data[data_size];

@@ -1,4 +1,5 @@
 #include "plot_smoothing.hpp"
+#include "macro.h"
 #include <stdio.h>
 #include <math.h>
 
@@ -22,8 +23,8 @@ void PlotSmoothing::StackRadian(uint16_t count)
 {
     uint32_t relative_flash_address = count * FLOAT_SIZE;
     uint32_t absolute_flash_address = SECTOR_3_ADDRESS_HEAD + relative_flash_address;
-    uint32_t int_data = INITIAL_INT_DATA;
-    float radian = flash_->Load(&int_data, absolute_flash_address, FLOAT_SIZE);
+    uint32_t int_radian = INITIAL_INT_DATA;
+    flash_->Load(&int_radian, absolute_flash_address, FLOAT_SIZE);
 
     float radian_stack = radian_ + radian;
     SetDistance(radian_stack);
@@ -113,7 +114,11 @@ void PlotSmoothing::Print()
 
 void PlotSmoothing::Run()
 {
+    float *x_ptr = &x_[0];
+    float *y_ptr = &y_[0];
+
     StoreCoordinate();
-    Smoothing(x_[], MAX_LOG, 2);
+    Smoothing(x_ptr, MAX_LOG, 2);
+    Smoothing(y_ptr, MAX_LOG, 2);
     Print();
 }

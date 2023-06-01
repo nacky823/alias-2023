@@ -8,6 +8,7 @@
 "Core/Src/logger.o"
 "Core/Src/main.o"
 "Core/Src/motor.o"
+"Core/Src/plot_smoothing.o"
 "Core/Src/print.o"
 "Core/Src/rotary_switch.o"
 "Core/Src/run.o"

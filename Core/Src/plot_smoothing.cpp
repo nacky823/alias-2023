@@ -13,29 +13,28 @@ void PlotSmoothing::SetNowAddress(uint16_t address)
     now_address_ = address;
 }
 
-void PlotSmoothing::ResetRadianAddress()
+uint16_t PlotSmoothing::GetNowAddress()
 {
-    SetRadianAddress(SECTOR_3_ADDRESS_HEAD);
+    return now_address_;
 }
 
-void PlotSmoothing::SetRadianAddress(uint32_t address)
+void PlotSmoothing::SetRadian(float radian)
 {
-    now_address_ = address;
-}
-
-uint32_t PlotSmoothing::GetRadianAddress()
-{
-    return radian_address_;
+    radian_ = radian;
 }
 
 void PlotSmoothing::StackRadian()
 {
-    uint32_t address = radian_address_;
-    uint32_t int_data = 555555;
-    float radian = flash_->Load(&int_data, address, 4);
+    uint32_t relative_flash_address = now_address_ * FLOAT_SIZE;
+    uint32_t absolute_flash_address = SECTOR_3_ADDRESS_HEAD + relative_flash_address;
+    uint32_t int_data = INITIAL_INT_DATA;
+    float radian = flash_->Load(&int_data, absolute_flash_address, FLOAT_SIZE);
 
-    radian_stack_ += radian;
-    radian_address_ += 4;
+    float radian_stack = radian_ + radian;
+    SetDistance(radian_stack);
+
+    uint16_t next_address = now_address_ + 1;
+    SetNowAddress(next_address);
 }
 
 void PlotSmoothing::SetDistance(float distance)
@@ -65,6 +64,12 @@ void PlotSmoothing::CalculateCoordinate()
     y_coordinate_ = y;
     double x = distance * cos(radian) + x_coordinate_;
     x_coordinate_ = x;
+}
+
+void PlotSmoothing::StoreCoordinate()
+{
+    x_[now_address_] = x_coordinate_;
+    y_[now_address_] = y_coordinate_;
 }
 
 void PlotSmoothing::Smoothing(float *data_addr, uint16_t data_size, uint16_t num_of_adjacent)
@@ -100,4 +105,13 @@ void PlotSmoothing::Smoothing(float *data_addr, uint16_t data_size, uint16_t num
     {
         *(data_addr + i) = cp_data[i];
     }
+}
+
+void PlotSmoothing::Print()
+{
+    printf("<<< x coordinate >>>\n");
+    for(uint16_t i = 0; i < MAX_LOG; i++) printf("%f\n", x_[i]);
+
+    printf("<<< y coordinate >>>\n");
+    for(uint16_t i = 0; i < MAX_LOG; i++) printf("%f\n", y_[i]);
 }

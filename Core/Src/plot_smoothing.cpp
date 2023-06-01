@@ -51,8 +51,6 @@ void PlotSmoothing::StoreDistance()
 
     SetDistance(distance);
 
-    uint16_t next_address = now_address_ + 1;
-    SetNowAddress(next_address);
 }
 
 void PlotSmoothing::CalculateCoordinate()
@@ -68,6 +66,14 @@ void PlotSmoothing::CalculateCoordinate()
 
 void PlotSmoothing::StoreCoordinate()
 {
+    uint16_t address;
+
+    for(uint16_t i = 0; i < MAX_LOG; i++)
+    {
+        StoreDistance();
+        StackRadian();
+    }
+
     x_[now_address_] = x_coordinate_;
     y_[now_address_] = y_coordinate_;
 }
@@ -114,4 +120,10 @@ void PlotSmoothing::Print()
 
     printf("<<< y coordinate >>>\n");
     for(uint16_t i = 0; i < MAX_LOG; i++) printf("%f\n", y_[i]);
+}
+
+void PlotSmoothing::Run()
+{
+    Smoothing();
+    Print();
 }

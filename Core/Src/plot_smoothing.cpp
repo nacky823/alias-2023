@@ -23,7 +23,7 @@ void PlotSmoothing::SetRadian(float radian)
     radian_ = radian;
 }
 
-void PlotSmoothing::StackRadian()
+void PlotSmoothing::StackRadian(uint16_t count)
 {
     uint32_t relative_flash_address = now_address_ * FLOAT_SIZE;
     uint32_t absolute_flash_address = SECTOR_3_ADDRESS_HEAD + relative_flash_address;
@@ -66,16 +66,14 @@ void PlotSmoothing::CalculateCoordinate()
 
 void PlotSmoothing::StoreCoordinate()
 {
-    uint16_t address;
-
     for(uint16_t i = 0; i < MAX_LOG; i++)
     {
         StoreDistance();
         StackRadian();
+        CalculateCoordinate();
+        x_[i] = x_coordinate_;
+        y_[i] = y_coordinate_;
     }
-
-    x_[now_address_] = x_coordinate_;
-    y_[now_address_] = y_coordinate_;
 }
 
 void PlotSmoothing::Smoothing(float *data_addr, uint16_t data_size, uint16_t num_of_adjacent)
@@ -124,6 +122,7 @@ void PlotSmoothing::Print()
 
 void PlotSmoothing::Run()
 {
+    StoreCoordinate();
     Smoothing();
     Print();
 }

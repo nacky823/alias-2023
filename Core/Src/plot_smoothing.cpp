@@ -1,10 +1,16 @@
 #include "plot_smoothing.hpp"
+#include <math.h>
 
 PlotSmoothing::PlotSmoothing
 : now_address_(0)
 , radian_stack_(0)
 {
 
+}
+
+void PlotSmoothing::SetNowAddress(uint16_t address)
+{
+    now_address_ = address;
 }
 
 void PlotSmoothing::ResetRadianAddress()
@@ -30,6 +36,35 @@ void PlotSmoothing::StackRadian()
 
     radian_stack_ += radian;
     radian_address_ += 4;
+}
+
+void PlotSmoothing::SetDistance(float distance)
+{
+    distance_ = distance;
+}
+
+void PlotSmoothing::StoreDistance()
+{
+    uint32_t relative_flash_address = now_address_ * FLOAT_SIZE;
+    uint32_t absolute_flash_address = SECTOR_2_ADDRESS_HEAD + relative_flash_address;
+    uint32_t int_data = INITIAL_INT_DATA;
+    float distance = flash_->Load(&int_data, absolute_flash_address, FLOAT_SIZE);
+
+    SetDistance(distance);
+
+    uint16_t next_address = now_address_ + 1;
+    SetNowAddress(next_address);
+}
+
+void PlotSmoothing::CalculateCoordinate()
+{
+    double distance = distance_;
+    double radian = radian_;
+
+    double y = distance * sin(radian) + y_coordinate_;
+    y_coordinate_ = y;
+    double x = distance * cos(radian) + x_coordinate_;
+    x_coordinate_ = x;
 }
 
 void PlotSmoothing::Smoothing(float *data_addr, uint16_t data_size, uint16_t num_of_adjacent)

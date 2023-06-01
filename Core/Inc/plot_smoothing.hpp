@@ -3,10 +3,18 @@
 
 #include "flash.hpp"
 
+
+#define FLOAT_SIZE 4
+#define INITIAL_INT_DATA 12345.6
+
 class PlotSmoothing
 {
 private:
-    float radian_stack_;
+    uint16_t now_address_;
+    double radian_;
+    double distance_;
+    double x_coordinate_;
+    double y_coordinate_;
 
     void StackRadian();
     void Smoothing(float *, uint16_t, uint16_t);

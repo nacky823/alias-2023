@@ -7,19 +7,29 @@ PlotSmoothing::PlotSmoothing
 
 }
 
-void PlotSmoothing::SetNowAddress(uint32_t address)
+void PlotSmoothing::ResetRadianAddress()
+{
+    SetRadianAddress(SECTOR_3_ADDRESS_HEAD);
+}
+
+void PlotSmoothing::SetRadianAddress(uint32_t address)
 {
     now_address_ = address;
 }
 
+uint32_t PlotSmoothing::GetRadianAddress()
+{
+    return radian_address_;
+}
+
 void PlotSmoothing::StackRadian()
 {
-    uint32_t address = now_address_;
+    uint32_t address = radian_address_;
     uint32_t int_data = 555555;
     float radian = flash_->Load(&int_data, address, 4);
 
     radian_stack_ += radian;
-    now_address_ += 4;
+    radian_address_ += 4;
 }
 
 void PlotSmoothing::Smoothing(float *data_addr, uint16_t data_size, uint16_t num_of_adjacent)

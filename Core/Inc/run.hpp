@@ -11,6 +11,7 @@
 #include "line_trace.hpp"
 #include "logger.hpp"
 #include "motor.hpp"
+#include "plot_smoothing.hpp"
 #include "print.hpp"
 #include "rotary_switch.hpp"
 #include "side_sensor.hpp"
@@ -104,6 +105,7 @@ private:
     LineTrace *line_trace_;
     Logger *logger_;
     Motor *motor_;
+    PlotSmoothing *plot_smoothing_;
     Print *print_;
     RotarySwitch *rotary_switch_;
     SideSensor *side_sensor_;
@@ -119,6 +121,7 @@ public:
         LineTrace *,
         Logger *,
         Motor *,
+        PlotSmoothing *,
         Print *,
         RotarySwitch *,
         SideSensor *,

@@ -10,6 +10,7 @@ Led led;
 LineSensor line_sensor;
 LineTrace line_trace(&line_sensor);
 Motor motor;
+PlotSmoothing plot_smoothing(&flash);
 Print print(&flash);
 RotarySwitch rotary_switch;
 SideSensor side_sensor;
@@ -27,6 +28,7 @@ Run run(
     &line_trace,
     &logger,
     &motor,
+    &plot_smoothing,
     &print,
     &rotary_switch,
     &side_sensor,

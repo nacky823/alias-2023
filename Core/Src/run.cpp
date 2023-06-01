@@ -10,6 +10,7 @@ Run::Run(Encoder *encoder,
          LineTrace *line_trace,
          Logger *logger,
          Motor *motor,
+         PlotSmoothing *plot_smoothing,
          Print *print,
          RotarySwitch *rotary_switch,
          SideSensor *side_sensor,
@@ -31,6 +32,7 @@ Run::Run(Encoder *encoder,
     line_trace_       = line_trace;
     logger_           = logger;
     motor_            = motor;
+    plot_smoothing_   = plot_smoothing;
     print_            = print;
     rotary_switch_    = rotary_switch;
     side_sensor_      = side_sensor;

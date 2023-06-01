@@ -3,7 +3,6 @@
 
 #include "flash.hpp"
 
-
 #define FLOAT_SIZE 4
 #define INITIAL_INT_DATA 12345.6
 #define MAX_LOG 3200
@@ -11,7 +10,6 @@
 class PlotSmoothing
 {
 private:
-    uint16_t now_address_;
     double radian_;
     double distance_;
     double x_coordinate_;
@@ -19,10 +17,20 @@ private:
     float X_[MAX_LOG];
     float y_[MAX_LOG];
 
+    Flash *flash_;
 
-
+    void SetRadian();
     void StackRadian();
+    void SetDistance();
+    void StoreDistance();
+    void CalculateCoordinate();
+    void StoreCoordinate();
     void Smoothing(float *, uint16_t, uint16_t);
+    void Print();
+
+public:
+    PlotSmoothing(Flash *);
+    void Run();
 
 };
 

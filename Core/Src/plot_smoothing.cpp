@@ -1,21 +1,16 @@
 #include "plot_smoothing.hpp"
+#include <stdio.h>
 #include <math.h>
 
-PlotSmoothing::PlotSmoothing
-: now_address_(0)
-, radian_stack_(0)
+PlotSmoothing::PlotSmoothing(Flash *flash)
+: radian_(0)
+, distance_(0)
+, x_coordinate_(0)
+, y_coordinate_(0)
+, x_()
+, y_()
 {
-
-}
-
-void PlotSmoothing::SetNowAddress(uint16_t address)
-{
-    now_address_ = address;
-}
-
-uint16_t PlotSmoothing::GetNowAddress()
-{
-    return now_address_;
+    flash_ = flash;
 }
 
 void PlotSmoothing::SetRadian(float radian)
@@ -25,16 +20,13 @@ void PlotSmoothing::SetRadian(float radian)
 
 void PlotSmoothing::StackRadian(uint16_t count)
 {
-    uint32_t relative_flash_address = now_address_ * FLOAT_SIZE;
+    uint32_t relative_flash_address = count * FLOAT_SIZE;
     uint32_t absolute_flash_address = SECTOR_3_ADDRESS_HEAD + relative_flash_address;
     uint32_t int_data = INITIAL_INT_DATA;
     float radian = flash_->Load(&int_data, absolute_flash_address, FLOAT_SIZE);
 
     float radian_stack = radian_ + radian;
     SetDistance(radian_stack);
-
-    uint16_t next_address = now_address_ + 1;
-    SetNowAddress(next_address);
 }
 
 void PlotSmoothing::SetDistance(float distance)
@@ -42,15 +34,14 @@ void PlotSmoothing::SetDistance(float distance)
     distance_ = distance;
 }
 
-void PlotSmoothing::StoreDistance()
+void PlotSmoothing::StoreDistance(uint16_t count)
 {
-    uint32_t relative_flash_address = now_address_ * FLOAT_SIZE;
+    uint32_t relative_flash_address = count * FLOAT_SIZE;
     uint32_t absolute_flash_address = SECTOR_2_ADDRESS_HEAD + relative_flash_address;
     uint32_t int_data = INITIAL_INT_DATA;
     float distance = flash_->Load(&int_data, absolute_flash_address, FLOAT_SIZE);
 
     SetDistance(distance);
-
 }
 
 void PlotSmoothing::CalculateCoordinate()
@@ -68,8 +59,8 @@ void PlotSmoothing::StoreCoordinate()
 {
     for(uint16_t i = 0; i < MAX_LOG; i++)
     {
-        StoreDistance();
-        StackRadian();
+        StoreDistance(i);
+        StackRadian(i);
         CalculateCoordinate();
         x_[i] = x_coordinate_;
         y_[i] = y_coordinate_;
@@ -123,6 +114,6 @@ void PlotSmoothing::Print()
 void PlotSmoothing::Run()
 {
     StoreCoordinate();
-    Smoothing();
+    Smoothing(x_[], MAX_LOG, 2);
     Print();
 }

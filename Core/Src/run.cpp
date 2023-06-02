@@ -57,7 +57,8 @@ void Run::Init()
     else if(switch_state == 0x0B)
     {
         led_->Blink(3, 'M', 'X');
-        print_->Log();
+        //print_->Log();
+        //plot_smoothing_->Run();
         return;
     }
 

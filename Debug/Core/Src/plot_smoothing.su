@@ -1,0 +1,10 @@
+plot_smoothing.cpp:6:1:PlotSmoothing::PlotSmoothing(Flash*)	16	static
+plot_smoothing.cpp:17:6:void PlotSmoothing::SetRadian(float)	24	static
+plot_smoothing.cpp:22:6:void PlotSmoothing::StackRadian(uint16_t)	48	static
+plot_smoothing.cpp:34:6:void PlotSmoothing::SetDistance(float)	24	static
+plot_smoothing.cpp:39:6:void PlotSmoothing::StoreDistance(uint16_t)	40	static
+plot_smoothing.cpp:50:6:void PlotSmoothing::CalculateCoordinate()	56	static
+plot_smoothing.cpp:61:6:void PlotSmoothing::StoreCoordinate()	32	static
+plot_smoothing.cpp:73:6:void PlotSmoothing::Smoothing(float*, uint16_t, uint16_t)	72	dynamic
+plot_smoothing.cpp:108:6:void PlotSmoothing::Print()	32	static
+plot_smoothing.cpp:117:6:void PlotSmoothing::Run()	24	static

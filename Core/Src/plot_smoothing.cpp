@@ -25,6 +25,7 @@ void PlotSmoothing::StackRadian(uint16_t count)
     uint32_t absolute_flash_address = SECTOR_3_ADDRESS_HEAD + relative_flash_address;
     uint32_t int_radian = INITIAL_INT_DATA;
     flash_->Load(&int_radian, absolute_flash_address, FLOAT_SIZE);
+    float radian = int_radian * 0.00001;
 
     float radian_stack = radian_ + radian;
     SetDistance(radian_stack);
@@ -39,8 +40,9 @@ void PlotSmoothing::StoreDistance(uint16_t count)
 {
     uint32_t relative_flash_address = count * FLOAT_SIZE;
     uint32_t absolute_flash_address = SECTOR_2_ADDRESS_HEAD + relative_flash_address;
-    uint32_t int_data = INITIAL_INT_DATA;
-    float distance = flash_->Load(&int_data, absolute_flash_address, FLOAT_SIZE);
+    uint32_t int_distance = INITIAL_INT_DATA;
+    flash_->Load(&int_distance, absolute_flash_address, FLOAT_SIZE);
+    float distance = int_distance * 0.00001;
 
     SetDistance(distance);
 }

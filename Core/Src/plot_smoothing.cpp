@@ -3,6 +3,8 @@
 #include <stdio.h>
 #include <math.h>
 
+#define FLOAT_SIZE 4
+
 PlotSmoothing::PlotSmoothing(Flash *flash)
 : radian_(0)
 , distance_(0)
@@ -88,11 +90,11 @@ void PlotSmoothing::Smoothing(float *data_addr, uint16_t data_size, uint16_t num
         for(j = min; j <= max; j++)
         {
             if(j < 0 || j >= data_size) continue;
-            sum += *(data_addr + j);
+            sum += *(FLOAT_SIZE * j + data_addr);
         }
         if(i < num_of_adjacent || i >= (data_size - num_of_adjacent))
         {
-            cp_data[i] = *(data_addr + i);
+            cp_data[i] = *(FLOAT_SIZE * i + data_addr);
             continue;
         }
         avg = (float)sum / (num_of_adjacent * 2 + 1);
@@ -101,7 +103,7 @@ void PlotSmoothing::Smoothing(float *data_addr, uint16_t data_size, uint16_t num
 
     for(i = 0; i < data_size; i++)
     {
-        *(data_addr + i) = cp_data[i];
+        *(FLOAT_SIZE * i + data_addr) = cp_data[i];
     }
 }
 
